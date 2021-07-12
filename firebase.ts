@@ -5,9 +5,6 @@ import "firebase/database";
 
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-console.log(publicRuntimeConfig);
-
-// console.log(publicRuntimeConfig.NEXT_PUBLIC_FIREBASE_API_KEY);
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
