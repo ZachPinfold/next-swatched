@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div>
       <Provider store={store}>
-        <h1>Helloyou upate</h1>
+        <h1>Get started by editing</h1>
         <Login />
       </Provider>
     </div>
