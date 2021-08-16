@@ -7,6 +7,11 @@ export const login = (UserID: string): AppActions => ({
   payload: { UserID },
 });
 
+export const signup = (UserID: string): AppActions => ({
+  type: "SIGNUP_AUTH",
+  payload: { UserID },
+});
+
 export const loadUser = (UserID: string): AppActions => ({
   type: "USER_LOADED",
   payload: { UserID },
@@ -24,11 +29,7 @@ export const startLoadUser = () => async (dispatch) => {
       if (user === null) {
         dispatch(authError);
       }
-
       const { uid } = user;
-
-      // store.dispatch(getProfileData(uid));
-
       dispatch(loadUser(uid));
     });
   } catch (error) {
@@ -36,13 +37,24 @@ export const startLoadUser = () => async (dispatch) => {
   }
 };
 
+export const startSignup =
+  (email: string, password: string) => async (dispatch) => {
+    try {
+      const data = await app
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      const { uid } = data.user;
+      dispatch(login(uid));
+    } catch (error) {
+      console.log("error-" + error);
+    }
+  };
+
 export const startLogin =
   (email: string, password: string) => async (dispatch) => {
     try {
       const data = await app.auth().signInWithEmailAndPassword(email, password);
       const { uid } = data.user;
-      console.log(uid);
-
       dispatch(login(uid));
     } catch (error) {
       console.log("error-" + error);

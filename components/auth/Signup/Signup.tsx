@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { startLogin } from "../../actions/auth";
+import { startSignup } from "../../../actions/auth";
 
 interface Actions {
-  startLogin: (email: string, password: string) => void;
+  startSignup: (email: string, password: string) => void;
 }
 
 interface InputDetails {
@@ -11,7 +11,7 @@ interface InputDetails {
   password: string;
 }
 
-const Login = ({ startLogin }: Actions) => {
+const Signup = ({ startSignup }: Actions) => {
   const [loginDetails, setLoginDetails] = useState<InputDetails>({
     email: "",
     password: "",
@@ -26,7 +26,7 @@ const Login = ({ startLogin }: Actions) => {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    startLogin(loginDetails.email, loginDetails.password);
+    startSignup(loginDetails.email, loginDetails.password);
   };
 
   return (
@@ -60,4 +60,4 @@ const mapStateToProps = (state: any): StateProps => ({
   username: state.auth.username,
 });
 
-export default connect(mapStateToProps, { startLogin })(Login);
+export default connect(mapStateToProps, { startSignup })(Signup);
