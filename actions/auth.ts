@@ -28,9 +28,10 @@ export const startLoadUser = () => async (dispatch) => {
     app.auth().onAuthStateChanged((user) => {
       if (user === null) {
         dispatch(authError);
+      } else {
+        const { uid } = user;
+        dispatch(loadUser(uid));
       }
-      const { uid } = user;
-      dispatch(loadUser(uid));
     });
   } catch (error) {
     console.log(error);

@@ -32,12 +32,13 @@ const Login = ({ startLogin }: Actions) => {
   return (
     <div className='login'>
       <form onSubmit={handleSubmit}>
-        <input
+        {/* <input
           onChange={onInputChange}
           value={loginDetails.email}
           type='text'
           placeholder='email'
           id='email'
+          aria-label="email-input"
         />
         <input
           onChange={onInputChange}
@@ -45,7 +46,7 @@ const Login = ({ startLogin }: Actions) => {
           type='password'
           placeholder='password'
           id='password'
-        />
+        /> */}
         <input type='submit' />
       </form>
     </div>

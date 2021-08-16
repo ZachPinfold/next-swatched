@@ -19,8 +19,8 @@ export default function Home() {
       <Provider store={store}>
         <h1>Get started by editing</h1>
         <Signup />
-        <ModalWrapper Component={<Login />} showModal={showModal} />
-        <button onClick={() => showModal(true)}></button>
+        {modal && <ModalWrapper Component={<Login />} showModal={showModal} />}
+        <button onClick={() => showModal(true)}>Login</button>
       </Provider>
     </div>
   );
