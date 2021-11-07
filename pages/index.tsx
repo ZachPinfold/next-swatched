@@ -6,8 +6,14 @@ import Signup from "../components/auth/Signup/Signup";
 import { useEffect, useState } from "react";
 import { startLoadUser } from "../actions/auth";
 import ModalWrapper from "../components/auth/Modal/ModalWrapper";
+import SwatchPicker from "../components/auth/SwatchPicker/SwatchPicker";
+import axios from "axios";
 
-export default function Home() {
+interface InitialSwatch {
+  swatches: string[][];
+}
+
+export default function Home({ swatches }: InitialSwatch) {
   useEffect(() => {
     store.dispatch(startLoadUser() as any);
   }, []);
@@ -17,11 +23,30 @@ export default function Home() {
   return (
     <div>
       <Provider store={store}>
-        <h1>Get started by editing</h1>
-        <Signup />
-        {modal && <ModalWrapper Component={<Login />} showModal={showModal} />}
-        <button onClick={() => showModal(true)}>Login</button>
+        <SwatchPicker />
+        {/* <h1>Get started by editing</h1> */}
+        {/* <Signup /> */}
+        {/* {modal && <ModalWrapper Component={<Login />} showModal={showModal} />} */}
+        {/* <button onClick={() => showModal(true)}>Login</button> */}
       </Provider>
     </div>
   );
 }
+
+// export async function getStaticProps() {
+//   const url = "http://colormind.io/api/";
+//   const data = {
+//     model: "default",
+//   };
+//   const headers = {
+//     "Content-Type": "text/plain",
+//   };
+//   const colorPallete = await axios.post(url, data, { headers });
+//   const result = colorPallete.data.result;
+
+//   return {
+//     props: {
+//       swatches: result,
+//     }, // will be passed to the page component as props
+//   };
+// }

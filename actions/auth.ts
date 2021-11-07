@@ -23,8 +23,6 @@ export const authError = (): AppActions => ({
 
 export const startLoadUser = () => async (dispatch) => {
   try {
-    console.log("fire");
-
     app.auth().onAuthStateChanged((user) => {
       if (user === null) {
         dispatch(authError);
