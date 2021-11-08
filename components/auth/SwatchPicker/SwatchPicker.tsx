@@ -1,19 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { rgbToHex } from "../../../utils/swatch";
 
 interface InitialSwatch {
-  swatches: string[][];
+  swatches: number[][];
 }
 
 const SwatchPicker = ({ swatches }: InitialSwatch) => {
   const loadRef = useRef(false);
-  const [swatchesUi, setSwatchesUi] = useState([
-    [23, 64, 50],
-    [113, 147, 10],
-    [141, 195, 33],
-    [222, 244, 55],
-    [216, 194, 136],
-  ]);
+  const [swatchesUi, setSwatchesUi] = useState(swatches);
+
+  let list: Array<number> = swatches[0];
+
+  rgbToHex(list);
 
   useEffect(() => {
     if (loadRef.current) {
@@ -32,7 +31,7 @@ const SwatchPicker = ({ swatches }: InitialSwatch) => {
     loadRef.current = true;
   }, [loadRef]);
 
-  return <div>{swatchesUi[0][0]}</div>;
+  return <div>hello</div>;
 };
 
 export default SwatchPicker;

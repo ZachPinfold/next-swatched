@@ -23,7 +23,7 @@ export default function Home({ swatches }: InitialSwatch) {
   return (
     <div>
       <Provider store={store}>
-        <SwatchPicker />
+        <SwatchPicker swatches={swatches} />
         {/* <h1>Get started by editing</h1> */}
         {/* <Signup /> */}
         {/* {modal && <ModalWrapper Component={<Login />} showModal={showModal} />} */}
@@ -33,20 +33,20 @@ export default function Home({ swatches }: InitialSwatch) {
   );
 }
 
-// export async function getStaticProps() {
-//   const url = "http://colormind.io/api/";
-//   const data = {
-//     model: "default",
-//   };
-//   const headers = {
-//     "Content-Type": "text/plain",
-//   };
-//   const colorPallete = await axios.post(url, data, { headers });
-//   const result = colorPallete.data.result;
+export async function getStaticProps() {
+  const url = "http://colormind.io/api/";
+  const data = {
+    model: "default",
+  };
+  const headers = {
+    "Content-Type": "text/plain",
+  };
+  const colorPallete = await axios.post(url, data, { headers });
+  const result = colorPallete.data.result;
 
-//   return {
-//     props: {
-//       swatches: result,
-//     }, // will be passed to the page component as props
-//   };
-// }
+  return {
+    props: {
+      swatches: result,
+    }, // will be passed to the page component as props
+  };
+}

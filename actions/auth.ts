@@ -21,9 +21,9 @@ export const authError = (): AppActions => ({
   type: "AUTH_ERROR",
 });
 
-export const startLoadUser = () => async (dispatch) => {
+export const startLoadUser = () => async (dispatch: any) => {
   try {
-    app.auth().onAuthStateChanged((user) => {
+    app.auth().onAuthStateChanged((user: object) => {
       if (user === null) {
         dispatch(authError);
       } else {
@@ -37,7 +37,7 @@ export const startLoadUser = () => async (dispatch) => {
 };
 
 export const startSignup =
-  (email: string, password: string) => async (dispatch) => {
+  (email: string, password: string) => async (dispatch: any) => {
     try {
       const data = await app
         .auth()
@@ -50,7 +50,7 @@ export const startSignup =
   };
 
 export const startLogin =
-  (email: string, password: string) => async (dispatch) => {
+  (email: string, password: string) => async (dispatch: any) => {
     try {
       const data = await app.auth().signInWithEmailAndPassword(email, password);
       const { uid } = data.user;
