@@ -10,8 +10,6 @@ const SwatchPicker = ({ swatches }: InitialSwatch) => {
   const loadRef = useRef(false);
   const [swatchesUi, setSwatchesUi] = useState(swatches);
 
-  let list: Array<number> = swatches[0];
-
   useEffect(() => {
     if (loadRef.current) {
       const fetchData = async () => {
@@ -31,9 +29,11 @@ const SwatchPicker = ({ swatches }: InitialSwatch) => {
 
   return (
     <div>
-      {swatches.map((swatch) => (
-        <h1>{rgbToHex(swatch)}</h1>
-      ))}
+      {swatches.map((swatch) => {
+        let result: string | number = rgbToHex(swatch);
+
+        return <div key={result}>{result}</div>;
+      })}
     </div>
   );
 };
