@@ -8,5 +8,5 @@ export const rgbToHex = (rgb: Array<number>) => {
     return "#" + ColorToHex(red) + ColorToHex(green) + ColorToHex(blue);
   };
 
-  console.log(ConvertRGBtoHex(rgb[0], rgb[1], rgb[2]));
+  return ConvertRGBtoHex(rgb[0], rgb[1], rgb[2]);
 };

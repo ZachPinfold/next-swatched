@@ -10,7 +10,7 @@ import SwatchPicker from "../components/auth/SwatchPicker/SwatchPicker";
 import axios from "axios";
 
 interface InitialSwatch {
-  swatches: string[][];
+  swatches: number[][];
 }
 
 export default function Home({ swatches }: InitialSwatch) {
@@ -34,16 +34,21 @@ export default function Home({ swatches }: InitialSwatch) {
 }
 
 export async function getStaticProps() {
-  const url = "http://colormind.io/api/";
-  const data = {
-    model: "default",
-  };
-  const headers = {
-    "Content-Type": "text/plain",
-  };
-  const colorPallete = await axios.post(url, data, { headers });
-  const result = colorPallete.data.result;
+  let result;
 
+  try {
+    const url = "http://colormind.io/api/";
+    const data = {
+      model: "default",
+    };
+    const headers = {
+      "Content-Type": "text/plain",
+    };
+    const colorPallete = await axios.post(url, data, { headers });
+    result = colorPallete.data.result;
+  } catch (error) {
+    console.log(error);
+  }
   return {
     props: {
       swatches: result,
