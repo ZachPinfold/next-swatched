@@ -6,7 +6,7 @@ import Signup from "../components/auth/Signup/Signup";
 import { useEffect, useState } from "react";
 import { startLoadUser } from "../actions/auth";
 import ModalWrapper from "../components/auth/Modal/ModalWrapper";
-import SwatchPicker from "../components/auth/SwatchPicker/SwatchPicker";
+import SwatchPicker from "../components/SwatchPicker/SwatchPicker";
 import axios from "axios";
 
 interface InitialSwatch {
