@@ -5,55 +5,55 @@ import Lock from "./lock/Lock";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
 
 interface Swatches {
-  swatches: number[][];
+  swatches: number[][] | string[];
 }
 
 const SwatchPicker = ({ swatches }: Swatches) => {
-  const loadRef = useRef(false);
   const [swatchesUi, setSwatchesUi] = useState(swatches);
-  const [hoverSwatch, setHoverSwatch] = useState<string | null>(null);
-  const [lockedSwatch, setLockedSwatch] = useState<string | null>(null);
+  const [hoverSwatch, setHoverSwatch] = useState<number[] | string | null>(
+    null
+  );
+  const [lockedSwatch, setLockedSwatch] = useState<number[] | string | null>(
+    null
+  );
 
   const handleRefresh = async () => {
-    const url = "http://colormind.io/api/";
-    const data = {
-      model: "default",
-    };
-    const headers = {
-      "Content-Type": "text/plain",
-    };
-    const colorPallete = await axios.post(url, data, { headers });
-    const result = colorPallete.data.result;
-    setSwatchesUi(result);
-  };
+    const swatchesForRefresh = swatchesUi.map((s) =>
+      s !== lockedSwatch ? (s = "N") : (s = s)
+    );
 
-  // useEffect(() => {
-  //   if (!loadRef.current) {
-  //     setSwatchesUi(swatches);
-  //   }
-  //   loadRef.current = true;
-  // }, [loadRef]);
+    console.log(swatchesForRefresh);
+
+    // const url = "http://colormind.io/api/";
+    // const data = {
+    //   model: "default",
+    // };
+    // const headers = {
+    //   "Content-Type": "text/plain",
+    // };
+    // const colorPallete = await axios.post(url, data, { headers });
+    // const result = colorPallete.data.result;
+    // setSwatchesUi(result);
+  };
 
   return (
     <div className='outer_swatch'>
       <div className='swatch_area'>
-        {swatchesUi.map((swatch) => {
-          let result: string = rgbToHex(swatch);
-
+        {swatchesUi.map((swatch, index) => {
           return (
             <div
               className='inner_swatch'
               style={{
-                backgroundColor: result,
-                width: hoverSwatch === result ? "23%" : "20%",
+                backgroundColor: `rgb(${swatch})`,
+                width: hoverSwatch === swatch ? "23%" : "20%",
               }}
-              key={result}
-              onMouseEnter={() => setHoverSwatch(result)}
+              key={index}
+              onMouseEnter={() => setHoverSwatch(swatch)}
               onMouseLeave={() => setHoverSwatch(null)}
             >
               <Lock
                 setLockedSwatch={setLockedSwatch}
-                result={result}
+                result={swatch}
                 lockedSwatch={lockedSwatch}
               />
             </div>
