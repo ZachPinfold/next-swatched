@@ -1,22 +1,24 @@
 import React from "react";
 
 interface Actions {
-  setLockedSwatch: (swatch: number[] | null | string) => void;
-  result: number[] | string;
-  lockedSwatch: number[] | string | null;
+  setLockedSwatches: (swatch: number[][]) => void;
+  result: number[];
+  lockedSwatches: number[][];
 }
 
-const Lock = ({ setLockedSwatch, result, lockedSwatch }: Actions) => {
+const Lock = ({ setLockedSwatches, result, lockedSwatches }: Actions) => {
   return (
     <div
       onClick={() =>
-        lockedSwatch !== result
-          ? setLockedSwatch(result)
-          : setLockedSwatch(null)
+        lockedSwatches.includes(result)
+          ? setLockedSwatches([...lockedSwatches, result])
+          : setLockedSwatches(lockedSwatches)
       }
       className='outer_lock'
     >
-      <div className={"lock " + (lockedSwatch !== result && "unlocked")}></div>
+      <div
+        className={"lock " + (lockedSwatches.includes(result) && "unlocked")}
+      ></div>
     </div>
   );
 };

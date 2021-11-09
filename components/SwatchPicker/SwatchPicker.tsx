@@ -5,7 +5,7 @@ import Lock from "./lock/Lock";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
 
 interface Swatches {
-  swatches: number[][] | string[];
+  swatches: number[][];
 }
 
 const SwatchPicker = ({ swatches }: Swatches) => {
@@ -13,17 +13,13 @@ const SwatchPicker = ({ swatches }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[] | string | null>(
     null
   );
-  const [lockedSwatch, setLockedSwatch] = useState<number[] | string | null>(
-    null
-  );
+  const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
 
   const handleRefresh = async () => {
-    const swatchesForRefresh = swatchesUi.map((s) =>
-      s !== lockedSwatch ? (s = "N") : (s = s)
-    );
-
-    console.log(swatchesForRefresh);
-
+    // const swatchesForRefresh = swatchesUi.map((s) =>
+    //   s !== lockedSwatches ? (s = "N") : (s = s)
+    // );
+    // console.log(swatchesForRefresh);
     // const url = "http://colormind.io/api/";
     // const data = {
     //   model: "default",
@@ -52,9 +48,9 @@ const SwatchPicker = ({ swatches }: Swatches) => {
               onMouseLeave={() => setHoverSwatch(null)}
             >
               <Lock
-                setLockedSwatch={setLockedSwatch}
+                setLockedSwatches={setLockedSwatches}
                 result={swatch}
-                lockedSwatch={lockedSwatch}
+                lockedSwatches={lockedSwatches}
               />
             </div>
           );
