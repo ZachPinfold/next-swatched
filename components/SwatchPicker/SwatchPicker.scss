@@ -3,10 +3,16 @@
     font-size: 200px;
 }
 
+.outer_swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .swatch_area {
     width: 950px;
     display: flex;
-    margin: 150px;
+    margin: 30px 150px;
     transition: width 0.4s ease-out;
 
 
@@ -14,6 +20,9 @@
         height: 300px;
         transition: width 0.4s ease-out;
         cursor: pointer;
-
     }
+}
+
+.refresh_icon {
+    width: 40px;
 }
