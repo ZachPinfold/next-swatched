@@ -23,14 +23,14 @@ export const authError = (): AppActions => ({
 
 export const startLoadUser = () => async (dispatch: any) => {
   try {
-    app.auth().onAuthStateChanged((user: object) => {
-      if (user === null) {
-        dispatch(authError);
-      } else {
-        const { uid } = user;
-        dispatch(loadUser(uid));
-      }
-    });
+    // app.auth().onAuthStateChanged((user: object) => {
+    //   if (user === null) {
+    //     dispatch(authError);
+    //   } else {
+    //     const { uid } = user;
+    //     dispatch(loadUser(uid));
+    //   }
+    // });
   } catch (error) {
     console.log(error);
   }
@@ -38,24 +38,24 @@ export const startLoadUser = () => async (dispatch: any) => {
 
 export const startSignup =
   (email: string, password: string) => async (dispatch: any) => {
-    try {
-      const data = await app
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-      const { uid } = data.user;
-      dispatch(login(uid));
-    } catch (error) {
-      console.log("error-" + error);
-    }
+    // try {
+    //   const data = await app
+    //     .auth()
+    //     .createUserWithEmailAndPassword(email, password);
+    //   const { uid } = data.user;
+    //   dispatch(login(uid));
+    // } catch (error) {
+    //   console.log("error-" + error);
+    // }
   };
 
 export const startLogin =
   (email: string, password: string) => async (dispatch: any) => {
-    try {
-      const data = await app.auth().signInWithEmailAndPassword(email, password);
-      const { uid } = data.user;
-      dispatch(login(uid));
-    } catch (error) {
-      console.log("error-" + error);
-    }
+    // try {
+    //   const data = await app.auth().signInWithEmailAndPassword(email, password);
+    //   const { uid } = data.user;
+    //   dispatch(login(uid));
+    // } catch (error) {
+    //   console.log("error-" + error);
+    // }
   };
