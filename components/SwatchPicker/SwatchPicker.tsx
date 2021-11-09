@@ -3,14 +3,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { rgbToHex } from "../../utils/swatch";
 import Lock from "./lock/Lock";
 
-interface InitialSwatch {
+interface Swatches {
   swatches: number[][];
 }
 
-const SwatchPicker = ({ swatches }: InitialSwatch) => {
+const SwatchPicker = ({ swatches }: Swatches) => {
   const loadRef = useRef(false);
   const [swatchesUi, setSwatchesUi] = useState(swatches);
   const [hoverSwatch, setHoverSwatch] = useState<string | null>(null);
+  const [lockedSwatch, setLockedSwatch] = useState<string | null>(null);
 
   useEffect(() => {
     if (loadRef.current) {
@@ -33,20 +34,23 @@ const SwatchPicker = ({ swatches }: InitialSwatch) => {
     <div className='swatch_area'>
       {swatchesUi.map((swatch) => {
         let result: string = rgbToHex(swatch);
-        console.log(hoverSwatch === result);
 
         return (
           <div
             className='inner_swatch'
             style={{
               backgroundColor: result,
-              width: hoverSwatch === result ? "25%" : "20%",
+              width: hoverSwatch === result ? "23%" : "20%",
             }}
             key={result}
             onMouseEnter={() => setHoverSwatch(result)}
             onMouseLeave={() => setHoverSwatch(null)}
           >
-            <Lock />
+            <Lock
+              setLockedSwatch={setLockedSwatch}
+              result={result}
+              lockedSwatch={lockedSwatch}
+            />
           </div>
         );
       })}
