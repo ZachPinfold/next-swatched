@@ -1,9 +1,9 @@
 import React from "react";
 
 interface Actions {
-  setLockedSwatches: (swatch: number[][] | null[] | string[]) => void;
-  result: number[] | (string | null | never);
-  lockedSwatches: number[][] | string[] | null[];
+  setLockedSwatches: (swatch: number[][] | string[]) => void;
+  result: any;
+  lockedSwatches: number[][] | string[];
 }
 
 const Lock = ({ setLockedSwatches, result, lockedSwatches }: Actions) => {

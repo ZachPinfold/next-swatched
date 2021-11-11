@@ -4,34 +4,34 @@ import { rgbToHex } from "../../utils/swatch";
 import Lock from "./lock/Lock";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
 
+// Apply any to allow for includes() function
+
 interface Swatches {
-  swatches: number[][] | string[] | null[];
+  swatches: any[];
 }
 
 const SwatchPicker = ({ swatches }: Swatches) => {
   const [swatchesUi, setSwatchesUi] = useState(swatches);
-  const [hoverSwatch, setHoverSwatch] = useState<number[] | string | null>(
-    null
+  const [hoverSwatch, setHoverSwatch] = useState<number[] | string>("");
+  const [lockedSwatches, setLockedSwatches] = useState<number[][] | string[]>(
+    []
   );
-  const [lockedSwatches, setLockedSwatches] = useState<
-    number[][] | string[] | null
-  >([]);
 
   const handleRefresh = async () => {
     const swatchesForRefresh = swatchesUi.map((s) =>
-      s !== lockedSwatches ? (s = "N") : (s = s)
+      lockedSwatches.includes(s) ? (s = "N") : (s = s)
     );
     console.log(swatchesForRefresh);
-    // const url = "http://colormind.io/api/";
-    // const data = {
-    //   model: "default",
-    // };
-    // const headers = {
-    //   "Content-Type": "text/plain",
-    // };
-    // const colorPallete = await axios.post(url, data, { headers });
-    // const result = colorPallete.data.result;
-    // setSwatchesUi(result);
+    const url = "http://colormind.io/api/";
+    const data = {
+      model: "default",
+    };
+    const headers = {
+      "Content-Type": "text/plain",
+    };
+    const colorPallete = await axios.post(url, data, { headers });
+    const result = colorPallete.data.result;
+    setSwatchesUi(result);
   };
 
   return (
@@ -47,7 +47,7 @@ const SwatchPicker = ({ swatches }: Swatches) => {
               }}
               key={index}
               onMouseEnter={() => setHoverSwatch(swatch)}
-              onMouseLeave={() => setHoverSwatch(null)}
+              onMouseLeave={() => setHoverSwatch("")}
             >
               <Lock
                 setLockedSwatches={setLockedSwatches}
