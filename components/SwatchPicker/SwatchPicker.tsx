@@ -13,15 +13,12 @@ interface Swatches {
 const SwatchPicker = ({ swatches }: Swatches) => {
   const [swatchesUi, setSwatchesUi] = useState(swatches);
   const [hoverSwatch, setHoverSwatch] = useState<number[] | string>("");
-  const [lockedSwatches, setLockedSwatches] = useState<number[][] | string[]>(
-    []
-  );
+  const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
 
   const handleRefresh = async () => {
     const swatchesForRefresh = swatchesUi.map((s) =>
       lockedSwatches.includes(s) ? (s = "N") : (s = s)
     );
-    console.log(swatchesForRefresh);
     const url = "http://colormind.io/api/";
     const data = {
       model: "default",

@@ -1,18 +1,24 @@
 import React from "react";
 
+// Apply any to allow for includes() function
+
 interface Actions {
-  setLockedSwatches: (swatch: number[][] | string[]) => void;
+  setLockedSwatches: (swatch: number[][]) => void;
   result: any;
-  lockedSwatches: number[][] | string[];
+  lockedSwatches: number[][];
 }
 
 const Lock = ({ setLockedSwatches, result, lockedSwatches }: Actions) => {
+  const removeFromSwatch = (result: number[]) => {
+    setLockedSwatches(lockedSwatches.filter((r) => r !== result));
+  };
+
   return (
     <div
       onClick={() =>
         !lockedSwatches.includes(result)
-          ? setLockedSwatches(result)
-          : setLockedSwatches(lockedSwatches)
+          ? setLockedSwatches([...lockedSwatches, result])
+          : removeFromSwatch(result)
       }
       className='outer_lock'
     >
