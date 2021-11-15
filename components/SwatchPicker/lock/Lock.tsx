@@ -23,7 +23,7 @@ const Lock = ({ setLockedSwatches, result, lockedSwatches }: Actions) => {
       className='outer_lock'
     >
       <div
-        className={"lock " + (lockedSwatches.includes(result) && "unlocked")}
+        className={"lock " + (!lockedSwatches.includes(result) && "unlocked")}
       ></div>
     </div>
   );

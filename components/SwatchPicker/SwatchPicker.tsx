@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { rgbToHex } from "../../utils/swatch";
 import Lock from "./lock/Lock";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
+import SwatchCard from "./swatch card/SwatchCard";
 
 // Apply any to allow for includes() function
 
@@ -14,8 +15,6 @@ const SwatchPicker = ({ swatches }: Swatches) => {
   const [swatchesUi, setSwatchesUi] = useState(swatches);
   const [hoverSwatch, setHoverSwatch] = useState<number[] | string>("");
   const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
-
-  // console.log(lockedSwatches);
 
   const handleRefresh = async () => {
     let swatchesForRefresh;
@@ -48,23 +47,16 @@ const SwatchPicker = ({ swatches }: Swatches) => {
     <div className='outer_swatch'>
       <div className='swatch_area'>
         {swatchesUi.map((swatch, index) => {
+          <h1>hello</h1>;
           return (
-            <div
-              className='inner_swatch'
-              style={{
-                backgroundColor: `rgb(${swatch})`,
-                width: hoverSwatch === swatch ? "23%" : "20%",
-              }}
-              key={index}
-              onMouseEnter={() => setHoverSwatch(swatch)}
-              onMouseLeave={() => setHoverSwatch("")}
-            >
-              <Lock
-                setLockedSwatches={setLockedSwatches}
-                result={swatch}
-                lockedSwatches={lockedSwatches}
-              />
-            </div>
+            <SwatchCard
+              swatch={swatch}
+              hoverSwatch={hoverSwatch}
+              index={index}
+              setHoverSwatch={setHoverSwatch}
+              setLockedSwatches={setLockedSwatches}
+              lockedSwatches={lockedSwatches}
+            />
           );
         })}
       </div>
