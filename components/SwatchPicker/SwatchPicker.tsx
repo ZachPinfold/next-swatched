@@ -15,19 +15,32 @@ const SwatchPicker = ({ swatches }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[] | string>("");
   const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
 
+  // console.log(lockedSwatches);
+
   const handleRefresh = async () => {
-    const swatchesForRefresh = swatchesUi.map((s) =>
-      lockedSwatches.includes(s) ? (s = "N") : (s = s)
-    );
+    let swatchesForRefresh;
+    if (lockedSwatches) {
+      swatchesForRefresh = swatchesUi.map((s) =>
+        !lockedSwatches.includes(s) ? (s = "N") : (s = s)
+      );
+    } else swatchesForRefresh = swatchesUi;
+
     const url = "http://colormind.io/api/";
     const data = {
       model: "default",
+      input: swatchesForRefresh,
     };
     const headers = {
       "Content-Type": "text/plain",
     };
     const colorPallete = await axios.post(url, data, { headers });
-    const result = colorPallete.data.result;
+    console.log(swatchesForRefresh);
+
+    const result = swatchesForRefresh.map((a, index) => {
+      if (a === "N") a = colorPallete.data.result[index];
+      return a;
+    });
+
     setSwatchesUi(result);
   };
 
