@@ -1,9 +1,8 @@
 import axios from "axios";
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { rgbToHex } from "../../utils/swatch";
-import Lock from "./lock/Lock";
+import React, { useState } from "react";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
 import SwatchCard from "./swatch card/SwatchCard";
+import SwatchTextDetails from "./text details/SwatchTextDetails";
 
 // Apply any to allow for includes() function
 
@@ -12,9 +11,18 @@ interface Swatches {
 }
 
 const SwatchPicker = ({ swatches }: Swatches) => {
+  const [colourName, setColourName] = useState<string>("");
+
   const [swatchesUi, setSwatchesUi] = useState(swatches);
   const [hoverSwatch, setHoverSwatch] = useState<number[] | string>("");
   const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
+
+  const onColourHover = async (hex: string) => {
+    const colourDetails = await axios.get(
+      `https://www.thecolorapi.com/id?hex=${hex.replace("#", "")}`
+    );
+    setColourName(colourDetails.data.name.value);
+  };
 
   const handleRefresh = async () => {
     let swatchesForRefresh;
@@ -33,7 +41,6 @@ const SwatchPicker = ({ swatches }: Swatches) => {
       "Content-Type": "text/plain",
     };
     const colorPallete = await axios.post(url, data, { headers });
-    console.log(swatchesForRefresh);
 
     const result = swatchesForRefresh.map((a, index) => {
       if (a === "N") a = colorPallete.data.result[index];
@@ -47,16 +54,27 @@ const SwatchPicker = ({ swatches }: Swatches) => {
     <div className='outer_swatch'>
       <div className='swatch_area'>
         {swatchesUi.map((swatch, index) => {
-          <h1>hello</h1>;
           return (
-            <SwatchCard
-              swatch={swatch}
-              hoverSwatch={hoverSwatch}
-              index={index}
-              setHoverSwatch={setHoverSwatch}
-              setLockedSwatches={setLockedSwatches}
-              lockedSwatches={lockedSwatches}
-            />
+            <div
+              className='swatch_card'
+              style={{
+                backgroundColor: `rgb(${swatch})`,
+                width: hoverSwatch === swatch ? "23%" : "20%",
+              }}
+            >
+              <SwatchCard
+                swatch={swatch}
+                index={index}
+                setHoverSwatch={setHoverSwatch}
+                setLockedSwatches={setLockedSwatches}
+                lockedSwatches={lockedSwatches}
+                onColourHover={onColourHover}
+                setColourName={setColourName}
+              />
+              {hoverSwatch === swatch && (
+                <SwatchTextDetails colourName={colourName} />
+              )}
+            </div>
           );
         })}
       </div>

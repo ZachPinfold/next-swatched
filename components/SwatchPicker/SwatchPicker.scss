@@ -16,7 +16,8 @@
     transition: width 0.4s ease-out;
 
 
-    .inner_swatch {
+    .inner_swatch,
+    .swatch_card {
         height: 300px;
         transition: width 0.4s ease-out;
         cursor: pointer;
