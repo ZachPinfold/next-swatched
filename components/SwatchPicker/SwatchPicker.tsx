@@ -24,6 +24,9 @@ const SwatchPicker = ({ swatches }: Swatches) => {
     setColourName(colourDetails.data.name.value);
   };
 
+  // handleRefresh handles the refreshing of the colour palette from the client.
+  // Checks for locked colours and retains they're position
+
   const handleRefresh = async () => {
     let swatchesForRefresh;
     if (lockedSwatches) {
