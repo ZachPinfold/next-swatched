@@ -6,12 +6,20 @@ interface Actions {
   setLockedSwatches: (swatch: number[][]) => void;
   result: any;
   lockedSwatches: number[][];
+  color: string;
 }
 
-const Lock = ({ setLockedSwatches, result, lockedSwatches }: Actions) => {
+const Lock = ({
+  color,
+  setLockedSwatches,
+  result,
+  lockedSwatches,
+}: Actions) => {
   const removeFromSwatch = (result: number[]) => {
     setLockedSwatches(lockedSwatches.filter((r) => r !== result));
   };
+
+  console.log(color);
 
   return (
     <div
@@ -23,6 +31,7 @@ const Lock = ({ setLockedSwatches, result, lockedSwatches }: Actions) => {
       className='outer_lock'
     >
       <div
+        style={{ backgroundColor: color }}
         className={"lock " + (!lockedSwatches.includes(result) && "unlocked")}
       ></div>
     </div>

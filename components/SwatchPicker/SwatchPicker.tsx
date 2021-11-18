@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState } from "react";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
 import SwatchCard from "./swatch card/SwatchCard";
-import SwatchTextDetails from "./text details/SwatchTextDetails";
 
 // Apply any to allow for includes() function
 
@@ -11,18 +10,9 @@ interface Swatches {
 }
 
 const SwatchPicker = ({ swatches }: Swatches) => {
-  const [colourName, setColourName] = useState<string>("");
-
   const [swatchesUi, setSwatchesUi] = useState(swatches);
-  const [hoverSwatch, setHoverSwatch] = useState<number[] | string>("");
+  const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
   const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
-
-  const onColourHover = async (hex: string) => {
-    const colourDetails = await axios.get(
-      `https://www.thecolorapi.com/id?hex=${hex.replace("#", "")}`
-    );
-    setColourName(colourDetails.data.name.value);
-  };
 
   // handleRefresh handles the refreshing of the colour palette from the client.
   // Checks for locked colours and retains they're position
@@ -70,12 +60,8 @@ const SwatchPicker = ({ swatches }: Swatches) => {
                 setHoverSwatch={setHoverSwatch}
                 setLockedSwatches={setLockedSwatches}
                 lockedSwatches={lockedSwatches}
-                onColourHover={onColourHover}
-                setColourName={setColourName}
+                hoverSwatch={hoverSwatch}
               />
-              {hoverSwatch === swatch && (
-                <SwatchTextDetails colourName={colourName} />
-              )}
             </div>
           );
         })}
