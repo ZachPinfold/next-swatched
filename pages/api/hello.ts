@@ -5,11 +5,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 type Data = {
   name: string;
 };
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   const url = "http://colormind.io/api/";
   const data = {
     model: "default",
@@ -17,7 +13,10 @@ export default function handler(
   const headers = {
     "Content-Type": "text/plain",
   };
-  axios
-    .post(url, data, { headers })
-    .then((d) => res.status(200).json({ name: d.data.result }));
-}
+  const result = await axios.post(url, data, { headers });
+  const responseData = result.data.result;
+
+  res.status(200).json({ name: responseData });
+};
+
+export default handler;
