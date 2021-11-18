@@ -73,9 +73,9 @@ const SwatchPicker = ({ swatches }: Swatches) => {
                 onColourHover={onColourHover}
                 setColourName={setColourName}
               />
-              {hoverSwatch === swatch && (
-                <SwatchTextDetails colourName={colourName} />
-              )}
+              {/* {hoverSwatch === swatch && ( */}
+              <SwatchTextDetails colourName={colourName} />
+              {/* )} */}
             </div>
           );
         })}
