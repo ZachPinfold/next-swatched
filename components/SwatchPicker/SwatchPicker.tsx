@@ -28,28 +28,28 @@ const SwatchPicker = ({ swatches }: Swatches) => {
   // Checks for locked colours and retains they're position
 
   const handleRefresh = async () => {
-    // let swatchesForRefresh;
-    // if (lockedSwatches) {
-    //   swatchesForRefresh = swatchesUi.map((s) =>
-    //     !lockedSwatches.includes(s) ? (s = "N") : (s = s)
-    //   );
-    // } else swatchesForRefresh = swatchesUi;
-    // const url = "https://colormind.io/api/";
-    // const data = {
-    //   model: "default",
-    //   input: swatchesForRefresh,
-    // };
-    // const headers = {
-    //   "Content-Type": "text/plain",
-    // };
-    // const colorPallete = await axios.post(url, data, { headers });
-    // const result = swatchesForRefresh.map((a, index) => {
-    //   if (a === "N") a = colorPallete.data.result[index];
-    //   return a;
-    // });
-    // setSwatchesUi(result);
-    const api = await axios.get("/api/hello");
-    console.log(api);
+    try {
+      let swatchesForRefresh;
+      if (lockedSwatches) {
+        swatchesForRefresh = swatchesUi.map((s) =>
+          !lockedSwatches.includes(s) ? (s = "N") : (s = s)
+        );
+      } else swatchesForRefresh = swatchesUi;
+      const data = {
+        model: "default",
+        input: swatchesForRefresh,
+      };
+
+      const apiResponse = await axios.post("/api/colorMind", data);
+
+      const result = swatchesForRefresh.map((a, index) => {
+        if (a === "N") a = apiResponse.data.colourData[index];
+        return a;
+      });
+      setSwatchesUi(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

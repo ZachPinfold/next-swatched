@@ -8,13 +8,12 @@ type Data = {
 const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
   try {
     const url = "http://colormind.io/api/";
-    const data = {
-      model: "default",
-    };
+
     const headers = {
       "Content-Type": "text/plain",
     };
-    const result = await axios.post(url, data, { headers });
+    const result = await axios.post(url, req.body, { headers });
+
     const responseData = result.data.result;
 
     res.status(200).json({ colourData: responseData });
