@@ -64,7 +64,7 @@ const SwatchPicker = ({ swatches }: Swatches) => {
                 width: hoverSwatch === swatch ? "23%" : "20%",
               }}
             >
-              <SwatchCard
+              {/* <SwatchCard
                 swatch={swatch}
                 index={index}
                 setHoverSwatch={setHoverSwatch}
@@ -72,9 +72,9 @@ const SwatchPicker = ({ swatches }: Swatches) => {
                 lockedSwatches={lockedSwatches}
                 onColourHover={onColourHover}
                 setColourName={setColourName}
-              />
+              /> */}
               {/* {hoverSwatch === swatch && ( */}
-              <SwatchTextDetails colourName={colourName} />
+              {/* <SwatchTextDetails colourName={colourName} /> */}
               {/* )} */}
             </div>
           );
