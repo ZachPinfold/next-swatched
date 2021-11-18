@@ -33,7 +33,7 @@ export default function Home({ swatches }: InitialSwatch) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let result;
 
   try {
