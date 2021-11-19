@@ -19,7 +19,10 @@ const Lock = ({
     setLockedSwatches(lockedSwatches.filter((r) => r !== result));
   };
 
-  console.log(color);
+  const someStyle: any = {
+    "--colour": color,
+    "--opacity": !lockedSwatches.includes(result) ? "30%" : "100%",
+  };
 
   return (
     <div
@@ -31,7 +34,7 @@ const Lock = ({
       className='outer_lock'
     >
       <div
-        style={{ backgroundColor: color }}
+        style={someStyle}
         className={"lock " + (!lockedSwatches.includes(result) && "unlocked")}
       ></div>
     </div>
