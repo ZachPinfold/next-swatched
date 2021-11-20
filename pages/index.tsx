@@ -1,14 +1,13 @@
 import styles from "../styles/Home.module.css";
-import { Provider } from "react-redux";
 import store from "../store";
 import Login from "../components/auth/Login/Login";
 import Signup from "../components/auth/Signup/Signup";
 import { useEffect, useState } from "react";
 import { startLoadUser } from "../actions/auth";
 import ModalWrapper from "../components/auth/Modal/ModalWrapper";
-import SwatchPicker from "../components/SwatchPicker/SwatchPicker";
+import SwatchPicker from "../components/swatch picker/SwatchPicker";
 import axios from "axios";
-import TitleArea from "../components/SwatchPicker/left title area/TitleArea";
+import TitleArea from "../components/swatch picker/left title area/TitleArea";
 
 interface InitialSwatch {
   swatches: any[];
@@ -55,25 +54,23 @@ export default function Home({ swatches }: InitialSwatch) {
   return (
     <div className='wrapper'>
       <div className='wrapper_inner home_column'>
-        <Provider store={store}>
-          <TitleArea
-            refreshClick={refreshClick}
-            setRefreshClick={setRefreshClick}
-            refreshClickRotation={refreshClickRotation}
-            setRefreshClickRotation={setRefreshClickRotation}
-            handleRefresh={handleRefresh}
-          />
+        <TitleArea
+          refreshClick={refreshClick}
+          setRefreshClick={setRefreshClick}
+          refreshClickRotation={refreshClickRotation}
+          setRefreshClickRotation={setRefreshClickRotation}
+          handleRefresh={handleRefresh}
+        />
 
-          <SwatchPicker
-            swatches={swatchesUi}
-            setLockedSwatches={setLockedSwatches}
-            lockedSwatches={lockedSwatches}
-          />
-          {/* <h1>Get started by editing</h1> */}
-          {/* <Signup /> */}
-          {/* {modal && <ModalWrapper Component={<Login />} showModal={showModal} />} */}
-          {/* <button onClick={() => showModal(true)}>Login</button> */}
-        </Provider>
+        <SwatchPicker
+          swatches={swatchesUi}
+          setLockedSwatches={setLockedSwatches}
+          lockedSwatches={lockedSwatches}
+        />
+        {/* <h1>Get started by editing</h1> */}
+        {/* <Signup /> */}
+        {/* {modal && <ModalWrapper Component={<Login />} showModal={showModal} />} */}
+        {/* <button onClick={() => showModal(true)}>Login</button> */}
       </div>
     </div>
   );
@@ -99,6 +96,6 @@ export async function getStaticProps() {
   return {
     props: {
       swatches: result,
-    }, // will be passed to the page component as props
+    },
   };
 }
