@@ -20,28 +20,32 @@ const TitleArea = ({
     <div className='left_text_area'>
       <h1>Swatched</h1>
       <p>Wash your projects with color</p>
-      <button
-        onClick={() => {
-          handleRefresh();
-          setRefreshClick(true);
-          setRefreshClickRotation(refreshClickRotation + 180);
-        }}
-      >
-        refresh
-      </button>
-      <img
-        onClick={() => {
-          // handleRefresh();
-          setRefreshClick(true);
-          setRefreshClickRotation(refreshClickRotation + 180);
-        }}
-        src={refreshIcon.src}
-        alt='refresh_icon'
-        className={`refresh_icon `}
-        style={{
-          transform: `rotate(${refreshClick && `${refreshClickRotation}deg`})`,
-        }}
-      />
+      <div className='button_area'>
+        <button
+          onClick={() => {
+            handleRefresh();
+            setRefreshClick(true);
+            setRefreshClickRotation(refreshClickRotation + 180);
+          }}
+        >
+          refresh
+        </button>
+        <img
+          onClick={() => {
+            // handleRefresh();
+            setRefreshClick(true);
+            setRefreshClickRotation(refreshClickRotation + 180);
+          }}
+          src={refreshIcon.src}
+          alt='refresh_icon'
+          className={`refresh_icon `}
+          style={{
+            transform: `rotate(${
+              refreshClick && `${refreshClickRotation}deg`
+            })`,
+          }}
+        />
+      </div>
     </div>
   );
 };
