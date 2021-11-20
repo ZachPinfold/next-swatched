@@ -1,3 +1,5 @@
+import { SwatchObject } from "./swatches";
+
 export const LOGIN_AUTH = "LOGIN_AUTH";
 export const LOGOUT_AUTH = "LOGOUT_AUTH";
 export const USER_LOADED = "USER_LOADED";
@@ -37,7 +39,7 @@ export type AuthActionTypes =
 
 export interface GetSwatchesAction {
   type: typeof GET_SWATCHES;
-  payload: { UserID: string };
+  payload: { swatches: SwatchObject[] };
 }
 
 export type SwatchActionTypes = GetSwatchesAction;

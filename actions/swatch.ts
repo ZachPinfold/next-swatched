@@ -1,22 +1,33 @@
 import app from "../firebase";
+import { SwatchObject } from "../types/swatches";
 import { SwatchActionTypes } from "../types/types";
 
-export const getUserSwatches = (UserID: string): SwatchActionTypes => ({
+export const getUserSwatches = (
+  swatches: SwatchObject[]
+): SwatchActionTypes => ({
   type: "GET_SWATCHES",
-  payload: { UserID },
+  payload: { swatches },
 });
 
 export const startGetUserSwatches =
   (userUid: string) => async (dispatch: any) => {
-    //   const result = await app.fireStore
-    //     .collection("swatches")
-    //     .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
-    //     .get("user swatches");
+    const result = await app
+      .firestore()
+      .collection("swatches")
+      .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+      .collection("userSwatches")
+      .get();
+
+    let resultArray: SwatchObject[] = [];
+
+    if (result.docs) {
+      resultArray = result.docs.map((doc: any) => doc.data());
+    }
+
+    if (result.docs) {
+      dispatch(getUserSwatches(resultArray));
+    }
+    // if (result.exists) {
     //   console.log(result);
-    //   if (result) {
-    //   dispatch(getUserSwatches(""));
-    //   }
-    //   if (result.exists) {
-    //     console.log(result);
-    //   }
+    // }
   };

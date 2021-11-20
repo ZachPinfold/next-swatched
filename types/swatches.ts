@@ -1,4 +1,10 @@
+export type SwatchObject = {
+  colourHex: number;
+  colourId: string;
+  order: number;
+};
+
 export interface Swatches {
-  swatches: string[];
+  swatches: SwatchObject[];
   loading: Boolean;
 }
