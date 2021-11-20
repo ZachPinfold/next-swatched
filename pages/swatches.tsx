@@ -17,7 +17,12 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
 
   console.log(swatches);
 
-  return <SwatchList />;
+  return (
+    <div className='wrapper'>
+      {" "}
+      <SwatchList swatches={swatches} />
+    </div>
+  );
 };
 
 interface StateProps {

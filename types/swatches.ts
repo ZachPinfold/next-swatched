@@ -1,5 +1,5 @@
 export type SwatchObject = {
-  colourHex: number;
+  color: string;
   colourId: string;
   order: number;
 };
