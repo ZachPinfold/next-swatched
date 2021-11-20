@@ -6,16 +6,17 @@ export const getUserSwatches = (UserID: string): SwatchActionTypes => ({
   payload: { UserID },
 });
 
-export const startGetUserSwatches = async (dispatch: any) => {
-  const result = await app.fireStore
-    .collection("swatches")
-    .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
-    .get("user swatches");
-
-  if (result) {
-    dispatch(getUserSwatches(""));
-  }
-  if (result.exists) {
-    console.log(result);
-  }
-};
+export const startGetUserSwatches =
+  (userUid: string) => async (dispatch: any) => {
+    //   const result = await app.fireStore
+    //     .collection("swatches")
+    //     .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+    //     .get("user swatches");
+    //   console.log(result);
+    //   if (result) {
+    //   dispatch(getUserSwatches(""));
+    //   }
+    //   if (result.exists) {
+    //     console.log(result);
+    //   }
+  };

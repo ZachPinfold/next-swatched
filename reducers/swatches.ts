@@ -6,7 +6,7 @@ const inititalState: Swatches = {
   loading: false,
 };
 
-const auth = (
+const swatches = (
   state: Swatches = inititalState,
   action: SwatchActionTypes
 ): Swatches => {
@@ -22,4 +22,4 @@ const auth = (
   }
 };
 
-export { auth };
+export { swatches };

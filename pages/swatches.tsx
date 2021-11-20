@@ -10,9 +10,9 @@ interface Actions {
 const swatchPage = ({ startGetUserSwatches }: Actions) => {
   useEffect(() => {
     startGetUserSwatches("");
-  }, []);
+  }, [startGetUserSwatches]);
 
-  return <div className='swatch-grid'></div>;
+  return <div className='swatch-grid'>swatches</div>;
 };
 
 interface StateProps {
