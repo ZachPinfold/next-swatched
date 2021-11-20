@@ -18,9 +18,6 @@ const SwatchPicker = ({
 }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
 
-  // handleRefresh handles the refreshing of the colour palette from the client.
-  // Checks for locked colours and retains they're position
-
   return (
     <div className='outer_swatch'>
       <div className='swatch_area'>

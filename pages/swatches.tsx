@@ -1,20 +1,26 @@
 import axios from "axios";
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { startGetUserSwatches } from "../actions/swatch";
 
-interface InputDetails {
-  content: string;
+interface Actions {
+  startGetUserSwatches: (userUid: string) => void;
 }
 
-const swatches = ({ content }: InputDetails) => {
+const swatchPage = ({ startGetUserSwatches }: Actions) => {
+  useEffect(() => {
+    startGetUserSwatches("");
+  }, []);
+
   return <div className='swatch-grid'></div>;
 };
 
-export default swatches;
-
-export async function getStaticProps() {
-  return {
-    props: {
-      content: "title",
-    }, // will be passed to the page component as props
-  };
+interface StateProps {
+  swatches: string[];
 }
+
+const mapStateToProps = (state: any): StateProps => ({
+  swatches: state.swatches,
+});
+
+export default connect(mapStateToProps, { startGetUserSwatches })(swatchPage);

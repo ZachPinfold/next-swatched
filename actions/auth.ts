@@ -1,23 +1,23 @@
 import { Dispatch } from "redux";
-import { AppActions } from "../types/types";
+import { AuthActionTypes } from "../types/types";
 import app from "../firebase";
 
-export const login = (UserID: string): AppActions => ({
+export const login = (UserID: string): AuthActionTypes => ({
   type: "LOGIN_AUTH",
   payload: { UserID },
 });
 
-export const signup = (UserID: string): AppActions => ({
+export const signup = (UserID: string): AuthActionTypes => ({
   type: "SIGNUP_AUTH",
   payload: { UserID },
 });
 
-export const loadUser = (UserID: string): AppActions => ({
+export const loadUser = (UserID: string): AuthActionTypes => ({
   type: "USER_LOADED",
   payload: { UserID },
 });
 
-export const authError = (): AppActions => ({
+export const authError = (): AuthActionTypes => ({
   type: "AUTH_ERROR",
 });
 
