@@ -7,45 +7,24 @@ import SwatchCard from "./swatch card/SwatchCard";
 
 interface Swatches {
   swatches: any[];
+  setLockedSwatches: (swatch: number[][]) => void;
+  lockedSwatches: number[][];
 }
 
-const SwatchPicker = ({ swatches }: Swatches) => {
-  const [swatchesUi, setSwatchesUi] = useState(swatches);
+const SwatchPicker = ({
+  swatches,
+  setLockedSwatches,
+  lockedSwatches,
+}: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
-  const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
 
   // handleRefresh handles the refreshing of the colour palette from the client.
   // Checks for locked colours and retains they're position
 
-  const handleRefresh = async () => {
-    try {
-      let swatchesForRefresh;
-      if (lockedSwatches) {
-        swatchesForRefresh = swatchesUi.map((s) =>
-          !lockedSwatches.includes(s) ? (s = "N") : (s = s)
-        );
-      } else swatchesForRefresh = swatchesUi;
-      const data = {
-        model: "default",
-        input: swatchesForRefresh,
-      };
-
-      const apiResponse = await axios.post("/api/colorMind", data);
-
-      const result = swatchesForRefresh.map((a, index) => {
-        if (a === "N") a = apiResponse.data.colourData[index];
-        return a;
-      });
-      setSwatchesUi(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className='outer_swatch'>
       <div className='swatch_area'>
-        {swatchesUi.map((swatch, index) => {
+        {swatches.map((swatch, index) => {
           return (
             <div
               className='swatch_card'
@@ -53,6 +32,7 @@ const SwatchPicker = ({ swatches }: Swatches) => {
                 backgroundColor: `rgb(${swatch})`,
                 width: hoverSwatch === swatch ? "23%" : "20%",
               }}
+              key={index}
             >
               <SwatchCard
                 swatch={swatch}
@@ -66,12 +46,6 @@ const SwatchPicker = ({ swatches }: Swatches) => {
           );
         })}
       </div>
-      <img
-        onClick={handleRefresh}
-        src={refreshIcon.src}
-        alt='refresh_icon'
-        className='refresh_icon'
-      />
     </div>
   );
 };

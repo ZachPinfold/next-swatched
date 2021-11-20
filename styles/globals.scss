@@ -14,6 +14,36 @@ a {
   box-sizing: border-box;
 }
 
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.wrapper_inner {
+  max-width: 980px;
+  margin: auto;
+}
+
+@font-face {
+  font-family: "HelveticaM";
+  src: url("../assets/fonts/240c57a0-fdce-440d-9ce3-85e0cb56f470.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "HelveticaL";
+  src: url("../assets/fonts/f9c5199e-a996-4c08-9042-1eb845bb7495.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "CreteRound";
+  src: url("../assets/fonts/CreteRound-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "LilyScript";
+  src: url("../assets/fonts/LilyScriptOne-Regular.woff2") format("woff2");
+}
+
 @import './Home.scss';
 @import '../components/SwatchPicker/SwatchPicker.scss';
 @import '../components/SwatchPicker/lock/lock.scss';
