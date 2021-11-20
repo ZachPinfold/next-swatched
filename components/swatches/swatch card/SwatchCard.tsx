@@ -1,15 +1,16 @@
 import React from "react";
 import { SwatchObject } from "../../../types/swatches";
+import { rgbToHex } from "../../../utils/swatch";
 
 interface SwatchTypes {
-  color: string;
+  color: number[];
 }
 
 const SwatchCard = ({ color }: SwatchTypes) => {
   return (
     <div
-      style={{ backgroundColor: `#${color}` }}
-      key={color}
+      style={{ backgroundColor: rgbToHex(color) }}
+      key={color[0]}
       className='swatch_card'
     ></div>
   );

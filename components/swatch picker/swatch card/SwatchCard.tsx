@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Lock from "../lock/Lock";
-import getContrastYIQ, { rgbToHex } from "../../../utils/swatch";
+import { getContrastYIQ, rgbToHex } from "../../../utils/swatch";
 import axios from "axios";
 import SwatchTextDetails from "../text details/SwatchTextDetails";
 

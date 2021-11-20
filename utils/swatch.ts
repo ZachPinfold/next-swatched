@@ -20,4 +20,26 @@ export const getContrastYIQ = (hexcolor: string) => {
   return yiq >= 128 ? "black" : "white";
 };
 
-export default getContrastYIQ;
+export const setCompareWidths = (number: number) => {
+  let percentage: string = "20%";
+
+  switch (number) {
+    case 1:
+      percentage = "50%";
+      break;
+    case 2:
+      percentage = "33.33333333%";
+      break;
+    case 3:
+      percentage = "25%";
+      break;
+    case 4:
+      percentage = "20%";
+      break;
+    default:
+      "20%";
+      break;
+  }
+
+  return percentage;
+};
