@@ -4,13 +4,25 @@ import SwatchCard from "./swatch card/SwatchCard";
 
 interface SwatchTypes {
   swatches: SwatchObject[];
+  setCompareArray: (userUid: number[][]) => void;
+  selectSwatchToCompareRef: any;
 }
 
-const SwatchList = ({ swatches }: SwatchTypes) => {
+const SwatchList = ({
+  swatches,
+  setCompareArray,
+  selectSwatchToCompareRef,
+}: SwatchTypes) => {
   return (
     <div className='swatch_grid wrapper_inner'>
       {swatches.map((swatch) => {
-        return <SwatchCard color={swatch.color} />;
+        return (
+          <SwatchCard
+            color={swatch.color}
+            setCompareArray={setCompareArray}
+            selectSwatchToCompareRef={selectSwatchToCompareRef}
+          />
+        );
       })}
     </div>
   );

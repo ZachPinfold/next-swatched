@@ -24,16 +24,16 @@ export const setCompareWidths = (number: number) => {
   let percentage: string = "20%";
 
   switch (number) {
-    case 1:
+    case 2:
       percentage = "50%";
       break;
-    case 2:
+    case 3:
       percentage = "33.33333333%";
       break;
-    case 3:
+    case 4:
       percentage = "25%";
       break;
-    case 4:
+    case 5:
       percentage = "20%";
       break;
     default:

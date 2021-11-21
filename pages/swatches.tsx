@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import SwatchSelector from "../components/swatch selector/SwatchSelector";
@@ -12,6 +12,9 @@ interface Actions {
 }
 
 const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
+  const [compareArray, setCompareArray] = useState<number[][]>([]);
+  const selectSwatchToCompareRef = useRef<boolean>(false);
+
   useEffect(() => {
     startGetUserSwatches("");
   }, [startGetUserSwatches]);
@@ -19,8 +22,16 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   return (
     <div className='wrapper'>
       {" "}
-      <SwatchList swatches={swatches} />
-      <SwatchSelector />
+      <SwatchList
+        swatches={swatches}
+        setCompareArray={setCompareArray}
+        selectSwatchToCompareRef={selectSwatchToCompareRef}
+      />
+      <SwatchSelector
+        compareArray={compareArray}
+        setCompareArray={setCompareArray}
+        selectSwatchToCompareRef={selectSwatchToCompareRef}
+      />
     </div>
   );
 };
