@@ -1,5 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { SwatchObject } from "../../types/swatches";
+import { rgbToHex } from "../../utils/swatch";
+import SwatchAdderCard from "./swatch adder/SwatchAdderCard";
 import SwatchCard from "./swatch card/SwatchCard";
 
 interface SwatchTypes {
@@ -15,14 +17,16 @@ const SwatchList = ({
 }: SwatchTypes) => {
   return (
     <div className='swatch_grid wrapper_inner'>
-      {swatches.map((swatch) => {
-        return (
-          <SwatchCard
-            color={swatch.color}
-            setCompareArray={setCompareArray}
-            selectSwatchToCompareRef={selectSwatchToCompareRef}
-          />
-        );
+      {swatches.map((swatch, index) => {
+        if (swatch.colourId !== "none-colour") {
+          return (
+            <SwatchCard
+              color={swatch.color}
+              setCompareArray={setCompareArray}
+              selectSwatchToCompareRef={selectSwatchToCompareRef}
+            />
+          );
+        } else return <SwatchAdderCard color={swatch.color} />;
       })}
     </div>
   );

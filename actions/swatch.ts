@@ -1,12 +1,17 @@
 import app from "../firebase";
 import { SwatchObject } from "../types/swatches";
-import { SwatchActionTypes } from "../types/types";
+import { AddSwatchesActions, GetSwatchesActions } from "../types/types";
 
 export const getUserSwatches = (
   swatches: SwatchObject[]
-): SwatchActionTypes => ({
+): GetSwatchesActions => ({
   type: "GET_SWATCHES",
   payload: { swatches },
+});
+
+export const addUserSwatch = (swatch: SwatchObject): AddSwatchesActions => ({
+  type: "ADD_SWATCH",
+  payload: { swatch },
 });
 
 export const startGetUserSwatches =
@@ -24,10 +29,24 @@ export const startGetUserSwatches =
       resultArray = result.docs.map((doc: any) => doc.data());
     }
 
+    resultArray.push({
+      colourId: "none-colour",
+      color: [6, 214, 160],
+      order: resultArray.length,
+    });
+
     if (result.docs) {
       dispatch(getUserSwatches(resultArray));
     }
-    // if (result.exists) {
-    //   console.log(result);
-    // }
+  };
+
+export const addSwatchToSwatchList =
+  (userUid: string) => async (dispatch: any) => {
+    const swatchObject = {
+      colourId: "none-colour",
+      color: [6, 214, 160],
+      order: 1,
+    };
+
+    dispatch(addUserSwatch(swatchObject));
   };

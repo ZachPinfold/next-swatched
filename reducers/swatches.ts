@@ -1,4 +1,4 @@
-import { SwatchActionTypes } from "../types/types";
+import { GetSwatchesActions, AddSwatchesActions } from "../types/types";
 import { Swatches } from "../types/swatches";
 
 const inititalState: Swatches = {
@@ -8,7 +8,7 @@ const inititalState: Swatches = {
 
 const swatches = (
   state: Swatches = inititalState,
-  action: SwatchActionTypes
+  action: GetSwatchesActions
 ): Swatches => {
   const { payload, type } = action;
 

@@ -6,6 +6,7 @@ export const USER_LOADED = "USER_LOADED";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const SIGNUP_AUTH = "SIGNUP_AUTH";
 export const GET_SWATCHES = "GET_SWATCHES";
+export const ADD_SWATCH = "ADD_SWATCH";
 
 export interface LoginAction {
   type: typeof LOGIN_AUTH;
@@ -42,4 +43,11 @@ export interface GetSwatchesAction {
   payload: { swatches: SwatchObject[] };
 }
 
-export type SwatchActionTypes = GetSwatchesAction;
+export type GetSwatchesActions = GetSwatchesAction;
+
+export interface AddSwatchesAction {
+  type: typeof ADD_SWATCH;
+  payload: { swatch: SwatchObject };
+}
+
+export type AddSwatchesActions = AddSwatchesAction;
