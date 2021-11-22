@@ -40,13 +40,12 @@ export const startGetUserSwatches =
     }
   };
 
-export const addSwatchToSwatchList =
-  (userUid: string) => async (dispatch: any) => {
-    const swatchObject = {
-      colourId: "none-colour",
-      color: [6, 214, 160],
-      order: 1,
-    };
-
-    dispatch(addUserSwatch(swatchObject));
+export const startAddSwatchToSwatchList = () => async (dispatch: any) => {
+  const swatchObject = {
+    colourId: "none-colour",
+    color: [6, 214, 160],
+    order: 1,
   };
+
+  dispatch(addUserSwatch(swatchObject));
+};

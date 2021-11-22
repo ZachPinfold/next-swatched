@@ -1,6 +1,5 @@
-import React, { Fragment, useEffect } from "react";
+import React from "react";
 import { SwatchObject } from "../../types/swatches";
-import { rgbToHex } from "../../utils/swatch";
 import SwatchAdderCard from "./swatch adder/SwatchAdderCard";
 import SwatchCard from "./swatch card/SwatchCard";
 
