@@ -1,4 +1,4 @@
-import { GetSwatchesActions, AddSwatchesActions } from "../types/types";
+import { GetSwatchesActions } from "../types/types";
 import { Swatches } from "../types/swatches";
 
 const inititalState: Swatches = {
@@ -16,7 +16,13 @@ const swatches = (
     case "GET_SWATCHES":
       return {
         ...state,
-        swatches: payload.swatches,
+        swatches: payload.constructor === Array ? payload : [],
+        loading: false,
+      };
+    case "ADD_SWATCH":
+      return {
+        ...state,
+        swatches: "colourId" in payload ? [...state.swatches, payload] : [],
         loading: false,
       };
     default:

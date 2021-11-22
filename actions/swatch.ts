@@ -1,17 +1,17 @@
 import app from "../firebase";
 import { SwatchObject } from "../types/swatches";
-import { AddSwatchesActions, GetSwatchesActions } from "../types/types";
+import { GetSwatchesActions } from "../types/types";
 
 export const getUserSwatches = (
   swatches: SwatchObject[]
 ): GetSwatchesActions => ({
   type: "GET_SWATCHES",
-  payload: { swatches },
+  payload: swatches,
 });
 
-export const addUserSwatch = (swatch: SwatchObject): AddSwatchesActions => ({
+export const addUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
   type: "ADD_SWATCH",
-  payload: { swatch },
+  payload: swatch,
 });
 
 export const startGetUserSwatches =

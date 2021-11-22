@@ -40,14 +40,12 @@ export type AuthActionTypes =
 
 export interface GetSwatchesAction {
   type: typeof GET_SWATCHES;
-  payload: { swatches: SwatchObject[] };
+  payload: SwatchObject[];
 }
 
-export type GetSwatchesActions = GetSwatchesAction;
-
-export interface AddSwatchesAction {
+export interface AddSwatchesActions {
   type: typeof ADD_SWATCH;
-  payload: { swatch: SwatchObject };
+  payload: SwatchObject;
 }
 
-export type AddSwatchesActions = AddSwatchesAction;
+export type GetSwatchesActions = GetSwatchesAction | AddSwatchesActions;
