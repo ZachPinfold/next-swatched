@@ -29,7 +29,11 @@ export const startGetUserSwatches =
       let resultArray: SwatchObject[] = [];
 
       if (result.docs) {
-        resultArray = result.docs.map((doc: any) => doc.data());
+        resultArray = result.docs.map((doc: any) => {
+          const data = doc.data();
+          data.colourId = doc.id;
+          return data;
+        });
       }
 
       resultArray.push({
