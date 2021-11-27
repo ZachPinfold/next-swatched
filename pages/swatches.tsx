@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
-import SwatchSelector from "../components/swatch selector/SwatchSelector";
+import SwatchSelector from "../components/swatch compare/SwatchCompare";
 import SwatchList from "../components/swatches/SwatchList";
 import { SwatchObject } from "../types/swatches";
 
@@ -19,7 +19,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   }, [startGetUserSwatches]);
 
   return (
-    <div className='wrapper'>
+    <div className="wrapper">
       {" "}
       <SwatchList
         swatches={swatches}

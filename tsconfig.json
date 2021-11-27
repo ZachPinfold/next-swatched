@@ -16,6 +16,12 @@
     "incremental": true,
     "types": ["cypress"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "firebase/clientApp.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "firebase/clientApp.js",
+    "assets/images/Plus.js"
+  ],
   "exclude": ["node_modules"]
 }

@@ -43,3 +43,9 @@ export const setCompareWidths = (number: number) => {
 
   return percentage;
 };
+
+export function isHexColor(hex: string) {
+  return (
+    typeof hex === "string" && hex.length === 6 && !isNaN(Number("0x" + hex))
+  );
+}

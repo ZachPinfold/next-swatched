@@ -1,23 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { startAddSwatchToSwatchList } from "../../../actions/swatch";
+import Plus from "../../../assets/images/Plus";
 
+import { getContrastYIQ, isHexColor } from "../../../utils/swatch";
 interface SwatchTypes {
   color: number[];
   startAddSwatchToSwatchList: () => void;
 }
 
-const SwatchAdderCard = ({
-  color,
-  startAddSwatchToSwatchList,
-}: SwatchTypes) => {
+const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
+  const [inputValue, setInputValue] = useState<string>("");
+  const [colourLoaded, setColourLoaded] = useState<boolean>(false);
+
+  const applyHexInput = (e: string) => {
+    const str: string = e.replace("#", "");
+
+    const isHexColour: boolean = isHexColor(str);
+
+    setInputValue(str);
+    isHexColour ? setColourLoaded(true) : setColourLoaded(false);
+  };
+
   return (
     <div
-      onClick={() => startAddSwatchToSwatchList()}
+      // onClick={() => startAddSwatchToSwatchList()}
       className="swatch_adder_card swatch_card"
-      // style={{ backgroundColor: `rgb(${color}, 0.3)` }}
+      style={{
+        backgroundColor:
+          inputValue.length === 0
+            ? "rgb(6, 214, 160, 0.3)"
+            : inputValue.length === 6
+            ? `#${inputValue}`
+            : "rgb(255, 100, 89, 0.4)",
+      }}
     >
-      hd
+      <form
+        style={{ marginLeft: colourLoaded ? "-40px" : "-15px" }}
+        className={colourLoaded ? "colour_loaded" : ""}
+        action=""
+      >
+        <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>#</span>
+        <input
+          value={inputValue}
+          onChange={(e) => applyHexInput(e.target.value)}
+          type="text"
+          placeholder="# add hex"
+          style={{
+            padding:
+              inputValue.length < 1 ? "4px 6px 4px 6px" : "4px 6px 4px 15px",
+          }}
+        />
+        <div
+          style={{ opacity: colourLoaded ? "1" : "0" }}
+          className="outer_svg"
+        >
+          <Plus color={getContrastYIQ(`#${inputValue}`)} />
+        </div>
+      </form>
     </div>
   );
 };

@@ -30,7 +30,7 @@ const Login = ({ startLogin }: Actions) => {
   };
 
   return (
-    <div className='login'>
+    <div className="login">
       <form onSubmit={handleSubmit}>
         {/* <input
           onChange={onInputChange}
@@ -47,7 +47,7 @@ const Login = ({ startLogin }: Actions) => {
           placeholder='password'
           id='password'
         /> */}
-        <input type='submit' />
+        <input type="submit" />
       </form>
     </div>
   );

@@ -36,10 +36,12 @@ const SwatchSelector = ({
     }
   }, [compareArray]);
 
-  console.log(compareArray);
-
   return (
-    <div className='swatch_selector'>
+    <div
+      className={
+        "swatch_selector " + (compareArray.length > 1 && "show_selector")
+      }
+    >
       <button
         disabled={swatchNumber === 2 && true}
         onClick={() => setNumberOfSwatches(swatchNumber - 1)}
