@@ -18,6 +18,8 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
     startGetUserSwatches("");
   }, [startGetUserSwatches]);
 
+  console.log(compareArray);
+
   return (
     <div className="wrapper swatches_page">
       {" "}
@@ -26,6 +28,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
         setCompareArray={setCompareArray}
         selectSwatchToCompareRef={selectSwatchToCompareRef}
       />
+      {/* {compareArray.length > 2 && ( */}
       <div className="outer_selector">
         <SwatchSelector
           compareArray={compareArray}
@@ -33,6 +36,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           selectSwatchToCompareRef={selectSwatchToCompareRef}
         />
       </div>
+      {/* )} */}
     </div>
   );
 };

@@ -38,8 +38,6 @@ const SwatchSelector = ({
     }
   }, [compareArray]);
 
-  console.log(compareArray);
-
   return (
     <div
       className={"swatch_selector"}
