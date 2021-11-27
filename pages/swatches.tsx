@@ -15,6 +15,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   const selectSwatchToCompareRef = useRef<boolean>(false);
   const [openState, setOpenState] = useState<boolean>(false);
   const [swatchNumber, setNumberOfSwatches] = useState<number>(2);
+  const [fullScreen, setFullScreen] = useState<boolean>(false);
 
   useEffect(() => {
     startGetUserSwatches("");
@@ -32,7 +33,10 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
       />
       <div
         className="outer_selector"
-        style={{ zIndex: compareArray.length > 0 ? "1" : "-1" }}
+        style={{
+          zIndex: compareArray.length > 0 ? "1" : "-1",
+          height: fullScreen ? "100%" : "45%",
+        }}
       >
         <SwatchSelector
           compareArray={compareArray}
@@ -42,6 +46,8 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           openState={openState}
           setNumberOfSwatches={setNumberOfSwatches}
           swatchNumber={swatchNumber}
+          setFullScreen={setFullScreen}
+          fullScreen={fullScreen}
         />
       </div>
     </div>

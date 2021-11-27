@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { rgbToHex, setCompareWidths } from "../../utils/swatch";
 import Plus from "../../assets/images/Plus";
 import Minus from "../../assets/images/Minus";
+import expandImage from "../../assets/images/arrow_swatch.svg";
 
 interface Actions {
   compareArray: number[][];
@@ -12,6 +13,8 @@ interface Actions {
   openState: boolean;
   setNumberOfSwatches: (num: number) => void;
   swatchNumber: number;
+  setFullScreen: (fullScreen: boolean) => void;
+  fullScreen: boolean;
 }
 
 const SwatchSelector = ({
@@ -22,6 +25,8 @@ const SwatchSelector = ({
   setOpenState,
   swatchNumber,
   setNumberOfSwatches,
+  setFullScreen,
+  fullScreen,
 }: Actions) => {
   useEffect(() => {
     const getCompareColours = async () => {
@@ -48,6 +53,7 @@ const SwatchSelector = ({
     <div
       className={"swatch_selector"}
       style={{
+        height: fullScreen ? "100%" : "45%",
         transform:
           compareArray.length > 2 && openState
             ? " translatey(0%)"
@@ -56,10 +62,10 @@ const SwatchSelector = ({
     >
       <div className="compare_colour_area">
         <button
-          disabled={swatchNumber === 2 && true}
+          disabled={swatchNumber === 1 && true}
           onClick={() => setNumberOfSwatches(swatchNumber - 1)}
           style={{
-            opacity: swatchNumber === 2 ? "0.5" : "1",
+            opacity: swatchNumber === 1 ? "0.5" : "1",
             border: " #FF6459 solid 1px",
           }}
         >
@@ -89,6 +95,7 @@ const SwatchSelector = ({
         >
           <Plus color={"#06D6A3"} />
         </button>
+
         <button
           className="close_btn"
           onClick={() => {
@@ -100,6 +107,14 @@ const SwatchSelector = ({
           }}
         >
           <Plus color={"#ff6459"} />
+        </button>
+        <button
+          className="expand_btn"
+          onClick={() => {
+            setFullScreen(!fullScreen);
+          }}
+        >
+          <img src={expandImage.src} alt="" />
         </button>
       </div>
       <div className="progress_area">

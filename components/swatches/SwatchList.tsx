@@ -25,6 +25,7 @@ const SwatchList = ({
         if (swatch.colourId !== "none-colour") {
           return (
             <SwatchCard
+              key={index}
               color={swatch.color}
               setCompareArray={setCompareArray}
               selectSwatchToCompareRef={selectSwatchToCompareRef}
@@ -33,7 +34,8 @@ const SwatchList = ({
               openState={openState}
             />
           );
-        } else return <SwatchAdderCard color={swatch.color} />;
+        } else
+          return <SwatchAdderCard key={"add_hex_card"} color={swatch.color} />;
       })}
     </div>
   );
