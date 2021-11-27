@@ -14,8 +14,8 @@ const SwatchAdderCard = ({
   return (
     <div
       onClick={() => startAddSwatchToSwatchList()}
-      className='swatch_adder_card'
-      style={{ backgroundColor: `rgb(${color}, 0.3)` }}
+      className="swatch_adder_card swatch_card"
+      // style={{ backgroundColor: `rgb(${color}, 0.3)` }}
     >
       hd
     </div>

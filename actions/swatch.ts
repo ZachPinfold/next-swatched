@@ -16,36 +16,49 @@ export const addUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
 
 export const startGetUserSwatches =
   (userUid: string) => async (dispatch: any) => {
+    try {
+      const result = await app
+        .firestore()
+        .collection("swatches")
+        .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+        .collection("userSwatches")
+        .get();
+
+      let resultArray: SwatchObject[] = [];
+
+      if (result.docs) {
+        resultArray = result.docs.map((doc: any) => doc.data());
+      }
+
+      resultArray.push({
+        colourId: "none-colour",
+        color: [6, 214, 160],
+        order: resultArray.length,
+      });
+
+      if (result.docs) {
+        dispatch(getUserSwatches(resultArray));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const startAddSwatchToSwatchList = () => async (dispatch: any) => {
+  try {
+    const swatchObject = {
+      colourId: "none-colour",
+      color: [6, 214, 160],
+      order: 1,
+    };
     const result = await app
       .firestore()
       .collection("swatches")
       .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
       .collection("userSwatches")
-      .get();
-
-    let resultArray: SwatchObject[] = [];
-
-    if (result.docs) {
-      resultArray = result.docs.map((doc: any) => doc.data());
-    }
-
-    resultArray.push({
-      colourId: "none-colour",
-      color: [6, 214, 160],
-      order: resultArray.length,
-    });
-
-    if (result.docs) {
-      dispatch(getUserSwatches(resultArray));
-    }
-  };
-
-export const startAddSwatchToSwatchList = () => async (dispatch: any) => {
-  const swatchObject = {
-    colourId: "none-colour",
-    color: [6, 214, 160],
-    order: 1,
-  };
-
-  dispatch(addUserSwatch(swatchObject));
+      .add(swatchObject);
+    dispatch(addUserSwatch(swatchObject));
+  } catch (error) {
+    console.log(error);
+  }
 };
