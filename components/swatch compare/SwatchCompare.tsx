@@ -83,6 +83,7 @@ const SwatchSelector = ({
         >
           <Plus color={"#06D6A3"} />
         </button>
+        <button onClick={() => setCompareArray([])}>close</button>
       </div>
       <div className="progress_area">
         {compareArray.map((e, index) => (
