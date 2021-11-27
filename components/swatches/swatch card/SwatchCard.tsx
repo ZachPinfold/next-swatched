@@ -7,14 +7,35 @@ interface SwatchTypes {
   color: number[];
   setCompareArray: (userUid: number[][]) => void;
   selectSwatchToCompareRef: any;
+  setOpenState: (setOpenState: boolean) => void;
+  setNumberOfSwatches: (num: number) => void;
+  openState: boolean;
 }
 
 const SwatchCard = ({
   color,
   setCompareArray,
   selectSwatchToCompareRef,
+  setOpenState,
+  setNumberOfSwatches,
+  openState,
 }: SwatchTypes) => {
   const [copyClicked, setCopyClicked] = useState(false);
+
+  const setCompareClick = () => {
+    if (openState) {
+      setOpenState(false);
+      setTimeout(function () {
+        setOpenState(true);
+        setNumberOfSwatches(2);
+        setCompareArray([color]);
+      }, 250);
+    } else {
+      setOpenState(true);
+      setNumberOfSwatches(2);
+      setCompareArray([color]);
+    }
+  };
 
   return (
     <div
@@ -26,7 +47,7 @@ const SwatchCard = ({
       }}
     >
       <div className="half_circle_hovers">
-        <div onClick={() => setCompareArray([color])} className="half half_top">
+        <div onClick={setCompareClick} className="half half_top">
           <img src={CompareImage.src} alt="compare_image" />
           <h4>compare swatch</h4>
         </div>

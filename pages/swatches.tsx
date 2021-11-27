@@ -13,30 +13,37 @@ interface Actions {
 const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   const [compareArray, setCompareArray] = useState<number[][]>([]);
   const selectSwatchToCompareRef = useRef<boolean>(false);
+  const [openState, setOpenState] = useState<boolean>(false);
+  const [swatchNumber, setNumberOfSwatches] = useState<number>(2);
 
   useEffect(() => {
     startGetUserSwatches("");
   }, [startGetUserSwatches]);
 
-  console.log(compareArray);
-
   return (
     <div className="wrapper swatches_page">
-      {" "}
       <SwatchList
         swatches={swatches}
         setCompareArray={setCompareArray}
         selectSwatchToCompareRef={selectSwatchToCompareRef}
+        setOpenState={setOpenState}
+        setNumberOfSwatches={setNumberOfSwatches}
+        openState={openState}
       />
-      {/* {compareArray.length > 2 && ( */}
-      <div className="outer_selector">
+      <div
+        className="outer_selector"
+        style={{ zIndex: compareArray.length > 0 ? "1" : "-1" }}
+      >
         <SwatchSelector
           compareArray={compareArray}
           setCompareArray={setCompareArray}
           selectSwatchToCompareRef={selectSwatchToCompareRef}
+          setOpenState={setOpenState}
+          openState={openState}
+          setNumberOfSwatches={setNumberOfSwatches}
+          swatchNumber={swatchNumber}
         />
       </div>
-      {/* )} */}
     </div>
   );
 };

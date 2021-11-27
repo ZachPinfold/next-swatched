@@ -8,15 +8,21 @@ interface Actions {
   compareArray: number[][];
   setCompareArray: (userUid: number[][]) => void;
   selectSwatchToCompareRef: any;
+  setOpenState: (setOpenState: boolean) => void;
+  openState: boolean;
+  setNumberOfSwatches: (num: number) => void;
+  swatchNumber: number;
 }
 
 const SwatchSelector = ({
   compareArray,
   setCompareArray,
   selectSwatchToCompareRef,
+  openState,
+  setOpenState,
+  swatchNumber,
+  setNumberOfSwatches,
 }: Actions) => {
-  const [swatchNumber, setNumberOfSwatches] = useState<number>(2);
-
   useEffect(() => {
     const getCompareColours = async () => {
       try {
@@ -43,7 +49,9 @@ const SwatchSelector = ({
       className={"swatch_selector"}
       style={{
         transform:
-          compareArray.length > 2 ? " translatey(0%)" : "translatey(100%)",
+          compareArray.length > 2 && openState
+            ? " translatey(0%)"
+            : "translatey(100%)",
       }}
     >
       <div className="compare_colour_area">
@@ -81,7 +89,18 @@ const SwatchSelector = ({
         >
           <Plus color={"#06D6A3"} />
         </button>
-        <button onClick={() => setCompareArray([])}>close</button>
+        <button
+          className="close_btn"
+          onClick={() => {
+            setOpenState(false);
+            setTimeout(function () {
+              setCompareArray([]);
+              setNumberOfSwatches(2);
+            }, 200);
+          }}
+        >
+          <Plus color={"#ff6459"} />
+        </button>
       </div>
       <div className="progress_area">
         {compareArray.map((e, index) => (

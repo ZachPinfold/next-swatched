@@ -7,15 +7,20 @@ interface SwatchTypes {
   swatches: SwatchObject[];
   setCompareArray: (userUid: number[][]) => void;
   selectSwatchToCompareRef: any;
+  setOpenState: (setOpenState: boolean) => void;
+  openState: boolean;
+  setNumberOfSwatches: (num: number) => void;
 }
-
 const SwatchList = ({
   swatches,
   setCompareArray,
   selectSwatchToCompareRef,
+  openState,
+  setOpenState,
+  setNumberOfSwatches,
 }: SwatchTypes) => {
   return (
-    <div className='swatch_grid wrapper_inner'>
+    <div className="swatch_grid wrapper_inner">
       {swatches.map((swatch, index) => {
         if (swatch.colourId !== "none-colour") {
           return (
@@ -23,6 +28,9 @@ const SwatchList = ({
               color={swatch.color}
               setCompareArray={setCompareArray}
               selectSwatchToCompareRef={selectSwatchToCompareRef}
+              setOpenState={setOpenState}
+              setNumberOfSwatches={setNumberOfSwatches}
+              openState={openState}
             />
           );
         } else return <SwatchAdderCard color={swatch.color} />;
