@@ -50,6 +50,7 @@ $colour-orange: #ff6459;
 }
 
 @import "./Home.scss";
+@import "./Swatches.scss";
 @import "../components/swatch picker/SwatchPicker.scss";
 @import "../components/swatch picker/lock/lock.scss";
 @import "../components/swatches/SwatchList.scss";

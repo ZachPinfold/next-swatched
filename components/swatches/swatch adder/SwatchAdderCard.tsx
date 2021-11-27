@@ -58,7 +58,7 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
         <div
           style={{ opacity: colourLoaded ? "1" : "0" }}
           className="outer_svg"
-          onSubmit={(e) => handleHexAdd(e)}
+          onClick={(e) => handleHexAdd(e)}
         >
           <Plus color={getContrastYIQ(`#${inputValue}`)} />
         </div>

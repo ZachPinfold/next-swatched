@@ -19,18 +19,20 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   }, [startGetUserSwatches]);
 
   return (
-    <div className="wrapper">
+    <div className="wrapper swatches_page">
       {" "}
       <SwatchList
         swatches={swatches}
         setCompareArray={setCompareArray}
         selectSwatchToCompareRef={selectSwatchToCompareRef}
       />
-      <SwatchSelector
-        compareArray={compareArray}
-        setCompareArray={setCompareArray}
-        selectSwatchToCompareRef={selectSwatchToCompareRef}
-      />
+      <div className="outer_selector">
+        <SwatchSelector
+          compareArray={compareArray}
+          setCompareArray={setCompareArray}
+          selectSwatchToCompareRef={selectSwatchToCompareRef}
+        />
+      </div>
     </div>
   );
 };

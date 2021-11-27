@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { rgbToHex, setCompareWidths } from "../../utils/swatch";
+import Plus from "../../assets/images/Plus";
+import Minus from "../../assets/images/Minus";
 
 interface Actions {
   compareArray: number[][];
@@ -36,38 +38,65 @@ const SwatchSelector = ({
     }
   }, [compareArray]);
 
+  console.log(compareArray);
+
   return (
     <div
-      className={
-        "swatch_selector " + (compareArray.length > 1 && "show_selector")
-      }
+      className={"swatch_selector"}
+      style={{
+        transform:
+          compareArray.length > 2 ? " translatey(0%)" : "translatey(100%)",
+      }}
     >
-      <button
-        disabled={swatchNumber === 2 && true}
-        onClick={() => setNumberOfSwatches(swatchNumber - 1)}
-      >
-        remove
-      </button>
-
-      {compareArray.length > 0 &&
-        compareArray.map((compareSwatch, index) => {
-          return (
-            <div
-              style={{
-                backgroundColor: rgbToHex(compareSwatch),
-                width:
-                  index < swatchNumber ? setCompareWidths(swatchNumber) : "0",
-              }}
-              key={index}
-            ></div>
-          );
-        })}
-      <button
-        disabled={swatchNumber === 5 && true}
-        onClick={() => setNumberOfSwatches(swatchNumber + 1)}
-      >
-        add
-      </button>
+      <div className="compare_colour_area">
+        <button
+          disabled={swatchNumber === 2 && true}
+          onClick={() => setNumberOfSwatches(swatchNumber - 1)}
+          style={{
+            opacity: swatchNumber === 2 ? "0.5" : "1",
+            border: " #FF6459 solid 1px",
+          }}
+        >
+          <Minus color={"#FF6459"} />
+        </button>
+        {compareArray.length > 0 &&
+          compareArray.map((compareSwatch, index) => {
+            return (
+              <div
+                style={{
+                  backgroundColor: rgbToHex(compareSwatch),
+                  width:
+                    index < swatchNumber ? setCompareWidths(swatchNumber) : "0",
+                }}
+                className="inner_compare_card"
+                key={index}
+              ></div>
+            );
+          })}
+        <button
+          disabled={swatchNumber === 5 && true}
+          onClick={() => setNumberOfSwatches(swatchNumber + 1)}
+          style={{
+            opacity: swatchNumber === 5 ? "0.5" : "1",
+            border: " #06d6a3 solid 1px",
+          }}
+        >
+          <Plus color={"#06D6A3"} />
+        </button>
+      </div>
+      <div className="progress_area">
+        {compareArray.map((e, index) => (
+          <div
+            style={{
+              backgroundColor:
+                index < swatchNumber ? `rgb(${compareArray[0]})` : "white",
+              border: `rgb(${compareArray[0]}) solid 1px`,
+            }}
+            key={index}
+            className="progress_circle"
+          ></div>
+        ))}
+      </div>
     </div>
   );
 };
