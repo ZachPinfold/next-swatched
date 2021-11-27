@@ -1,4 +1,4 @@
-import { SwatchObject } from "./swatches";
+import { AddSwatchObject, SwatchObject } from "./swatches";
 
 export const LOGIN_AUTH = "LOGIN_AUTH";
 export const LOGOUT_AUTH = "LOGOUT_AUTH";
@@ -45,7 +45,7 @@ export interface GetSwatchesAction {
 
 export interface AddSwatchesActions {
   type: typeof ADD_SWATCH;
-  payload: SwatchObject;
+  payload: AddSwatchObject;
 }
 
 export type GetSwatchesActions = GetSwatchesAction | AddSwatchesActions;

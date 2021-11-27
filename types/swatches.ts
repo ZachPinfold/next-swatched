@@ -1,7 +1,12 @@
 export type SwatchObject = {
   color: number[];
   colourId: string;
-  order: number;
+  timeAdded: Date;
+};
+
+export type AddSwatchObject = {
+  color: number[];
+  timeAdded: Date;
 };
 
 export interface Swatches {

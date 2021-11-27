@@ -57,5 +57,5 @@ export const hexToRgb = (hex: string) => {
   const shorthand = hex.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i);
   if (shorthand) return shorthand.slice(1).map((e) => 0x11 * parseInt(e, 16));
 
-  return null;
+  return [0, 0, 0];
 };

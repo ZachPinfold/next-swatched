@@ -1,5 +1,5 @@
 import app from "../firebase";
-import { SwatchObject } from "../types/swatches";
+import { AddSwatchObject, SwatchObject } from "../types/swatches";
 import { GetSwatchesActions } from "../types/types";
 import { hexToRgb } from "../utils/swatch";
 
@@ -10,7 +10,7 @@ export const getUserSwatches = (
   payload: swatches,
 });
 
-export const addUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
+export const addUserSwatch = (swatch: AddSwatchObject): GetSwatchesActions => ({
   type: "ADD_SWATCH",
   payload: swatch,
 });
@@ -34,7 +34,7 @@ export const startGetUserSwatches =
       resultArray.push({
         colourId: "none-colour",
         color: [6, 214, 160],
-        order: resultArray.length,
+        timeAdded: new Date(),
       });
 
       if (result.docs) {
@@ -48,21 +48,19 @@ export const startGetUserSwatches =
 export const startAddSwatchToSwatchList =
   (hex: string) => async (dispatch: any) => {
     try {
-      const rgbColour = hexToRgb(hex);
-      console.log(rgbColour);
+      const rgbColour: number[] = hexToRgb(hex);
 
-      // const swatchObject = {
-      //   colourId: "none-colour",
-      //   color: [6, 214, 160],
-      //   order: 1,
-      // };
-      // const result = await app
-      //   .firestore()
-      //   .collection("swatches")
-      //   .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
-      //   .collection("userSwatches")
-      //   .add(swatchObject);
-      // dispatch(addUserSwatch(swatchObject));
+      const swatchObject = {
+        timeAdded: new Date(),
+        color: rgbColour,
+      };
+      const result = await app
+        .firestore()
+        .collection("swatches")
+        .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+        .collection("userSwatches")
+        .add(swatchObject);
+      dispatch(addUserSwatch(swatchObject));
     } catch (error) {
       console.log(error);
     }
