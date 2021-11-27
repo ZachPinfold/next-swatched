@@ -6,7 +6,7 @@ import Plus from "../../../assets/images/Plus";
 import { getContrastYIQ, isHexColor } from "../../../utils/swatch";
 interface SwatchTypes {
   color: number[];
-  startAddSwatchToSwatchList: () => void;
+  startAddSwatchToSwatchList: (hex: string) => void;
 }
 
 const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
@@ -22,9 +22,13 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
     isHexColour ? setColourLoaded(true) : setColourLoaded(false);
   };
 
+  const handleHexAdd = (e: any) => {
+    e.preventDefault();
+    if (colourLoaded) startAddSwatchToSwatchList(`#${inputValue}`);
+  };
+
   return (
     <div
-      // onClick={() => startAddSwatchToSwatchList()}
       className="swatch_adder_card swatch_card"
       style={{
         backgroundColor:
@@ -38,7 +42,7 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
       <form
         style={{ marginLeft: colourLoaded ? "-40px" : "-15px" }}
         className={colourLoaded ? "colour_loaded" : ""}
-        action=""
+        onSubmit={(e) => handleHexAdd(e)}
       >
         <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>#</span>
         <input
@@ -54,6 +58,7 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
         <div
           style={{ opacity: colourLoaded ? "1" : "0" }}
           className="outer_svg"
+          onSubmit={(e) => handleHexAdd(e)}
         >
           <Plus color={getContrastYIQ(`#${inputValue}`)} />
         </div>

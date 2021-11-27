@@ -1,6 +1,7 @@
 import app from "../firebase";
 import { SwatchObject } from "../types/swatches";
 import { GetSwatchesActions } from "../types/types";
+import { hexToRgb } from "../utils/swatch";
 
 export const getUserSwatches = (
   swatches: SwatchObject[]
@@ -44,21 +45,25 @@ export const startGetUserSwatches =
     }
   };
 
-export const startAddSwatchToSwatchList = () => async (dispatch: any) => {
-  try {
-    const swatchObject = {
-      colourId: "none-colour",
-      color: [6, 214, 160],
-      order: 1,
-    };
-    const result = await app
-      .firestore()
-      .collection("swatches")
-      .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
-      .collection("userSwatches")
-      .add(swatchObject);
-    dispatch(addUserSwatch(swatchObject));
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const startAddSwatchToSwatchList =
+  (hex: string) => async (dispatch: any) => {
+    try {
+      const rgbColour = hexToRgb(hex);
+      console.log(rgbColour);
+
+      // const swatchObject = {
+      //   colourId: "none-colour",
+      //   color: [6, 214, 160],
+      //   order: 1,
+      // };
+      // const result = await app
+      //   .firestore()
+      //   .collection("swatches")
+      //   .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+      //   .collection("userSwatches")
+      //   .add(swatchObject);
+      // dispatch(addUserSwatch(swatchObject));
+    } catch (error) {
+      console.log(error);
+    }
+  };
