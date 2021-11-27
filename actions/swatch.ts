@@ -1,7 +1,8 @@
 import app from "../firebase";
-import { AddSwatchObject, SwatchObject } from "../types/swatches";
+import { SwatchObject } from "../types/swatches";
 import { GetSwatchesActions } from "../types/types";
 import { hexToRgb } from "../utils/swatch";
+const { v4 } = require("uuid");
 
 export const getUserSwatches = (
   swatches: SwatchObject[]
@@ -10,7 +11,7 @@ export const getUserSwatches = (
   payload: swatches,
 });
 
-export const addUserSwatch = (swatch: AddSwatchObject): GetSwatchesActions => ({
+export const addUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
   type: "ADD_SWATCH",
   payload: swatch,
 });
@@ -54,13 +55,22 @@ export const startAddSwatchToSwatchList =
         timeAdded: new Date(),
         color: rgbColour,
       };
-      const result = await app
+
+      app
         .firestore()
         .collection("swatches")
         .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
         .collection("userSwatches")
-        .add(swatchObject);
-      dispatch(addUserSwatch(swatchObject));
+        .doc(v4())
+        .set(swatchObject);
+
+      const swatchForreducer = {
+        timeAdded: new Date(),
+        color: rgbColour,
+        colourId: "",
+      };
+
+      dispatch(addUserSwatch(swatchForreducer));
     } catch (error) {
       console.log(error);
     }

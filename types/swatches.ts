@@ -4,11 +4,6 @@ export type SwatchObject = {
   timeAdded: Date;
 };
 
-export type AddSwatchObject = {
-  color: number[];
-  timeAdded: Date;
-};
-
 export interface Swatches {
   swatches: SwatchObject[];
   loading: Boolean;
