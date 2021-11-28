@@ -8,6 +8,7 @@ import ModalWrapper from "../components/auth/Modal/ModalWrapper";
 import SwatchPicker from "../components/swatch picker/SwatchPicker";
 import axios from "axios";
 import TitleArea from "../components/swatch picker/left title area/TitleArea";
+import RefreshButton from "../components/swatch picker/button/RefreshButton";
 
 interface InitialSwatch {
   swatches: any[];
@@ -59,9 +60,17 @@ export default function Home({ swatches }: InitialSwatch) {
   };
 
   return (
-    <div className='wrapper'>
-      <div className='wrapper_inner home_column'>
-        <TitleArea
+    <div className="wrapper">
+      <div className="wrapper_inner home_column">
+        <TitleArea />
+
+        <SwatchPicker
+          swatches={swatchesUi}
+          setLockedSwatches={setLockedSwatches}
+          lockedSwatches={lockedSwatches}
+        />
+
+        <RefreshButton
           refreshClick={refreshClick}
           setRefreshClick={setRefreshClick}
           refreshClickRotation={refreshClickRotation}
@@ -69,11 +78,6 @@ export default function Home({ swatches }: InitialSwatch) {
           handleRefresh={handleRefresh}
         />
 
-        <SwatchPicker
-          swatches={swatchesUi}
-          setLockedSwatches={setLockedSwatches}
-          lockedSwatches={lockedSwatches}
-        />
         {/* <h1>Get started by editing</h1> */}
         {/* <Signup /> */}
         {/* {modal && <ModalWrapper Component={<Login />} showModal={showModal} />} */}

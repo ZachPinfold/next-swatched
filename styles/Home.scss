@@ -1,48 +1,48 @@
-.left_text_area {
-    width: 200px;
-    height: 100px;
-    margin-right: 80px;
+.left_text_area,
+.button_area {
+  margin-bottom: 10px;
+  h1 {
+    font-family: LilyScript;
+    font-size: 50px;
+    color: #06d6a0;
+  }
 
-    h1 {
-        font-family: LilyScript;
-        font-size: 50px;
-        color: #06d6a0;
-    }
+  p {
+    font-family: HelveticaM;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
 
-    p {
-        font-family: HelveticaM;
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
+  button {
+    padding: 5px 60px;
+    font-family: CreteRound;
+    cursor: pointer;
+    font-size: 22px;
+    margin-right: 10px;
+    transition: all 0.4s ease;
+    border: none;
+    background-color: $colour-orange;
+    border-radius: 3px;
+    // margin-top: 75px;
+  }
 
-    button {
-        padding: 5px 60px;
-        font-family: CreteRound;
-        cursor: pointer;
-        font-size: 22px;
-        margin-right: 10px;
-        transition: all 0.4s ease;
-        border: none;
-        background-color: $colour-orange;
-        border-radius: 3px;
-    }
+  button:hover {
+    background-color: $colour-green;
+  }
 
-    button:hover {
-        background-color: $colour-green;
-    }
+  img {
+    height: 25px;
+    opacity: 50%;
+  }
+}
 
-    .button_area {
-        display: flex;
-        align-items: center;
-
-        img {
-            height: 25px;
-            opacity: 50%;
-        }
-    }
+.button_area {
+  display: flex;
+  align-items: center;
+  margin-top: 75px;
 }
 
 .home_column {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: column;
 }

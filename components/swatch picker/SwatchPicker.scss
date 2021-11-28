@@ -1,45 +1,41 @@
 .title {
-    color: blue;
-    font-size: 200px;
+  color: blue;
+  font-size: 200px;
 }
 
 .outer_swatch {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .swatch_area {
-    width: 650px;
-    display: flex;
-    transition: width 0.4s ease-out;
+  display: flex;
+  transition: width 0.4s ease-out;
 
-
-    .inner_swatch,
-    .swatch_card {
-        height: 300px;
-        transition: width 0.3s ease-out;
-        cursor: pointer;
-        position: relative;
-
-    }
+  .inner_swatch,
+  .swatch_card {
+    height: 300px;
+    transition: width 0.3s ease-out;
+    cursor: pointer;
+    position: relative;
+  }
 }
 
 .refresh_icon {
-    width: 40px;
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-    left: 10px;
-    bottom: 20px;
+  width: 40px;
+  transition: all 0.4s ease-in-out;
+  cursor: pointer;
+  left: 10px;
+  bottom: 20px;
 }
 
-
 .colour_text_area {
-    position: absolute;
-    bottom: -65px;
+  position: absolute;
+  bottom: -65px;
 
-    p {
-        font-family: HelveticaL;
-        font-size: 12px;
-    }
+  p {
+    font-family: HelveticaL;
+    font-size: 12px;
+  }
 }
