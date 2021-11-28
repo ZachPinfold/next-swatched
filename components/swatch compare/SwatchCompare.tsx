@@ -15,6 +15,8 @@ interface Actions {
   swatchNumber: number;
   setFullScreen: (fullScreen: boolean) => void;
   fullScreen: boolean;
+  swatchToCompare: number[];
+  setSwatchToCompare: (color: number[]) => void;
 }
 
 const SwatchSelector = ({
@@ -27,13 +29,17 @@ const SwatchSelector = ({
   setNumberOfSwatches,
   setFullScreen,
   fullScreen,
+  swatchToCompare,
+  setSwatchToCompare,
 }: Actions) => {
   useEffect(() => {
     const getCompareColours = async () => {
+      console.log("fire");
+
       try {
         const data = {
           model: "default",
-          input: [compareArray[0], "N", "N", "N", "N"],
+          input: [swatchToCompare, "N", "N", "N", "N"],
         };
 
         const apiResponse = await axios.post("/api/colorMind", data);
@@ -44,16 +50,20 @@ const SwatchSelector = ({
       }
       selectSwatchToCompareRef.current = false;
     };
-    if (selectSwatchToCompareRef.current === true && compareArray.length > 0) {
+
+    if (
+      selectSwatchToCompareRef.current === true &&
+      swatchToCompare.length > 0
+    ) {
       getCompareColours();
     }
-  }, [compareArray]);
+  }, [swatchToCompare]);
 
   return (
     <div
       className={"swatch_selector"}
       style={{
-        height: fullScreen ? "100%" : "45%",
+        height: fullScreen ? "100%" : "35%",
         transform:
           compareArray.length > 2 && openState
             ? " translatey(0%)"
@@ -66,8 +76,8 @@ const SwatchSelector = ({
           onClick={() => setNumberOfSwatches(swatchNumber - 1)}
           style={{
             opacity: swatchNumber === 1 ? "0.5" : "1",
-            border: " #FF6459 solid 1px",
           }}
+          className="plusMinus"
         >
           <Minus color={"#FF6459"} />
         </button>
@@ -87,8 +97,8 @@ const SwatchSelector = ({
           onClick={() => setNumberOfSwatches(swatchNumber + 1)}
           style={{
             opacity: swatchNumber === 5 ? "0.5" : "1",
-            border: " #06d6a3 solid 1px",
           }}
+          className="plusMinus"
         >
           <Plus color={"#06D6A3"} />
         </button>
@@ -98,8 +108,10 @@ const SwatchSelector = ({
           onClick={() => {
             setOpenState(false);
             setTimeout(function () {
-              setCompareArray([]);
               setNumberOfSwatches(2);
+              setCompareArray([]);
+              setSwatchToCompare([]);
+              setFullScreen(false);
             }, 200);
           }}
         >

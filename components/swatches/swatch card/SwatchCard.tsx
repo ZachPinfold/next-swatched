@@ -15,6 +15,7 @@ interface SwatchTypes {
   openState: boolean;
   swatch: SwatchObject;
   startDeleteSwatchFromSwatchList: (hex: SwatchObject) => void;
+  setSwatchToCompare: (num: number[]) => void;
 }
 
 const SwatchCard = ({
@@ -26,21 +27,21 @@ const SwatchCard = ({
   openState,
   swatch,
   startDeleteSwatchFromSwatchList,
+  setSwatchToCompare,
 }: SwatchTypes) => {
   const [copyClicked, setCopyClicked] = useState<boolean>(false);
 
   const setCompareClick = () => {
     if (openState) {
-      setOpenState(false);
-      setTimeout(function () {
-        setOpenState(true);
-        setNumberOfSwatches(2);
-        setCompareArray([color]);
-      }, 250);
+      // This booleon exists so the compare section stays in the same place, and only the colours change
+      setOpenState(true);
+      setSwatchToCompare(color);
     } else {
+      // Here we need to clear out the array to ensure the compare array only appears when the colours have been filled
+      setCompareArray([]);
+      setSwatchToCompare(color);
       setOpenState(true);
       setNumberOfSwatches(2);
-      setCompareArray([color]);
     }
   };
 

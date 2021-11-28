@@ -58,6 +58,8 @@ export const startGetUserSwatches =
 export const startAddSwatchToSwatchList =
   (hex: string) => async (dispatch: any) => {
     try {
+      const uniqueId: string = v4();
+
       const rgbColour: number[] = hexToRgb(hex);
 
       const swatchObject = {
@@ -70,13 +72,13 @@ export const startAddSwatchToSwatchList =
         .collection("swatches")
         .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
         .collection("userSwatches")
-        .doc(v4())
+        .doc(uniqueId)
         .set(swatchObject);
 
       const swatchForreducer = {
         timeAdded: new Date(),
         color: rgbColour,
-        colourId: "",
+        colourId: uniqueId,
       };
 
       dispatch(addUserSwatch(swatchForreducer));

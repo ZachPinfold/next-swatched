@@ -10,6 +10,7 @@ interface SwatchTypes {
   setOpenState: (setOpenState: boolean) => void;
   openState: boolean;
   setNumberOfSwatches: (num: number) => void;
+  setSwatchToCompare: (num: number[]) => void;
 }
 const SwatchList = ({
   swatches,
@@ -18,6 +19,7 @@ const SwatchList = ({
   openState,
   setOpenState,
   setNumberOfSwatches,
+  setSwatchToCompare,
 }: SwatchTypes) => {
   return (
     <div className="swatch_grid wrapper_inner">
@@ -33,6 +35,7 @@ const SwatchList = ({
               setNumberOfSwatches={setNumberOfSwatches}
               openState={openState}
               swatch={swatch}
+              setSwatchToCompare={setSwatchToCompare}
             />
           );
         } else
