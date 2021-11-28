@@ -34,7 +34,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
         setSwatchToCompare={setSwatchToCompare}
       />
       <div
-        className="outer_selector"
+        className="outer_selector "
         style={{
           zIndex: compareArray.length > 0 ? "1" : "-1",
           height: fullScreen ? "100%" : "35%",
