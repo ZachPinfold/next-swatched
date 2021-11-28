@@ -20,7 +20,7 @@ const SwatchCard = ({
   setNumberOfSwatches,
   openState,
 }: SwatchTypes) => {
-  const [copyClicked, setCopyClicked] = useState(false);
+  const [copyClicked, setCopyClicked] = useState<boolean>(false);
 
   const setCompareClick = () => {
     if (openState) {

@@ -33,13 +33,14 @@
   img {
     height: 25px;
     opacity: 50%;
+    cursor: inherit;
   }
 }
 
 .button_area {
   display: flex;
   align-items: center;
-  margin-top: 75px;
+  margin-bottom: 25px;
 }
 
 .home_column {

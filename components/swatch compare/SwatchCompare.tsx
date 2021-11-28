@@ -1,9 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { rgbToHex, setCompareWidths } from "../../utils/swatch";
+import React, { useEffect } from "react";
 import Plus from "../../assets/images/Plus";
 import Minus from "../../assets/images/Minus";
 import expandImage from "../../assets/images/arrow_swatch.svg";
+import CompareCard from "./CompareCard";
 
 interface Actions {
   compareArray: number[][];
@@ -74,15 +74,11 @@ const SwatchSelector = ({
         {compareArray.length > 0 &&
           compareArray.map((compareSwatch, index) => {
             return (
-              <div
-                style={{
-                  backgroundColor: rgbToHex(compareSwatch),
-                  width:
-                    index < swatchNumber ? setCompareWidths(swatchNumber) : "0",
-                }}
-                className="inner_compare_card"
-                key={index}
-              ></div>
+              <CompareCard
+                compareSwatch={compareSwatch}
+                index={index}
+                swatchNumber={swatchNumber}
+              />
             );
           })}
         <button

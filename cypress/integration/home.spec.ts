@@ -17,3 +17,23 @@ context("Home Page", () => {
 });
 
 export {};
+
+// Tests to run
+
+// Home
+
+// Copy to Clip
+// Save button to swatches (logged in)
+// Lock swatch
+// Lock and refresh
+// Sign up
+// Login
+
+// Swatches
+
+// View swatches
+// Add swatch
+// Compare swatch
+// Add & remove colours in comparer
+//
+//

@@ -64,18 +64,17 @@ export default function Home({ swatches }: InitialSwatch) {
       <div className="wrapper_inner home_column">
         <TitleArea />
 
-        <SwatchPicker
-          swatches={swatchesUi}
-          setLockedSwatches={setLockedSwatches}
-          lockedSwatches={lockedSwatches}
-        />
-
         <RefreshButton
           refreshClick={refreshClick}
           setRefreshClick={setRefreshClick}
           refreshClickRotation={refreshClickRotation}
           setRefreshClickRotation={setRefreshClickRotation}
           handleRefresh={handleRefresh}
+        />
+        <SwatchPicker
+          swatches={swatchesUi}
+          setLockedSwatches={setLockedSwatches}
+          lockedSwatches={lockedSwatches}
         />
 
         {/* <h1>Get started by editing</h1> */}
