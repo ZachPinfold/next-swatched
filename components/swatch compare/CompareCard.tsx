@@ -2,20 +2,33 @@ import React, { useState } from "react";
 import { rgbToHex, setCompareWidths } from "../../utils/swatch";
 import SaveImage from "../../assets/images/save_swatch.svg";
 import CopyImage from "../../assets/images/copy_swatch.svg";
+import { connect } from "react-redux";
+import { startAddSwatchToSwatchList } from "../../actions/swatch";
 
 interface Actions {
   compareSwatch: number[];
   swatchNumber: number;
   index: number;
+  startAddSwatchToSwatchList: (hex: string) => any;
 }
 
-const CompareCard = ({ compareSwatch, index, swatchNumber }: Actions) => {
+const CompareCard = ({
+  compareSwatch,
+  index,
+  swatchNumber,
+  startAddSwatchToSwatchList,
+}: Actions) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
   const copyToClip = () => {
     navigator.clipboard.writeText(rgbToHex(compareSwatch));
     setClicked(true);
   };
+
+  const addToSwatch = () => {
+    startAddSwatchToSwatchList(rgbToHex(compareSwatch));
+  };
+
   const arr = [
     {
       type: "copy",
@@ -29,7 +42,7 @@ const CompareCard = ({ compareSwatch, index, swatchNumber }: Actions) => {
       image: SaveImage,
       message: "save to swatch",
       clickedMessage: "colour saved!",
-      func: copyToClip,
+      func: addToSwatch,
     },
   ];
   return (
@@ -66,4 +79,4 @@ const CompareCard = ({ compareSwatch, index, swatchNumber }: Actions) => {
   );
 };
 
-export default CompareCard;
+export default connect(null, { startAddSwatchToSwatchList })(CompareCard);
