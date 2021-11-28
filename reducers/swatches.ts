@@ -31,6 +31,15 @@ const swatches = (
             : [],
         loading: false,
       };
+    case "DELETE_SWATCH":
+      return {
+        ...state,
+        swatches:
+          "colourId" in payload
+            ? state.swatches.filter((e) => e.colourId !== payload.colourId)
+            : [],
+        loading: false,
+      };
     default:
       return state;
   }

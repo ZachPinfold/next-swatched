@@ -32,6 +32,7 @@ const SwatchList = ({
               setOpenState={setOpenState}
               setNumberOfSwatches={setNumberOfSwatches}
               openState={openState}
+              swatch={swatch}
             />
           );
         } else

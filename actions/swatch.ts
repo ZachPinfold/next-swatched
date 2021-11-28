@@ -16,6 +16,11 @@ export const addUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
   payload: swatch,
 });
 
+export const deleteUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
+  type: "DELETE_SWATCH",
+  payload: swatch,
+});
+
 export const startGetUserSwatches =
   (userUid: string) => async (dispatch: any) => {
     try {
@@ -75,6 +80,23 @@ export const startAddSwatchToSwatchList =
       };
 
       dispatch(addUserSwatch(swatchForreducer));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const startDeleteSwatchFromSwatchList =
+  (swatch: SwatchObject) => async (dispatch: any) => {
+    try {
+      app
+        .firestore()
+        .collection("swatches")
+        .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+        .collection("userSwatches")
+        .doc(swatch.colourId)
+        .delete();
+
+      dispatch(deleteUserSwatch(swatch));
     } catch (error) {
       console.log(error);
     }

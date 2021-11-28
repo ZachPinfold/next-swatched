@@ -78,6 +78,7 @@ const SwatchSelector = ({
                 compareSwatch={compareSwatch}
                 index={index}
                 swatchNumber={swatchNumber}
+                key={index}
               />
             );
           })}

@@ -7,6 +7,7 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const SIGNUP_AUTH = "SIGNUP_AUTH";
 export const GET_SWATCHES = "GET_SWATCHES";
 export const ADD_SWATCH = "ADD_SWATCH";
+export const DELETE_SWATCH = "DELETE_SWATCH";
 
 export interface LoginAction {
   type: typeof LOGIN_AUTH;
@@ -48,4 +49,12 @@ export interface AddSwatchesActions {
   payload: SwatchObject;
 }
 
-export type GetSwatchesActions = GetSwatchesAction | AddSwatchesActions;
+export interface DeleteSwatchesActions {
+  type: typeof DELETE_SWATCH;
+  payload: SwatchObject;
+}
+
+export type GetSwatchesActions =
+  | GetSwatchesAction
+  | AddSwatchesActions
+  | DeleteSwatchesActions;

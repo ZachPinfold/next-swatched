@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { rgbToHex } from "../../../utils/swatch";
 import CompareImage from "../../../assets/images/compare_swatch.svg";
 import CopyImage from "../../../assets/images/copy_swatch.svg";
+import { connect } from "react-redux";
+import { startDeleteSwatchFromSwatchList } from "../../../actions/swatch";
+import { SwatchObject } from "../../../types/swatches";
 
 interface SwatchTypes {
   color: number[];
@@ -10,6 +13,8 @@ interface SwatchTypes {
   setOpenState: (setOpenState: boolean) => void;
   setNumberOfSwatches: (num: number) => void;
   openState: boolean;
+  swatch: SwatchObject;
+  startDeleteSwatchFromSwatchList: (hex: SwatchObject) => void;
 }
 
 const SwatchCard = ({
@@ -19,6 +24,8 @@ const SwatchCard = ({
   setOpenState,
   setNumberOfSwatches,
   openState,
+  swatch,
+  startDeleteSwatchFromSwatchList,
 }: SwatchTypes) => {
   const [copyClicked, setCopyClicked] = useState<boolean>(false);
 
@@ -67,8 +74,11 @@ const SwatchCard = ({
           {!copyClicked ? <h4>copy hex</h4> : <h4>copied!</h4>}
         </div>
       </div>
+      <button onClick={() => startDeleteSwatchFromSwatchList(swatch)}>
+        delete
+      </button>
     </div>
   );
 };
 
-export default SwatchCard;
+export default connect(null, { startDeleteSwatchFromSwatchList })(SwatchCard);
