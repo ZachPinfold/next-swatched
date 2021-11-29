@@ -122,4 +122,17 @@
   .expand_btn:hover {
     opacity: 1;
   }
+
+  .inner_compare {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    @media only screen and (max-width: 525px) {
+      flex-direction: column;
+      .inner_compare_card {
+        width: 100% !important;
+        height: 50% !important;
+      }
+    }
+  }
 }

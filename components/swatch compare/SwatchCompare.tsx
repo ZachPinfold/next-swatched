@@ -81,17 +81,19 @@ const SwatchSelector = ({
         >
           <Minus color={"#FF6459"} />
         </button>
-        {compareArray.length > 0 &&
-          compareArray.map((compareSwatch, index) => {
-            return (
-              <CompareCard
-                compareSwatch={compareSwatch}
-                index={index}
-                swatchNumber={swatchNumber}
-                key={index}
-              />
-            );
-          })}
+        <div className="inner_compare">
+          {compareArray.length > 0 &&
+            compareArray.map((compareSwatch, index) => {
+              return (
+                <CompareCard
+                  compareSwatch={compareSwatch}
+                  index={index}
+                  swatchNumber={swatchNumber}
+                  key={index}
+                />
+              );
+            })}
+        </div>
         <button
           disabled={swatchNumber === 5 && true}
           onClick={() => setNumberOfSwatches(swatchNumber + 1)}
