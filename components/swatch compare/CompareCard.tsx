@@ -9,6 +9,7 @@ interface Actions {
   compareSwatch: number[];
   swatchNumber: number;
   index: number;
+  largeWindowSize: Boolean | null;
   startAddSwatchToSwatchList: (hex: string) => any;
 }
 
@@ -17,6 +18,7 @@ const CompareCard = ({
   index,
   swatchNumber,
   startAddSwatchToSwatchList,
+  largeWindowSize,
 }: Actions) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -49,7 +51,16 @@ const CompareCard = ({
     <div
       style={{
         backgroundColor: rgbToHex(compareSwatch),
-        width: index < swatchNumber ? setCompareWidths(swatchNumber) : "0",
+        width: largeWindowSize
+          ? index < swatchNumber
+            ? setCompareWidths(swatchNumber)
+            : "0"
+          : "100%",
+        height: !largeWindowSize
+          ? index < swatchNumber
+            ? setCompareWidths(swatchNumber)
+            : "0"
+          : "100%",
       }}
       className="inner_compare_card"
       key={index}
@@ -59,7 +70,7 @@ const CompareCard = ({
         return (
           <div
             style={{
-              height: `${100 / arr.length}%`,
+              height: largeWindowSize ? `${100 / arr.length}%` : "100%",
             }}
             className="hover_third"
             key={type}
@@ -70,7 +81,13 @@ const CompareCard = ({
               }, 250);
             }}
           >
-            <img src={image.src} alt={type} />
+            <img
+              style={{
+                opacity: index >= swatchNumber ? "0" : "1",
+              }}
+              src={image.src}
+              alt={type}
+            />
             {clicked ? <h5>{clickedMessage}</h5> : <h5>{message}</h5>}
           </div>
         );

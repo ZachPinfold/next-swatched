@@ -45,8 +45,6 @@ const SwatchSelector = ({
     calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
 
-  console.log(largeWindowSize);
-
   useEffect(() => {
     const getCompareColours = async () => {
       console.log("fire");
@@ -78,7 +76,7 @@ const SwatchSelector = ({
     <div
       className={"swatch_selector"}
       style={{
-        height: fullScreen ? "100%" : "35%",
+        height: fullScreen ? "100%" : "40%",
         transform:
           compareArray.length > 2 && openState
             ? " translatey(0%)"
@@ -105,6 +103,7 @@ const SwatchSelector = ({
                   index={index}
                   swatchNumber={swatchNumber}
                   key={index}
+                  largeWindowSize={largeWindowSize}
                 />
               );
             })}
