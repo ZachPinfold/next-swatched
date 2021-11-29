@@ -34,6 +34,7 @@ const SwatchCard = ({
   setSwatchToCompare,
 }: SwatchTypes) => {
   const [copyClicked, setCopyClicked] = useState<boolean>(false);
+  const [swatchHover, setSwatchHover] = useState<boolean>(false);
 
   const setCompareClick = () => {
     if (openState) {
@@ -80,20 +81,22 @@ const SwatchCard = ({
       onClick={() => {
         selectSwatchToCompareRef.current = true;
       }}
+      onMouseEnter={() => setSwatchHover(true)}
+      onMouseLeave={() => setSwatchHover(false)}
     >
-      <button
-        style={{ position: "absolute", zIndex: "100" }}
+      <div
         onClick={() => {
           moveEyes();
         }}
-      >
-        button
-      </button>
+        className="hover_button"
+        style={{ opacity: swatchHover ? "1" : "0" }}
+      ></div>
       <div className="half_circle_hovers">
         {/* <div onClick={setCompareClick} className="half half_top">
           <img src={CompareImage.src} alt="compare_image" />
           <h4>compare swatch</h4>
         </div> */}
+
         {circleMenuArray.map((menu, index) => (
           <RadialMenu color={color} swatchId={circleId} index={index} />
         ))}

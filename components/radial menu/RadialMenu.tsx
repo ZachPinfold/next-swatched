@@ -11,7 +11,7 @@ const RadialMenu = ({ color, swatchId, index }: SVGTypes) => {
   const height = 180;
   const centerX = width / 2;
   const centerY = height / 2;
-  const eyeRadius = 20;
+  const circleRadius = 25;
 
   const [eyeOffsetX, setEyeOffsetX] = useState(-90);
   const [eyeOffsetY, setEyeOffsetY] = useState(-90);
@@ -25,7 +25,7 @@ const RadialMenu = ({ color, swatchId, index }: SVGTypes) => {
           fill="green"
           transform={`translate(${centerX}, ${centerY}) rotate(30)`}
         >
-          <circle cx={0} cy={0} r={eyeRadius} fill="black" id={circleId} />
+          <circle cx={0} cy={0} r={circleRadius} fill="black" id={circleId} />
         </g>
       </svg>
     </div>
