@@ -35,6 +35,7 @@ const SwatchCard = ({
 }: SwatchTypes) => {
   const [copyClicked, setCopyClicked] = useState<boolean>(false);
   const [swatchHover, setSwatchHover] = useState<boolean>(false);
+  const [swatchClicked, setSwatchClicked] = useState<boolean>(false);
 
   const setCompareClick = () => {
     if (openState) {
@@ -50,7 +51,7 @@ const SwatchCard = ({
     }
   };
 
-  const moveEyes = () => {
+  const openMenu = () => {
     var radius = 50; // the radius as a constant
     /* THETA is the angle of separation between each elemtents */
     var theta = (2 * Math.PI) / circleMenuArray.length;
@@ -67,7 +68,19 @@ const SwatchCard = ({
         .transition()
         .duration(400)
         .attr("cy", yPosition)
-        .attr("cx", xPosition);
+        .attr("cx", xPosition)
+        .attr("fill", "black");
+    });
+  };
+
+  const closeMenu = () => {
+    circleMenuArray.forEach((e, i) => {
+      select(`#${circleId}_${i}`)
+        .transition()
+        .duration(400)
+        .attr("cy", "0")
+        .attr("cx", "0")
+        .attr("fill", rgbToHex(color));
     });
   };
 
@@ -82,14 +95,19 @@ const SwatchCard = ({
         selectSwatchToCompareRef.current = true;
       }}
       onMouseEnter={() => setSwatchHover(true)}
-      onMouseLeave={() => setSwatchHover(false)}
+      onMouseLeave={() => {
+        setSwatchHover(false);
+        setSwatchClicked(false);
+        closeMenu();
+      }}
     >
       <div
-        onClick={() => {
-          moveEyes();
+        onMouseEnter={() => {
+          openMenu();
+          setSwatchClicked(true);
         }}
         className="hover_button"
-        style={{ opacity: swatchHover ? "1" : "0" }}
+        style={{ opacity: swatchClicked ? "0" : swatchHover ? "1" : "0" }}
       ></div>
       <div className="half_circle_hovers">
         {/* <div onClick={setCompareClick} className="half half_top">

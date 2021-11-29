@@ -21,11 +21,8 @@ const RadialMenu = ({ color, swatchId, index }: SVGTypes) => {
   return (
     <div>
       <svg width={width} height={height} className="menu_circle">
-        <g
-          fill="green"
-          transform={`translate(${centerX}, ${centerY}) rotate(30)`}
-        >
-          <circle cx={0} cy={0} r={circleRadius} fill="black" id={circleId} />
+        <g transform={`translate(${centerX}, ${centerY}) rotate(30)`}>
+          <circle cx={0} cy={0} r={circleRadius} fill="none" id={circleId} />
         </g>
       </svg>
     </div>
