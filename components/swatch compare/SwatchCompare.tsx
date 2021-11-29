@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Plus from "../../assets/images/Plus";
 import Minus from "../../assets/images/Minus";
 import expandImage from "../../assets/images/arrow_swatch.svg";
 import CompareCard from "./CompareCard";
+import { calculateDimensionsOnWindowChange } from "../../utils/swatch";
 
 interface Actions {
   compareArray: number[][];
@@ -32,6 +33,20 @@ const SwatchSelector = ({
   swatchToCompare,
   setSwatchToCompare,
 }: Actions) => {
+  const widthRef = useRef<string | null>(null);
+  const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
+
+  const widthChange = () => {
+    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", widthChange, true);
+    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+  }, [calculateDimensionsOnWindowChange]);
+
+  console.log(largeWindowSize);
+
   useEffect(() => {
     const getCompareColours = async () => {
       console.log("fire");

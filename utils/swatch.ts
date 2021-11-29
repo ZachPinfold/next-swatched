@@ -62,3 +62,25 @@ export const hexToRgb = (hex: string) => {
 
   return [0, 0, 0];
 };
+
+export const calculateDimensionsOnWindowChange = (
+  widthRef: string | null,
+  setLargeWindowSize: (size: boolean | null) => void
+) => {
+  switch (true) {
+    case window.innerWidth >= 525:
+      if (widthRef !== "large") {
+        setLargeWindowSize(true);
+      }
+      widthRef = "large";
+      break;
+    case window.innerWidth < 525:
+      if (widthRef !== "small") {
+        setLargeWindowSize(false);
+      }
+      widthRef = "small";
+      break;
+    default:
+      break;
+  }
+};
