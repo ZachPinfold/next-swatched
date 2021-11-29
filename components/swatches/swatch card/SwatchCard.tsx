@@ -5,6 +5,8 @@ import CopyImage from "../../../assets/images/copy_swatch.svg";
 import { connect } from "react-redux";
 import { startDeleteSwatchFromSwatchList } from "../../../actions/swatch";
 import { SwatchObject } from "../../../types/swatches";
+import RadialMenu from "../../radial menu/RadialMenu";
+import { select } from "d3";
 
 interface SwatchTypes {
   color: number[];
@@ -17,6 +19,8 @@ interface SwatchTypes {
   startDeleteSwatchFromSwatchList: (hex: SwatchObject) => void;
   setSwatchToCompare: (num: number[]) => void;
 }
+
+const circleMenuArray = [1, 2, 3];
 
 const SwatchCard = ({
   color,
@@ -45,6 +49,29 @@ const SwatchCard = ({
     }
   };
 
+  const moveEyes = () => {
+    var radius = 50; // the radius as a constant
+    /* THETA is the angle of separation between each elemtents */
+    var theta = (2 * Math.PI) / circleMenuArray.length;
+
+    circleMenuArray.forEach((e, i) => {
+      var xPosition, yPosition;
+
+      var currentAngle = i * theta; // calculate the current angle
+      /* Get the positions */
+      xPosition = radius * Math.cos(currentAngle);
+      yPosition = radius * Math.sin(currentAngle);
+
+      select(`#${circleId}_${i}`)
+        .transition()
+        .duration(400)
+        .attr("cy", yPosition)
+        .attr("cx", xPosition);
+    });
+  };
+
+  const circleId: string = `circle_${swatch.colourId}`;
+
   return (
     <div
       style={{ backgroundColor: rgbToHex(color) }}
@@ -54,12 +81,24 @@ const SwatchCard = ({
         selectSwatchToCompareRef.current = true;
       }}
     >
+      <button
+        style={{ position: "absolute", zIndex: "100" }}
+        onClick={() => {
+          moveEyes();
+        }}
+      >
+        button
+      </button>
       <div className="half_circle_hovers">
-        <div onClick={setCompareClick} className="half half_top">
+        {/* <div onClick={setCompareClick} className="half half_top">
           <img src={CompareImage.src} alt="compare_image" />
           <h4>compare swatch</h4>
-        </div>
-        <div
+        </div> */}
+        {circleMenuArray.map((menu, index) => (
+          <RadialMenu color={color} swatchId={circleId} index={index} />
+        ))}
+
+        {/* <div
           onClick={() => {
             navigator.clipboard.writeText(rgbToHex(color));
             setCopyClicked(true);
@@ -73,11 +112,11 @@ const SwatchCard = ({
         >
           <img src={CopyImage.src} alt="compare_image" />
           {!copyClicked ? <h4>copy hex</h4> : <h4>copied!</h4>}
-        </div>
+        </div> */}
       </div>
-      <button onClick={() => startDeleteSwatchFromSwatchList(swatch)}>
+      {/* <button onClick={() => startDeleteSwatchFromSwatchList(swatch)}>
         delete
-      </button>
+      </button> */}
     </div>
   );
 };
