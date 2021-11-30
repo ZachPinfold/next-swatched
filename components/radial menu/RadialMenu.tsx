@@ -19,34 +19,43 @@ const RadialMenu = ({
 }: SVGTypes) => {
   const width = 180;
   const height = 180;
-  const centerX = width / 2;
-  const centerY = height / 2;
-  const circleRadius = 28;
+  const circleRadius = 30;
+  const centerY = height / 2 - circleRadius;
+  const centerX = width / 2 - circleRadius;
 
   const circleId: string = `${swatchId}_${index}`;
 
-  console.log(image);
+  const [circleHover, setCircleHover] = useState(false);
 
   return (
-    <div>
-      <svg width={width} height={height} className="menu_circle">
-        <g transform={`translate(${centerX}, ${centerY}) rotate(30)`}>
-          <circle cx={0} cy={0} r={circleRadius} fill="none" id={circleId} />{" "}
-          <g
-            transform={`translate(${imageXOffset}, ${imageYOffset}) rotate(-30)`}
-            id={`${circleId}_img`}
-            opacity={1}
-          >
-            <image
-              href={image.src}
-              height="27"
-              width="27"
-              id={`${circleId}_img`}
-            />
-          </g>
-        </g>
-      </svg>
-    </div>
+    <svg
+      width={circleRadius * 2}
+      height={circleRadius * 2}
+      className="menu_circle"
+      transform={`translate(${centerX}, ${centerY})`}
+      id={circleId}
+    >
+      <circle
+        cx={circleRadius}
+        cy={circleRadius}
+        r={circleRadius}
+        fill="green"
+      />{" "}
+      <g
+      // transform={`translate(${imageXOffset}, ${imageYOffset}) rotate(-30)`}
+      // id={`${circleId}_img`}
+      // opacity={0}
+      >
+        <image href={image.src} height="27" width="27" />
+        <text>copy</text>
+      </g>
+      {/* <g
+        transform={`translate(${centerX}, ${centerY}) rotate(30)`}
+        style={{ cursor: "pointer", zIndex: "1" }}
+        onMouseEnter={() => setCircleHover(!circleHover)}
+      >
+      </g> */}
+    </svg>
   );
 };
 

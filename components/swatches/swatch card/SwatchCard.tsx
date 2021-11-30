@@ -59,14 +59,14 @@ const SwatchCard = ({
   };
 
   const openMenu = () => {
-    var radius = 50; // the radius as a constant
+    const radius = 50; // the radius as a constant
     /* THETA is the angle of separation between each elemtents */
-    var theta = (2 * Math.PI) / circleMenuArray.length;
+    const theta = (2 * Math.PI) / circleMenuArray.length;
 
     circleMenuArray.forEach((e, i) => {
-      var xPosition, yPosition;
+      let xPosition, yPosition;
 
-      var currentAngle = i * theta; // calculate the current angle
+      const currentAngle = i * theta + 0.5; // calculate the current angle
       /* Get the positions */
       xPosition = radius * Math.cos(currentAngle);
       yPosition = radius * Math.sin(currentAngle);
@@ -74,9 +74,8 @@ const SwatchCard = ({
       select(`#${circleId}_${i}`)
         .transition()
         .duration(400)
-        .attr("cy", yPosition)
-        .attr("cx", xPosition)
-        .attr("fill", "rgba(0, 0, 0, 0.15)");
+        .attr("transform", `translate(${xPosition + 60}, ${yPosition + 60})`);
+      // .attr("fill", "rgba(0, 0, 0, 0.15)");
 
       select(`#${circleId}_${i}_img`)
         .transition()
@@ -111,9 +110,9 @@ const SwatchCard = ({
     });
   };
 
-  // useEffect(() => {
-  //   openMenu();
-  // }, []);
+  useEffect(() => {
+    openMenu();
+  }, []);
 
   const circleId: string = `circle_${swatch.colourId}`;
 
@@ -126,11 +125,11 @@ const SwatchCard = ({
         selectSwatchToCompareRef.current = true;
       }}
       onMouseEnter={() => setSwatchHover(true)}
-      onMouseLeave={() => {
-        setSwatchHover(false);
-        setSwatchClicked(false);
-        closeMenu();
-      }}
+      // onMouseLeave={() => {
+      //   setSwatchHover(false);
+      //   setSwatchClicked(false);
+      //   closeMenu();
+      // }}
     >
       <div
         onMouseEnter={() => {
@@ -138,7 +137,14 @@ const SwatchCard = ({
           setSwatchClicked(true);
         }}
         className="hover_button"
-        style={{ opacity: swatchClicked ? "0" : swatchHover ? "1" : "0" }}
+        style={{
+          opacity: swatchClicked ? "0" : swatchHover ? "1" : "0",
+          cursor: swatchClicked
+            ? "inherit"
+            : swatchHover
+            ? "pointer"
+            : "inherit",
+        }}
       ></div>
       <div className="half_circle_hovers">
         {/* <div onClick={setCompareClick} className="half half_top">
