@@ -23,6 +23,8 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
   };
 
   const handleHexAdd = (e: any) => {
+    console.log(inputValue);
+
     e.preventDefault();
     if (colourLoaded) startAddSwatchToSwatchList(`#${inputValue}`);
   };

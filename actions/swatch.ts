@@ -67,6 +67,8 @@ export const startAddSwatchToSwatchList =
         color: rgbColour,
       };
 
+      console.log(swatchObject);
+
       app
         .firestore()
         .collection("swatches")

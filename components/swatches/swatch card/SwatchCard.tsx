@@ -57,13 +57,17 @@ const SwatchCard = ({
     }
   };
 
+  const deleteSwatch = () => {
+    startDeleteSwatchFromSwatchList(swatch);
+  };
+
   const circleMenuArray = [
     { image: CompareImage, text: "copy", func: setCompareClick },
     { image: CopyImage, text: "compare", func: setCompareClick },
     {
       image: CompareImage,
       text: "delete",
-      func: startDeleteSwatchFromSwatchList(swatch),
+      func: deleteSwatch,
     },
   ];
 
@@ -113,7 +117,7 @@ const SwatchCard = ({
     } else
       setTimeout(() => {
         setOpenButtonDisplay("none");
-      }, 400);
+      }, 300);
   }, [menuOpen]);
 
   // useEffect(() => {
