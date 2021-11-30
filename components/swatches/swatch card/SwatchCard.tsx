@@ -100,9 +100,9 @@ const SwatchCard = ({
     });
   };
 
-  // useEffect(() => {
-  //   openMenu();
-  // }, []);
+  useEffect(() => {
+    openMenu();
+  }, []);
 
   const circleId: string = `circle_${swatch.colourId}`;
 
@@ -116,9 +116,9 @@ const SwatchCard = ({
       }}
       onMouseEnter={() => setSwatchHover(true)}
       onMouseLeave={() => {
-        setSwatchHover(false);
-        setSwatchClicked(false);
-        closeMenu();
+        // setSwatchHover(false);
+        // setSwatchClicked(false);
+        // closeMenu();
       }}
     >
       <div

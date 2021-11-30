@@ -1,10 +1,14 @@
 .menu_circle {
   position: absolute;
+  circle {
+    cursor: pointer;
+  }
   image {
     position: absolute;
   }
   text {
     font-family: HelveticaM;
+    font-size: 13px;
   }
   // g {
   //   cursor: pointer;

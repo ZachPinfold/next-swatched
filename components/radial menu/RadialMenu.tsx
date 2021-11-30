@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { rgbToHex } from "../../utils/swatch";
+import { select } from "d3";
 
 interface SVGTypes {
   color: number[];
@@ -24,6 +25,17 @@ const RadialMenu = ({
 
   const [circleHover, setCircleHover] = useState(false);
 
+  const setHoverOpacity = (open: boolean) => {
+    select(`#${circleId}_img`)
+      .transition()
+      .duration(200)
+      .attr("opacity", open ? "0" : "1");
+    select(`#${circleId}_txt`)
+      .transition()
+      .duration(200)
+      .attr("opacity", open ? "1" : "0");
+  };
+
   return (
     <svg
       width={circleRadius * 2}
@@ -32,6 +44,8 @@ const RadialMenu = ({
       transform={`translate(${centerX}, ${centerY})`}
       id={circleId}
       opacity={0}
+      onMouseEnter={() => setHoverOpacity(true)}
+      onMouseLeave={() => setHoverOpacity(false)}
     >
       <circle
         cx={circleRadius}
@@ -41,8 +55,21 @@ const RadialMenu = ({
         id={`${circleId}_circle`}
       />{" "}
       <g transform={`translate(${15}, ${15})`}>
-        <image href={image.src} height="30" width="30" />
-        <text fill="black" transform={`translate(${-3}, ${18})`}>
+        <image
+          href={image.src}
+          height="30"
+          width="30"
+          opacity={circleHover ? "0" : "1"}
+          id={`${circleId}_img`}
+        />
+        <text
+          id={`${circleId}_txt`}
+          fill="black"
+          x="25%"
+          y="35%"
+          text-anchor="middle"
+          opacity={0}
+        >
           compare
         </text>
       </g>
