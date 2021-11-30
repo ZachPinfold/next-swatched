@@ -7,6 +7,7 @@ import { startDeleteSwatchFromSwatchList } from "../../../actions/swatch";
 import { SwatchObject } from "../../../types/swatches";
 import RadialMenu from "../../radial menu/RadialMenu";
 import { select } from "d3";
+import { text } from "stream/consumers";
 
 interface SwatchTypes {
   color: number[];
@@ -20,12 +21,6 @@ interface SwatchTypes {
   setSwatchToCompare: (num: number[]) => void;
 }
 
-const circleMenuArray = [
-  { image: CompareImage },
-  { image: CopyImage },
-  { image: CompareImage },
-];
-
 const SwatchCard = ({
   color,
   setCompareArray,
@@ -37,15 +32,14 @@ const SwatchCard = ({
   startDeleteSwatchFromSwatchList,
   setSwatchToCompare,
 }: SwatchTypes) => {
-  const [copyClicked, setCopyClicked] = useState<boolean>(false);
+  const [openButtonDisplay, setOpenButtonDisplay] =
+    useState<string>("inline-block");
   const [swatchHover, setSwatchHover] = useState<boolean>(false);
-  const [swatchClicked, setSwatchClicked] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const width = 180;
   const height = 180;
-  const imageXOffset = -20;
-  const imageYOffset = -5;
-  const circleRadius = 30;
+  const circleRadius = 35;
   const centerY = height / 2 - circleRadius;
   const centerX = width / 2 - circleRadius;
 
@@ -63,8 +57,18 @@ const SwatchCard = ({
     }
   };
 
+  const circleMenuArray = [
+    { image: CompareImage, text: "copy", func: setCompareClick },
+    { image: CopyImage, text: "compare", func: setCompareClick },
+    {
+      image: CompareImage,
+      text: "delete",
+      func: startDeleteSwatchFromSwatchList(swatch),
+    },
+  ];
+
   const openMenu = () => {
-    const radius = 50; // the radius as a constant
+    const radius = 45; // the radius as a constant
     /* THETA is the angle of separation between each elemtents */
     const theta = (2 * Math.PI) / circleMenuArray.length;
 
@@ -78,8 +82,7 @@ const SwatchCard = ({
 
       select(`#${circleId}_${i}`)
         .transition()
-        .duration(400)
-        .attr("transform", `translate(${xPosition + 60}, ${yPosition + 60})`)
+        .attr("transform", `translate(${xPosition + 55}, ${yPosition + 55})`)
         .attr("opacity", "1");
 
       select(`#${circleId}_${i}_circle`)
@@ -100,9 +103,22 @@ const SwatchCard = ({
     });
   };
 
+  // This useEffect below ensures the hover button is hidden, but only
+  // after the menu has opened, otherwise the menu icon text
+  // flashes visible in the circles
+
   useEffect(() => {
-    openMenu();
-  }, []);
+    if (!menuOpen) {
+      setOpenButtonDisplay("inline-block");
+    } else
+      setTimeout(() => {
+        setOpenButtonDisplay("none");
+      }, 400);
+  }, [menuOpen]);
+
+  // useEffect(() => {
+  //   openMenu();
+  // }, []);
 
   const circleId: string = `circle_${swatch.colourId}`;
 
@@ -116,24 +132,22 @@ const SwatchCard = ({
       }}
       onMouseEnter={() => setSwatchHover(true)}
       onMouseLeave={() => {
-        // setSwatchHover(false);
-        // setSwatchClicked(false);
-        // closeMenu();
+        setSwatchHover(false);
+        setMenuOpen(false);
+        closeMenu();
       }}
     >
       <div
         onMouseEnter={() => {
           openMenu();
-          setSwatchClicked(true);
+          setMenuOpen(true);
+          // setSwatchHover(true);
         }}
         className="hover_button"
         style={{
-          opacity: swatchClicked ? "0" : swatchHover ? "1" : "0",
-          cursor: swatchClicked
-            ? "inherit"
-            : swatchHover
-            ? "pointer"
-            : "inherit",
+          opacity: menuOpen ? "0" : swatchHover ? "1" : "0",
+          cursor: menuOpen ? "inherit" : swatchHover ? "pointer" : "inherit",
+          display: openButtonDisplay,
         }}
       ></div>
       <div className="half_circle_hovers">
@@ -148,9 +162,12 @@ const SwatchCard = ({
             swatchId={circleId}
             index={index}
             image={menu.image}
+            text={menu.text}
             centerY={centerY}
             centerX={centerX}
             circleRadius={circleRadius}
+            menuOpen={menuOpen}
+            func={menu.func}
           />
         ))}
 

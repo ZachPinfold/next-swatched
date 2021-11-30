@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { rgbToHex } from "../../utils/swatch";
 import { select } from "d3";
 
@@ -10,6 +10,9 @@ interface SVGTypes {
   circleRadius: number;
   centerX: number;
   centerY: number;
+  text: string;
+  menuOpen: boolean;
+  func: any;
 }
 
 const RadialMenu = ({
@@ -20,21 +23,36 @@ const RadialMenu = ({
   circleRadius,
   centerY,
   centerX,
+  text,
+  menuOpen,
+  func,
 }: SVGTypes) => {
   const circleId: string = `${swatchId}_${index}`;
 
-  const [circleHover, setCircleHover] = useState(false);
+  const initialLoad = useRef(false);
+
+  console.log(menuOpen);
 
   const setHoverOpacity = (open: boolean) => {
-    select(`#${circleId}_img`)
-      .transition()
-      .duration(200)
-      .attr("opacity", open ? "0" : "1");
-    select(`#${circleId}_txt`)
-      .transition()
-      .duration(200)
-      .attr("opacity", open ? "1" : "0");
+    if (initialLoad.current === true) {
+      select(`#${circleId}_img`)
+        .transition()
+        .duration(300)
+        .attr("opacity", open ? "0" : "1");
+      select(`#${circleId}_txt`)
+        .transition()
+        .duration(300)
+        .attr("opacity", open ? "1" : "0");
+    }
   };
+
+  useEffect(() => {
+    if (menuOpen) {
+      setTimeout(() => {
+        initialLoad.current = true;
+      }, 0);
+    } else initialLoad.current = false;
+  }, [menuOpen]);
 
   return (
     <svg
@@ -46,6 +64,7 @@ const RadialMenu = ({
       opacity={0}
       onMouseEnter={() => setHoverOpacity(true)}
       onMouseLeave={() => setHoverOpacity(false)}
+      onClick={func}
     >
       <circle
         cx={circleRadius}
@@ -54,23 +73,17 @@ const RadialMenu = ({
         fill={rgbToHex(color)}
         id={`${circleId}_circle`}
       />{" "}
-      <g transform={`translate(${15}, ${15})`}>
-        <image
-          href={image.src}
-          height="30"
-          width="30"
-          opacity={circleHover ? "0" : "1"}
-          id={`${circleId}_img`}
-        />
+      <g transform={`translate(${17}, ${18})`}>
+        <image href={image.src} height="35" width="35" id={`${circleId}_img`} />
         <text
           id={`${circleId}_txt`}
-          fill="black"
+          fill="white"
           x="25%"
           y="35%"
           text-anchor="middle"
           opacity={0}
         >
-          compare
+          {text}
         </text>
       </g>
     </svg>
