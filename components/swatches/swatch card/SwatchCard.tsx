@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { rgbToHex } from "../../../utils/swatch";
 import CompareImage from "../../../assets/images/compare_swatch.svg";
 import CopyImage from "../../../assets/images/copy_swatch.svg";
@@ -20,7 +20,11 @@ interface SwatchTypes {
   setSwatchToCompare: (num: number[]) => void;
 }
 
-const circleMenuArray = [1, 2, 3];
+const circleMenuArray = [
+  { image: CompareImage },
+  { image: CopyImage },
+  { image: CompareImage },
+];
 
 const SwatchCard = ({
   color,
@@ -36,6 +40,9 @@ const SwatchCard = ({
   const [copyClicked, setCopyClicked] = useState<boolean>(false);
   const [swatchHover, setSwatchHover] = useState<boolean>(false);
   const [swatchClicked, setSwatchClicked] = useState<boolean>(false);
+
+  const imageXOffset = -20;
+  const imageYOffset = -5;
 
   const setCompareClick = () => {
     if (openState) {
@@ -69,7 +76,18 @@ const SwatchCard = ({
         .duration(400)
         .attr("cy", yPosition)
         .attr("cx", xPosition)
-        .attr("fill", "black");
+        .attr("fill", "rgba(0, 0, 0, 0.15)");
+
+      select(`#${circleId}_${i}_img`)
+        .transition()
+        .duration(400)
+        .attr(
+          "transform",
+          `translate(${xPosition + imageXOffset}, ${
+            yPosition + imageYOffset
+          }) rotate(-30)`
+        )
+        .attr("opacity", "1");
     });
   };
 
@@ -81,8 +99,21 @@ const SwatchCard = ({
         .attr("cy", "0")
         .attr("cx", "0")
         .attr("fill", rgbToHex(color));
+
+      select(`#${circleId}_${i}_img`)
+        .transition()
+        .duration(400)
+        .attr(
+          "transform",
+          `translate(${imageXOffset}, ${imageYOffset}) rotate(-30)`
+        )
+        .attr("opacity", "0");
     });
   };
+
+  // useEffect(() => {
+  //   openMenu();
+  // }, []);
 
   const circleId: string = `circle_${swatch.colourId}`;
 
@@ -116,7 +147,14 @@ const SwatchCard = ({
         </div> */}
 
         {circleMenuArray.map((menu, index) => (
-          <RadialMenu color={color} swatchId={circleId} index={index} />
+          <RadialMenu
+            color={color}
+            swatchId={circleId}
+            index={index}
+            image={menu.image}
+            imageXOffset={imageXOffset}
+            imageYOffset={imageYOffset}
+          />
         ))}
 
         {/* <div
