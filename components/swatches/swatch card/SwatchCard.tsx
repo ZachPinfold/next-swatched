@@ -41,8 +41,13 @@ const SwatchCard = ({
   const [swatchHover, setSwatchHover] = useState<boolean>(false);
   const [swatchClicked, setSwatchClicked] = useState<boolean>(false);
 
+  const width = 180;
+  const height = 180;
   const imageXOffset = -20;
   const imageYOffset = -5;
+  const circleRadius = 30;
+  const centerY = height / 2 - circleRadius;
+  const centerX = width / 2 - circleRadius;
 
   const setCompareClick = () => {
     if (openState) {
@@ -74,19 +79,13 @@ const SwatchCard = ({
       select(`#${circleId}_${i}`)
         .transition()
         .duration(400)
-        .attr("transform", `translate(${xPosition + 60}, ${yPosition + 60})`);
-      // .attr("fill", "rgba(0, 0, 0, 0.15)");
+        .attr("transform", `translate(${xPosition + 60}, ${yPosition + 60})`)
+        .attr("opacity", "1");
 
-      select(`#${circleId}_${i}_img`)
+      select(`#${circleId}_${i}_circle`)
         .transition()
         .duration(400)
-        .attr(
-          "transform",
-          `translate(${xPosition + imageXOffset}, ${
-            yPosition + imageYOffset
-          }) rotate(-30)`
-        )
-        .attr("opacity", "1");
+        .attr("fill", "rgba(0, 0, 0, 0.15)");
     });
   };
 
@@ -95,24 +94,15 @@ const SwatchCard = ({
       select(`#${circleId}_${i}`)
         .transition()
         .duration(400)
-        .attr("cy", "0")
-        .attr("cx", "0")
-        .attr("fill", rgbToHex(color));
-
-      select(`#${circleId}_${i}_img`)
-        .transition()
-        .duration(400)
-        .attr(
-          "transform",
-          `translate(${imageXOffset}, ${imageYOffset}) rotate(-30)`
-        )
+        .attr("transform", `translate(${centerX}, ${centerY})`)
+        .attr("fill", rgbToHex(color))
         .attr("opacity", "0");
     });
   };
 
-  useEffect(() => {
-    openMenu();
-  }, []);
+  // useEffect(() => {
+  //   openMenu();
+  // }, []);
 
   const circleId: string = `circle_${swatch.colourId}`;
 
@@ -125,11 +115,11 @@ const SwatchCard = ({
         selectSwatchToCompareRef.current = true;
       }}
       onMouseEnter={() => setSwatchHover(true)}
-      // onMouseLeave={() => {
-      //   setSwatchHover(false);
-      //   setSwatchClicked(false);
-      //   closeMenu();
-      // }}
+      onMouseLeave={() => {
+        setSwatchHover(false);
+        setSwatchClicked(false);
+        closeMenu();
+      }}
     >
       <div
         onMouseEnter={() => {
@@ -158,8 +148,9 @@ const SwatchCard = ({
             swatchId={circleId}
             index={index}
             image={menu.image}
-            imageXOffset={imageXOffset}
-            imageYOffset={imageYOffset}
+            centerY={centerY}
+            centerX={centerX}
+            circleRadius={circleRadius}
           />
         ))}
 

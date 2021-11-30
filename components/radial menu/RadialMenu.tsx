@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { rgbToHex } from "../../utils/swatch";
 
 interface SVGTypes {
   color: number[];
   swatchId: string;
   index: number;
   image: any;
-  imageYOffset: number;
-  imageXOffset: number;
+  circleRadius: number;
+  centerX: number;
+  centerY: number;
 }
 
 const RadialMenu = ({
@@ -14,15 +16,10 @@ const RadialMenu = ({
   swatchId,
   index,
   image,
-  imageXOffset,
-  imageYOffset,
+  circleRadius,
+  centerY,
+  centerX,
 }: SVGTypes) => {
-  const width = 180;
-  const height = 180;
-  const circleRadius = 30;
-  const centerY = height / 2 - circleRadius;
-  const centerX = width / 2 - circleRadius;
-
   const circleId: string = `${swatchId}_${index}`;
 
   const [circleHover, setCircleHover] = useState(false);
@@ -34,27 +31,21 @@ const RadialMenu = ({
       className="menu_circle"
       transform={`translate(${centerX}, ${centerY})`}
       id={circleId}
+      opacity={0}
     >
       <circle
         cx={circleRadius}
         cy={circleRadius}
         r={circleRadius}
-        fill="green"
+        fill={rgbToHex(color)}
+        id={`${circleId}_circle`}
       />{" "}
-      <g
-      // transform={`translate(${imageXOffset}, ${imageYOffset}) rotate(-30)`}
-      // id={`${circleId}_img`}
-      // opacity={0}
-      >
-        <image href={image.src} height="27" width="27" />
-        <text>copy</text>
+      <g transform={`translate(${15}, ${15})`}>
+        <image href={image.src} height="30" width="30" />
+        <text fill="black" transform={`translate(${-3}, ${18})`}>
+          compare
+        </text>
       </g>
-      {/* <g
-        transform={`translate(${centerX}, ${centerY}) rotate(30)`}
-        style={{ cursor: "pointer", zIndex: "1" }}
-        onMouseEnter={() => setCircleHover(!circleHover)}
-      >
-      </g> */}
     </svg>
   );
 };
