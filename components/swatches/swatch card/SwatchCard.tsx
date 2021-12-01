@@ -110,6 +110,7 @@ const SwatchCard = ({
 
       select(`#${circleId}_${i}`)
         .transition()
+        .duration(400)
         .attr("transform", `translate(${xPosition + 55}, ${yPosition + 55})`)
         .attr("opacity", "1");
 
