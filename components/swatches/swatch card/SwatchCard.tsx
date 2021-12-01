@@ -41,7 +41,7 @@ const SwatchCard = ({
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
-  const [swatchHover, setSwatchHover] = useState<boolean>(false);
+  const [swatchHover, setSwatchHover] = useState<boolean | string>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const widthRef = useRef<string | null>(null);
@@ -159,13 +159,11 @@ const SwatchCard = ({
       onClick={() => {
         selectSwatchToCompareRef.current = true;
       }}
-      onMouseEnter={() => !menuOpen && setSwatchHover(true)}
+      onMouseEnter={() => !menuOpen && setSwatchHover(swatch.colourId)}
       onMouseLeave={() => {
-        if (menuOpen) {
-          setSwatchHover(false);
-          setMenuOpen(false);
-          closeMenu();
-        }
+        setSwatchHover(false);
+        setMenuOpen(false);
+        closeMenu();
       }}
     >
       <div
@@ -187,7 +185,7 @@ const SwatchCard = ({
             ? "1"
             : menuOpen
             ? "0"
-            : swatchHover
+            : swatchHover === swatch.colourId
             ? "1"
             : "0",
           cursor: menuOpen ? "inherit" : swatchHover ? "pointer" : "inherit",
