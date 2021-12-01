@@ -193,23 +193,25 @@ const SwatchCard = ({
         }}
       ></div>
       <div className="half_circle_hovers">
-        {circleMenuArray.map((menu, index) => (
-          <RadialMenu
-            color={color}
-            swatchId={circleId}
-            index={index}
-            image={menu.image}
-            text={menu.text}
-            centerY={centerY}
-            centerX={centerX}
-            circleRadius={circleRadius}
-            menuOpen={menuOpen}
-            func={menu.func}
-            swatchToCompare={swatchToCompare}
-            isCopied={isCopied}
-            setIsCopied={setIsCopied}
-          />
-        ))}
+        <svg width="180" height="180">
+          {circleMenuArray.map((menu, index) => (
+            <RadialMenu
+              color={color}
+              swatchId={circleId}
+              index={index}
+              image={menu.image}
+              text={menu.text}
+              centerY={centerY}
+              centerX={centerX}
+              circleRadius={circleRadius}
+              menuOpen={menuOpen}
+              func={menu.func}
+              swatchToCompare={swatchToCompare}
+              isCopied={isCopied}
+              setIsCopied={setIsCopied}
+            />
+          ))}
+        </svg>
       </div>
     </div>
   );

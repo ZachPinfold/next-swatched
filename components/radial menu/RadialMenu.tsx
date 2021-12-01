@@ -59,13 +59,25 @@ const RadialMenu = ({
   }, [menuOpen]);
 
   return (
-    <svg
+    // <svg
+    //   // opacity={0}
+    //   width={circleRadius * 2}
+    //   height={circleRadius * 2}
+    //   onMouseEnter={() => setHoverOpacity(true)}
+    //   onMouseLeave={() => {
+    //     setHoverOpacity(false);
+    //     setTimeout(() => {
+    //       setIsCopied(false);
+    //     }, 300);
+    //   }}
+    //   onClick={func}
+    // >
+    <g
       width={circleRadius * 2}
       height={circleRadius * 2}
       className="menu_circle"
       transform={`translate(${centerX}, ${centerY})`}
       id={circleId}
-      opacity={0}
       onMouseEnter={() => setHoverOpacity(true)}
       onMouseLeave={() => {
         setHoverOpacity(false);
@@ -74,6 +86,7 @@ const RadialMenu = ({
         }, 300);
       }}
       onClick={func}
+      opacity={0}
     >
       <circle
         cx={circleRadius}
@@ -87,8 +100,8 @@ const RadialMenu = ({
         <text
           id={`${circleId}_txt`}
           fill="white"
-          x="18%"
-          y="28%"
+          x="7%"
+          y="10%"
           text-anchor="middle"
           opacity={0}
         >
@@ -103,7 +116,8 @@ const RadialMenu = ({
             : text}
         </text>
       </g>
-    </svg>
+    </g>
+    // </svg>
   );
 };
 
