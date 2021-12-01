@@ -159,11 +159,13 @@ const SwatchCard = ({
       onClick={() => {
         selectSwatchToCompareRef.current = true;
       }}
-      onMouseEnter={() => setSwatchHover(true)}
+      onMouseEnter={() => !menuOpen && setSwatchHover(true)}
       onMouseLeave={() => {
-        setSwatchHover(false);
-        setMenuOpen(false);
-        closeMenu();
+        if (menuOpen) {
+          setSwatchHover(false);
+          setMenuOpen(false);
+          closeMenu();
+        }
       }}
     >
       <div
