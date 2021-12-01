@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { rgbToHex } from "../../../utils/swatch";
-import CompareImage from "../../../assets/images/compare_swatch.svg";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  calculateDimensionsOnWindowChange,
+  getContrastYIQ,
+  rgbToHex,
+} from "../../../utils/swatch";
+import LockedImage from "../../../assets/images/locked_swatch.svg";
 import CopyImage from "../../../assets/images/copy_swatch.svg";
+import DeleteImage from "../../../assets/images/delete_swatch.svg";
 import { connect } from "react-redux";
 import { startDeleteSwatchFromSwatchList } from "../../../actions/swatch";
 import { SwatchObject } from "../../../types/swatches";
@@ -19,6 +24,7 @@ interface SwatchTypes {
   swatch: SwatchObject;
   startDeleteSwatchFromSwatchList: (hex: SwatchObject) => void;
   setSwatchToCompare: (num: number[]) => void;
+  swatchToCompare: number[];
 }
 
 const SwatchCard = ({
@@ -31,17 +37,30 @@ const SwatchCard = ({
   swatch,
   startDeleteSwatchFromSwatchList,
   setSwatchToCompare,
+  swatchToCompare,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
   const [swatchHover, setSwatchHover] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+  const widthRef = useRef<string | null>(null);
+  const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
 
   const width = 180;
   const height = 180;
   const circleRadius = 35;
   const centerY = height / 2 - circleRadius;
   const centerX = width / 2 - circleRadius;
+
+  const widthChange = () => {
+    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", widthChange, true);
+    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+  }, [calculateDimensionsOnWindowChange]);
 
   const setCompareClick = () => {
     if (openState) {
@@ -61,11 +80,16 @@ const SwatchCard = ({
     startDeleteSwatchFromSwatchList(swatch);
   };
 
+  const copySwatchHex = () => {
+    navigator.clipboard.writeText(rgbToHex(color));
+    setIsCopied(true);
+  };
+
   const circleMenuArray = [
-    { image: CompareImage, text: "copy", func: setCompareClick },
-    { image: CopyImage, text: "compare", func: setCompareClick },
+    { image: CopyImage, text: "copy", func: copySwatchHex },
+    { image: LockedImage, text: "lock", func: setCompareClick },
     {
-      image: CompareImage,
+      image: DeleteImage,
       text: "delete",
       func: deleteSwatch,
     },
@@ -112,13 +136,13 @@ const SwatchCard = ({
   // flashes visible in the circles
 
   useEffect(() => {
-    if (!menuOpen) {
+    if (!menuOpen || (!menuOpen && swatchHover)) {
       setOpenButtonDisplay("inline-block");
     } else
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);
-  }, [menuOpen]);
+  }, [menuOpen, swatchHover]);
 
   // useEffect(() => {
   //   openMenu();
@@ -143,23 +167,32 @@ const SwatchCard = ({
     >
       <div
         onMouseEnter={() => {
-          openMenu();
-          setMenuOpen(true);
-          // setSwatchHover(true);
+          if (largeWindowSize) {
+            openMenu();
+            setMenuOpen(true);
+          }
+        }}
+        onClick={() => {
+          if (!largeWindowSize) {
+            openMenu();
+            setMenuOpen(true);
+          }
         }}
         className="hover_button"
         style={{
-          opacity: menuOpen ? "0" : swatchHover ? "1" : "0",
+          opacity: !largeWindowSize
+            ? "1"
+            : menuOpen
+            ? "0"
+            : swatchHover
+            ? "1"
+            : "0",
           cursor: menuOpen ? "inherit" : swatchHover ? "pointer" : "inherit",
           display: openButtonDisplay,
+          backgroundColor: `rgba(white, 0.2)`,
         }}
       ></div>
       <div className="half_circle_hovers">
-        {/* <div onClick={setCompareClick} className="half half_top">
-          <img src={CompareImage.src} alt="compare_image" />
-          <h4>compare swatch</h4>
-        </div> */}
-
         {circleMenuArray.map((menu, index) => (
           <RadialMenu
             color={color}
@@ -172,28 +205,12 @@ const SwatchCard = ({
             circleRadius={circleRadius}
             menuOpen={menuOpen}
             func={menu.func}
+            swatchToCompare={swatchToCompare}
+            isCopied={isCopied}
+            setIsCopied={setIsCopied}
           />
         ))}
-
-        {/* <div
-          onClick={() => {
-            navigator.clipboard.writeText(rgbToHex(color));
-            setCopyClicked(true);
-          }}
-          onMouseLeave={() => {
-            setTimeout(function () {
-              setCopyClicked(false);
-            }, 200);
-          }}
-          className="half half_bottom"
-        >
-          <img src={CopyImage.src} alt="compare_image" />
-          {!copyClicked ? <h4>copy hex</h4> : <h4>copied!</h4>}
-        </div> */}
       </div>
-      {/* <button onClick={() => startDeleteSwatchFromSwatchList(swatch)}>
-        delete
-      </button> */}
     </div>
   );
 };

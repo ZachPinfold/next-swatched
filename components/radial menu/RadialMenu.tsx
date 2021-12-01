@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { rgbToHex } from "../../utils/swatch";
 import { select } from "d3";
 
@@ -13,6 +13,9 @@ interface SVGTypes {
   text: string;
   menuOpen: boolean;
   func: any;
+  swatchToCompare: number[];
+  isCopied: boolean;
+  setIsCopied: (isCOpied: boolean) => void;
 }
 
 const RadialMenu = ({
@@ -26,12 +29,13 @@ const RadialMenu = ({
   text,
   menuOpen,
   func,
+  swatchToCompare,
+  isCopied,
+  setIsCopied,
 }: SVGTypes) => {
   const circleId: string = `${swatchId}_${index}`;
 
   const initialLoad = useRef(false);
-
-  console.log(menuOpen);
 
   const setHoverOpacity = (open: boolean) => {
     if (initialLoad.current === true) {
@@ -63,7 +67,12 @@ const RadialMenu = ({
       id={circleId}
       opacity={0}
       onMouseEnter={() => setHoverOpacity(true)}
-      onMouseLeave={() => setHoverOpacity(false)}
+      onMouseLeave={() => {
+        setHoverOpacity(false);
+        setTimeout(() => {
+          setIsCopied(false);
+        }, 300);
+      }}
       onClick={func}
     >
       <circle
@@ -73,17 +82,25 @@ const RadialMenu = ({
         fill={rgbToHex(color)}
         id={`${circleId}_circle`}
       />{" "}
-      <g transform={`translate(${17}, ${18})`}>
-        <image href={image.src} height="35" width="35" id={`${circleId}_img`} />
+      <g transform={`translate(${22}, ${21})`}>
+        <image href={image.src} height="26" width="26" id={`${circleId}_img`} />
         <text
           id={`${circleId}_txt`}
           fill="white"
-          x="25%"
-          y="35%"
+          x="18%"
+          y="28%"
           text-anchor="middle"
           opacity={0}
         >
-          {text}
+          {text === "lock" && color === swatchToCompare
+            ? "locked"
+            : text === "lock" && color !== swatchToCompare
+            ? "lock"
+            : text === "copy" && isCopied
+            ? "copied"
+            : text === "copy" && !isCopied
+            ? text
+            : text}
         </text>
       </g>
     </svg>

@@ -32,6 +32,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
         setNumberOfSwatches={setNumberOfSwatches}
         openState={openState}
         setSwatchToCompare={setSwatchToCompare}
+        swatchToCompare={swatchToCompare}
       />
       <div
         className="outer_selector "
