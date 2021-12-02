@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { startDeleteSwatchFromSwatchList } from "../../../actions/swatch";
 import { SwatchObject } from "../../../types/swatches";
 import RadialMenu from "../../radial menu/RadialMenu";
-import { select } from "d3";
+import { select, selectAll } from "d3";
 import { text } from "stream/consumers";
 
 interface SwatchTypes {
@@ -25,6 +25,8 @@ interface SwatchTypes {
   startDeleteSwatchFromSwatchList: (hex: SwatchObject) => void;
   setSwatchToCompare: (num: number[]) => void;
   swatchToCompare: number[];
+  setSwatchId: (swatchId: string) => void;
+  swatchId: string;
 }
 
 const SwatchCard = ({
@@ -38,6 +40,8 @@ const SwatchCard = ({
   startDeleteSwatchFromSwatchList,
   setSwatchToCompare,
   swatchToCompare,
+  swatchId,
+  setSwatchId,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
@@ -46,6 +50,8 @@ const SwatchCard = ({
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const widthRef = useRef<string | null>(null);
   const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
+
+  const circleId: string = `circle_${swatch.colourId}`;
 
   const width = 180;
   const height = 180;
@@ -95,7 +101,7 @@ const SwatchCard = ({
     },
   ];
 
-  const openMenu = () => {
+  const openMenu = (localSwatchId: string) => {
     const radius = 45; // the radius as a constant
     /* THETA is the angle of separation between each elemtents */
     const theta = (2 * Math.PI) / circleMenuArray.length;
@@ -112,7 +118,8 @@ const SwatchCard = ({
         .transition()
         .duration(400)
         .attr("transform", `translate(${xPosition + 55}, ${yPosition + 55})`)
-        .attr("opacity", "1");
+        .attr("opacity", "1")
+        .attr("class", `action_circles circle_${localSwatchId}_active`);
 
       select(`#${circleId}_${i}_circle`)
         .transition()
@@ -120,6 +127,15 @@ const SwatchCard = ({
         .attr("fill", "rgba(0, 0, 0, 0.15)");
     });
   };
+
+  useEffect(() => {
+    selectAll(`.action_circles:not(.circle_${swatchId}_active)`)
+      .transition()
+      .duration(400)
+      .attr("transform", `translate(${centerX}, ${centerY})`)
+      .attr("fill", rgbToHex(color))
+      .attr("opacity", "0");
+  }, [swatchId]);
 
   const closeMenu = () => {
     circleMenuArray.forEach((e, i) => {
@@ -136,20 +152,26 @@ const SwatchCard = ({
   // after the menu has opened, otherwise the menu icon text
   // flashes visible in the circles
 
+  // console.log(openButtonDisplay);
+
   useEffect(() => {
-    if (!menuOpen || (!menuOpen && swatchHover)) {
+    console.log(swatch.colourId !== swatchId);
+
+    if (
+      !menuOpen ||
+      (!menuOpen && swatchHover) ||
+      swatch.colourId !== swatchId
+    ) {
       setOpenButtonDisplay("inline-block");
     } else
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);
-  }, [menuOpen, swatchHover]);
+  }, [menuOpen, swatchHover, swatchId]);
 
   // useEffect(() => {
   //   openMenu();
   // }, []);
-
-  const circleId: string = `circle_${swatch.colourId}`;
 
   return (
     <div
@@ -159,24 +181,33 @@ const SwatchCard = ({
       onClick={() => {
         selectSwatchToCompareRef.current = true;
       }}
-      onMouseEnter={() => !menuOpen && setSwatchHover(swatch.colourId)}
+      onMouseEnter={() => {
+        if (!menuOpen && largeWindowSize) {
+          setSwatchHover(swatch.colourId);
+          setSwatchId(swatch.colourId);
+        }
+      }}
       onMouseLeave={() => {
-        setSwatchHover(false);
-        setMenuOpen(false);
-        closeMenu();
+        if (largeWindowSize) {
+          setSwatchHover(false);
+          setMenuOpen(false);
+          closeMenu();
+        }
       }}
     >
       <div
         onMouseEnter={() => {
           if (largeWindowSize) {
-            openMenu();
+            openMenu(swatch.colourId);
             setMenuOpen(true);
+            setSwatchId(swatch.colourId);
           }
         }}
         onClick={() => {
           if (!largeWindowSize) {
-            openMenu();
+            openMenu(swatch.colourId);
             setMenuOpen(true);
+            setSwatchId(swatch.colourId);
           }
         }}
         className="hover_button"

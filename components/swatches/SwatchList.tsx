@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SwatchObject } from "../../types/swatches";
 import SwatchAdderCard from "./swatch adder/SwatchAdderCard";
 import SwatchCard from "./swatch card/SwatchCard";
@@ -23,6 +23,8 @@ const SwatchList = ({
   setSwatchToCompare,
   swatchToCompare,
 }: SwatchTypes) => {
+  const [swatchId, setSwatchId] = useState<string>("");
+
   return (
     <div className="swatch_grid wrapper_inner">
       {swatches.map((swatch, index) => {
@@ -39,6 +41,8 @@ const SwatchList = ({
               swatch={swatch}
               setSwatchToCompare={setSwatchToCompare}
               swatchToCompare={swatchToCompare}
+              setSwatchId={setSwatchId}
+              swatchId={swatchId}
             />
           );
         } else

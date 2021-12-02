@@ -75,9 +75,9 @@ const RadialMenu = ({
     <g
       width={circleRadius * 2}
       height={circleRadius * 2}
-      className="menu_circle"
+      // className={`action_circles`}
       transform={`translate(${centerX}, ${centerY})`}
-      id={circleId}
+      id={`${circleId}`}
       onMouseEnter={() => setHoverOpacity(true)}
       onMouseLeave={() => {
         setHoverOpacity(false);
