@@ -167,7 +167,7 @@ const SwatchCard = ({
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);
-  }, [menuOpen, swatchHover, swatchId]);
+  }, [menuOpen, swatchHover, swatchId, swatch.colourId]);
 
   // useEffect(() => {
   //   openMenu();
