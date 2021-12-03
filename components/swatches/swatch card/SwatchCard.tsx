@@ -155,8 +155,6 @@ const SwatchCard = ({
   // console.log(openButtonDisplay);
 
   useEffect(() => {
-    console.log(swatch.colourId !== swatchId);
-
     if (
       !menuOpen ||
       (!menuOpen && swatchHover) ||

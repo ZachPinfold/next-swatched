@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SwatchObject } from "../../types/swatches";
 import SwatchAdderCard from "./swatch adder/SwatchAdderCard";
 import SwatchCard from "./swatch card/SwatchCard";
@@ -25,6 +25,123 @@ const SwatchList = ({
 }: SwatchTypes) => {
   const [swatchId, setSwatchId] = useState<string>("");
 
+  const readAsbuff = (file) => {
+    console.log(typeof file, file);
+
+    var fr = new FileReader();
+    return fr.readAsArrayBuffer(file);
+  };
+
+  const [source, setSource] = useState("");
+  const [imgColour, setImageColour] = useState([]);
+  const [sourceChange, setToggleSrcChange] = useState(false);
+  const ref = useRef(0);
+  // useEffect(() => {
+  //   if (source) {
+  //     var rgb = getAverageRGB(document.getElementById("i"));
+
+  //     console.log(rgb);
+  //   }
+  // }, [source]);
+
+  function getAverageRGB(imgEl) {
+    var blockSize = 5, // only visit every 5 pixels
+      defaultRGB = { r: 0, g: 0, b: 0 }, // for non-supporting envs
+      canvas = document.createElement("canvas"),
+      context = canvas.getContext && canvas.getContext("2d"),
+      data,
+      width,
+      height,
+      i = -4,
+      length,
+      rgb = { r: 0, g: 0, b: 0 },
+      count = 0;
+
+    if (!context) {
+      return defaultRGB;
+    }
+
+    height = canvas.height =
+      imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+    width = canvas.width =
+      imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+
+    width - "50px";
+    height - "50px";
+    context.drawImage(imgEl, 0, 0);
+
+    try {
+      data = context.getImageData(0, 0, width, height);
+    } catch (e) {
+      /* security error, img on diff domain */ alert("x");
+      return defaultRGB;
+    }
+
+    length = data.data.length;
+
+    console.log(data);
+
+    while ((i += blockSize * 4) < length) {
+      ++count;
+      rgb.r += data.data[i];
+      rgb.g += data.data[i + 1];
+      rgb.b += data.data[i + 2];
+    }
+
+    // ~~ used to floor values
+    rgb.r = ~~(rgb.r / count);
+    rgb.g = ~~(rgb.g / count);
+    rgb.b = ~~(rgb.b / count);
+
+    return rgb;
+  }
+
+  function draw(img) {
+    var canvas = document.createElement("canvas");
+    var c = canvas.getContext("2d");
+    c.width = canvas.width = img.width;
+    c.height = canvas.height = img.height;
+    c.clearRect(0, 0, c.width, c.height);
+    c.drawImage(img, 0, 0, img.width, img.height);
+    return c; // returns the context
+  }
+
+  const handleCapture = async (target) => {
+    if (target.files) {
+      if (target.files.length !== 0) {
+        const file = target.files[0];
+        const newUrl = URL.createObjectURL(file);
+        setSource(newUrl);
+
+        const img = await createImageBitmap(target.files[0], 0, 0, 32, 32);
+
+        setImageColour(Object.values(getAverageRGB(img)));
+
+        // console.log(file);
+
+        // console.log(readAsbuff(target.files[0]));
+      }
+    }
+  };
+
+  // useEffect(() => {
+  //   ref.current = ref.current + 1;
+  //   setToggleSrcChange(!sourceChange);
+  // }, [source]);
+
+  // var rgb = document.getElementById("i");
+
+  // console.log(rgb);
+  // useEffect(() => {
+  //   // console.log(ref);
+
+  //   let rgbs;
+
+  //   rgb && (rgbs = Object.values(getAverageRGB(rgb)));
+
+  //   setImageColour(rgbs);
+  // }, [sourceChange]);
+
   return (
     <div className="swatch_grid wrapper_inner">
       {swatches.map((swatch, index) => {
@@ -48,6 +165,23 @@ const SwatchList = ({
         } else
           return <SwatchAdderCard key={"add_hex_card"} color={swatch.color} />;
       })}
+      <input
+        accept="image/*"
+        id="icon-button-file"
+        type="file"
+        capture="environment"
+        onChange={(e) => handleCapture(e.target)}
+      />
+      {source && (
+        <img id="i" src={source} alt={"snap"} className={"photo_box"}></img>
+      )}
+      <div
+        style={{
+          width: "200px",
+          height: "200px",
+          backgroundColor: `rgb(${imgColour})`,
+        }}
+      ></div>
     </div>
   );
 };

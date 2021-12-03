@@ -12,6 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
     const headers = {
       "Content-Type": "text/plain",
     };
+    
     const result = await axios.post(url, req.body, { headers });
 
     const responseData = result.data.result;

@@ -45,33 +45,6 @@ const SwatchSelector = ({
     calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
 
-  useEffect(() => {
-    const getCompareColours = async () => {
-      console.log("fire");
-
-      try {
-        const data = {
-          model: "default",
-          input: [swatchToCompare, "N", "N", "N", "N"],
-        };
-
-        const apiResponse = await axios.post("/api/colorMind", data);
-
-        setCompareArray(apiResponse.data.colourData);
-      } catch (error) {
-        console.log(error);
-      }
-      selectSwatchToCompareRef.current = false;
-    };
-
-    if (
-      selectSwatchToCompareRef.current === true &&
-      swatchToCompare.length > 0
-    ) {
-      getCompareColours();
-    }
-  }, [swatchToCompare]);
-
   return (
     <div
       className={"swatch_selector"}

@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
@@ -21,6 +22,31 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   useEffect(() => {
     startGetUserSwatches("");
   }, [startGetUserSwatches]);
+
+  useEffect(() => {
+    const getCompareColours = async () => {
+      try {
+        const data = {
+          model: "default",
+          input: [swatchToCompare, "N", "N", "N", "N"],
+        };
+
+        const apiResponse = await axios.post("/api/colorMind", data);
+
+        setCompareArray(apiResponse.data.colourData);
+      } catch (error) {
+        console.log(error);
+      }
+      selectSwatchToCompareRef.current = false;
+    };
+
+    if (
+      selectSwatchToCompareRef.current === true &&
+      swatchToCompare.length > 0
+    ) {
+      getCompareColours();
+    }
+  }, [swatchToCompare]);
 
   return (
     <div className="wrapper swatches_page">
