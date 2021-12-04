@@ -107,7 +107,7 @@ const SwatchList = ({
         const img = await createImageBitmap(target.files[0], 0, 0, 32, 32);
 
         // the desired aspect ratio of our output image (width / height)
-        const outputImageAspectRatio = 1;
+        const outputImageAspectRatio = 0.5;
 
         // this image will hold our source image data
         const inputImage = new Image();
@@ -130,9 +130,11 @@ const SwatchList = ({
             outputHeight = inputWidth / outputImageAspectRatio;
           }
 
+          outputHeight = 300;
+
           // calculate the position to draw the image at
-          const outputX = (outputWidth - inputWidth) * 1;
-          const outputY = (outputHeight - inputHeight) * 1;
+          const outputX = (outputWidth - inputWidth) * 0.5;
+          const outputY = (outputHeight - inputHeight) * 0.5;
 
           // create a canvas that will present the output image
           const outputImage = document.createElement("canvas");
@@ -146,11 +148,11 @@ const SwatchList = ({
           ctx.drawImage(inputImage, outputX, outputY);
           setImageColour(Object.values(getAverageRGB(outputImage)));
 
-          console.log(ctx);
+          // console.log(ctx);
 
-          // show both the image and the canvas
-          document.body.appendChild(inputImage);
-          document.body.appendChild(outputImage);
+          // // show both the image and the canvas
+          // document.body.appendChild(inputImage);
+          // document.body.appendChild(outputImage);
         };
 
         // start loading our image
