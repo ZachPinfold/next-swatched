@@ -66,8 +66,9 @@ const SwatchList = ({
     width = canvas.width =
       imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
 
-    width - "50px";
-    height - "50px";
+    height = 10;
+    width = 10;
+
     context.drawImage(imgEl, 0, 0);
 
     try {
@@ -96,16 +97,6 @@ const SwatchList = ({
     return rgb;
   }
 
-  function draw(img) {
-    var canvas = document.createElement("canvas");
-    var c = canvas.getContext("2d");
-    c.width = canvas.width = img.width;
-    c.height = canvas.height = img.height;
-    c.clearRect(0, 0, c.width, c.height);
-    c.drawImage(img, 0, 0, img.width, img.height);
-    return c; // returns the context
-  }
-
   const handleCapture = async (target) => {
     if (target.files) {
       if (target.files.length !== 0) {
@@ -115,7 +106,57 @@ const SwatchList = ({
 
         const img = await createImageBitmap(target.files[0], 0, 0, 32, 32);
 
-        setImageColour(Object.values(getAverageRGB(img)));
+        // the desired aspect ratio of our output image (width / height)
+        const outputImageAspectRatio = 1;
+
+        // this image will hold our source image data
+        const inputImage = new Image();
+
+        // we want to wait for our image to load
+        inputImage.onload = () => {
+          // let's store the width and height of our image
+          const inputWidth = inputImage.naturalWidth;
+          const inputHeight = inputImage.naturalHeight;
+
+          // get the aspect ratio of the input image
+          const inputImageAspectRatio = inputWidth / inputHeight;
+
+          // if it's bigger than our target aspect ratio
+          let outputWidth = inputWidth;
+          let outputHeight = inputHeight;
+          if (inputImageAspectRatio > outputImageAspectRatio) {
+            outputWidth = inputHeight * outputImageAspectRatio;
+          } else if (inputImageAspectRatio < outputImageAspectRatio) {
+            outputHeight = inputWidth / outputImageAspectRatio;
+          }
+
+          // calculate the position to draw the image at
+          const outputX = (outputWidth - inputWidth) * 1;
+          const outputY = (outputHeight - inputHeight) * 1;
+
+          // create a canvas that will present the output image
+          const outputImage = document.createElement("canvas");
+
+          // set it to the same size as the image
+          outputImage.width = outputWidth;
+          outputImage.height = outputHeight;
+
+          // draw our image at position 0, 0 on the canvas
+          const ctx = outputImage.getContext("2d");
+          ctx.drawImage(inputImage, outputX, outputY);
+          setImageColour(Object.values(getAverageRGB(outputImage)));
+
+          console.log(ctx);
+
+          // show both the image and the canvas
+          document.body.appendChild(inputImage);
+          document.body.appendChild(outputImage);
+        };
+
+        // start loading our image
+        inputImage.src = newUrl;
+
+        // ctx.drawImage(image, 33, 71, 104, 124, 21, 20, 87, 104);
 
         // console.log(file);
 
