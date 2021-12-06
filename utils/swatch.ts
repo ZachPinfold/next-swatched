@@ -85,8 +85,8 @@ export const calculateDimensionsOnWindowChange = (
   }
 };
 
-export function getAverageRGB(imgEl: any) {
-  var blockSize = 5, // only visit every 5 pixels
+export const getAverageRGB = (imgEl: any) => {
+  let blockSize = 5, // only visit every 5 pixels
     defaultRGB = { r: 0, g: 0, b: 0 }, // for non-supporting envs
     canvas = document.createElement("canvas"),
     context = canvas.getContext && canvas.getContext("2d"),
@@ -133,7 +133,7 @@ export function getAverageRGB(imgEl: any) {
   rgb.b = ~~(rgb.b / count);
 
   return rgb;
-}
+};
 
 export const cropImage = async (
   target: HTMLInputElement,

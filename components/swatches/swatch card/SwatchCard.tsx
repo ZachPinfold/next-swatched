@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   calculateDimensionsOnWindowChange,
-  getContrastYIQ,
   rgbToHex,
 } from "../../../utils/swatch";
 import LockedImage from "../../../assets/images/locked_swatch.svg";
@@ -12,7 +11,11 @@ import { startDeleteSwatchFromSwatchList } from "../../../actions/swatch";
 import { SwatchObject } from "../../../types/swatches";
 import RadialMenu from "../../radial menu/RadialMenu";
 import { select, selectAll } from "d3";
-import { text } from "stream/consumers";
+import {
+  closeMenuOnHoverLeaveD3,
+  closeNotActiceMenuCirclesD3,
+  openCircleMenuD3,
+} from "../../../utils/d3";
 
 interface SwatchTypes {
   color: number[];
@@ -114,37 +117,17 @@ const SwatchCard = ({
       xPosition = radius * Math.cos(currentAngle);
       yPosition = radius * Math.sin(currentAngle);
 
-      select(`#${circleId}_${i}`)
-        .transition()
-        .duration(400)
-        .attr("transform", `translate(${xPosition + 55}, ${yPosition + 55})`)
-        .attr("opacity", "1")
-        .attr("class", `action_circles circle_${localSwatchId}_active`);
-
-      select(`#${circleId}_${i}_circle`)
-        .transition()
-        .duration(400)
-        .attr("fill", "rgba(0, 0, 0, 0.15)");
+      openCircleMenuD3(circleId, i, xPosition, yPosition, localSwatchId);
     });
   };
 
   useEffect(() => {
-    selectAll(`.action_circles:not(.circle_${swatchId}_active)`)
-      .transition()
-      .duration(400)
-      .attr("transform", `translate(${centerX}, ${centerY})`)
-      .attr("fill", rgbToHex(color))
-      .attr("opacity", "0");
+    closeNotActiceMenuCirclesD3(swatchId, centerX, centerY, color);
   }, [swatchId]);
 
   const closeMenu = () => {
     circleMenuArray.forEach((e, i) => {
-      select(`#${circleId}_${i}`)
-        .transition()
-        .duration(400)
-        .attr("transform", `translate(${centerX}, ${centerY})`)
-        .attr("fill", rgbToHex(color))
-        .attr("opacity", "0");
+      closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, color);
     });
   };
 
