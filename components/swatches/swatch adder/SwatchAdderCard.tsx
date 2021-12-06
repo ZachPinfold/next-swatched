@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { startAddSwatchToSwatchList } from "../../../actions/swatch";
 import Plus from "../../../assets/images/Plus";
+import HashTagImage from "../../../assets/images/hashtag_swatch.svg";
 
 import { getContrastYIQ, isHexColor } from "../../../utils/swatch";
+import AdderRadialMenu from "../../radial menu/AdderRadialMenu";
 interface SwatchTypes {
   color: number[];
   startAddSwatchToSwatchList: (hex: string) => void;
@@ -12,6 +14,27 @@ interface SwatchTypes {
 const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [colourLoaded, setColourLoaded] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
+  const width = 180;
+  const height = 180;
+  const circleRadius = 35;
+  const centerY = height / 2 - circleRadius;
+  const centerX = width / 2 - circleRadius;
+
+  const copyHex = () => {
+    console.log("fire");
+  };
+
+  const circleMenuArray = [
+    { image: HashTagImage, text: "copy", func: copyHex },
+    { image: HashTagImage, text: "lock", func: copyHex },
+    {
+      image: HashTagImage,
+      text: "delete",
+      func: copyHex,
+    },
+  ];
 
   const applyHexInput = (e: string) => {
     const str: string = e.replace("#", "");
@@ -41,7 +64,23 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
             : "rgb(255, 100, 89, 0.4)",
       }}
     >
-      <form
+      <div className="circle_hovers">
+        <svg width="180" height="180">
+          {circleMenuArray.map((menu, index) => (
+            <AdderRadialMenu
+              index={index}
+              image={menu.image}
+              text={menu.text}
+              centerY={centerY}
+              centerX={centerX}
+              circleRadius={circleRadius}
+              menuOpen={menuOpen}
+              func={menu.func}
+            />
+          ))}
+        </svg>
+      </div>
+      {/* <form
         style={{ marginLeft: colourLoaded ? "-40px" : "-15px" }}
         className={colourLoaded ? "colour_loaded" : ""}
         onSubmit={(e) => handleHexAdd(e)}
@@ -64,7 +103,7 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
         >
           <Plus color={getContrastYIQ(`#${inputValue}`)} />
         </div>
-      </form>
+      </form> */}
     </div>
   );
 };

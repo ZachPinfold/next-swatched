@@ -205,7 +205,7 @@ const SwatchCard = ({
           backgroundColor: `rgba(white, 0.2)`,
         }}
       ></div>
-      <div className="half_circle_hovers">
+      <div className="circle_hovers">
         <svg width="180" height="180">
           {circleMenuArray.map((menu, index) => (
             <RadialMenu
