@@ -23,12 +23,13 @@ const AdderRadialMenu = ({
   menuOpen,
   func,
 }: SVGTypes) => {
-  const circleId: string = `${"swatchId"}_${index}`;
+  const circleId: string = `circle_${text}_${index}`;
 
   const initialLoad = useRef(false);
 
   const setHoverOpacity = (open: boolean) => {
     if (initialLoad.current === true) {
+      console.log("fire");
       select(`#${circleId}_img`)
         .transition()
         .duration(300)
@@ -49,19 +50,6 @@ const AdderRadialMenu = ({
   }, [menuOpen]);
 
   return (
-    // <svg
-    //   // opacity={0}
-    //   width={circleRadius * 2}
-    //   height={circleRadius * 2}
-    //   onMouseEnter={() => setHoverOpacity(true)}
-    //   onMouseLeave={() => {
-    //     setHoverOpacity(false);
-    //     setTimeout(() => {
-    //       setIsCopied(false);
-    //     }, 300);
-    //   }}
-    //   onClick={func}
-    // >
     <g
       width={circleRadius * 2}
       height={circleRadius * 2}
@@ -95,7 +83,6 @@ const AdderRadialMenu = ({
         </text>
       </g>
     </g>
-    // </svg>
   );
 };
 
