@@ -93,10 +93,18 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
   const closeMenu = () => {
     circleMenuArray.forEach((e, i) => {
       const circleId: string = `circle_${e.text}`;
-
       closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
     });
   };
+
+  useEffect(() => {
+    if (!menuOpen || (!menuOpen && swatchHover)) {
+      setOpenButtonDisplay("inline-block");
+    } else
+      setTimeout(() => {
+        setOpenButtonDisplay("none");
+      }, 300);
+  }, [menuOpen, swatchHover]);
 
   return (
     <div
@@ -120,14 +128,14 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
         onMouseEnter={() => {
           if (largeWindowSize) {
             openMenu("swatch_adder");
-            // setMenuOpen(true);
+            setMenuOpen(true);
             // setSwatchId(swatch.colourId);
           }
         }}
         onClick={() => {
           if (!largeWindowSize) {
-            // openMenu(swatch.colourId);
-            // setMenuOpen(true);
+            openMenu("swatch_adder");
+            setMenuOpen(true);
             // setSwatchId(swatch.colourId);
           }
         }}

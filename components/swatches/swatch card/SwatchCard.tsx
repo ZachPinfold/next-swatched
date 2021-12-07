@@ -121,6 +121,8 @@ const SwatchCard = ({
     });
   };
 
+  // This useEffect below closes inactive circle menus on mobile
+
   useEffect(() => {
     closeNotActiceMenuCirclesD3(swatchId, centerX, centerY, color);
   }, [swatchId]);
@@ -135,8 +137,6 @@ const SwatchCard = ({
   // after the menu has opened, otherwise the menu icon text
   // flashes visible in the circles
 
-  // console.log(openButtonDisplay);
-
   useEffect(() => {
     if (
       !menuOpen ||
@@ -149,6 +149,8 @@ const SwatchCard = ({
         setOpenButtonDisplay("none");
       }, 300);
   }, [menuOpen, swatchHover, swatchId, swatch.colourId]);
+
+  // Use this useEffect to open menu on load for editing
 
   // useEffect(() => {
   //   openMenu();
