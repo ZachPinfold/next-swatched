@@ -59,23 +59,9 @@ const RadialMenu = ({
   }, [menuOpen]);
 
   return (
-    // <svg
-    //   // opacity={0}
-    //   width={circleRadius * 2}
-    //   height={circleRadius * 2}
-    //   onMouseEnter={() => setHoverOpacity(true)}
-    //   onMouseLeave={() => {
-    //     setHoverOpacity(false);
-    //     setTimeout(() => {
-    //       setIsCopied(false);
-    //     }, 300);
-    //   }}
-    //   onClick={func}
-    // >
     <g
       width={circleRadius * 2}
       height={circleRadius * 2}
-      // className={`action_circles`}
       transform={`translate(${centerX}, ${centerY})`}
       id={`${circleId}`}
       onMouseEnter={() => setHoverOpacity(true)}
@@ -117,7 +103,6 @@ const RadialMenu = ({
         </text>
       </g>
     </g>
-    // </svg>
   );
 };
 

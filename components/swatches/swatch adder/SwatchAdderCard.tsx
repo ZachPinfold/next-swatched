@@ -165,7 +165,7 @@ const SwatchAdderCard = ({
         }}
       ></div>
       <div className="circle_hovers">
-        <svg width="180" height="180">
+        <svg width="180" height="180" className="menu_circle">
           {circleMenuArray.map((menu, index) => (
             <AdderRadialMenu
               index={index}

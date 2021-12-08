@@ -1,9 +1,8 @@
 .menu_circle {
   position: absolute;
-  cursor: pointer;
 
   g {
-    // position: absolute;
+    cursor: pointer;
   }
 
   circle {
@@ -12,6 +11,7 @@
   text {
     font-family: HelveticaM;
     font-size: 13px;
+    cursor: pointer;
   }
   // g {
   //   cursor: pointer;
