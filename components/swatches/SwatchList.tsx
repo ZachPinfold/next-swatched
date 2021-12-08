@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { SwatchObject } from "../../types/swatches";
-import { cropImage } from "../../utils/swatch";
 import SwatchAdderCard from "./swatch adder/SwatchAdderCard";
 import SwatchCard from "./swatch card/SwatchCard";
 
@@ -25,11 +24,6 @@ const SwatchList = ({
   swatchToCompare,
 }: SwatchTypes) => {
   const [swatchId, setSwatchId] = useState<string>("");
-  const [imgColour, setImageColour] = useState<number[]>([]);
-
-  const handleCapture = async (target: HTMLInputElement) => {
-    cropImage(target, setImageColour);
-  };
 
   return (
     <div className="swatch_grid wrapper_inner">
@@ -60,21 +54,14 @@ const SwatchList = ({
             />
           );
       })}
-      <input
-        accept="image/*"
-        id="icon-button-file"
-        type="file"
-        capture="environment"
-        onChange={(e) => handleCapture(e.target)}
-      />
 
-      <div
+      {/* <div
         style={{
           width: "200px",
           height: "200px",
           backgroundColor: `rgb(${imgColour})`,
         }}
-      ></div>
+      ></div> */}
     </div>
   );
 };

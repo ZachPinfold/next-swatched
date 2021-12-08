@@ -1,3 +1,5 @@
+import { openCircleMenuD3 } from "./d3";
+
 export const rgbToHex = (rgb: Array<number>) => {
   const ColorToHex = (color: number) => {
     var hexadecimal = color.toString(16);
@@ -201,4 +203,35 @@ export const cropImage = async (
       inputImage.src = newUrl;
     }
   }
+};
+
+interface SwatchCircleInput {
+  image: string;
+  text: string;
+  func: any;
+}
+
+export const openMenu = (
+  localSwatchId: string,
+  circleArray: SwatchCircleInput[],
+  position: number,
+  angle: number,
+  r: number
+) => {
+  const radius = r; // the radius as a constant
+  /* THETA is the angle of separation between each elemtents */
+  const theta = (position * Math.PI) / circleArray.length;
+
+  circleArray.forEach((e, i) => {
+    const circleId: string = `circle_${e.text}`;
+
+    let xPosition, yPosition;
+
+    const currentAngle = i * theta + angle; // calculate the current angle
+    /* Get the positions */
+    xPosition = radius * Math.cos(currentAngle);
+    yPosition = radius * Math.sin(currentAngle);
+
+    openCircleMenuD3(circleId, i, xPosition, yPosition, localSwatchId);
+  });
 };
