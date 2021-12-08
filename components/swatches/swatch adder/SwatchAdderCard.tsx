@@ -10,6 +10,7 @@ import {
   getContrastYIQ,
   isHexColor,
   openMenu,
+  rgbToHex,
 } from "../../../utils/swatch";
 import AdderRadialMenu from "../../radial menu/AdderRadialMenu";
 import { closeMenuOnHoverLeaveD3, openCircleMenuD3 } from "../../../utils/d3";
@@ -74,6 +75,11 @@ const SwatchAdderCard = ({
     if (colourLoaded) startAddSwatchToSwatchList(`#${inputValue}`);
   };
 
+  const handleImageAdd = () => {
+    setImageColour([]);
+    startAddSwatchToSwatchList(rgbToHex(imgColour));
+  };
+
   const handleImageCapture = async (target: HTMLInputElement) => {
     inputFileRef.current.click();
     cropImage(target, setImageColour);
@@ -90,7 +96,7 @@ const SwatchAdderCard = ({
   ];
 
   const circleMenuDecider = [
-    { image: HashTagImage, text: "add", func: handleImageCapture },
+    { image: HashTagImage, text: "add", func: handleImageAdd },
     { image: HashTagImage, text: "edit", func: handleImageCapture },
   ];
 
@@ -105,6 +111,8 @@ const SwatchAdderCard = ({
     if (imgColour.length > 0) {
       openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
+    } else {
+      console.log("close menu");
     }
   }, [imgColour]);
 
@@ -117,7 +125,6 @@ const SwatchAdderCard = ({
     // This useEffect first checks to see if the choice buttons are open
     // Then it hides the hover button so the 3 radial manu can't be opened
     if (imgColour.length > 0) {
-      console.log(imgColour);
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);

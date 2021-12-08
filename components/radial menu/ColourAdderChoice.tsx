@@ -39,13 +39,10 @@ const ColourAdderChoice = ({
         .attr("opacity", open ? "1" : "0");
     }
   };
-
   useEffect(() => {
-    if (menuOpen) {
-      setTimeout(() => {
-        initialLoad.current = true;
-      }, 0);
-    } else initialLoad.current = false;
+    setTimeout(() => {
+      initialLoad.current = true;
+    }, 0);
   }, [menuOpen]);
 
   return (
