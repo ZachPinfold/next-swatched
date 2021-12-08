@@ -8,8 +8,6 @@ export const openCircleMenuD3 = (
   yPosition: number,
   localSwatchId: string
 ) => {
-  console.log(`#${circleId}_${i}`);
-
   select(`#${circleId}_${i}`)
     .transition()
     .duration(400)

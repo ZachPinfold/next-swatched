@@ -52,7 +52,13 @@ const SwatchList = ({
             />
           );
         } else
-          return <SwatchAdderCard key={"add_hex_card"} color={swatch.color} />;
+          return (
+            <SwatchAdderCard
+              key={"add_hex_card"}
+              swatchId={swatchId}
+              setSwatchId={setSwatchId}
+            />
+          );
       })}
       <input
         accept="image/*"

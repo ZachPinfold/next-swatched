@@ -11,12 +11,18 @@ import {
 } from "../../../utils/swatch";
 import AdderRadialMenu from "../../radial menu/AdderRadialMenu";
 import { closeMenuOnHoverLeaveD3, openCircleMenuD3 } from "../../../utils/d3";
+
 interface SwatchTypes {
-  color: number[];
   startAddSwatchToSwatchList: (hex: string) => void;
+  setSwatchId: (swatchId: string) => void;
+  swatchId: string;
 }
 
-const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
+const SwatchAdderCard = ({
+  startAddSwatchToSwatchList,
+  swatchId,
+  setSwatchId,
+}: SwatchTypes) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [colourLoaded, setColourLoaded] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -98,13 +104,17 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
   };
 
   useEffect(() => {
-    if (!menuOpen || (!menuOpen && swatchHover)) {
+    if (
+      swatchId !== "swatch_adder" ||
+      !menuOpen ||
+      (!menuOpen && swatchHover)
+    ) {
       setOpenButtonDisplay("inline-block");
     } else
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);
-  }, [menuOpen, swatchHover]);
+  }, [menuOpen, swatchHover, swatchId]);
 
   return (
     <div
@@ -114,6 +124,7 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
       onMouseEnter={() => {
         if (!menuOpen && largeWindowSize) {
           setSwatchHover(true);
+          setSwatchId("swatch_adder");
         }
       }}
       onMouseLeave={() => {
@@ -129,14 +140,14 @@ const SwatchAdderCard = ({ startAddSwatchToSwatchList }: SwatchTypes) => {
           if (largeWindowSize) {
             openMenu("swatch_adder");
             setMenuOpen(true);
-            // setSwatchId(swatch.colourId);
+            setSwatchId("swatch_adder");
           }
         }}
         onClick={() => {
           if (!largeWindowSize) {
             openMenu("swatch_adder");
             setMenuOpen(true);
-            // setSwatchId(swatch.colourId);
+            setSwatchId("swatch_adder");
           }
         }}
         className="hover_button"
