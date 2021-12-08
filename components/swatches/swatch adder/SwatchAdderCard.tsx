@@ -103,7 +103,7 @@ const SwatchAdderCard = ({
 
   useEffect(() => {
     if (imgColour.length > 0) {
-      openMenu("", circleMenuDecider, 2, 0, 40);
+      openMenu("", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
     }
   }, [imgColour]);
@@ -161,14 +161,14 @@ const SwatchAdderCard = ({
       <div
         onMouseEnter={() => {
           if (largeWindowSize) {
-            openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45);
+            openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
             setMenuOpen(true);
             setSwatchId("swatch_adder");
           }
         }}
         onClick={() => {
           if (!largeWindowSize) {
-            openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45);
+            openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
             setMenuOpen(true);
             setSwatchId("swatch_adder");
           }

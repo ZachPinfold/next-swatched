@@ -216,14 +216,19 @@ export const openMenu = (
   circleArray: SwatchCircleInput[],
   position: number,
   angle: number,
-  r: number
+  r: number,
+  type: string
 ) => {
   const radius = r; // the radius as a constant
   /* THETA is the angle of separation between each elemtents */
   const theta = (position * Math.PI) / circleArray.length;
 
   circleArray.forEach((e, i) => {
-    const circleId: string = `circle_${e.text}`;
+    let id;
+
+    localSwatchId === "swatch_adder" ? (id = e.text) : (id = localSwatchId);
+
+    const circleId: string = `${type}_${id}`;
 
     let xPosition, yPosition;
 

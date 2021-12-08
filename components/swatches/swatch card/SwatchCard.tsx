@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   calculateDimensionsOnWindowChange,
+  openMenu,
   rgbToHex,
 } from "../../../utils/swatch";
 import LockedImage from "../../../assets/images/locked_swatch.svg";
@@ -104,23 +105,6 @@ const SwatchCard = ({
     },
   ];
 
-  const openMenu = (localSwatchId: string) => {
-    const radius = 45; // the radius as a constant
-    /* THETA is the angle of separation between each elemtents */
-    const theta = (2 * Math.PI) / circleMenuArray.length;
-
-    circleMenuArray.forEach((e, i) => {
-      let xPosition, yPosition;
-
-      const currentAngle = i * theta + 0.5; // calculate the current angle
-      /* Get the positions */
-      xPosition = radius * Math.cos(currentAngle);
-      yPosition = radius * Math.sin(currentAngle);
-
-      openCircleMenuD3(circleId, i, xPosition, yPosition, localSwatchId);
-    });
-  };
-
   // This useEffect below closes inactive circle menus on mobile
 
   useEffect(() => {
@@ -181,14 +165,14 @@ const SwatchCard = ({
       <div
         onMouseEnter={() => {
           if (largeWindowSize) {
-            openMenu(swatch.colourId);
+            openMenu(swatch.colourId, circleMenuArray, 2, 0.5, 45, "circle");
             setMenuOpen(true);
             setSwatchId(swatch.colourId);
           }
         }}
         onClick={() => {
           if (!largeWindowSize) {
-            openMenu(swatch.colourId);
+            openMenu(swatch.colourId, circleMenuArray, 2, 0.5, 45, "circle");
             setMenuOpen(true);
             setSwatchId(swatch.colourId);
           }

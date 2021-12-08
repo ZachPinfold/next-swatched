@@ -23,7 +23,7 @@ const ColourAdderChoice = ({
   menuOpen,
   func,
 }: SVGTypes) => {
-  const circleId: string = `circle_${text}_${index}`;
+  const circleId: string = `decider_${text}_${index}`;
 
   const initialLoad = useRef(false);
 
