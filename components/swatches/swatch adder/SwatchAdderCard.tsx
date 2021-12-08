@@ -103,14 +103,14 @@ const SwatchAdderCard = ({
 
   useEffect(() => {
     if (imgColour.length > 0) {
-      openMenu("", circleMenuDecider, 2, 0, 40, "decider");
+      openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
     }
   }, [imgColour]);
 
   // useEffect(() => {
+  //   openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
   //   setChoiceButtonDisplay("inline-block");
-  //   openMenu("", circleMenuDecider, 2, 0, 40);
   // }, []);
 
   useEffect(() => {

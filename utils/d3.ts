@@ -8,12 +8,18 @@ export const openCircleMenuD3 = (
   yPosition: number,
   localSwatchId: string
 ) => {
+  let actionAttachment: string = "";
+
+  !circleId.includes("decider")
+    ? (actionAttachment = "action_circles")
+    : (actionAttachment = "action_decider");
+
   select(`#${circleId}_${i}`)
     .transition()
     .duration(400)
     .attr("transform", `translate(${xPosition + 55}, ${yPosition + 55})`)
     .attr("opacity", "1")
-    .attr("class", `action_circles circle_${localSwatchId}_active`);
+    .attr("class", `${actionAttachment} circle_${localSwatchId}_active`);
 
   select(`#${circleId}_${i}_circle`)
     .transition()

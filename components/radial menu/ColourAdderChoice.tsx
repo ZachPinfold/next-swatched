@@ -52,7 +52,7 @@ const ColourAdderChoice = ({
     <g
       width={circleRadius * 2}
       height={circleRadius * 2}
-      // className={`action_circles`}
+      // className={`action_decider`}
       transform={`translate(${centerX}, ${centerY})`}
       id={`${circleId}`}
       onMouseEnter={() => setHoverOpacity(true)}
