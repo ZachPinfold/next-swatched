@@ -75,7 +75,7 @@ const AdderRadialMenu = ({
           fill="white"
           x="7%"
           y="10%"
-          text-anchor="middle"
+          textAnchor="middle"
           opacity={0}
         >
           {text}

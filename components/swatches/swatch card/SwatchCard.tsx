@@ -208,6 +208,7 @@ const SwatchCard = ({
               swatchToCompare={swatchToCompare}
               isCopied={isCopied}
               setIsCopied={setIsCopied}
+              key={index}
             />
           ))}
         </svg>

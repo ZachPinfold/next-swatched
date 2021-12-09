@@ -155,8 +155,6 @@ const SwatchAdderCard = ({
       !menuOpen ||
       (!menuOpen && swatchHover)
     ) {
-      console.log("fire");
-
       setOpenButtonDisplay("inline-block");
     }
     // A timeout is in place to stop the top <g> from entering a hover state too early
@@ -172,7 +170,6 @@ const SwatchAdderCard = ({
         backgroundColor:
           imgColour.length < 1 ? "lightgrey" : `rgba(${imgColour})`,
       }}
-      // key={color[0]}
       className="swatch_card"
       onMouseEnter={() => {
         if (!menuOpen && largeWindowSize) {
@@ -229,6 +226,7 @@ const SwatchAdderCard = ({
               circleRadius={circleRadius}
               menuOpen={menuOpen}
               func={menu.func}
+              key={index}
             />
           ))}
         </svg>
@@ -249,6 +247,7 @@ const SwatchAdderCard = ({
             circleRadius={circleRadius}
             menuOpen={menuOpen}
             func={menu.func}
+            key={index}
           />
         ))}
       </svg>
