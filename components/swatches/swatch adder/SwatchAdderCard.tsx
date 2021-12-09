@@ -72,16 +72,16 @@ const SwatchAdderCard = ({
     console.log("fire");
   };
 
-  const applyHexInput = (e: EventTarget) => {
-    const str: string = e.value.replace("#", "");
+  const applyHexInput = (e: string) => {
+    const str: string = e.replace("#", "");
 
     const isHexColour: boolean = isHexColor(str);
 
     setInputValue(str);
-    isHexColour ? setColourLoaded(true) : setColourLoaded(false);
+    if (isHexColour) {
+      setColourLoaded(true);
+    } else setColourLoaded(false);
   };
-
-  console.log(inputValue);
 
   const handleHexAdd = (e: any) => {
     e.preventDefault();
@@ -274,8 +274,18 @@ const SwatchAdderCard = ({
         ref={inputFileRef}
       />
       {hexInput && (
-        <form className="hex_input" action="">
-          <input onInput={(e) => applyHexInput(e.target)} type="text" />
+        <form className={"hex_input"} onSubmit={(e) => handleHexAdd(e)}>
+          <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>#</span>
+          <input
+            value={inputValue}
+            onChange={(e) => applyHexInput(e.target.value)}
+            type="text"
+            placeholder="# add hex"
+            style={{
+              padding:
+                inputValue.length < 1 ? "4px 6px 4px 6px" : "4px 6px 4px 15px",
+            }}
+          />
         </form>
       )}
     </div>

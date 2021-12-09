@@ -1,6 +1,5 @@
 .swatch_card {
   form {
-    margin-left: -40px;
     display: flex;
     align-items: center;
     transition: 0.2s ease all;
@@ -50,10 +49,10 @@
     border: 2px solid black;
   }
   span {
-    left: 15px;
-    position: relative;
     font-size: 18px;
     color: black;
+    position: absolute;
+    left: 7px;
   }
   .colour_loaded {
     // margin-left: -30px;
