@@ -1,12 +1,4 @@
-.swatch_adder_card {
-  cursor: pointer;
-  background-color: rgb(6, 214, 160, 0.3);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-
+.swatch_card {
   form {
     margin-left: -40px;
     display: flex;
@@ -41,6 +33,18 @@
     font-family: HelveticaM;
   }
 
+  .hex_input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px; /* Need a specific value to work */
+    height: 100%;
+  }
+
   input:focus {
     outline: none;
     border: 2px solid black;
@@ -68,4 +72,10 @@
 
 .swatch_adder_card:hover {
   background-color: rgb(255, 100, 89, 0.4);
+}
+
+.swatch_card {
+  #icon-button-file {
+    display: none;
+  }
 }

@@ -22,6 +22,12 @@ const circleMenuDecider = [
   { image: HashTagImage, text: "edit" },
 ];
 
+interface SwatchCircleInput {
+  image: string;
+  text: string;
+  func: any;
+}
+
 interface SwatchTypes {
   startAddSwatchToSwatchList: (hex: string) => void;
   setSwatchId: (swatchId: string) => void;
@@ -45,6 +51,7 @@ const SwatchAdderCard = ({
   const inputFileRef = useRef<any>();
   const [choiceButtonDisplay, setChoiceButtonDisplay] =
     useState<string>("none");
+  const [hexInput, setHexInput] = useState<boolean>(false);
 
   const width = 180;
   const height = 180;
@@ -65,14 +72,16 @@ const SwatchAdderCard = ({
     console.log("fire");
   };
 
-  const applyHexInput = (e: string) => {
-    const str: string = e.replace("#", "");
+  const applyHexInput = (e: EventTarget) => {
+    const str: string = e.value.replace("#", "");
 
     const isHexColour: boolean = isHexColor(str);
 
     setInputValue(str);
     isHexColour ? setColourLoaded(true) : setColourLoaded(false);
   };
+
+  console.log(inputValue);
 
   const handleHexAdd = (e: any) => {
     e.preventDefault();
@@ -89,9 +98,21 @@ const SwatchAdderCard = ({
     inputFileRef.current.click();
   };
 
+  const closeMenu = (arrayToClose: SwatchCircleInput[]) => {
+    arrayToClose.forEach((e, i) => {
+      const circleId: string = `circle_${e.text}`;
+      closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
+    });
+  };
+
+  const handleHexInputSelection = () => {
+    setHexInput(true);
+    closeMenu(circleMenuArray);
+  };
+
   const circleMenuArray = [
     { image: HashTagImage, text: "upload", func: handleImageCapture },
-    { image: HashTagImage, text: "lock", func: handleImageCapture },
+    { image: HashTagImage, text: "hex", func: handleHexInputSelection },
     {
       image: HashTagImage,
       text: "delete",
@@ -99,16 +120,9 @@ const SwatchAdderCard = ({
     },
   ];
 
-  const closeMenu = () => {
-    circleMenuArray.forEach((e, i) => {
-      const circleId: string = `circle_${e.text}`;
-      closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
-    });
-  };
-
   const handleImageCropAndColour = (target: HTMLInputElement) => {
     cropImage(target, setImageColour);
-    closeMenu();
+    closeMenu(circleMenuArray);
   };
 
   const editImageSelection = () => {
@@ -138,14 +152,14 @@ const SwatchAdderCard = ({
   }, [imgColour]);
 
   // useEffect(() => {
-  //   openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
+  //   openMenu("swatch_adder", circleMenuArray, 2, 0, 40, "circle");
   //   setChoiceButtonDisplay("inline-block");
   // }, []);
 
   useEffect(() => {
     // This useEffect first checks to see if the choice buttons are open
     // Then it hides the hover button so the 3 radial manu can't be opened
-    if (imgColour.length > 0) {
+    if (imgColour.length > 0 || hexInput) {
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);
@@ -162,7 +176,7 @@ const SwatchAdderCard = ({
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);
-  }, [menuOpen, swatchHover, swatchId, imgColour]);
+  }, [menuOpen, swatchHover, swatchId, imgColour, hexInput]);
 
   return (
     <div
@@ -181,7 +195,7 @@ const SwatchAdderCard = ({
         if (largeWindowSize) {
           setSwatchHover(false);
           setMenuOpen(false);
-          closeMenu();
+          closeMenu(circleMenuArray);
         }
       }}
     >
@@ -259,6 +273,11 @@ const SwatchAdderCard = ({
         onChange={(e) => handleImageCropAndColour(e.target)}
         ref={inputFileRef}
       />
+      {hexInput && (
+        <form className="hex_input" action="">
+          <input onInput={(e) => applyHexInput(e.target)} type="text" />
+        </form>
+      )}
     </div>
   );
 };
