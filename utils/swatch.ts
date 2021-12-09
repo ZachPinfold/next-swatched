@@ -188,8 +188,6 @@ export const cropImage = async (
         // draw our image at position 0, 0 on the canvas
         const ctx = outputImage.getContext("2d");
         if (ctx) {
-          console.log(Object.values(getAverageRGB(outputImage)));
-
           ctx.drawImage(inputImage, outputX, outputY);
           setImageColour(Object.values(getAverageRGB(outputImage)));
         }

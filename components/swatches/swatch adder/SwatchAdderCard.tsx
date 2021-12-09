@@ -15,6 +15,12 @@ import {
 import AdderRadialMenu from "../../radial menu/AdderRadialMenu";
 import { closeMenuOnHoverLeaveD3, openCircleMenuD3 } from "../../../utils/d3";
 import ColourAdderChoice from "../../radial menu/ColourAdderChoice";
+import { select } from "d3";
+
+const circleMenuDecider = [
+  { image: HashTagImage, text: "add" },
+  { image: HashTagImage, text: "edit" },
+];
 
 interface SwatchTypes {
   startAddSwatchToSwatchList: (hex: string) => void;
@@ -69,8 +75,6 @@ const SwatchAdderCard = ({
   };
 
   const handleHexAdd = (e: any) => {
-    console.log(inputValue);
-
     e.preventDefault();
     if (colourLoaded) startAddSwatchToSwatchList(`#${inputValue}`);
   };
@@ -95,9 +99,24 @@ const SwatchAdderCard = ({
     },
   ];
 
+  const editImageSelection = () => {
+    circleMenuDecider.forEach((e, i) => {
+      const circleId = `decider_${e.text}`;
+      select(`#${circleId}_${i}`)
+        .transition()
+        .duration(400)
+        .attr("transform", `translate(${centerX}, ${centerY})`)
+        .attr("opacity", "0");
+    });
+    openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
+    setMenuOpen(true);
+    setSwatchId("swatch_adder");
+    setImageColour([]);
+  };
+
   const circleMenuDecider = [
     { image: HashTagImage, text: "add", func: handleImageAdd },
-    { image: HashTagImage, text: "edit", func: handleImageCapture },
+    { image: HashTagImage, text: "edit", func: editImageSelection },
   ];
 
   const closeMenu = () => {
@@ -112,7 +131,7 @@ const SwatchAdderCard = ({
       openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
     } else {
-      console.log("close menu");
+      setChoiceButtonDisplay("none");
     }
   }, [imgColour]);
 
@@ -134,6 +153,8 @@ const SwatchAdderCard = ({
       !menuOpen ||
       (!menuOpen && swatchHover)
     ) {
+      console.log("fire");
+
       setOpenButtonDisplay("inline-block");
     }
     // A timeout is in place to stop the top <g> from entering a hover state too early

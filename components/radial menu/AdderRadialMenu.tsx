@@ -29,8 +29,6 @@ const AdderRadialMenu = ({
 
   const setHoverOpacity = (open: boolean) => {
     if (initialLoad.current === true) {
-      console.log("fire");
-
       select(`#${circleId}_img`)
         .transition()
         .duration(300)
