@@ -84,8 +84,11 @@ const SwatchAdderCard = ({
     startAddSwatchToSwatchList(rgbToHex(imgColour));
   };
 
-  const handleImageCapture = async (target: HTMLInputElement) => {
+  const handleImageCapture = async () => {
     inputFileRef.current.click();
+  };
+
+  const handleImageCropAndColour = (target: HTMLInputElement) => {
     cropImage(target, setImageColour);
   };
 
@@ -102,15 +105,12 @@ const SwatchAdderCard = ({
   const editImageSelection = () => {
     circleMenuDecider.forEach((e, i) => {
       const circleId = `decider_${e.text}`;
-      select(`#${circleId}_${i}`)
-        .transition()
-        .duration(400)
-        .attr("transform", `translate(${centerX}, ${centerY})`)
-        .attr("opacity", "0");
+      closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
     });
-    openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
-    setMenuOpen(true);
-    setSwatchId("swatch_adder");
+    handleImageCapture();
+    // openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
+    // setMenuOpen(true);
+    // setSwatchId("swatch_adder");
     setImageColour([]);
   };
 
@@ -255,7 +255,7 @@ const SwatchAdderCard = ({
         id="icon-button-file"
         type="file"
         capture="environment"
-        onChange={(e) => handleImageCapture(e.target)}
+        onChange={(e) => handleImageCropAndColour(e.target)}
         ref={inputFileRef}
       />
     </div>
