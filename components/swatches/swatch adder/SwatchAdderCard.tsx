@@ -82,14 +82,11 @@ const SwatchAdderCard = ({
   const handleImageAdd = () => {
     setImageColour([]);
     startAddSwatchToSwatchList(rgbToHex(imgColour));
+    setMenuOpen(false);
   };
 
   const handleImageCapture = async () => {
     inputFileRef.current.click();
-  };
-
-  const handleImageCropAndColour = (target: HTMLInputElement) => {
-    cropImage(target, setImageColour);
   };
 
   const circleMenuArray = [
@@ -101,6 +98,18 @@ const SwatchAdderCard = ({
       func: handleImageCapture,
     },
   ];
+
+  const closeMenu = () => {
+    circleMenuArray.forEach((e, i) => {
+      const circleId: string = `circle_${e.text}`;
+      closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
+    });
+  };
+
+  const handleImageCropAndColour = (target: HTMLInputElement) => {
+    cropImage(target, setImageColour);
+    closeMenu();
+  };
 
   const editImageSelection = () => {
     circleMenuDecider.forEach((e, i) => {
@@ -118,13 +127,6 @@ const SwatchAdderCard = ({
     { image: HashTagImage, text: "add", func: handleImageAdd },
     { image: HashTagImage, text: "edit", func: editImageSelection },
   ];
-
-  const closeMenu = () => {
-    circleMenuArray.forEach((e, i) => {
-      const circleId: string = `circle_${e.text}`;
-      closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
-    });
-  };
 
   useEffect(() => {
     if (imgColour.length > 0) {
