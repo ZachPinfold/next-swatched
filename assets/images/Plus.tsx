@@ -2,9 +2,11 @@ import React from "react";
 
 interface Actions {
   color: string;
+  colourLoaded: boolean;
+  handleHexAdd: (e: any) => void;
 }
 
-const Plus = ({ color }: Actions) => {
+const Plus = ({ color, colourLoaded, handleHexAdd }: Actions) => {
   return (
     <svg
       version="1.1"
@@ -13,6 +15,8 @@ const Plus = ({ color }: Actions) => {
       x="0px"
       y="0px"
       viewBox="0 0 141.35 141.26"
+      style={{ right: colourLoaded ? "-55px" : "-60px" }}
+      onClick={(e) => handleHexAdd(e)}
     >
       <g>
         <path

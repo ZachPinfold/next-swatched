@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startAddSwatchToSwatchList } from "../../../actions/swatch";
 import Plus from "../../../assets/images/Plus";
 import HashTagImage from "../../../assets/images/hashtag_swatch.svg";
+import BackImage from "../../../assets/images/back_swatch.svg";
 
 import {
   calculateDimensionsOnWindowChange,
   cropImage,
   getContrastYIQ,
+  hexToRgb,
   isHexColor,
   openMenu,
   rgbToHex,
@@ -78,8 +80,13 @@ const SwatchAdderCard = ({
     const isHexColour: boolean = isHexColor(str);
 
     setInputValue(str);
+
+    console.log(str);
+
     if (isHexColour) {
       setColourLoaded(true);
+
+      setImageColour(hexToRgb(`#${str}`));
     } else setColourLoaded(false);
   };
 
@@ -131,9 +138,6 @@ const SwatchAdderCard = ({
       closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
     });
     handleImageCapture();
-    // openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
-    // setMenuOpen(true);
-    // setSwatchId("swatch_adder");
     setImageColour([]);
   };
 
@@ -143,7 +147,7 @@ const SwatchAdderCard = ({
   ];
 
   useEffect(() => {
-    if (imgColour.length > 0) {
+    if (imgColour.length > 0 && inputFileRef.current > 0) {
       openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
     } else {
@@ -199,6 +203,11 @@ const SwatchAdderCard = ({
         }
       }}
     >
+      {hexInput && (
+        <div className="back_arrow">
+          <img onClick={() => console.log("fire")} src={BackImage.src} alt="" />
+        </div>
+      )}
       <div
         onMouseEnter={() => {
           if (largeWindowSize) {
@@ -274,19 +283,39 @@ const SwatchAdderCard = ({
         ref={inputFileRef}
       />
       {hexInput && (
-        <form className={"hex_input"} onSubmit={(e) => handleHexAdd(e)}>
-          <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>#</span>
-          <input
-            value={inputValue}
-            onChange={(e) => applyHexInput(e.target.value)}
-            type="text"
-            placeholder="# add hex"
-            style={{
-              padding:
-                inputValue.length < 1 ? "4px 6px 4px 6px" : "4px 6px 4px 15px",
-            }}
-          />
-        </form>
+        <Fragment>
+          <form
+            style={{ right: colourLoaded ? "20px" : "0" }}
+            className={"hex_input"}
+            onSubmit={(e) => handleHexAdd(e)}
+          >
+            <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>
+              #
+            </span>
+            <input
+              value={inputValue}
+              onChange={(e) => applyHexInput(e.target.value)}
+              type="text"
+              placeholder="# add hex"
+              style={{
+                padding:
+                  inputValue.length < 1
+                    ? "4px 6px 4px 6px"
+                    : "4px 6px 4px 15px",
+              }}
+            />
+          </form>
+          <div
+            style={{ opacity: colourLoaded ? "1" : "0" }}
+            className="outer_svg"
+          >
+            <Plus
+              color={"white"}
+              colourLoaded={colourLoaded}
+              handleHexAdd={handleHexAdd}
+            />
+          </div>
+        </Fragment>
       )}
     </div>
   );
