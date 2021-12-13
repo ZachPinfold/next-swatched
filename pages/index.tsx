@@ -14,7 +14,7 @@ interface InitialSwatch {
   swatches: any[];
 }
 
-export default function Home({ swatches }: InitialSwatch) {
+export const Home = ({ swatches }: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState(swatches);
   const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
   const [refreshClick, setRefreshClick] = useState<boolean>(false);
@@ -84,7 +84,7 @@ export default function Home({ swatches }: InitialSwatch) {
       </div>
     </div>
   );
-}
+};
 
 export async function getStaticProps() {
   let result;
