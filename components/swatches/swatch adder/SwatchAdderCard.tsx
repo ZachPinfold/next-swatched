@@ -81,8 +81,6 @@ const SwatchAdderCard = ({
 
     setInputValue(str);
 
-    console.log(str);
-
     if (isHexColour) {
       setColourLoaded(true);
 
@@ -113,8 +111,10 @@ const SwatchAdderCard = ({
   };
 
   const handleHexInputSelection = () => {
-    setHexInput(true);
     closeMenu(circleMenuArray);
+    setTimeout(() => {
+      setHexInput(true);
+    }, 250);
   };
 
   const circleMenuArray = [
@@ -205,7 +205,16 @@ const SwatchAdderCard = ({
     >
       {hexInput && (
         <div className="back_arrow">
-          <img onClick={() => console.log("fire")} src={BackImage.src} alt="" />
+          <img
+            onClick={() => {
+              openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
+              setMenuOpen(true);
+              setSwatchId("swatch_adder");
+              setHexInput(false);
+            }}
+            src={BackImage.src}
+            alt=""
+          />
         </div>
       )}
       <div
