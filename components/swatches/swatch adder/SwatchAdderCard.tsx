@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startAddSwatchToSwatchList } from "../../../actions/swatch";
-import Plus from "../../../assets/images/Plus";
+import PlusHex from "../../../assets/images/PlusHex";
 import HashTagImage from "../../../assets/images/hashtag_swatch.svg";
 import BackImage from "../../../assets/images/back_swatch.svg";
 
@@ -152,7 +152,11 @@ const SwatchAdderCard = ({
   ];
 
   useEffect(() => {
-    if (imgColour.length > 0 && inputFileRef.current > 0) {
+    console.log(imgColour, inputFileRef.current.length);
+
+    if (imgColour.length > 0 && inputFileRef.current) {
+      console.log("fire");
+
       openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
     } else {
@@ -166,8 +170,6 @@ const SwatchAdderCard = ({
   // }, []);
 
   useEffect(() => {
-    console.log(swatchId, hexInput, imgColour, swatchId, menuOpen);
-
     // This useEffect first checks to see if the choice buttons are open
     // Then it hides the hover button so the 3 radial manu can't be opened
     if (imgColour.length > 0 || hexInput) {
@@ -327,7 +329,7 @@ const SwatchAdderCard = ({
             style={{ opacity: colourLoaded ? "1" : "0" }}
             className="outer_svg"
           >
-            <Plus
+            <PlusHex
               color={"white"}
               colourLoaded={colourLoaded}
               handleHexAdd={handleHexAdd}
