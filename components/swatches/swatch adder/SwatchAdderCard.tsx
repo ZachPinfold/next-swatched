@@ -91,6 +91,10 @@ const SwatchAdderCard = ({
   const handleHexAdd = (e: any) => {
     e.preventDefault();
     if (colourLoaded) startAddSwatchToSwatchList(`#${inputValue}`);
+    setHexInput(false);
+    setInputValue("");
+    setImageColour([]);
+    setColourLoaded(false);
   };
 
   const handleImageAdd = () => {
@@ -114,6 +118,7 @@ const SwatchAdderCard = ({
     closeMenu(circleMenuArray);
     setTimeout(() => {
       setHexInput(true);
+      setMenuOpen(false);
     }, 250);
   };
 
@@ -161,6 +166,8 @@ const SwatchAdderCard = ({
   // }, []);
 
   useEffect(() => {
+    console.log(swatchId, hexInput, imgColour, swatchId, menuOpen);
+
     // This useEffect first checks to see if the choice buttons are open
     // Then it hides the hover button so the 3 radial manu can't be opened
     if (imgColour.length > 0 || hexInput) {
@@ -211,6 +218,7 @@ const SwatchAdderCard = ({
               setMenuOpen(true);
               setSwatchId("swatch_adder");
               setHexInput(false);
+              setInputValue("");
             }}
             src={BackImage.src}
             alt=""
@@ -291,11 +299,12 @@ const SwatchAdderCard = ({
         onChange={(e) => handleImageCropAndColour(e.target)}
         ref={inputFileRef}
       />
+
       {hexInput && (
         <Fragment>
           <form
             style={{ right: colourLoaded ? "20px" : "0" }}
-            className={"hex_input"}
+            className={`hex_input`}
             onSubmit={(e) => handleHexAdd(e)}
           >
             <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>
