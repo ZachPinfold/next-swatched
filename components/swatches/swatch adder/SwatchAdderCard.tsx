@@ -4,6 +4,8 @@ import { startAddSwatchToSwatchList } from "../../../actions/swatch";
 import PlusHex from "../../../assets/images/PlusHex";
 import HashTagImage from "../../../assets/images/hashtag_swatch.svg";
 import BackImage from "../../../assets/images/back_swatch.svg";
+import UploadImage from "../../../assets/images/upload_swatch.svg";
+import RGBImage from "../../../assets/images/rgb_swatch.svg";
 
 import {
   calculateDimensionsOnWindowChange,
@@ -123,11 +125,11 @@ const SwatchAdderCard = ({
   };
 
   const circleMenuArray = [
-    { image: HashTagImage, text: "upload", func: handleImageCapture },
+    { image: UploadImage, text: "upload", func: handleImageCapture },
     { image: HashTagImage, text: "hex", func: handleHexInputSelection },
     {
-      image: HashTagImage,
-      text: "delete",
+      image: RGBImage,
+      text: "rgb",
       func: handleImageCapture,
     },
   ];
@@ -151,23 +153,16 @@ const SwatchAdderCard = ({
     { image: HashTagImage, text: "edit", func: editImageSelection },
   ];
 
+  // This useEffect opens the 'decider' circles when all the conditions are met
+
   useEffect(() => {
-    console.log(imgColour, inputFileRef.current.length);
-
-    if (imgColour.length > 0 && inputFileRef.current) {
-      console.log("fire");
-
+    if (imgColour.length > 0 && inputFileRef.current && !hexInput) {
       openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
     } else {
       setChoiceButtonDisplay("none");
     }
   }, [imgColour]);
-
-  // useEffect(() => {
-  //   openMenu("swatch_adder", circleMenuArray, 2, 0, 40, "circle");
-  //   setChoiceButtonDisplay("inline-block");
-  // }, []);
 
   useEffect(() => {
     // This useEffect first checks to see if the choice buttons are open
@@ -221,6 +216,7 @@ const SwatchAdderCard = ({
               setSwatchId("swatch_adder");
               setHexInput(false);
               setInputValue("");
+              setImageColour([]);
             }}
             src={BackImage.src}
             alt=""
@@ -342,3 +338,8 @@ const SwatchAdderCard = ({
 };
 
 export default connect(null, { startAddSwatchToSwatchList })(SwatchAdderCard);
+
+// useEffect(() => {
+//   openMenu("swatch_adder", circleMenuArray, 2, 0, 40, "circle");
+//   setChoiceButtonDisplay("inline-block");
+// }, []);
