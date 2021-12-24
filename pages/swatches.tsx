@@ -54,6 +54,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
 
   return (
     <div className="wrapper swatches_page">
+      <h1>swatches</h1>
       <SwatchList
         swatches={swatches}
         setCompareArray={setCompareArray}

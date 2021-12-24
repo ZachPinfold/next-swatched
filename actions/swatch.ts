@@ -29,6 +29,7 @@ export const startGetUserSwatches =
         .collection("swatches")
         .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
         .collection("userSwatches")
+        .orderBy("timeAdded", "desc")
         .get();
 
       let resultArray: SwatchObject[] = [];
@@ -41,7 +42,7 @@ export const startGetUserSwatches =
         });
       }
 
-      resultArray.push({
+      resultArray.unshift({
         colourId: "none-colour",
         color: [6, 214, 160],
         timeAdded: new Date(),
@@ -67,8 +68,6 @@ export const startAddSwatchToSwatchList =
         color: rgbColour,
       };
 
-      console.log(swatchObject);
-
       app
         .firestore()
         .collection("swatches")
@@ -77,13 +76,13 @@ export const startAddSwatchToSwatchList =
         .doc(uniqueId)
         .set(swatchObject);
 
-      const swatchForreducer = {
+      const swatchForReducer = {
         timeAdded: new Date(),
         color: rgbColour,
         colourId: uniqueId,
       };
 
-      dispatch(addUserSwatch(swatchForreducer));
+      dispatch(addUserSwatch(swatchForReducer));
     } catch (error) {
       console.log(error);
     }

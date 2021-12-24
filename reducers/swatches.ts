@@ -20,14 +20,16 @@ const swatches = (
         loading: false,
       };
     case "ADD_SWATCH":
-      const newArrayWithoutLast = state.swatches.slice(0, -1);
-      const lastElement = state.swatches[state.swatches.length - 1];
+      const newArrayWithoutLast = state.swatches.slice(1);
+      const firstElement = state.swatches[0];
+
+      console.log();
 
       return {
         ...state,
         swatches:
           "colourId" in payload
-            ? [...newArrayWithoutLast, payload, lastElement]
+            ? [firstElement, payload, ...newArrayWithoutLast]
             : [],
         loading: false,
       };
