@@ -47,6 +47,8 @@ const SwatchSelector = ({
     calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
 
+  console.log(swatchToCompare, compareArray[0]);
+
   return (
     <div
       className={"swatch_selector"}
@@ -73,7 +75,10 @@ const SwatchSelector = ({
           className="current_colour"
           style={{ backgroundColor: `rgb(${swatchToCompare})` }}
         >
-          <div className="loader"></div>
+          <div
+            style={{ opacity: swatchToCompare !== compareArray[0] ? "1" : "0" }}
+            className="loader"
+          ></div>
         </div>
         <div className="inner_compare">
           {compareArray.length > 0 &&

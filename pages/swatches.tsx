@@ -33,7 +33,11 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
 
         const apiResponse = await axios.post("/api/colorMind", data);
 
-        setCompareArray(apiResponse.data.colourData);
+        const { colourData } = apiResponse.data;
+
+        colourData[0] = swatchToCompare;
+
+        setCompareArray(colourData);
       } catch (error) {
         console.log(error);
       }
