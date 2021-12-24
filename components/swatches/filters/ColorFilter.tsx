@@ -47,17 +47,18 @@ const ColorFilter = ({ startGetUserSwatches }: Actions) => {
       <div className={"dropdown_list " + (isDropdownOpen && "open_list")}>
         <ul>
           {colorNames.map((color) => {
-            return (
-              <li
-                onClick={() => {
-                  setColorFilter(color);
-                  setDropdownOpen(false);
-                }}
-                key={color}
-              >
-                {color}
-              </li>
-            );
+            if (colorFilter !== color)
+              return (
+                <li
+                  onClick={() => {
+                    setColorFilter(color);
+                    setDropdownOpen(false);
+                  }}
+                  key={color}
+                >
+                  {color}
+                </li>
+              );
           })}
         </ul>
       </div>
