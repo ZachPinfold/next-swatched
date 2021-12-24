@@ -57,7 +57,9 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
     <div className="wrapper swatches_page">
       <h1>swatches</h1>
 
-      <ColorFilter />
+      <div className="upper_area wrapper_inner">
+        <ColorFilter />
+      </div>
 
       <SwatchList
         swatches={swatches}

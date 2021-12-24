@@ -19,7 +19,9 @@ interface Actions {
 }
 
 const ColorFilter = ({ startGetUserSwatches }: Actions) => {
-  const [colorFilter, setColorFilter] = useState<string>();
+  const [colorFilter, setColorFilter] = useState<string>("all");
+  const [isDropdownOpen, setDropdownOpen] = useState<boolean>(true);
+
   const colorRef = useRef<string>();
 
   useEffect(() => {
@@ -30,15 +32,36 @@ const ColorFilter = ({ startGetUserSwatches }: Actions) => {
   }, [colorFilter]);
 
   return (
-    <ul className="color_name_list">
-      {colorNames.map((color) => {
-        return (
-          <li onClick={() => setColorFilter(color)} key={color}>
-            {color}
-          </li>
-        );
-      })}
-    </ul>
+    <div className="dropdown">
+      <div
+        onClick={() => setDropdownOpen(!isDropdownOpen)}
+        className="dropdown_selected"
+        style={{
+          borderBottom: !isDropdownOpen
+            ? "1px solid #06d6a0"
+            : "1px solid white",
+        }}
+      >
+        <p> {colorFilter}</p>
+      </div>
+      <div className={"dropdown_list " + (isDropdownOpen && "open_list")}>
+        <ul>
+          {colorNames.map((color) => {
+            return (
+              <li
+                onClick={() => {
+                  setColorFilter(color);
+                  setDropdownOpen(false);
+                }}
+                key={color}
+              >
+                {color}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
   );
 };
 

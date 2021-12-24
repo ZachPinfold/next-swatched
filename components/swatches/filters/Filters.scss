@@ -1,6 +1,43 @@
-.color_name_list {
-  display: flex;
+.dropdown {
+  .dropdown_selected {
+    cursor: pointer;
+  }
   li {
-    margin: 0 10px;
+    cursor: pointer;
+    list-style-type: none;
+    font-family: HelveticaM;
+    margin: 10px 0;
+  }
+  .dropdown_selected {
+    padding: 0px 10px 0px 10px;
+    border-left: 1px solid $colour-green;
+    border-right: 1px solid $colour-green;
+    border-top: 1px solid $colour-green;
+    width: 180px;
+
+    p {
+      list-style-type: none;
+      font-family: HelveticaM;
+      margin: 13px 0;
+    }
+  }
+  .dropdown_list {
+    transform-origin: top;
+    transition: all 0.1s ease-in-out;
+    transform: scaleY(0);
+    position: absolute;
+    z-index: 10;
+    padding: 5px 15px 7px 10px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width: 180px;
+    border-left: 1px solid $colour-green;
+    border-right: 1px solid $colour-green;
+    border-bottom: 1px solid $colour-green;
+    margin-top: -15px;
+    background-color: white;
+  }
+  .open_list {
+    transform: scaleY(1);
   }
 }
