@@ -188,7 +188,7 @@ const SwatchAdderCard = ({
   }, [menuOpen, swatchHover, swatchId, imgColour, hexInput]);
 
   return (
-    <div
+    <li
       style={{
         backgroundColor:
           imgColour.length < 1 ? "lightgrey" : `rgba(${imgColour})`,
@@ -336,7 +336,7 @@ const SwatchAdderCard = ({
           </div>
         </Fragment>
       )}
-    </div>
+    </li>
   );
 };
 

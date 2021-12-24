@@ -26,7 +26,7 @@ const SwatchList = ({
   const [swatchId, setSwatchId] = useState<string>("");
 
   return (
-    <div className="swatch_grid wrapper_inner">
+    <ul className="swatch_grid wrapper_inner">
       {swatches.map((swatch, index) => {
         if (swatch.colourId !== "none-colour") {
           return (
@@ -62,7 +62,7 @@ const SwatchList = ({
           backgroundColor: `rgb(${imgColour})`,
         }}
       ></div> */}
-    </div>
+    </ul>
   );
 };
 

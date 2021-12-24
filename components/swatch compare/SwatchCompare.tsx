@@ -4,7 +4,7 @@ import Plus from "../../assets/images/Plus";
 import Minus from "../../assets/images/Minus";
 import expandImage from "../../assets/images/arrow_swatch.svg";
 import CompareCard from "./CompareCard";
-import { calculateDimensionsOnWindowChange } from "../../utils/swatch";
+import { calculateDimensionsOnWindowChange, rgb2hsv } from "../../utils/swatch";
 
 interface Actions {
   compareArray: number[][];
@@ -31,6 +31,8 @@ const SwatchSelector = ({
   swatchToCompare,
   setSwatchToCompare,
 }: Actions) => {
+  console.log(swatchToCompare, rgb2hsv(swatchToCompare));
+
   const widthRef = useRef<string | null>(null);
   const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
 

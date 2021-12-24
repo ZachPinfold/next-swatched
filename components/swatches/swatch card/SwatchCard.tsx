@@ -139,7 +139,7 @@ const SwatchCard = ({
   // }, []);
 
   return (
-    <div
+    <li
       style={{ backgroundColor: rgbToHex(color) }}
       key={color[0]}
       className="swatch_card"
@@ -211,7 +211,7 @@ const SwatchCard = ({
           ))}
         </svg>
       </div>
-    </div>
+    </li>
   );
 };
 

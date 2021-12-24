@@ -238,3 +238,54 @@ export const openMenu = (
     openCircleMenuD3(circleId, i, xPosition, yPosition, localSwatchId);
   });
 };
+
+export const hueToColorName = (hue: number) => {
+  let name: string = "none";
+
+  switch (true) {
+    case hue >= 1 && hue <= 15:
+      name = "red";
+      break;
+    case hue >= 16 && hue <= 50:
+      name = "orange";
+      break;
+    case hue >= 51 && hue <= 72:
+      name = "yellow";
+      break;
+    case hue >= 73 && hue <= 155:
+      name = "green";
+      break;
+    case hue >= 156 && hue <= 185:
+      name = "cyan";
+      break;
+    case hue >= 186 && hue <= 268:
+      name = "blue";
+      break;
+    case hue >= 269 && hue <= 310:
+      name = "magenta";
+      break;
+    case hue >= 311 && hue <= 344:
+      name = "pink";
+      break;
+    case hue >= 345 && hue <= 359:
+      name = "red";
+      break;
+    default:
+      name = "none";
+      break;
+  }
+
+  return name;
+};
+
+export const rgb2hsv = (rgb: number[]) => {
+  let r = rgb[0];
+  let g = rgb[1];
+  let b = rgb[2];
+  let v = Math.max(r, g, b),
+    c = v - Math.min(r, g, b);
+  let h =
+    c && (v == r ? (g - b) / c : v == g ? 2 + (b - r) / c : 4 + (r - g) / c);
+  const result = [60 * (h < 0 ? h + 6 : h), v && c / v, v];
+  return hueToColorName(parseInt(result[0].toFixed()));
+};
