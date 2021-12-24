@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import SwatchSelector from "../components/swatch compare/SwatchCompare";
 import ColorFilter from "../components/swatches/filters/ColorFilter";
-import SwatchList from "../components/swatches/SwatchList";
+import SwatchList from "../components/swatches/swatch list/SwatchList";
 import { SwatchObject } from "../types/swatches";
 
 interface Actions {

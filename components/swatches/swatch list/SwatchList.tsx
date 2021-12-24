@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { SwatchObject } from "../../types/swatches";
-import SwatchAdderCard from "./swatch adder/SwatchAdderCard";
-import SwatchCard from "./swatch card/SwatchCard";
+import { SwatchObject } from "../../../types/swatches";
+import SwatchAdderCard from "../swatch adder/SwatchAdderCard";
+import SwatchCard from "../swatch card/SwatchCard";
 
 interface SwatchTypes {
   swatches: SwatchObject[];
