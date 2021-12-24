@@ -11,11 +11,9 @@ import { connect } from "react-redux";
 import { startDeleteSwatchFromSwatchList } from "../../../actions/swatch";
 import { SwatchObject } from "../../../types/swatches";
 import RadialMenu from "../../radial menu/RadialMenu";
-import { select, selectAll } from "d3";
 import {
   closeMenuOnHoverLeaveD3,
   closeNotActiceMenuCirclesD3,
-  openCircleMenuD3,
 } from "../../../utils/d3";
 
 interface SwatchTypes {

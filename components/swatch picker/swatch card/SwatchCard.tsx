@@ -29,6 +29,8 @@ const SwatchCard = ({
         `https://www.thecolorapi.com/id?hex=${hex.replace("#", "")}`
       );
 
+      console.log(colourDetails.data);
+
       const name = colourDetails.data.name.value;
       const cmyk = colourDetails.data.cmyk.value;
       const rgb = colourDetails.data.rgb.value;
@@ -41,7 +43,7 @@ const SwatchCard = ({
 
   return (
     <div
-      className='inner_swatch'
+      className="inner_swatch"
       key={index}
       onMouseEnter={() => {
         setHoverSwatch(swatch);

@@ -9,7 +9,6 @@ import { calculateDimensionsOnWindowChange } from "../../utils/swatch";
 interface Actions {
   compareArray: number[][];
   setCompareArray: (userUid: number[][]) => void;
-  selectSwatchToCompareRef: any;
   setOpenState: (setOpenState: boolean) => void;
   openState: boolean;
   setNumberOfSwatches: (num: number) => void;
@@ -23,7 +22,6 @@ interface Actions {
 const SwatchSelector = ({
   compareArray,
   setCompareArray,
-  selectSwatchToCompareRef,
   openState,
   setOpenState,
   swatchNumber,
@@ -33,8 +31,6 @@ const SwatchSelector = ({
   swatchToCompare,
   setSwatchToCompare,
 }: Actions) => {
-  console.log(swatchToCompare);
-
   const widthRef = useRef<string | null>(null);
   const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
 
@@ -46,8 +42,6 @@ const SwatchSelector = ({
     window.addEventListener("resize", widthChange, true);
     calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
-
-  console.log(swatchToCompare, compareArray[0]);
 
   return (
     <div

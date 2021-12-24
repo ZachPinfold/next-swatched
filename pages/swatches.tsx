@@ -75,7 +75,6 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
         <SwatchSelector
           compareArray={compareArray}
           setCompareArray={setCompareArray}
-          selectSwatchToCompareRef={selectSwatchToCompareRef}
           setOpenState={setOpenState}
           openState={openState}
           setNumberOfSwatches={setNumberOfSwatches}
