@@ -85,6 +85,10 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           setSwatchToCompare={setSwatchToCompare}
         />
       </div>
+      <div
+        style={{ opacity: compareArray.length === 0 && openState ? "1" : "0" }}
+        className="loader home_loader"
+      ></div>
     </div>
   );
 };
