@@ -20,6 +20,7 @@ import AdderRadialMenu from "../../radial menu/AdderRadialMenu";
 import { closeMenuOnHoverLeaveD3, openCircleMenuD3 } from "../../../utils/d3";
 import ColourAdderChoice from "../../radial menu/ColourAdderChoice";
 import { select } from "d3";
+import Plus from "../../../assets/images/Plus";
 
 const circleMenuDecider = [
   { image: HashTagImage, text: "add" },
@@ -246,12 +247,14 @@ const SwatchAdderCard = ({
             ? "0"
             : swatchHover
             ? "1"
-            : "0",
+            : "1",
           cursor: menuOpen ? "inherit" : swatchHover ? "pointer" : "inherit",
           display: openButtonDisplay,
           backgroundColor: `rgba(white, 0.2)`,
         }}
-      ></div>
+      >
+        <Plus color={"#FFFFFF"} />
+      </div>
       <div className="circle_hovers">
         <svg width="180" height="180" className="menu_circle">
           {circleMenuArray.map((menu, index) => (

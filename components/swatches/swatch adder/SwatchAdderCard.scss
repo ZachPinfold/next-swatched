@@ -15,6 +15,15 @@
     border: 2px solid lightgray;
   }
 
+  .hover_button {
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+    // svg {
+    //   height: px;
+    // }
+  }
+
   ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
     font-size: 16px;
@@ -55,9 +64,7 @@
     position: absolute;
     left: 7px;
   }
-  .colour_loaded {
-    // margin-left: -30px;
-  }
+
   .outer_svg {
     position: absolute;
     transition: all 0.3s ease;
