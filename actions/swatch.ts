@@ -1,7 +1,7 @@
 import app from "../firebase";
 import { SwatchObject } from "../types/swatches";
 import { GetSwatchesActions } from "../types/types";
-import { hexToRgb } from "../utils/swatch";
+import { hexToRgb, rgb2hsv } from "../utils/swatch";
 const { v4 } = require("uuid");
 
 export const getUserSwatches = (
@@ -66,6 +66,7 @@ export const startAddSwatchToSwatchList =
       const swatchObject = {
         timeAdded: new Date(),
         color: rgbColour,
+        colorName: rgb2hsv(rgbColour),
       };
 
       app
