@@ -72,7 +72,9 @@ const SwatchSelector = ({
         <div
           className="current_colour"
           style={{ backgroundColor: `rgb(${swatchToCompare})` }}
-        ></div>
+        >
+          <div className="loader"></div>
+        </div>
         <div className="inner_compare">
           {compareArray.length > 0 &&
             compareArray.map((compareSwatch, index) => {
