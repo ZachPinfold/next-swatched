@@ -100,7 +100,7 @@ export async function getServerSideProps() {
     const colorPallete = await axios.post(url, data, { headers });
     result = colorPallete.data.result;
   } catch (error) {
-    console.log(error);
+    console.log("error", error);
   }
 
   return {
