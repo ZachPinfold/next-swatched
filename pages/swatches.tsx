@@ -3,11 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import SwatchSelector from "../components/swatch compare/SwatchCompare";
+import ColorFilter from "../components/swatches/filters/ColorFilter";
 import SwatchList from "../components/swatches/SwatchList";
 import { SwatchObject } from "../types/swatches";
 
 interface Actions {
-  startGetUserSwatches: (userUid: string) => void;
+  startGetUserSwatches: (userUid: string, colorFilter: string) => void;
   swatches: SwatchObject[];
 }
 
@@ -20,7 +21,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
 
   useEffect(() => {
-    startGetUserSwatches("");
+    startGetUserSwatches("", "");
   }, [startGetUserSwatches]);
 
   useEffect(() => {
@@ -55,6 +56,9 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   return (
     <div className="wrapper swatches_page">
       <h1>swatches</h1>
+
+      <ColorFilter />
+
       <SwatchList
         swatches={swatches}
         setCompareArray={setCompareArray}

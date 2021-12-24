@@ -1,6 +1,7 @@
 import app from "../firebase";
-import { SwatchObject } from "../types/swatches";
+import { SwatchObject, LookupTypes } from "../types/swatches";
 import { GetSwatchesActions } from "../types/types";
+import { fireStoreQuery } from "../utils/api";
 import { hexToRgb, rgb2hsv } from "../utils/swatch";
 const { v4 } = require("uuid");
 
@@ -22,15 +23,13 @@ export const deleteUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
 });
 
 export const startGetUserSwatches =
-  (userUid: string) => async (dispatch: any) => {
+  (userUid: string, colorFilter: string) => async (dispatch: any) => {
+    let filterType: keyof LookupTypes = "color";
+
+    colorFilter === "all" ? (filterType = "other") : (filterType = "color");
+
     try {
-      const result = await app
-        .firestore()
-        .collection("swatches")
-        .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
-        .collection("userSwatches")
-        .orderBy("timeAdded", "desc")
-        .get();
+      const result = await fireStoreQuery(filterType, colorFilter);
 
       let resultArray: SwatchObject[] = [];
 

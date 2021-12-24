@@ -8,3 +8,8 @@ export interface Swatches {
   swatches: SwatchObject[];
   loading: Boolean;
 }
+
+export type LookupTypes = {
+  color: string;
+  other: string;
+};
