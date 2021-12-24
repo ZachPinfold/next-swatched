@@ -33,6 +33,8 @@ const SwatchSelector = ({
   swatchToCompare,
   setSwatchToCompare,
 }: Actions) => {
+  console.log(swatchToCompare);
+
   const widthRef = useRef<string | null>(null);
   const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
 
@@ -67,6 +69,10 @@ const SwatchSelector = ({
         >
           <Minus color={"#FF6459"} />
         </button>
+        <div
+          className="current_colour"
+          style={{ backgroundColor: `rgb(${swatchToCompare})` }}
+        ></div>
         <div className="inner_compare">
           {compareArray.length > 0 &&
             compareArray.map((compareSwatch, index) => {
@@ -81,6 +87,7 @@ const SwatchSelector = ({
               );
             })}
         </div>
+
         <button
           disabled={swatchNumber === 5 && true}
           onClick={() => setNumberOfSwatches(swatchNumber + 1)}
@@ -106,6 +113,7 @@ const SwatchSelector = ({
         >
           <Plus color={"#ff6459"} />
         </button>
+
         <button
           className="expand_btn"
           onClick={() => {
