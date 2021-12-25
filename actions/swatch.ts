@@ -24,6 +24,8 @@ export const deleteUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
 
 export const startGetUserSwatches =
   (userUid: string, colorFilter: string) => async (dispatch: any) => {
+    colorFilter === "all swatches" && (colorFilter = "all");
+
     let filterType: keyof LookupTypes = "color";
 
     colorFilter === "all" ? (filterType = "other") : (filterType = "color");

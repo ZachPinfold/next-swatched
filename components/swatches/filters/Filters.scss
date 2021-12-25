@@ -1,3 +1,11 @@
+.upper_area {
+  margin-bottom: $margin-medium;
+}
+
+.dropdown_component {
+  display: inline-block;
+}
+
 .dropdown {
   .dropdown_selected {
     cursor: pointer;

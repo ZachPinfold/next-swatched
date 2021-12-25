@@ -5,6 +5,7 @@ import { startGetUserSwatches } from "../actions/swatch";
 import SwatchSelector from "../components/swatch compare/SwatchCompare";
 import ColorFilter from "../components/swatches/filters/ColorFilter";
 import SwatchList from "../components/swatches/swatch list/SwatchList";
+import Dropdown from "../components/utils/Dropdown";
 import { SwatchObject } from "../types/swatches";
 
 interface Actions {
@@ -19,6 +20,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   const [swatchNumber, setNumberOfSwatches] = useState<number>(2);
   const [fullScreen, setFullScreen] = useState<boolean>(false);
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
+  const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
 
   useEffect(() => {
     startGetUserSwatches("", "all");
@@ -58,7 +60,15 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
       <h1>swatches</h1>
 
       <div className="upper_area wrapper_inner">
-        <ColorFilter />
+        <Dropdown
+          Component={
+            <ColorFilter
+              isClickedOutside={isClickedOutside}
+              setIsClickedOutside={setIsClickedOutside}
+            />
+          }
+          setIsClickedOutside={setIsClickedOutside}
+        />
       </div>
 
       <SwatchList

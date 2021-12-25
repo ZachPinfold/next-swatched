@@ -5,7 +5,7 @@ import { ColorNamesType } from "../../../types/swatches";
 import FilterListItem from "./FilterListItem";
 
 const colorNames: ColorNamesType[] = [
-  { name: "all", rgb: [197, 199, 196] },
+  { name: "all swatches", rgb: [197, 199, 196] },
   { name: "red", rgb: [255, 28, 0] },
   { name: "yellow", rgb: [255, 247, 94] },
   { name: "orange", rgb: [255, 179, 71] },
@@ -18,16 +18,29 @@ const colorNames: ColorNamesType[] = [
 
 interface Actions {
   startGetUserSwatches: (userUid: string, colorFilter: string) => void;
+  isClickedOutside: boolean;
+  setIsClickedOutside: (close: boolean) => void;
 }
 
-const ColorFilter = ({ startGetUserSwatches }: Actions) => {
+const ColorFilter = ({
+  startGetUserSwatches,
+  isClickedOutside,
+  setIsClickedOutside,
+}: Actions) => {
   const [colorFilter, setColorFilter] = useState<ColorNamesType>({
-    name: "all",
+    name: "all swatches",
     rgb: [197, 199, 196],
   });
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const colorRef = useRef<string>();
+
+  useEffect(() => {
+    if (isClickedOutside) {
+      setDropdownOpen(false);
+      setIsClickedOutside(false);
+    }
+  }, [isClickedOutside]);
 
   useEffect(() => {
     colorFilter &&
