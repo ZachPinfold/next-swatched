@@ -62,8 +62,6 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
 
   return (
     <div className="wrapper swatches_page">
-      <h1>swatches</h1>
-
       <div className="upper_area wrapper_inner">
         <Dropdown
           Component={

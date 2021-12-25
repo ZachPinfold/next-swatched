@@ -22,16 +22,21 @@ a {
 .wrapper_inner {
   max-width: 980px;
   margin: auto;
+  @media only screen and (max-width: 1000px) {
+    padding: 0 10px;
+  }
 }
 
 // colors
 
 $colour-green: #06d6a0;
 $colour-orange: #ff6459;
+$color-blue: #4eadab;
 
 // margins
 
-$margin-medium: 30px;
+$margin-large: 30px;
+$margin-medium: 20px;
 
 @font-face {
   font-family: "HelveticaM";
@@ -65,3 +70,4 @@ $margin-medium: 30px;
 @import "../components/swatches/filters/Filters.scss";
 @import "../components/radial menu/RadialMenu.scss";
 @import "./Loader.scss";
+@import "../components/nav/NavBar.scss";

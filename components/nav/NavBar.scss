@@ -1,0 +1,14 @@
+nav {
+  padding: 10px 0;
+  h1 {
+    font-family: LilyScript;
+    color: $color-blue;
+    font-size: 40px;
+  }
+  p {
+    font-family: HelveticaL;
+    margin-top: 0px;
+    font-size: 14px;
+  }
+  border-bottom: 1px solid rgba($color: $colour-green, $alpha: 0.3);
+}

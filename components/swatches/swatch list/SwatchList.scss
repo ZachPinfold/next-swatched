@@ -1,5 +1,8 @@
 .swatch_grid {
   grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  }
   align-items: start;
   display: grid;
   grid-gap: 10px;
@@ -13,6 +16,10 @@
     border-radius: 200px;
     position: relative;
     list-style-type: none;
+    @media only screen and (max-width: 600px) {
+      height: 170px;
+      width: 170px;
+    }
   }
 
   .half_circle_hovers {
