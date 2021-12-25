@@ -1,10 +1,10 @@
 import React from "react";
+import { ColorNamesType } from "../../../types/swatches";
 
 interface Actions {
-  setColorFilter: (color: string) => void;
-  color: string;
+  setColorFilter: (color: ColorNamesType) => void;
+  color: ColorNamesType;
   setDropdownOpen: (bool: boolean) => void;
-  rgb: number[];
 }
 
 const FilterListItem = ({
@@ -13,10 +13,8 @@ const FilterListItem = ({
   setDropdownOpen,
 }: Actions) => {
   const someStyle: any = {
-    "--color": color,
+    "--color": color.rgb,
   };
-
-  console.log(someStyle["--color"]);
 
   return (
     <li
@@ -24,10 +22,9 @@ const FilterListItem = ({
         setColorFilter(color);
         setDropdownOpen(false);
       }}
-      key={color}
       style={someStyle}
     >
-      {color}
+      {color.name}
     </li>
   );
 };

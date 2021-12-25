@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../../../actions/swatch";
 import { ColorNamesType } from "../../../types/swatches";
 import FilterListItem from "./FilterListItem";
 
 const colorNames: ColorNamesType[] = [
-  { name: "all", rgb: [0, 0, 0] },
+  { name: "all", rgb: [197, 199, 196] },
   { name: "red", rgb: [255, 28, 0] },
   { name: "yellow", rgb: [255, 247, 94] },
+  { name: "orange", rgb: [255, 179, 71] },
   { name: "green", rgb: [3, 192, 60] },
   { name: "cyan", rgb: [0, 255, 255] },
   { name: "blue", rgb: [0, 0, 255] },
@@ -20,7 +21,10 @@ interface Actions {
 }
 
 const ColorFilter = ({ startGetUserSwatches }: Actions) => {
-  const [colorFilter, setColorFilter] = useState<string>("all");
+  const [colorFilter, setColorFilter] = useState<ColorNamesType>({
+    name: "all",
+    rgb: [197, 199, 196],
+  });
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const colorRef = useRef<string>();
@@ -28,35 +32,39 @@ const ColorFilter = ({ startGetUserSwatches }: Actions) => {
   useEffect(() => {
     colorFilter &&
       colorRef.current &&
-      colorFilter !== colorRef.current &&
-      startGetUserSwatches("", colorFilter);
-    colorRef.current = colorFilter;
+      colorFilter.name !== colorRef.current &&
+      startGetUserSwatches("", colorFilter.name);
+    colorRef.current = colorFilter.name;
   }, [colorFilter]);
+
+  const someStyle: any = {
+    "--currentColor": colorFilter.rgb,
+  };
 
   return (
     <div className="dropdown">
       <div
         onClick={() => setDropdownOpen(!isDropdownOpen)}
         className="dropdown_selected"
-        style={{
-          borderBottom: !isDropdownOpen
-            ? "1px solid #06d6a0"
-            : "1px solid white",
-        }}
+        style={someStyle}
       >
-        <p> {colorFilter}</p>
+        <p>{colorFilter.name}</p>
       </div>
-      <div className={"dropdown_list " + (isDropdownOpen && "open_list")}>
+      <div
+        style={someStyle}
+        className={"dropdown_list " + (isDropdownOpen && "open_list")}
+      >
         <ul>
           {colorNames.map((color) => {
-            if (colorFilter !== color.name)
+            if (colorFilter.name !== color.name)
               return (
-                <FilterListItem
-                  color={color.name}
-                  rgb={color.rgb}
-                  setColorFilter={setColorFilter}
-                  setDropdownOpen={setDropdownOpen}
-                />
+                <Fragment key={color.name}>
+                  <FilterListItem
+                    color={color}
+                    setColorFilter={setColorFilter}
+                    setDropdownOpen={setDropdownOpen}
+                  />
+                </Fragment>
               );
           })}
         </ul>

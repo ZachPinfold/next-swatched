@@ -6,20 +6,21 @@
     cursor: pointer;
     list-style-type: none;
     font-family: HelveticaM;
-    padding: 5px 15px 7px 10px;
+    padding: 7px 15px 7px 10px;
   }
-
+  li:hover {
+    background-color: rgba(var(--color), 0.4);
+  }
   .dropdown_selected {
-    padding: 0px 10px 0px 10px;
-    border-left: 1px solid $colour-green;
-    border-right: 1px solid $colour-green;
-    border-top: 1px solid $colour-green;
+    padding: 7px 10px 7px 10px;
+    border: 1px solid rgba(var(--currentColor), 0.4);
     width: 180px;
+    border-radius: 3px;
+    background-color: rgba(var(--currentColor), 0.4);
 
     p {
       list-style-type: none;
       font-family: HelveticaM;
-      margin: 13px 0;
     }
   }
   .dropdown_list {
@@ -31,10 +32,10 @@
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     width: 180px;
-    border-left: 1px solid $colour-green;
-    border-right: 1px solid $colour-green;
-    border-bottom: 1px solid $colour-green;
-    margin-top: -15px;
+    border-left: 1px solid rgba(var(--currentColor), 0.4);
+    border-right: 1px solid rgba(var(--currentColor), 0.4);
+    border-bottom: 1px solid rgba(var(--currentColor), 0.4);
+    margin-top: -2px;
     background-color: white;
   }
   .open_list {
