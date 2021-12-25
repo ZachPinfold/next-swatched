@@ -1,6 +1,8 @@
 import React from "react";
 
-const HueSwatch = () => {
+const HueSwatch = ({ currentColour }: { currentColour: String }) => {
+  console.log(currentColour);
+
   return (
     <svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 108.3 108.3">
       <style type="text/css"></style>
@@ -20,50 +22,90 @@ const HueSwatch = () => {
 		c-6.2-6.2-12.4-12.4-18.7-18.7C9.8,29.9,5.6,40,4.8,51.6c9,0,17.8,0,26.4,0c0.6-2.2,1.1-4.2,1.9-6.2C33.9,43.5,35.1,41.7,36,39.9z
 		 M90.9,87.2c7.6-8.8,11.9-18.9,12.7-30.5c-9,0-17.8,0-26.6,0c-0.5,4.4-2.3,8.3-4.8,11.7C78.3,74.7,84.5,80.9,90.9,87.2z"
         />
+        {/* Red */}
         <path
-          fill="rgba(255, 28, 0)"
+          fill={
+            currentColour === "red" || currentColour === "all swatches"
+              ? "rgba(255, 28, 0)"
+              : "white"
+          }
           className="st0"
           d="M87.1,17.4c-6.3,6.3-12.5,12.5-18.7,18.7c-1-0.6-2.1-1.5-3.3-2c-2.5-1-5-1.7-7.5-2.6c-0.4-0.1-0.9-0.5-0.9-0.8
 		c-0.1-8.6,0-17.1,0-25.9C68.3,5.5,78.4,9.8,87.1,17.4z"
         />
+        {/* Cyan */}
         <path
-          fill="rgba(0, 255, 255)"
+          fill={
+            currentColour === "cyan" || currentColour === "all swatches"
+              ? "rgba(0, 255, 255)"
+              : "white"
+          }
           className="st1"
           d="M51.7,103.5c-11.8-0.7-21.9-5-30.5-12.6c6.3-6.3,12.5-12.5,18.5-18.5c2.6,1.2,5.3,2.5,8,3.7
 		c1,0.4,2.1,0.5,3.2,0.8c0.3,0.1,0.8,0.6,0.8,0.8C51.7,86.2,51.7,94.8,51.7,103.5z"
         />
+        {/* Pink */}
         <path
-          fill="rgba(255, 183, 197)"
+          fill={
+            currentColour === "pink" || currentColour === "all swatches"
+              ? "rgba(255, 183, 197)"
+              : "white"
+          }
           className="st2"
           d="M21.3,17.4C29.9,9.8,40,5.6,51.7,4.8c0,0.6,0.1,1,0.1,1.5c0,7.9,0,15.8,0,23.6c0,1-0.2,1.6-1.4,1.7
 		c-3.9,0.5-7.3,2.3-10.3,4.5C33.8,29.9,27.6,23.7,21.3,17.4z"
         />
+        {/* Orange */}
         <path
-          fill="rgba(255, 179, 71)"
+          fill={
+            currentColour === "orange" || currentColour === "all swatches"
+              ? "rgba(255, 179, 71)"
+              : "white"
+          }
           className="st3"
           d="M103.5,51.7c-0.6,0-1,0.1-1.4,0.1c-8,0-15.9,0-23.9,0c-1,0-1.4-0.3-1.5-1.3c-0.5-3.6-1.9-6.8-4.1-9.7
 		c-0.2-0.3-0.4-0.6-0.5-0.7c6.3-6.3,12.5-12.5,18.8-18.8C98.5,29.9,102.7,40,103.5,51.7z"
         />
+        {/* Blue */}
         <path
-          fill="rgba(0, 0, 255)"
+          fill={
+            currentColour === "blue" || currentColour === "all swatches"
+              ? "rgba(0, 0, 255)"
+              : "white"
+          }
           className="st4"
           d="M36.2,68.4C30,74.6,23.8,80.8,17.5,87.1C9.9,78.5,5.6,68.4,4.8,56.7c0.5,0,0.9-0.1,1.3-0.1c8,0,16,0,24,0
 		c0.9,0,1.3,0.1,1.5,1.2c0.5,3.6,1.9,6.8,4.1,9.7C35.9,67.8,36.1,68.1,36.2,68.4z"
         />
+        {/* Green */}
         <path
-          fill="rgba(3, 192, 60)"
+          fill={
+            currentColour === "green" || currentColour === "all swatches"
+              ? "rgba(3, 192, 60)"
+              : "white"
+          }
           className="st5"
           d="M56.7,103.5c0-0.6-0.1-1.1-0.1-1.5c0-7.9,0-15.8,0-23.6c0-1,0.2-1.6,1.4-1.7c3.5-0.5,6.7-1.9,9.5-4
 		c0.3-0.2,0.6-0.4,0.8-0.6c6.3,6.3,12.5,12.5,18.8,18.8C78.5,98.5,68.4,102.7,56.7,103.5z"
         />
+        {/* Magenta */}
         <path
-          fill="rgba(255, 0, 255)"
+          fill={
+            currentColour === "magenta" || currentColour === "all swatches"
+              ? "rgba(255, 0, 255)"
+              : "white"
+          }
           className="st6"
           d="M36,39.9c-0.9,1.7-2.1,3.5-3,5.5c-0.8,1.9-1.3,4-1.9,6.2c-8.6,0-17.4,0-26.4,0c0.8-11.6,5-21.7,12.6-30.3
 		C23.6,27.6,29.9,33.8,36,39.9z"
         />
+        {/* Yellow */}
         <path
-          fill="rgba(255, 247, 94)"
+          fill={
+            currentColour === "yellow" || currentColour === "all swatches"
+              ? "rgba(255, 247, 94)"
+              : "white"
+          }
           className="st7"
           d="M90.9,87.2c-6.3-6.3-12.5-12.5-18.8-18.8c2.6-3.4,4.3-7.3,4.8-11.7c8.8,0,17.6,0,26.6,0
 		C102.8,68.3,98.5,78.4,90.9,87.2z"

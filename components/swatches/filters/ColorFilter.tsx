@@ -8,8 +8,8 @@ import FilterListItem from "./FilterListItem";
 const colorNames: ColorNamesType[] = [
   { name: "all swatches", rgb: [197, 199, 196] },
   { name: "red", rgb: [255, 28, 0] },
-  { name: "yellow", rgb: [255, 247, 94] },
   { name: "orange", rgb: [255, 179, 71] },
+  { name: "yellow", rgb: [255, 247, 94] },
   { name: "green", rgb: [3, 192, 60] },
   { name: "cyan", rgb: [0, 255, 255] },
   { name: "blue", rgb: [0, 0, 255] },
@@ -63,7 +63,7 @@ const ColorFilter = ({
         style={someStyle}
       >
         <p>{colorFilter.name}</p>
-        <HueSwatch />
+        <HueSwatch currentColour={colorFilter.name} />
       </div>
       <div
         style={someStyle}
