@@ -1,5 +1,5 @@
 nav {
-  padding: 10px 0;
+  border-bottom: 1px solid rgba($color: $colour-green, $alpha: 0.3);
   h1 {
     font-family: LilyScript;
     color: $color-blue;
@@ -10,5 +10,16 @@ nav {
     margin-top: 0px;
     font-size: 14px;
   }
-  border-bottom: 1px solid rgba($color: $colour-green, $alpha: 0.3);
+  .inner_nav {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    @media only screen and (min-width: 1000px) {
+      padding: 10px 5px;
+    }
+    display: flex;
+    justify-content: space-between;
+    svg {
+      width: 25px;
+    }
+  }
 }

@@ -1,11 +1,12 @@
 .swatch_grid {
-  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
   @media only screen and (max-width: 600px) {
     grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    grid-gap: 10px;
   }
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  grid-gap: 13px;
   align-items: start;
   display: grid;
-  grid-gap: 10px;
   @media only screen and (max-width: 525px) {
     grid-gap: 5px;
   }
