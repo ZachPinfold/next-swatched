@@ -1,5 +1,11 @@
 nav {
   border-bottom: 1px solid rgba($color: $colour-green, $alpha: 0.3);
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  background-color: white;
+  transition: all 0.1s ease-in-out;
+
   h1 {
     font-family: LilyScript;
     color: $color-blue;
@@ -10,16 +16,28 @@ nav {
     margin-top: 0px;
     font-size: 14px;
   }
+  strong {
+    font-family: HelveticaM;
+    color: $colour-orange;
+  }
+  span {
+    font-family: HelveticaM;
+  }
+
   .inner_nav {
     padding-top: 10px;
     padding-bottom: 10px;
+
     @media only screen and (min-width: 1000px) {
       padding: 10px 5px;
     }
     display: flex;
     justify-content: space-between;
     svg {
-      width: 25px;
+      width: 30px;
+      circle {
+        transition: fill 0.2s ease-in-out;
+      }
     }
   }
 }

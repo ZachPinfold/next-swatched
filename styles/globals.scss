@@ -27,6 +27,15 @@ a {
   }
 }
 
+.to_top_img {
+  position: fixed;
+  width: 35px;
+  bottom: 20px;
+  left: 20px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
 // colors
 
 $colour-green: #06d6a0;
