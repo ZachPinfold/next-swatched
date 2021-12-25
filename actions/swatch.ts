@@ -28,6 +28,8 @@ export const startGetUserSwatches =
 
     colorFilter === "all" ? (filterType = "other") : (filterType = "color");
 
+    console.log(colorFilter);
+
     try {
       const result = await fireStoreQuery(filterType, colorFilter);
 

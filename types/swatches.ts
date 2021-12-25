@@ -13,3 +13,8 @@ export type LookupTypes = {
   color: string;
   other: string;
 };
+
+export interface ColorNamesType {
+  name: string;
+  rgb: number[];
+}

@@ -6,8 +6,9 @@
     cursor: pointer;
     list-style-type: none;
     font-family: HelveticaM;
-    margin: 10px 0;
+    padding: 5px 15px 7px 10px;
   }
+
   .dropdown_selected {
     padding: 0px 10px 0px 10px;
     border-left: 1px solid $colour-green;
@@ -27,7 +28,6 @@
     transform: scaleY(0);
     position: absolute;
     z-index: 10;
-    padding: 5px 15px 7px 10px;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     width: 180px;

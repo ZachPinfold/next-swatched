@@ -21,7 +21,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
 
   useEffect(() => {
-    startGetUserSwatches("", "");
+    startGetUserSwatches("", "all");
   }, [startGetUserSwatches]);
 
   useEffect(() => {

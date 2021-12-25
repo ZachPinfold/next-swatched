@@ -31,7 +31,7 @@ const Lock = ({
           ? setLockedSwatches([...lockedSwatches, result])
           : removeFromSwatch(result)
       }
-      className='outer_lock'
+      className="outer_lock"
     >
       <div
         style={someStyle}

@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../../../actions/swatch";
+import { ColorNamesType } from "../../../types/swatches";
+import FilterListItem from "./FilterListItem";
 
-const colorNames: string[] = [
-  "all",
-  "red",
-  "orange",
-  "yellow",
-  "green",
-  "cyan",
-  "blue",
-  "magenta",
-  "pink",
+const colorNames: ColorNamesType[] = [
+  { name: "all", rgb: [0, 0, 0] },
+  { name: "red", rgb: [255, 28, 0] },
+  { name: "yellow", rgb: [255, 247, 94] },
+  { name: "green", rgb: [3, 192, 60] },
+  { name: "cyan", rgb: [0, 255, 255] },
+  { name: "blue", rgb: [0, 0, 255] },
+  { name: "magenta", rgb: [255, 0, 255] },
+  { name: "pink", rgb: [255, 183, 197] },
 ];
 
 interface Actions {
@@ -20,12 +21,13 @@ interface Actions {
 
 const ColorFilter = ({ startGetUserSwatches }: Actions) => {
   const [colorFilter, setColorFilter] = useState<string>("all");
-  const [isDropdownOpen, setDropdownOpen] = useState<boolean>(true);
+  const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const colorRef = useRef<string>();
 
   useEffect(() => {
     colorFilter &&
+      colorRef.current &&
       colorFilter !== colorRef.current &&
       startGetUserSwatches("", colorFilter);
     colorRef.current = colorFilter;
@@ -47,17 +49,14 @@ const ColorFilter = ({ startGetUserSwatches }: Actions) => {
       <div className={"dropdown_list " + (isDropdownOpen && "open_list")}>
         <ul>
           {colorNames.map((color) => {
-            if (colorFilter !== color)
+            if (colorFilter !== color.name)
               return (
-                <li
-                  onClick={() => {
-                    setColorFilter(color);
-                    setDropdownOpen(false);
-                  }}
-                  key={color}
-                >
-                  {color}
-                </li>
+                <FilterListItem
+                  color={color.name}
+                  rgb={color.rgb}
+                  setColorFilter={setColorFilter}
+                  setDropdownOpen={setDropdownOpen}
+                />
               );
           })}
         </ul>

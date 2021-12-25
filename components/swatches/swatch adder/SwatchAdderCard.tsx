@@ -73,10 +73,6 @@ const SwatchAdderCard = ({
     calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
 
-  const copyHex = () => {
-    console.log("fire");
-  };
-
   const applyHexInput = (e: string) => {
     const str: string = e.replace("#", "");
 
