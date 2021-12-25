@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../../../actions/swatch";
+import HueSwatch from "../../../assets/images/HueSwatch";
 import { ColorNamesType } from "../../../types/swatches";
 import FilterListItem from "./FilterListItem";
 
@@ -62,11 +63,13 @@ const ColorFilter = ({
         style={someStyle}
       >
         <p>{colorFilter.name}</p>
+        <HueSwatch />
       </div>
       <div
         style={someStyle}
         className={"dropdown_list " + (isDropdownOpen && "open_list")}
       >
+        {" "}
         <ul>
           {colorNames.map((color) => {
             if (colorFilter.name !== color.name)

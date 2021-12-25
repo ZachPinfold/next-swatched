@@ -7,9 +7,6 @@
 }
 
 .dropdown {
-  .dropdown_selected {
-    cursor: pointer;
-  }
   li {
     cursor: pointer;
     list-style-type: none;
@@ -24,8 +21,14 @@
     border: 1px solid rgba(var(--currentColor), 0.4);
     width: 180px;
     border-radius: 3px;
-    background-color: rgba(var(--currentColor), 0.4);
-
+    // background-color: rgba(var(--currentColor), 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    svg {
+      width: 25px;
+    }
     p {
       list-style-type: none;
       font-family: HelveticaM;
