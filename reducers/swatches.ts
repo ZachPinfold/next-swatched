@@ -3,6 +3,7 @@ import { Swatches } from "../types/swatches";
 
 const inititalState: Swatches = {
   swatches: [],
+  initialSwatches: [],
   loading: false,
 };
 
@@ -19,17 +20,23 @@ const swatches = (
         swatches: payload.constructor === Array ? payload : [],
         loading: false,
       };
+    case "GET_INITIAL_SWATCHES":
+      return {
+        ...state,
+        initialSwatches: payload.constructor === Array ? payload : [],
+        loading: false,
+      };
     case "ADD_SWATCH":
-      const newArrayWithoutLast = state.swatches.slice(1);
+      const newArrayWithoutFirst = state.swatches.slice(1);
       const firstElement = state.swatches[0];
-
-      console.log();
 
       return {
         ...state,
+        initialSwatches:
+          "colourId" in payload ? [payload, ...newArrayWithoutFirst] : [],
         swatches:
           "colourId" in payload
-            ? [firstElement, payload, ...newArrayWithoutLast]
+            ? [firstElement, payload, ...newArrayWithoutFirst]
             : [],
         loading: false,
       };

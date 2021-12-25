@@ -1,11 +1,17 @@
 import { SwatchObject } from "./swatches";
 
+// AUTH
+
 export const LOGIN_AUTH = "LOGIN_AUTH";
 export const LOGOUT_AUTH = "LOGOUT_AUTH";
 export const USER_LOADED = "USER_LOADED";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const SIGNUP_AUTH = "SIGNUP_AUTH";
+
+// SWATCHES
+
 export const GET_SWATCHES = "GET_SWATCHES";
+export const GET_INITIAL_SWATCHES = "GET_INITIAL_SWATCHES";
 export const ADD_SWATCH = "ADD_SWATCH";
 export const DELETE_SWATCH = "DELETE_SWATCH";
 
@@ -44,6 +50,11 @@ export interface GetSwatchesAction {
   payload: SwatchObject[];
 }
 
+export interface GetInitalSwatchesAction {
+  type: typeof GET_INITIAL_SWATCHES;
+  payload: SwatchObject[];
+}
+
 export interface AddSwatchesActions {
   type: typeof ADD_SWATCH;
   payload: SwatchObject;
@@ -57,4 +68,5 @@ export interface DeleteSwatchesActions {
 export type GetSwatchesActions =
   | GetSwatchesAction
   | AddSwatchesActions
-  | DeleteSwatchesActions;
+  | DeleteSwatchesActions
+  | GetInitalSwatchesAction;

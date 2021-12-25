@@ -6,6 +6,7 @@ export type SwatchObject = {
 
 export interface Swatches {
   swatches: SwatchObject[];
+  initialSwatches: SwatchObject[];
   loading: Boolean;
 }
 

@@ -19,7 +19,11 @@ const colorNames: ColorNamesType[] = [
 ];
 
 interface Actions {
-  startGetUserSwatches: (userUid: string, colorFilter: string) => void;
+  startGetUserSwatches: (
+    userUid: string,
+    colorFilter: string,
+    isInitialLoad: boolean
+  ) => void;
   isClickedOutside: boolean;
   setIsClickedOutside: (close: boolean) => void;
   colorFilter: ColorNamesType;
@@ -48,7 +52,7 @@ const ColorFilter = ({
     colorFilter &&
       colorRef.current &&
       colorFilter.name !== colorRef.current &&
-      startGetUserSwatches("", colorFilter.name);
+      startGetUserSwatches("", colorFilter.name, false);
     colorRef.current = colorFilter.name;
   }, [colorFilter]);
 

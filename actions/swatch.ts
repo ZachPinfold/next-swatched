@@ -12,6 +12,13 @@ export const getUserSwatches = (
   payload: swatches,
 });
 
+export const getInitalSwatches = (
+  swatches: SwatchObject[]
+): GetSwatchesActions => ({
+  type: "GET_INITIAL_SWATCHES",
+  payload: swatches,
+});
+
 export const addUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
   type: "ADD_SWATCH",
   payload: swatch,
@@ -23,7 +30,8 @@ export const deleteUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
 });
 
 export const startGetUserSwatches =
-  (userUid: string, colorFilter: string) => async (dispatch: any) => {
+  (userUid: string, colorFilter: string, isInitialLoad: boolean) =>
+  async (dispatch: any) => {
     colorFilter === "all swatches" && (colorFilter = "all");
 
     let filterType: keyof LookupTypes = "color";
@@ -41,6 +49,10 @@ export const startGetUserSwatches =
           data.colourId = doc.id;
           return data;
         });
+      }
+
+      if (isInitialLoad) {
+        dispatch(getInitalSwatches(resultArray));
       }
 
       resultArray.unshift({

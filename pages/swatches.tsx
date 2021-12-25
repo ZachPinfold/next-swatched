@@ -10,7 +10,11 @@ import Dropdown from "../components/utils/Dropdown";
 import { ColorNamesType, SwatchObject } from "../types/swatches";
 
 interface Actions {
-  startGetUserSwatches: (userUid: string, colorFilter: string) => void;
+  startGetUserSwatches: (
+    userUid: string,
+    colorFilter: string,
+    isInitialLoad: boolean
+  ) => void;
   swatches: SwatchObject[];
 }
 
@@ -28,7 +32,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   });
 
   useEffect(() => {
-    startGetUserSwatches("", "all");
+    startGetUserSwatches("", "all", true);
   }, [startGetUserSwatches]);
 
   useEffect(() => {
