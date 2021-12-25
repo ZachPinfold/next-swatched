@@ -1,10 +1,15 @@
 import React from "react";
 
 const HueSwatch = ({ currentColour }: { currentColour: String }) => {
-  console.log(currentColour);
-
   return (
-    <svg version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 108.3 108.3">
+    <svg
+      version="1.1"
+      id="Layer_1"
+      x="0px"
+      y="0px"
+      viewBox="0 0 108.3 108.3"
+      className="hue_svg"
+    >
       <style type="text/css"></style>
       <g>
         <path
@@ -103,7 +108,7 @@ const HueSwatch = ({ currentColour }: { currentColour: String }) => {
         <path
           fill={
             currentColour === "yellow" || currentColour === "all swatches"
-              ? "rgba(255, 247, 94)"
+              ? "rgba(255, 223, 0)"
               : "white"
           }
           className="st7"
