@@ -59,9 +59,15 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
           </div>
         )}
         <Dropdown
-          Component={<MenuDropdown isDropdownOpen={isDropdownOpen} />}
+          Component={
+            <MenuDropdown
+              isDropdownOpen={isDropdownOpen}
+              setDropdownOpen={setDropdownOpen}
+            />
+          }
           setIsClickedOutside={setIsClickedOutside}
           wrapperRef={wrapperRef}
+          refId="dropdown_comp"
         />
       </div>
     </nav>

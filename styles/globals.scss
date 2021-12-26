@@ -36,6 +36,14 @@ a {
   cursor: pointer;
 }
 
+.menu_overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 // colors
 
 $colour-green: #06d6a0;

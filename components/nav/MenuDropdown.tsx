@@ -1,11 +1,16 @@
 import React from "react";
 import Link from "next/link";
 
-const MenuDropdown = ({ isDropdownOpen }) => {
+interface Actions {
+  setDropdownOpen: (open: boolean) => void;
+  isDropdownOpen: boolean;
+}
+
+const MenuDropdown = ({ isDropdownOpen, setDropdownOpen }: Actions) => {
   const menu = [
     { title: "my swatches", destination: "swatches" },
-    { title: "my account" },
-    { title: "logout" },
+    { title: "my account", destination: "" },
+    { title: "logout", destination: "" },
   ];
 
   return (
@@ -15,8 +20,11 @@ const MenuDropdown = ({ isDropdownOpen }) => {
     >
       {menu.map((item) => {
         return (
-          <Link href={`/${item.destination}`}>
-            <li> {item.title}</li>
+          <Link key={item.title} href={`/${item.destination}`}>
+            <li onClick={() => setDropdownOpen(false)} id="dropdown_comp">
+              {" "}
+              {item.title}
+            </li>
           </Link>
         );
       })}

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
-const Dropdown = ({ Component, setIsClickedOutside, wrapperRef }: any) => {
+const Dropdown = ({ Component, setIsClickedOutside, refId }: any) => {
   // const wrapperRef = useRef<HTMLHeadingElement>(null);
+  const wrapperRef = useRef<HTMLHeadingElement>(null);
 
   function useOutsideAlerter(ref: any) {
     useEffect(() => {
@@ -11,7 +12,7 @@ const Dropdown = ({ Component, setIsClickedOutside, wrapperRef }: any) => {
       function handleClickOutside(event: any) {
         ref &&
           ref.current &&
-          console.log("ref", ref.current.id, "event", event.target.id);
+          console.log("ref", ref.current.id, "event", event.target);
         if (ref && ref.current && ref.current.id !== event.target.id) {
           setIsClickedOutside(true);
         }
@@ -29,7 +30,7 @@ const Dropdown = ({ Component, setIsClickedOutside, wrapperRef }: any) => {
   useOutsideAlerter(wrapperRef);
 
   return (
-    <div ref={wrapperRef} id="dropdown_comp" className="dropdown_component">
+    <div ref={wrapperRef} id={refId} className="dropdown_component">
       {Component}
     </div>
   );

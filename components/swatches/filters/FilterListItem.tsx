@@ -18,6 +18,7 @@ const FilterListItem = ({
 
   return (
     <li
+      id="dropdown_filter"
       onClick={() => {
         setColorFilter(color);
         setDropdownOpen(false);

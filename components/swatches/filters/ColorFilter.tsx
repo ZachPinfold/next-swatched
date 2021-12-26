@@ -28,6 +28,9 @@ interface Actions {
   setIsClickedOutside: (close: boolean) => void;
   colorFilter: ColorNamesType;
   setColorFilter: (color: ColorNamesType) => void;
+  setDropdownOpen: (open: boolean) => void;
+  isDropdownOpen: boolean;
+  refId: string;
 }
 
 const ColorFilter = ({
@@ -38,6 +41,7 @@ const ColorFilter = ({
   colorFilter,
   isDropdownOpen,
   setDropdownOpen,
+  refId,
 }: Actions) => {
   const colorRef = useRef<string>();
 
@@ -66,8 +70,9 @@ const ColorFilter = ({
         onClick={() => setDropdownOpen(!isDropdownOpen)}
         className="dropdown_selected"
         style={someStyle}
+        id={refId}
       >
-        <p>{colorFilter.name}</p>
+        <p id={refId}>{colorFilter.name}</p>
         <div
           className="dropdown_arrow_box"
           style={{
@@ -77,6 +82,7 @@ const ColorFilter = ({
         >
           <DropDownArrow />
         </div>
+        <div id={refId} className="menu_overlay"></div>
       </div>
       <div
         style={someStyle}

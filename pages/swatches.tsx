@@ -19,9 +19,9 @@ interface Actions {
 }
 
 const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
-  const wrapperRefFilter = useRef<HTMLHeadingElement>(null);
-  const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  let refId = "dropdown_filter";
 
+  const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [compareArray, setCompareArray] = useState<number[][]>([]);
   const selectSwatchToCompareRef = useRef<boolean>(false);
   const [openState, setOpenState] = useState<boolean>(false);
@@ -79,10 +79,11 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
               setColorFilter={setColorFilter}
               setDropdownOpen={setDropdownOpen}
               isDropdownOpen={isDropdownOpen}
+              refId={refId}
             />
           }
-          // wrapperRef={isDropdownOpen ? wrapperRefFilter : null}
           setIsClickedOutside={setIsClickedOutside}
+          refId={refId}
         />
         <HueSwatch currentColour={colorFilter.name} />
       </div>
