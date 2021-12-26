@@ -61,6 +61,9 @@ const SwatchAdderCard = ({
   const [rgbInput, setRgbInput] = useState<boolean>(false);
 
   const hexFocus = useRef<any>();
+  const rgbFocus1 = useRef<any>();
+  const rgbFocus2 = useRef<any>();
+  const rgbFocus3 = useRef<any>();
 
   const width = 180;
   const height = 180;
@@ -101,13 +104,20 @@ const SwatchAdderCard = ({
   };
 
   const applyRgbInput = (e: string, id: string) => {
-    console.log(id);
+    const rgbFocusArray = [rgbFocus1, rgbFocus2, rgbFocus3];
 
     const rgbs = JSON.parse(JSON.stringify(rgbInputValue));
 
     rgbs[id] = e;
 
-    setRgbInputValue(rgbs);
+    if (rgbs[id].length < 4) {
+      setRgbInputValue(rgbs);
+    }
+
+    if (rgbs[id].length === 3 && id !== "2") {
+      rgbFocusArray[parseInt(id) + 1].current.focus();
+    }
+    // else if (rgbs[id].length === 3 && id === "2") return;
     // setInputValue(str);
 
     // if (isHexColour) {
@@ -388,7 +398,7 @@ const SwatchAdderCard = ({
                     ? "4px 6px 4px 6px"
                     : "4px 6px 4px 15px",
               }}
-              ref={hexFocus}
+              ref={rgbFocus1}
             />
             <input
               value={rgbInputValue[1]}
@@ -401,7 +411,7 @@ const SwatchAdderCard = ({
                     ? "4px 6px 4px 6px"
                     : "4px 6px 4px 15px",
               }}
-              ref={hexFocus}
+              ref={rgbFocus2}
             />
             <input
               value={rgbInputValue[2]}
@@ -414,7 +424,7 @@ const SwatchAdderCard = ({
                     ? "4px 6px 4px 6px"
                     : "4px 6px 4px 15px",
               }}
-              ref={hexFocus}
+              ref={rgbFocus3}
             />
           </form>
           <div
