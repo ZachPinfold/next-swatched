@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
-const Dropdown = ({ Component, setIsClickedOutside }: any) => {
-  const wrapperRef = useRef<HTMLHeadingElement>(null);
+const Dropdown = ({ Component, setIsClickedOutside, wrapperRef }: any) => {
+  // const wrapperRef = useRef<HTMLHeadingElement>(null);
 
   function useOutsideAlerter(ref: any) {
     useEffect(() => {
@@ -9,9 +9,7 @@ const Dropdown = ({ Component, setIsClickedOutside }: any) => {
        * Alert if clicked on outside of element
        */
       function handleClickOutside(event: any) {
-        console.log(typeof event.target);
-
-        if (ref.current && !ref.current.contains(event.target)) {
+        if (ref && ref.current && !ref.current.contains(event.target)) {
           setIsClickedOutside(true);
         }
       }

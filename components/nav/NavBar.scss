@@ -10,6 +10,7 @@ nav {
     font-family: LilyScript;
     color: $color-blue;
     font-size: 40px;
+    cursor: pointer;
   }
   p {
     font-family: HelveticaL;
@@ -31,6 +32,7 @@ nav {
     padding-top: 10px;
     padding-bottom: 10px;
     align-items: center;
+    position: relative;
 
     @media only screen and (min-width: 1000px) {
       padding: 10px 5px;
@@ -44,5 +46,39 @@ nav {
         transition: fill 0.2s ease-in-out;
       }
     }
+  }
+  .menu_dropdown {
+    transform-origin: top;
+    transition: all 0.1s ease-in-out;
+    transform: scaleY(0);
+    z-index: 10;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width: 180px;
+    border-left: 2px solid rgba(var(--currentColor), 0.4);
+    border-right: 2px solid rgba(var(--currentColor), 0.4);
+    border-bottom: 2px solid rgba(var(--currentColor), 0.4);
+    margin-top: -2px;
+    background-color: white;
+    padding: 5px 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    li {
+      cursor: pointer;
+      list-style-type: none;
+      font-family: HelveticaM;
+      padding: 7px 5px 5px 5px;
+      transition: all 0.2s ease-in-out;
+    }
+    li:hover {
+      color: rgba($color: $color-blue, $alpha: 1);
+    }
+  }
+  .open_list {
+    transform: scaleY(1);
+  }
+  .dropdown_component {
+    position: absolute;
+    right: 0px;
+    top: 70px;
   }
 }

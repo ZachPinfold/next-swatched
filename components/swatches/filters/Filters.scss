@@ -74,6 +74,7 @@
     border-bottom: 2px solid rgba(var(--currentColor), 0.4);
     margin-top: -2px;
     background-color: white;
+    box-shadow: 0 3px 10px rgba(var(--currentColor), 0.2);
   }
   .open_list {
     transform: scaleY(1);
