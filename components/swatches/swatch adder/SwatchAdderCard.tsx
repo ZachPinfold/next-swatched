@@ -45,6 +45,7 @@ const SwatchAdderCard = ({
   setSwatchId,
 }: SwatchTypes) => {
   const [inputValue, setInputValue] = useState<string>("");
+  const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
   const [colourLoaded, setColourLoaded] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const widthRef = useRef<string | null>(null);
@@ -57,6 +58,8 @@ const SwatchAdderCard = ({
   const [choiceButtonDisplay, setChoiceButtonDisplay] =
     useState<string>("none");
   const [hexInput, setHexInput] = useState<boolean>(false);
+  const [rgbInput, setRgbInput] = useState<boolean>(false);
+
   const hexFocus = useRef<any>();
 
   const width = 180;
@@ -97,6 +100,23 @@ const SwatchAdderCard = ({
     setColourLoaded(false);
   };
 
+  const applyRgbInput = (e: string, id: string) => {
+    console.log(id);
+
+    const rgbs = JSON.parse(JSON.stringify(rgbInputValue));
+
+    rgbs[id] = e;
+
+    setRgbInputValue(rgbs);
+    // setInputValue(str);
+
+    // if (isHexColour) {
+    //   setColourLoaded(true);
+
+    //   setImageColour(hexToRgb(`#${str}`));
+    // } else setColourLoaded(false);
+  };
+
   const handleImageAdd = () => {
     setImageColour([]);
     startAddSwatchToSwatchList(rgbToHex(imgColour));
@@ -112,6 +132,14 @@ const SwatchAdderCard = ({
       const circleId: string = `circle_${e.text}`;
       closeMenuOnHoverLeaveD3(circleId, i, centerX, centerY, [0, 0, 0]);
     });
+  };
+
+  const handleRgbInputSelection = () => {
+    closeMenu(circleMenuArray);
+    setTimeout(() => {
+      setRgbInput(true);
+      setMenuOpen(false);
+    }, 250);
   };
 
   const handleHexInputSelection = () => {
@@ -132,7 +160,7 @@ const SwatchAdderCard = ({
     {
       image: RGBImage,
       text: "rgb",
-      func: handleImageCapture,
+      func: handleRgbInputSelection,
     },
   ];
 
@@ -169,7 +197,7 @@ const SwatchAdderCard = ({
   useEffect(() => {
     // This useEffect first checks to see if the choice buttons are open
     // Then it hides the hover button so the 3 radial manu can't be opened
-    if (imgColour.length > 0 || hexInput) {
+    if (imgColour.length > 0 || hexInput || rgbInput) {
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 300);
@@ -186,7 +214,7 @@ const SwatchAdderCard = ({
       setTimeout(() => {
         setOpenButtonDisplay("none");
       }, 100);
-  }, [menuOpen, swatchHover, swatchId, imgColour, hexInput]);
+  }, [menuOpen, swatchHover, swatchId, imgColour, hexInput, rgbInput]);
 
   return (
     <li
@@ -209,7 +237,7 @@ const SwatchAdderCard = ({
         }
       }}
     >
-      {hexInput && (
+      {(hexInput || rgbInput) && (
         <div className="back_arrow">
           <img
             onClick={() => {
@@ -217,6 +245,7 @@ const SwatchAdderCard = ({
               setMenuOpen(true);
               setSwatchId("swatch_adder");
               setHexInput(false);
+              setRgbInput(false);
               setInputValue("");
               setImageColour([]);
             }}
@@ -317,6 +346,68 @@ const SwatchAdderCard = ({
               onChange={(e) => applyHexInput(e.target.value)}
               type="text"
               placeholder="# add hex"
+              style={{
+                padding:
+                  inputValue.length < 1
+                    ? "4px 6px 4px 6px"
+                    : "4px 6px 4px 15px",
+              }}
+              ref={hexFocus}
+            />
+          </form>
+          <div
+            style={{ opacity: colourLoaded ? "1" : "0" }}
+            className="outer_svg"
+          >
+            <PlusHex
+              color={"white"}
+              colourLoaded={colourLoaded}
+              handleHexAdd={handleHexAdd}
+            />
+          </div>
+        </Fragment>
+      )}
+      {rgbInput && (
+        <Fragment>
+          <form
+            style={{ right: colourLoaded ? "20px" : "0" }}
+            className={`rgb_input`}
+            onSubmit={(e) => handleHexAdd(e)}
+          >
+            <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>
+              #
+            </span>
+            <input
+              value={rgbInputValue[0]}
+              onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
+              type="text"
+              id={"0"}
+              style={{
+                padding:
+                  inputValue.length < 1
+                    ? "4px 6px 4px 6px"
+                    : "4px 6px 4px 15px",
+              }}
+              ref={hexFocus}
+            />
+            <input
+              value={rgbInputValue[1]}
+              onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
+              type="text"
+              id={"1"}
+              style={{
+                padding:
+                  inputValue.length < 1
+                    ? "4px 6px 4px 6px"
+                    : "4px 6px 4px 15px",
+              }}
+              ref={hexFocus}
+            />
+            <input
+              value={rgbInputValue[2]}
+              onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
+              type="text"
+              id={"2"}
               style={{
                 padding:
                   inputValue.length < 1
