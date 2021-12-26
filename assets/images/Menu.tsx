@@ -4,9 +4,13 @@ import { rgbToHex } from "../../utils/swatch";
 
 interface Actions {
   initialSwatches: SwatchObject[];
+  hover: boolean;
 }
 
-const Menu = ({ initialSwatches }: Actions) => {
+const Menu = ({ initialSwatches, hover }: Actions) => {
+  const arrayCopy = JSON.parse(JSON.stringify(initialSwatches));
+  hover && arrayCopy.reverse();
+
   return (
     <svg
       version="1.1"
@@ -17,7 +21,7 @@ const Menu = ({ initialSwatches }: Actions) => {
       viewBox="0 0 18.4 17.5"
     >
       <style type="text/css"></style>
-      {initialSwatches.map((color: SwatchObject, index: number) => {
+      {arrayCopy.map((color: SwatchObject, index: number) => {
         return (
           <circle
             fill={rgbToHex(color.color)}

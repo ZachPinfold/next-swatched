@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import Menu from "../../assets/images/Menu";
 import { SwatchObject } from "../../types/swatches";
@@ -9,6 +9,8 @@ interface Actions {
 }
 
 const NavBar = ({ initialSwatches, compact }: Actions) => {
+  const [hover, setHover] = useState<boolean>(false);
+
   return (
     <nav style={{ height: compact ? "60px" : "100px" }} className="wrapper">
       <div className="wrapper_inner inner_nav">
@@ -21,8 +23,15 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
             </p>
           )}
         </div>
+
         {initialSwatches.length > 0 && (
-          <Menu initialSwatches={initialSwatches} />
+          <div
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            className="menu_wrapper"
+          >
+            <Menu initialSwatches={initialSwatches} hover={hover} />
+          </div>
         )}
       </div>
     </nav>

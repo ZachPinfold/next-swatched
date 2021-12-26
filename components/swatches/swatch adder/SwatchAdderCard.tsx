@@ -164,6 +164,7 @@ const SwatchAdderCard = ({
   useEffect(() => {
     // This useEffect first checks to see if the choice buttons are open
     // Then it hides the hover button so the 3 radial manu can't be opened
+    console.log(menuOpen);
     if (imgColour.length > 0 || hexInput) {
       setTimeout(() => {
         setOpenButtonDisplay("none");
@@ -177,10 +178,10 @@ const SwatchAdderCard = ({
       setOpenButtonDisplay("inline-block");
     }
     // A timeout is in place to stop the top <g> from entering a hover state too early
-    else
+    else if (menuOpen)
       setTimeout(() => {
         setOpenButtonDisplay("none");
-      }, 300);
+      }, 100);
   }, [menuOpen, swatchHover, swatchId, imgColour, hexInput]);
 
   return (

@@ -4,7 +4,7 @@ nav {
   z-index: 10;
   top: 0;
   background-color: white;
-  transition: all 0.1s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   h1 {
     font-family: LilyScript;
@@ -23,10 +23,14 @@ nav {
   span {
     font-family: HelveticaM;
   }
+  .menu_wrapper {
+    cursor: pointer;
+  }
 
   .inner_nav {
     padding-top: 10px;
     padding-bottom: 10px;
+    align-items: center;
 
     @media only screen and (min-width: 1000px) {
       padding: 10px 5px;
@@ -35,6 +39,7 @@ nav {
     justify-content: space-between;
     svg {
       width: 30px;
+      height: 100%;
       circle {
         transition: fill 0.2s ease-in-out;
       }
