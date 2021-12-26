@@ -57,6 +57,7 @@ const SwatchAdderCard = ({
   const [choiceButtonDisplay, setChoiceButtonDisplay] =
     useState<string>("none");
   const [hexInput, setHexInput] = useState<boolean>(false);
+  const hexFocus = useRef<any>();
 
   const width = 180;
   const height = 180;
@@ -120,6 +121,10 @@ const SwatchAdderCard = ({
       setMenuOpen(false);
     }, 250);
   };
+
+  useEffect(() => {
+    hexInput && hexFocus.current.focus();
+  }, [hexInput]);
 
   const circleMenuArray = [
     { image: UploadImage, text: "upload", func: handleImageCapture },
@@ -318,6 +323,7 @@ const SwatchAdderCard = ({
                     ? "4px 6px 4px 6px"
                     : "4px 6px 4px 15px",
               }}
+              ref={hexFocus}
             />
           </form>
           <div
