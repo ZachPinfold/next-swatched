@@ -9,7 +9,10 @@ const MenuDropdown = ({ isDropdownOpen }) => {
   ];
 
   return (
-    <ul className={"menu_dropdown " + (isDropdownOpen && "open_list")}>
+    <ul
+      id="dropdown_comp"
+      className={"menu_dropdown " + (isDropdownOpen && "open_list")}
+    >
       {menu.map((item) => {
         return (
           <Link href={`/${item.destination}`}>

@@ -36,9 +36,9 @@ const ColorFilter = ({
   setIsClickedOutside,
   setColorFilter,
   colorFilter,
+  isDropdownOpen,
+  setDropdownOpen,
 }: Actions) => {
-  const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
-
   const colorRef = useRef<string>();
 
   useEffect(() => {

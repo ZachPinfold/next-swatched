@@ -26,6 +26,7 @@ nav {
   }
   .menu_wrapper {
     cursor: pointer;
+    position: relative;
   }
 
   .inner_nav {
@@ -80,5 +81,11 @@ nav {
     position: absolute;
     right: 0px;
     top: 70px;
+  }
+  .menu_overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
   }
 }

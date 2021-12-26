@@ -48,10 +48,14 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
             onMouseLeave={() => {
               setHover(false);
             }}
-            ref={wrapperRef}
             className="menu_wrapper"
           >
             <Menu initialSwatches={initialSwatches} hover={hover} />
+            <div
+              ref={isDropdownOpen ? wrapperRef : null}
+              id="dropdown_comp"
+              className="menu_overlay"
+            ></div>
           </div>
         )}
         <Dropdown
