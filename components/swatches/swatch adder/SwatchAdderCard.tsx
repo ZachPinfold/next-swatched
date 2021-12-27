@@ -187,6 +187,10 @@ const SwatchAdderCard = ({
     hexInput && hexFocus.current.focus();
   }, [hexInput]);
 
+  useEffect(() => {
+    rgbInput && rgbFocus1.current.focus();
+  }, [rgbInput]);
+
   const circleMenuArray = [
     { image: UploadImage, text: "upload", func: handleImageCapture },
     { image: HashTagImage, text: "hex", func: handleHexInputSelection },
@@ -421,12 +425,6 @@ const SwatchAdderCard = ({
               onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
               type="text"
               id={"0"}
-              // style={{
-              //   padding:
-              //     inputValue.length < 1
-              //       ? "4px 6px 4px 6px"
-              //       : "4px 6px 4px 15px",
-              // }}
               ref={rgbFocus1}
             />
             <input
@@ -434,12 +432,6 @@ const SwatchAdderCard = ({
               onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
               type="text"
               id={"1"}
-              // style={{
-              //   padding:
-              //     inputValue.length < 1
-              //       ? "4px 6px 4px 6px"
-              //       : "4px 6px 4px 15px",
-              // }}
               ref={rgbFocus2}
             />
             <input
@@ -447,12 +439,6 @@ const SwatchAdderCard = ({
               onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
               type="text"
               id={"2"}
-              // style={{
-              //   padding:
-              //     inputValue.length < 1
-              //       ? "4px 6px 4px 6px"
-              //       : "4px 6px 4px 15px",
-              // }}
               ref={rgbFocus3}
             />
           </form>
