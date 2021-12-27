@@ -16,7 +16,7 @@ interface Actions {
   fullScreen: boolean;
   swatchToCompare: number[];
   setSwatchToCompare: (color: number[]) => void;
-  selectSwatchToCompareRef: boolean;
+  selectSwatchToCompareRef: any;
 }
 
 const SwatchSelector = ({
@@ -112,6 +112,7 @@ const SwatchSelector = ({
               setCompareArray([]);
               setSwatchToCompare([]);
               setFullScreen(false);
+              selectSwatchToCompareRef.current = true;
             }, 200);
           }}
         >

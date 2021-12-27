@@ -121,7 +121,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           fullScreen={fullScreen}
           swatchToCompare={swatchToCompare}
           setSwatchToCompare={setSwatchToCompare}
-          selectSwatchToCompareRef={selectSwatchToCompareRef.current}
+          selectSwatchToCompareRef={selectSwatchToCompareRef}
         />
       </div>
       <div
