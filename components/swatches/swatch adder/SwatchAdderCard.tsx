@@ -9,6 +9,7 @@ import RGBImage from "../../../assets/images/rgb_swatch.svg";
 
 import {
   calculateDimensionsOnWindowChange,
+  checkIfRgb,
   cropImage,
   getContrastYIQ,
   hexToRgb,
@@ -34,7 +35,7 @@ interface SwatchCircleInput {
 }
 
 interface SwatchTypes {
-  startAddSwatchToSwatchList: (hex: string) => void;
+  startAddSwatchToSwatchList: (rgb: number[]) => void;
   setSwatchId: (swatchId: string) => void;
   swatchId: string;
 }
@@ -44,7 +45,7 @@ const SwatchAdderCard = ({
   swatchId,
   setSwatchId,
 }: SwatchTypes) => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [hexInputValue, setHexInputValue] = useState<string>("");
   const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
   const [colourLoaded, setColourLoaded] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
@@ -64,6 +65,8 @@ const SwatchAdderCard = ({
   const rgbFocus1 = useRef<any>();
   const rgbFocus2 = useRef<any>();
   const rgbFocus3 = useRef<any>();
+
+  const rgbFocusArray = [rgbFocus1, rgbFocus2, rgbFocus3];
 
   const width = 180;
   const height = 180;
@@ -85,28 +88,31 @@ const SwatchAdderCard = ({
 
     const isHexColour: boolean = isHexColor(str);
 
-    setInputValue(str);
+    setHexInputValue(str);
 
     if (isHexColour) {
       setColourLoaded(true);
-
       setImageColour(hexToRgb(`#${str}`));
     } else setColourLoaded(false);
   };
 
   const handleHexAdd = (e: any) => {
     e.preventDefault();
-    if (colourLoaded) startAddSwatchToSwatchList(`#${inputValue}`);
+    const hexRgb: number[] = hexToRgb(`#${hexInputValue}`);
+    if (colourLoaded) startAddSwatchToSwatchList(hexRgb);
     setHexInput(false);
-    setInputValue("");
+    setHexInputValue("");
     setImageColour([]);
     setColourLoaded(false);
   };
 
   const applyRgbInput = (e: string, id: string) => {
-    const rgbFocusArray = [rgbFocus1, rgbFocus2, rgbFocus3];
-
+    const regex = /[0-9]|\./;
     const rgbs = JSON.parse(JSON.stringify(rgbInputValue));
+
+    if (!regex.test(e[e.length - 1]) && e[e.length - 1]) return;
+
+    let isEmptyString = false;
 
     rgbs[id] = e;
 
@@ -117,19 +123,36 @@ const SwatchAdderCard = ({
     if (rgbs[id].length === 3 && id !== "2") {
       rgbFocusArray[parseInt(id) + 1].current.focus();
     }
-    // else if (rgbs[id].length === 3 && id === "2") return;
-    // setInputValue(str);
 
-    // if (isHexColour) {
-    //   setColourLoaded(true);
+    const isFullRgb = checkIfRgb(rgbs);
 
-    //   setImageColour(hexToRgb(`#${str}`));
-    // } else setColourLoaded(false);
+    rgbs.forEach((str: string) => {
+      str === "" && (isEmptyString = true);
+    });
+
+    if (isEmptyString) {
+      setImageColour([]);
+      setColourLoaded(false);
+    } else {
+      if (isFullRgb) {
+        setImageColour(isFullRgb);
+        setColourLoaded(true);
+      }
+    }
+  };
+
+  const handRgbAdd = (e: any) => {
+    e.preventDefault();
+    if (colourLoaded) startAddSwatchToSwatchList(imgColour);
+    setRgbInput(false);
+    setRgbInputValue(["", "", ""]);
+    setImageColour([]);
+    setColourLoaded(false);
   };
 
   const handleImageAdd = () => {
     setImageColour([]);
-    startAddSwatchToSwatchList(rgbToHex(imgColour));
+    startAddSwatchToSwatchList(imgColour);
     setMenuOpen(false);
   };
 
@@ -196,7 +219,12 @@ const SwatchAdderCard = ({
   // This useEffect opens the 'decider' circles when all the conditions are met
 
   useEffect(() => {
-    if (imgColour.length > 0 && inputFileRef.current && !hexInput) {
+    if (
+      imgColour.length > 0 &&
+      inputFileRef.current &&
+      !hexInput &&
+      !rgbInputValue
+    ) {
       openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
       setChoiceButtonDisplay("inline-block");
     } else {
@@ -256,8 +284,11 @@ const SwatchAdderCard = ({
               setSwatchId("swatch_adder");
               setHexInput(false);
               setRgbInput(false);
-              setInputValue("");
+              setHexInputValue("");
               setImageColour([]);
+              setRgbInputValue(["", "", ""]);
+              setImageColour([]);
+              setColourLoaded(false);
             }}
             src={BackImage.src}
             alt=""
@@ -348,17 +379,17 @@ const SwatchAdderCard = ({
             className={`hex_input`}
             onSubmit={(e) => handleHexAdd(e)}
           >
-            <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>
+            <span style={{ opacity: hexInputValue.length > 0 ? "1" : "0" }}>
               #
             </span>
             <input
-              value={inputValue}
+              value={hexInputValue}
               onChange={(e) => applyHexInput(e.target.value)}
               type="text"
               placeholder="# add hex"
               style={{
                 padding:
-                  inputValue.length < 1
+                  hexInputValue.length < 1
                     ? "4px 6px 4px 6px"
                     : "4px 6px 4px 15px",
               }}
@@ -373,6 +404,7 @@ const SwatchAdderCard = ({
               color={"white"}
               colourLoaded={colourLoaded}
               handleHexAdd={handleHexAdd}
+              rgbInput={rgbInput}
             />
           </div>
         </Fragment>
@@ -380,24 +412,21 @@ const SwatchAdderCard = ({
       {rgbInput && (
         <Fragment>
           <form
-            style={{ right: colourLoaded ? "20px" : "0" }}
+            style={{ right: colourLoaded ? "28px" : "0" }}
             className={`rgb_input`}
             onSubmit={(e) => handleHexAdd(e)}
           >
-            <span style={{ opacity: inputValue.length > 0 ? "1" : "0" }}>
-              #
-            </span>
             <input
               value={rgbInputValue[0]}
               onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
               type="text"
               id={"0"}
-              style={{
-                padding:
-                  inputValue.length < 1
-                    ? "4px 6px 4px 6px"
-                    : "4px 6px 4px 15px",
-              }}
+              // style={{
+              //   padding:
+              //     inputValue.length < 1
+              //       ? "4px 6px 4px 6px"
+              //       : "4px 6px 4px 15px",
+              // }}
               ref={rgbFocus1}
             />
             <input
@@ -405,12 +434,12 @@ const SwatchAdderCard = ({
               onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
               type="text"
               id={"1"}
-              style={{
-                padding:
-                  inputValue.length < 1
-                    ? "4px 6px 4px 6px"
-                    : "4px 6px 4px 15px",
-              }}
+              // style={{
+              //   padding:
+              //     inputValue.length < 1
+              //       ? "4px 6px 4px 6px"
+              //       : "4px 6px 4px 15px",
+              // }}
               ref={rgbFocus2}
             />
             <input
@@ -418,12 +447,12 @@ const SwatchAdderCard = ({
               onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
               type="text"
               id={"2"}
-              style={{
-                padding:
-                  inputValue.length < 1
-                    ? "4px 6px 4px 6px"
-                    : "4px 6px 4px 15px",
-              }}
+              // style={{
+              //   padding:
+              //     inputValue.length < 1
+              //       ? "4px 6px 4px 6px"
+              //       : "4px 6px 4px 15px",
+              // }}
               ref={rgbFocus3}
             />
           </form>
@@ -434,7 +463,8 @@ const SwatchAdderCard = ({
             <PlusHex
               color={"white"}
               colourLoaded={colourLoaded}
-              handleHexAdd={handleHexAdd}
+              handleHexAdd={handRgbAdd}
+              rgbInput={rgbInput}
             />
           </div>
         </Fragment>

@@ -70,11 +70,9 @@ export const startGetUserSwatches =
   };
 
 export const startAddSwatchToSwatchList =
-  (hex: string) => async (dispatch: any) => {
+  (rgbColour: number[]) => async (dispatch: any) => {
     try {
       const uniqueId: string = v4();
-
-      const rgbColour: number[] = hexToRgb(hex);
 
       const swatchObject = {
         timeAdded: new Date(),

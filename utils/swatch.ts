@@ -289,3 +289,23 @@ export const rgb2hsv = (rgb: number[]) => {
   const result = [60 * (h < 0 ? h + 6 : h), v && c / v, v];
   return hueToColorName(parseInt(result[0].toFixed()));
 };
+
+export const checkIfRgb = (rgb: string[]) => {
+  let ret = true;
+
+  const numberRgb: number[] = rgb.map((num) => {
+    if (num.length === 0) ret = false;
+    const numFromString = parseInt(num);
+    return numFromString;
+  });
+
+  if (!ret) return false;
+
+  const total: number = parseInt(rgb[0]) + parseInt(rgb[1]) + parseInt(rgb[2]);
+
+  if (total > 765) {
+    return false;
+  } else {
+    return numberRgb;
+  }
+};

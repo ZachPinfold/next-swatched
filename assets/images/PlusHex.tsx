@@ -4,9 +4,10 @@ interface Actions {
   color: string;
   colourLoaded: boolean;
   handleHexAdd: (e: any) => void;
+  rgbInput: boolean;
 }
 
-const PlusHex = ({ color, colourLoaded, handleHexAdd }: Actions) => {
+const PlusHex = ({ color, colourLoaded, handleHexAdd, rgbInput }: Actions) => {
   return (
     <svg
       version="1.1"
@@ -15,7 +16,14 @@ const PlusHex = ({ color, colourLoaded, handleHexAdd }: Actions) => {
       x="0px"
       y="0px"
       viewBox="0 0 141.35 141.26"
-      style={{ right: colourLoaded ? "-55px" : "-60px" }}
+      style={{
+        right:
+          colourLoaded && rgbInput
+            ? "-60px"
+            : colourLoaded && !rgbInput
+            ? "-55px"
+            : "-50px",
+      }}
       onClick={(e) => handleHexAdd(e)}
     >
       <g>
