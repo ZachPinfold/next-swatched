@@ -11,7 +11,7 @@ interface Actions {
   index: number;
   largeWindowSize: Boolean | null;
   startAddSwatchToSwatchList: (rgb: number[]) => any;
-  selectSwatchToCompareRef: boolean;
+  selectSwatchToCompareRef: any;
   setSwatchToCompare: (rgb: number[]) => any;
 }
 
@@ -36,7 +36,7 @@ const CompareCard = ({
   };
 
   const loadNewColor = () => {
-    selectSwatchToCompareRef = true;
+    selectSwatchToCompareRef.current = true;
     setSwatchToCompare(compareSwatch);
   };
   const arr = [

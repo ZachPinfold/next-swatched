@@ -23,7 +23,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
 
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [compareArray, setCompareArray] = useState<number[][]>([]);
-  const selectSwatchToCompareRef = useRef<boolean>(false);
+  const selectSwatchToCompareRef = useRef<boolean>(true);
   const [openState, setOpenState] = useState<boolean>(false);
   const [swatchNumber, setNumberOfSwatches] = useState<number>(2);
   const [fullScreen, setFullScreen] = useState<boolean>(false);
@@ -64,9 +64,13 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
       selectSwatchToCompareRef.current === true &&
       swatchToCompare.length > 0
     ) {
+      console.log("fire");
+
       getCompareColours();
     }
   }, [swatchToCompare]);
+
+  console.log(selectSwatchToCompareRef);
 
   return (
     <div className="wrapper swatches_page">
