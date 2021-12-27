@@ -10,7 +10,9 @@ interface Actions {
   swatchNumber: number;
   index: number;
   largeWindowSize: Boolean | null;
-  startAddSwatchToSwatchList: (hex: string) => any;
+  startAddSwatchToSwatchList: (rgb: number[]) => any;
+  selectSwatchToCompareRef: boolean;
+  setSwatchToCompare: (rgb: number[]) => any;
 }
 
 const CompareCard = ({
@@ -19,6 +21,8 @@ const CompareCard = ({
   swatchNumber,
   startAddSwatchToSwatchList,
   largeWindowSize,
+  setSwatchToCompare,
+  selectSwatchToCompareRef,
 }: Actions) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -28,9 +32,13 @@ const CompareCard = ({
   };
 
   const addToSwatch = () => {
-    startAddSwatchToSwatchList(rgbToHex(compareSwatch));
+    startAddSwatchToSwatchList(compareSwatch);
   };
 
+  const loadNewColor = () => {
+    selectSwatchToCompareRef = true;
+    setSwatchToCompare(compareSwatch);
+  };
   const arr = [
     {
       type: "copy",
@@ -43,8 +51,16 @@ const CompareCard = ({
       type: "save",
       image: SaveImage,
       message: "save to swatch",
-      clickedMessage: "colour saved!",
+      clickedMessage: "color saved!",
       func: addToSwatch,
+    },
+
+    {
+      type: "lock",
+      image: SaveImage,
+      message: "lock color",
+      clickedMessage: "color saved!",
+      func: loadNewColor,
     },
   ];
   return (

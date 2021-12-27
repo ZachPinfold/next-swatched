@@ -52,6 +52,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
 
         colourData[0] = swatchToCompare;
 
+        console.log(colourData);
         setCompareArray(colourData);
       } catch (error) {
         console.log(error);
@@ -116,6 +117,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           fullScreen={fullScreen}
           swatchToCompare={swatchToCompare}
           setSwatchToCompare={setSwatchToCompare}
+          selectSwatchToCompareRef={selectSwatchToCompareRef.current}
         />
       </div>
       <div

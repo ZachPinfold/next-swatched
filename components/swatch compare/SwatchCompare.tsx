@@ -16,6 +16,7 @@ interface Actions {
   fullScreen: boolean;
   swatchToCompare: number[];
   setSwatchToCompare: (color: number[]) => void;
+  selectSwatchToCompareRef: boolean;
 }
 
 const SwatchSelector = ({
@@ -29,6 +30,7 @@ const SwatchSelector = ({
   fullScreen,
   swatchToCompare,
   setSwatchToCompare,
+  selectSwatchToCompareRef,
 }: Actions) => {
   const widthRef = useRef<string | null>(null);
   const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
@@ -83,6 +85,8 @@ const SwatchSelector = ({
                   swatchNumber={swatchNumber}
                   key={index}
                   largeWindowSize={largeWindowSize}
+                  setSwatchToCompare={setSwatchToCompare}
+                  selectSwatchToCompareRef={selectSwatchToCompareRef}
                 />
               );
             })}

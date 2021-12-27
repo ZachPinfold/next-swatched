@@ -35,6 +35,7 @@
     list-style-type: none;
     font-family: HelveticaM;
     padding: 7px 15px 7px 10px;
+    transition: 0.1s all ease-in-out;
   }
   li:hover {
     background-color: rgba(var(--color), 0.4);

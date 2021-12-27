@@ -73,6 +73,7 @@ const SwatchCard = ({
   const setCompareClick = () => {
     if (openState) {
       // This booleon exists so the compare section stays in the same place, and only the colours change
+      selectSwatchToCompareRef.current = true;
       setOpenState(true);
       setSwatchToCompare(color);
     } else {
@@ -143,9 +144,6 @@ const SwatchCard = ({
       style={{ backgroundColor: rgbToHex(color) }}
       key={color[0]}
       className="swatch_card"
-      onClick={() => {
-        selectSwatchToCompareRef.current = true;
-      }}
       onMouseEnter={() => {
         if (!menuOpen && largeWindowSize) {
           setSwatchHover(swatch.colourId);
