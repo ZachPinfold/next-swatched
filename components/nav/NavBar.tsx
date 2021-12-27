@@ -16,6 +16,7 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
   const [hover, setHover] = useState<boolean>(false);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [showText, setShowText] = useState(false);
 
   useEffect(() => {
     if (isClickedOutside) {
@@ -24,6 +25,13 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
     }
   }, [isClickedOutside]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      !compact && setShowText(true);
+    }, 200);
+    compact && setShowText(false);
+  }, [compact]);
+
   return (
     <nav style={{ height: compact ? "60px" : "100px" }} className="wrapper">
       <div className="wrapper_inner inner_nav">
@@ -31,7 +39,7 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
           <Link href="/">
             <h1 style={{ fontSize: compact ? "30px" : "40px" }}>Swatched</h1>
           </Link>
-          {!compact && (
+          {showText && (
             <p>
               Use <strong> deep learning</strong> to find and save colours to
               your swatch, powered by the <span>ColormindAPI</span>{" "}

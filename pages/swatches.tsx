@@ -64,8 +64,6 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
       selectSwatchToCompareRef.current === true &&
       swatchToCompare.length > 0
     ) {
-      console.log("fire");
-
       getCompareColours();
     }
   }, [swatchToCompare]);
