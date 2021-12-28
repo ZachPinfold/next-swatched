@@ -4,6 +4,7 @@ import Minus from "../../assets/images/Minus";
 import expandImage from "../../assets/images/arrow_swatch.svg";
 import CompareCard from "./CompareCard";
 import { calculateDimensionsOnWindowChange } from "../../utils/swatch";
+import { connect } from "react-redux";
 
 interface Actions {
   compareArray: number[][];
@@ -17,6 +18,7 @@ interface Actions {
   swatchToCompare: number[];
   setSwatchToCompare: (color: number[]) => void;
   selectSwatchToCompareRef: any;
+  isCompact: boolean;
 }
 
 const SwatchSelector = ({
@@ -31,6 +33,7 @@ const SwatchSelector = ({
   swatchToCompare,
   setSwatchToCompare,
   selectSwatchToCompareRef,
+  isCompact,
 }: Actions) => {
   const widthRef = useRef<string | null>(null);
   const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
@@ -53,7 +56,12 @@ const SwatchSelector = ({
       className={"swatch_selector"}
       style={{
         height: fullScreen ? "100%" : "40%",
-        paddingTop: fullScreen ? "100px" : "0",
+        paddingTop:
+          fullScreen && isCompact
+            ? "60px"
+            : fullScreen && !isCompact
+            ? "100px"
+            : "0",
         transform:
           compareArray.length > 2 && openState
             ? " translatey(0%)"
@@ -75,7 +83,12 @@ const SwatchSelector = ({
           className="current_colour"
           style={{
             backgroundColor: `rgb(${swatchToCompare})`,
-            marginTop: fullScreen ? "100px" : "0",
+            marginTop:
+              fullScreen && isCompact
+                ? "60px"
+                : fullScreen && !isCompact
+                ? "100px"
+                : "0",
           }}
         >
           <div
@@ -113,7 +126,14 @@ const SwatchSelector = ({
 
         <button
           className="close_btn"
-          style={{ marginTop: fullScreen ? "100px" : "0" }}
+          style={{
+            marginTop:
+              fullScreen && isCompact
+                ? "60px"
+                : fullScreen && !isCompact
+                ? "100px"
+                : "0",
+          }}
           onClick={() => {
             setOpenState(false);
             setTimeout(function () {
@@ -130,7 +150,14 @@ const SwatchSelector = ({
 
         <button
           className="expand_btn"
-          style={{ marginTop: fullScreen ? "100px" : "0" }}
+          style={{
+            marginTop:
+              fullScreen && isCompact
+                ? "60px"
+                : fullScreen && !isCompact
+                ? "100px"
+                : "0",
+          }}
           onClick={() => {
             setFullScreen(!fullScreen);
           }}
@@ -156,4 +183,12 @@ const SwatchSelector = ({
   );
 };
 
-export default SwatchSelector;
+interface StateProps {
+  isCompact: boolean;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  isCompact: state.layout.isCompact,
+});
+
+export default connect(mapStateToProps, {})(SwatchSelector);

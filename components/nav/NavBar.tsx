@@ -105,12 +105,10 @@ const NavBar = ({ initialSwatches, startIsCompact }: Actions) => {
 
 interface StateProps {
   initialSwatches: SwatchObject[];
-  isCompact: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   initialSwatches: state.swatches.initialSwatches,
-  isCompact: state.layout.isCompact,
 });
 
 export default connect(mapStateToProps, { startIsCompact })(NavBar);

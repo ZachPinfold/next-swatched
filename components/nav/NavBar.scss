@@ -16,6 +16,11 @@ nav {
     font-family: HelveticaL;
     margin-top: 0px;
     font-size: 14px;
+    @media only screen and (max-width: 700px) {
+      margin-top: -5px;
+      font-size: 12px;
+      max-width: 270px;
+    }
   }
   strong {
     font-family: HelveticaM;
@@ -46,6 +51,9 @@ nav {
       circle {
         transition: fill 0.2s ease-in-out;
       }
+    }
+    @media only screen and (max-width: 700px) {
+      margin-right: 10px;
     }
   }
   .menu_dropdown {
