@@ -15,6 +15,12 @@ export const GET_INITIAL_SWATCHES = "GET_INITIAL_SWATCHES";
 export const ADD_SWATCH = "ADD_SWATCH";
 export const DELETE_SWATCH = "DELETE_SWATCH";
 
+// LAYOUT
+
+export const SET_COMPACT_SCREEN = "SET_COMPACT_SCREEN";
+
+// Interfaces
+
 export interface LoginAction {
   type: typeof LOGIN_AUTH;
   payload: { UserID: string };
@@ -70,3 +76,10 @@ export type GetSwatchesActions =
   | AddSwatchesActions
   | DeleteSwatchesActions
   | GetInitalSwatchesAction;
+
+export interface IsCompactAction {
+  type: typeof SET_COMPACT_SCREEN;
+  payload: boolean;
+}
+
+export type LayoutActions = IsCompactAction;

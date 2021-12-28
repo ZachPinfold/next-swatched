@@ -68,8 +68,6 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
     }
   }, [swatchToCompare]);
 
-  console.log(selectSwatchToCompareRef);
-
   return (
     <div className="wrapper swatches_page">
       <div className="upper_area wrapper_inner">

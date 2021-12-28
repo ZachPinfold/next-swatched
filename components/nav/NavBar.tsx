@@ -5,18 +5,21 @@ import { SwatchObject } from "../../types/swatches";
 import Dropdown from "../utils/Dropdown";
 import MenuDropdown from "./MenuDropdown";
 import Link from "next/link";
+import { startIsCompact } from "../../actions/layout";
 
 interface Actions {
   initialSwatches: SwatchObject[];
-  compact: boolean;
+  startIsCompact: (scrollY: number) => void;
 }
 
-const NavBar = ({ initialSwatches, compact }: Actions) => {
+const NavBar = ({ initialSwatches, startIsCompact }: Actions) => {
   const wrapperRef = useRef<HTMLHeadingElement>(null);
   const [hover, setHover] = useState<boolean>(false);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [showText, setShowText] = useState(false);
+  const [compact, setCompact] = useState(false);
+  const ref = useRef(false);
 
   useEffect(() => {
     if (isClickedOutside) {
@@ -31,6 +34,24 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
     }, 200);
     compact && setShowText(false);
   }, [compact]);
+
+  const trackScroll = () => {
+    if (typeof window === "undefined") {
+      return;
+    } else {
+      setCompact(window.scrollY >= 75);
+      if (ref.current !== window.scrollY >= 75) startIsCompact(window.scrollY);
+      ref.current = window.scrollY >= 75;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("scroll", trackScroll);
+
+    return () => {
+      document.removeEventListener("scroll", trackScroll);
+    };
+  }, []);
 
   return (
     <nav style={{ height: compact ? "60px" : "100px" }} className="wrapper">
@@ -84,10 +105,12 @@ const NavBar = ({ initialSwatches, compact }: Actions) => {
 
 interface StateProps {
   initialSwatches: SwatchObject[];
+  isCompact: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   initialSwatches: state.swatches.initialSwatches,
+  isCompact: state.layout.isCompact,
 });
 
-export default connect(mapStateToProps, {})(NavBar);
+export default connect(mapStateToProps, { startIsCompact })(NavBar);

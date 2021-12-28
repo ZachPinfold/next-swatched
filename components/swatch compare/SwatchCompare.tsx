@@ -44,11 +44,16 @@ const SwatchSelector = ({
     calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
 
+  const handleProgressClick = (index: number) => {
+    setNumberOfSwatches(index + 1);
+  };
+
   return (
     <div
       className={"swatch_selector"}
       style={{
         height: fullScreen ? "100%" : "40%",
+        paddingTop: fullScreen ? "100px" : "0",
         transform:
           compareArray.length > 2 && openState
             ? " translatey(0%)"
@@ -68,7 +73,10 @@ const SwatchSelector = ({
         </button>
         <div
           className="current_colour"
-          style={{ backgroundColor: `rgb(${swatchToCompare})` }}
+          style={{
+            backgroundColor: `rgb(${swatchToCompare})`,
+            marginTop: fullScreen ? "100px" : "0",
+          }}
         >
           <div
             style={{ opacity: swatchToCompare !== compareArray[0] ? "1" : "0" }}
@@ -105,6 +113,7 @@ const SwatchSelector = ({
 
         <button
           className="close_btn"
+          style={{ marginTop: fullScreen ? "100px" : "0" }}
           onClick={() => {
             setOpenState(false);
             setTimeout(function () {
@@ -121,6 +130,7 @@ const SwatchSelector = ({
 
         <button
           className="expand_btn"
+          style={{ marginTop: fullScreen ? "100px" : "0" }}
           onClick={() => {
             setFullScreen(!fullScreen);
           }}
@@ -138,6 +148,7 @@ const SwatchSelector = ({
             }}
             key={index}
             className="progress_circle"
+            onClick={() => handleProgressClick(index)}
           ></div>
         ))}
       </div>
