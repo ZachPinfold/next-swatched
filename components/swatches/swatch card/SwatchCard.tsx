@@ -173,7 +173,7 @@ const SwatchCard = ({
             setSwatchId(swatch.colourId);
           }
         }}
-        className="hover_button"
+        className="hover_button swatch_hover_button"
         style={{
           opacity: !largeWindowSize
             ? "1"

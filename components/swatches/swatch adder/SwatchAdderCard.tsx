@@ -264,7 +264,7 @@ const SwatchAdderCard = ({
         backgroundColor:
           imgColour.length < 1 ? "lightgrey" : `rgba(${imgColour})`,
       }}
-      className="swatch_card"
+      className="swatch_card swatch_adder_card"
       onMouseEnter={() => {
         if (!menuOpen && largeWindowSize) {
           setSwatchHover(true);
@@ -314,7 +314,7 @@ const SwatchAdderCard = ({
             setSwatchId("swatch_adder");
           }
         }}
-        className="hover_button"
+        className="hover_button adder_button"
         style={{
           opacity: !largeWindowSize
             ? "1"
