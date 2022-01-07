@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import Tutorial1 from "../../../assets/images/tutorial/tutorial_1.gif";
 import LockedImage from "../../../assets/images/LockedSwatch";
 import CopySwatch from "../../../assets/images/CopySwatch";
 import DeleteSwatch from "../../../assets/images/DeleteSwatch";
+import { Carousel } from "react-responsive-carousel";
 
 interface ComponentProps {
   color: string;
@@ -12,35 +13,50 @@ interface TutTypes {
   img: FC<ComponentProps>;
   text: string;
 }
+const tutorialArray: TutTypes[][] = [];
 
-const tutorialObject: TutTypes[] = [
+const tutorial1ObjectArray: TutTypes[] = [
   { img: DeleteSwatch, text: "delete a swatch" },
   { img: LockedImage, text: "compare a colour" },
   { img: CopySwatch, text: "copy the hex" },
 ];
 
+const tutorial2ObjectArray: TutTypes[] = [
+  { img: DeleteSwatch, text: "delete a swatch" },
+  { img: LockedImage, text: "compare a colour" },
+  { img: CopySwatch, text: "copy the hex" },
+];
+
+tutorialArray.push(tutorial1ObjectArray);
+tutorialArray.push(tutorial2ObjectArray);
+
 const Tutorial = () => {
-  const iconColor: string = "#ff6459";
+  const iconColor: string = "#4eadab";
 
   return (
     <div className="tutorial_box">
-      <h4>Hover over a colour swatch to see the options</h4>
-      <div className="inner_tutorial">
-        <div className="icons">
-          {tutorialObject.map((tut) => {
-            return (
-              <div key={tut.text} className="inner_icon">
-                {<tut.img color={iconColor} />}
-                <p>{tut.text}</p>
+      <Carousel showThumbs={false}>
+        {tutorialArray.map((tutorialArray) => {
+          return (
+            <Fragment>
+              <h4>Hover over a colour swatch to see the options</h4>
+              <div className="inner_tutorial">
+                <div className="icons">
+                  {tutorialArray.map((tut) => {
+                    return (
+                      <div key={tut.text} className="inner_icon">
+                        {<tut.img color={iconColor} />}
+                        <p>{tut.text}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+                <img src={Tutorial1.src} alt="" />
               </div>
-            );
-          })}
-
-          {/* <LockedImage color={iconColor} />
-            <CopySwatch color={iconColor} /> */}
-        </div>
-        <img src={Tutorial1.src} alt="" />
-      </div>
+            </Fragment>
+          );
+        })}
+      </Carousel>
     </div>
   );
 };
