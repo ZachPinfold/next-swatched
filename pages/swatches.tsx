@@ -36,6 +36,8 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
     rgb: [197, 199, 196],
   });
 
+  console.log(isClickedOutside);
+
   useEffect(() => {
     startGetUserSwatches("", "all", true);
   }, [startGetUserSwatches]);
@@ -92,9 +94,19 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
         />
         <HueSwatch currentColour={colorFilter.name} />
         <div className="tips_wrap">
-          <p>tips</p>
-          <Tips />
-          <Tutorial />
+          <div
+            onClick={() => setDropdownOpen(!isDropdownOpen)}
+            // ref={isDropdownOpen ? wrapperRef : null}
+            className="tips_button"
+          >
+            <p>tips</p>
+            <Tips />
+          </div>
+          <Dropdown
+            Component={<Tutorial />}
+            setIsClickedOutside={setIsClickedOutside}
+            refId={refId}
+          />
         </div>
       </div>
 

@@ -11,6 +11,8 @@ const Dropdown = ({ Component, setIsClickedOutside, refId }: any) => {
        */
       function handleClickOutside(event: any) {
         if (ref && ref.current && ref.current.id !== event.target.id) {
+          console.log(ref.current.id, event.target.id);
+
           setIsClickedOutside(true);
         }
       }
