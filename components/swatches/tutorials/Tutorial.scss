@@ -1,0 +1,47 @@
+.tutorial_box {
+  background-color: white;
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  padding: 10px 20px;
+  border-radius: 2px;
+  box-shadow: 0 3px 10px rgba(black, 0.2);
+  .inner_tutorial {
+    display: flex;
+  }
+  img {
+    height: 140px;
+  }
+  .inner_icon {
+    display: flex;
+    // justify-content: space-between;
+    min-width: 175px;
+    align-items: center;
+    margin-right: 20px;
+    .img_circle {
+      background-color: darkgrey;
+      border-radius: 30px;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    svg {
+      margin: 10px 0;
+      margin-right: 15px;
+      width: 20px;
+    }
+    p {
+      font-family: HelveticaM;
+      font-size: 14px;
+    }
+  }
+  h4 {
+    font-family: HelveticaM;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: $color-blue;
+  }
+}

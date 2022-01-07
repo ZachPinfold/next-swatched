@@ -229,7 +229,15 @@ const SwatchAdderCard = ({
       !hexInput &&
       !rgbInputValue
     ) {
-      openMenu("swatch_adder", circleMenuDecider, 2, 0, 40, "decider");
+      openMenu(
+        "swatch_adder",
+        circleMenuDecider,
+        2,
+        0,
+        40,
+        "decider",
+        largeWindowSize
+      );
       setChoiceButtonDisplay("inline-block");
     } else {
       setChoiceButtonDisplay("none");
@@ -283,7 +291,15 @@ const SwatchAdderCard = ({
         <div className="back_arrow">
           <img
             onClick={() => {
-              openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
+              openMenu(
+                "swatch_adder",
+                circleMenuArray,
+                2,
+                0.5,
+                45,
+                "circle",
+                largeWindowSize
+              );
               setMenuOpen(true);
               setSwatchId("swatch_adder");
               setHexInput(false);
@@ -302,14 +318,30 @@ const SwatchAdderCard = ({
       <div
         onMouseEnter={() => {
           if (largeWindowSize) {
-            openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
+            openMenu(
+              "swatch_adder",
+              circleMenuArray,
+              2,
+              0.5,
+              45,
+              "circle",
+              largeWindowSize
+            );
             setMenuOpen(true);
             setSwatchId("swatch_adder");
           }
         }}
         onClick={() => {
           if (!largeWindowSize) {
-            openMenu("swatch_adder", circleMenuArray, 2, 0.5, 45, "circle");
+            openMenu(
+              "swatch_adder",
+              circleMenuArray,
+              2,
+              0.5,
+              45,
+              "circle",
+              largeWindowSize
+            );
             setMenuOpen(true);
             setSwatchId("swatch_adder");
           }

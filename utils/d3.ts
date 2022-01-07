@@ -6,9 +6,13 @@ export const openCircleMenuD3 = (
   i: number,
   xPosition: number,
   yPosition: number,
-  localSwatchId: string
+  localSwatchId: string,
+  largeWindowSize: Boolean | null
 ) => {
   let actionAttachment: string = "";
+  let windowSizeOffset: number = 0;
+
+  largeWindowSize ? (windowSizeOffset = 0) : (windowSizeOffset = 5);
 
   !circleId.includes("decider")
     ? (actionAttachment = "action_circles")
@@ -17,7 +21,12 @@ export const openCircleMenuD3 = (
   select(`#${circleId}_${i}`)
     .transition()
     .duration(400)
-    .attr("transform", `translate(${xPosition + 55}, ${yPosition + 55})`)
+    .attr(
+      "transform",
+      `translate(${xPosition + 55 - windowSizeOffset}, ${
+        yPosition + 55 - windowSizeOffset
+      })`
+    )
     .attr("opacity", "1")
     .attr("class", `${actionAttachment} circle_${localSwatchId}_active`);
 

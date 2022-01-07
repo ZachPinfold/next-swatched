@@ -133,12 +133,6 @@ const SwatchCard = ({
       }, 300);
   }, [menuOpen, swatchHover, swatchId, swatch.colourId]);
 
-  // Use this useEffect to open menu on load for editing
-
-  // useEffect(() => {
-  //   openMenu();
-  // }, []);
-
   return (
     <li
       style={{ backgroundColor: rgbToHex(color) }}
@@ -161,14 +155,30 @@ const SwatchCard = ({
       <div
         onMouseEnter={() => {
           if (largeWindowSize) {
-            openMenu(swatch.colourId, circleMenuArray, 2, 0.5, 45, "circle");
+            openMenu(
+              swatch.colourId,
+              circleMenuArray,
+              2,
+              0.5,
+              45,
+              "circle",
+              largeWindowSize
+            );
             setMenuOpen(true);
             setSwatchId(swatch.colourId);
           }
         }}
         onClick={() => {
           if (!largeWindowSize) {
-            openMenu(swatch.colourId, circleMenuArray, 2, 0.5, 45, "circle");
+            openMenu(
+              swatch.colourId,
+              circleMenuArray,
+              2,
+              0.5,
+              45,
+              "circle",
+              largeWindowSize
+            );
             setMenuOpen(true);
             setSwatchId(swatch.colourId);
           }

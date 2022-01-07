@@ -215,7 +215,8 @@ export const openMenu = (
   position: number,
   angle: number,
   r: number,
-  type: string
+  type: string,
+  largeWindowSize: Boolean | null
 ) => {
   const radius = r; // the radius as a constant
   /* THETA is the angle of separation between each elemtents */
@@ -235,7 +236,14 @@ export const openMenu = (
     xPosition = radius * Math.cos(currentAngle);
     yPosition = radius * Math.sin(currentAngle);
 
-    openCircleMenuD3(circleId, i, xPosition, yPosition, localSwatchId);
+    openCircleMenuD3(
+      circleId,
+      i,
+      xPosition,
+      yPosition,
+      localSwatchId,
+      largeWindowSize
+    );
   });
 };
 

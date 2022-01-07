@@ -27,6 +27,11 @@ const SwatchList = ({
 
   return (
     <ul className="swatch_grid wrapper_inner">
+      <SwatchAdderCard
+        key={"add_hex_card"}
+        swatchId={swatchId}
+        setSwatchId={setSwatchId}
+      />
       {swatches.map((swatch, index) => {
         if (swatch.colourId !== "none-colour") {
           return (
@@ -45,14 +50,7 @@ const SwatchList = ({
               swatchId={swatchId}
             />
           );
-        } else
-          return (
-            <SwatchAdderCard
-              key={"add_hex_card"}
-              swatchId={swatchId}
-              setSwatchId={setSwatchId}
-            />
-          );
+        }
       })}
 
       {/* <div

@@ -11,6 +11,7 @@ nav {
     color: $color-blue;
     font-size: 40px;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
   }
   p {
     font-family: HelveticaL;
@@ -48,6 +49,7 @@ nav {
     svg {
       width: 30px;
       height: 100%;
+
       circle {
         transition: fill 0.2s ease-in-out;
       }

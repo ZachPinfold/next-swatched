@@ -3,9 +3,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import HueSwatch from "../assets/images/HueSwatch";
+import Tips from "../assets/images/Tips";
 import SwatchSelector from "../components/swatch compare/SwatchCompare";
 import ColorFilter from "../components/swatches/filters/ColorFilter";
 import SwatchList from "../components/swatches/swatch list/SwatchList";
+import Tutorial from "../components/swatches/tutorials/Tutorial";
 import Dropdown from "../components/utils/Dropdown";
 import { ColorNamesType, SwatchObject } from "../types/swatches";
 
@@ -41,6 +43,8 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   useEffect(() => {
     const getCompareColours = async () => {
       try {
+        console.log("fire");
+
         const data = {
           model: "default",
           input: [swatchToCompare, "N", "N", "N", "N"],
@@ -87,6 +91,11 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           refId={refId}
         />
         <HueSwatch currentColour={colorFilter.name} />
+        <div className="tips_wrap">
+          <p>tips</p>
+          <Tips />
+          <Tutorial />
+        </div>
       </div>
 
       <SwatchList
