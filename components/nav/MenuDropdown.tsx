@@ -14,10 +14,7 @@ const MenuDropdown = ({ isDropdownOpen, setDropdownOpen }: Actions) => {
   ];
 
   return (
-    <ul
-      id="dropdown_comp"
-      className={"menu_dropdown " + (isDropdownOpen && "open_list")}
-    >
+    <ul id="dropdown_comp" className={"menu_dropdown "}>
       {menu.map((item) => {
         return (
           <Link key={item.title} href={`/${item.destination}`}>

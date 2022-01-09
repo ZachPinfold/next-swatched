@@ -59,9 +59,9 @@ nav {
     }
   }
   .menu_dropdown {
-    transform-origin: top;
-    transition: all 0.1s ease-in-out;
-    transform: scaleY(0);
+    // transform-origin: top;
+    // transition: all 0.1s ease-in-out;
+    // transform: scaleY(0);
     z-index: 1;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -84,13 +84,16 @@ nav {
       color: rgba($color: $color-blue, $alpha: 1);
     }
   }
-  .open_list {
-    transform: scaleY(1);
-  }
   .dropdown_component {
     position: absolute;
     right: 0px;
     top: 70px;
-    z-index: 1;
+    z-index: 100;
+    transform-origin: top;
+    transition: all 0.1s ease-in-out;
+    transform: scaleY(0);
+  }
+  .open_list {
+    transform: scaleY(1);
   }
 }

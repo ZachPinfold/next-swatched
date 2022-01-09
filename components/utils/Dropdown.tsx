@@ -1,6 +1,11 @@
 import React, { useEffect, useRef } from "react";
 
-const Dropdown = ({ Component, setIsClickedOutside, refId }: any) => {
+const Dropdown = ({
+  Component,
+  setIsClickedOutside,
+  refId,
+  isDropdownOpen,
+}: any) => {
   // console.log(refId);
 
   // const wrapperRef = useRef<HTMLHeadingElement>(null);
@@ -32,7 +37,12 @@ const Dropdown = ({ Component, setIsClickedOutside, refId }: any) => {
   useOutsideAlerter(wrapperRef);
 
   return (
-    <div ref={wrapperRef} id={refId} className="dropdown_component">
+    <div
+      ref={wrapperRef}
+      id={refId}
+      className={"dropdown_component " + (isDropdownOpen && "open_list")}
+      // className="dropdown_component"
+    >
       {Component}
     </div>
   );
