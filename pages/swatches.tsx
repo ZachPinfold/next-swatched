@@ -108,8 +108,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
             onClick={() => {
               setIsTutorial(!isTutorial);
             }}
-            // ref={isDropdownOpen ? wrapperRef : null}
-            className="tips_button"
+            className={"tips_button " + (isTutorial && "open_button")}
             id={refTutorialId}
           >
             <p id={refTutorialId}>tips</p>

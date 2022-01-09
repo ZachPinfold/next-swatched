@@ -12,6 +12,40 @@
     top: 0;
     left: 0;
   }
+  .tips_button {
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    p {
+      font-family: HelveticaM;
+      color: black;
+      transition: all 0.2s ease-in-out;
+    }
+    .tips_bulb {
+      fill: white;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+  .tips_button:hover {
+    .tips_bulb {
+      fill: rgba(#e6c649, 0.3);
+    }
+  }
+  .open_button {
+    .tips_bulb {
+      filter: drop-shadow(0px 0px 20px #e6c649);
+      fill: #e6c649;
+    }
+  }
+  .open_button:hover {
+    .tips_bulb {
+      fill: #e6c649;
+    }
+  }
+  svg {
+    overflow: visible;
+  }
 }
 .tutorial_box {
   background-color: white;
