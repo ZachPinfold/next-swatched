@@ -15,30 +15,37 @@ const SwatchPicker = ({
   swatches,
   setLockedSwatches,
   lockedSwatches,
+  initialLoadRef,
 }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
 
   return (
-    <div className='outer_swatch'>
-      <div className='swatch_area'>
+    <div className="outer_swatch">
+      <div className="swatch_area">
         {swatches.map((swatch, index) => {
           return (
             <div
-              className='swatch_card'
+              className={
+                !initialLoadRef.current ? "initial_colour_card" : "colour_card"
+              }
               style={{
-                backgroundColor: `rgb(${swatch})`,
+                backgroundColor: !initialLoadRef.current
+                  ? "white"
+                  : `rgb(${swatch})`,
                 width: hoverSwatch === swatch ? "23%" : "20%",
               }}
               key={index}
             >
-              <SwatchCard
-                swatch={swatch}
-                index={index}
-                setHoverSwatch={setHoverSwatch}
-                setLockedSwatches={setLockedSwatches}
-                lockedSwatches={lockedSwatches}
-                hoverSwatch={hoverSwatch}
-              />
+              {initialLoadRef.current && (
+                <SwatchCard
+                  swatch={swatch}
+                  index={index}
+                  setHoverSwatch={setHoverSwatch}
+                  setLockedSwatches={setLockedSwatches}
+                  lockedSwatches={lockedSwatches}
+                  hoverSwatch={hoverSwatch}
+                />
+              )}
             </div>
           );
         })}
