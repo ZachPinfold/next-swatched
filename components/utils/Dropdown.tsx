@@ -12,8 +12,10 @@ const Dropdown = ({ Component, setIsClickedOutside, refId }: any) => {
        * Alert if clicked on outside of element
        */
       function handleClickOutside(event: any) {
-        console.log("ref +", ref.current.id, "id +", event.target.id);
+        // console.log("ref +", ref.current.id, "id +", event.target.id);
         if (ref && ref.current && ref.current.id !== event.target.id) {
+          console.log("fire");
+
           setIsClickedOutside(true);
         }
       }

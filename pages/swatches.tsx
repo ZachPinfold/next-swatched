@@ -21,7 +21,8 @@ interface Actions {
 }
 
 const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
-  let refId = "dropdown_filter";
+  let refFilterId = "dropdown_filter";
+  let refTutorialId = "dropdown_tutorial";
 
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [isTutorial, setIsTutorial] = useState<boolean>(false);
@@ -74,10 +75,19 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
     }
   }, [swatchToCompare]);
 
+  useEffect(() => {
+    if (isTutClickedOutside) {
+      setIsTutorial(false);
+      setIsTutClickedOutside(false);
+    }
+  }, [isTutClickedOutside]);
+
+  console.log(isTutorial);
+
   return (
     <div className="wrapper swatches_page">
       <div className="upper_area wrapper_inner">
-        {/* <Dropdown
+        <Dropdown
           Component={
             <ColorFilter
               isClickedOutside={isClickedOutside}
@@ -86,29 +96,31 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
               setColorFilter={setColorFilter}
               setDropdownOpen={setDropdownOpen}
               isDropdownOpen={isDropdownOpen}
-              refId={refId}
+              refId={refFilterId}
             />
           }
           setIsClickedOutside={setIsClickedOutside}
-          refId={refId}
-        /> */}
+          refId={refFilterId}
+        />
         <HueSwatch currentColour={colorFilter.name} />
-        <div className="tips_wrap" id={refId}>
+        <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
               setIsTutorial(!isTutorial);
             }}
             // ref={isDropdownOpen ? wrapperRef : null}
             className="tips_button"
-            id={refId}
+            id={refTutorialId}
           >
-            <p id={refId}>tipsss</p>
+            <p id={refTutorialId}>tips</p>
             <Tips />
           </div>
           <Dropdown
-            Component={<Tutorial isDropdownOpen={isTutorial} refId={refId} />}
+            Component={
+              <Tutorial isDropdownOpen={isTutorial} refId={refTutorialId} />
+            }
             setIsClickedOutside={setIsTutClickedOutside}
-            refId={refId}
+            refId={refTutorialId}
           />
         </div>
       </div>
