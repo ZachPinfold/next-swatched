@@ -112,7 +112,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
             id={refTutorialId}
           >
             <p id={refTutorialId}>tips</p>
-            <Tips />
+            <Tips refTutorialId={refTutorialId} />
           </div>
           <Dropdown
             Component={
