@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <NavBar compact={compact} />
+      <NavBar />
       <Component {...pageProps} />
       <img
         style={{ opacity: compact ? "1" : "0" }}
