@@ -44,6 +44,8 @@ const SwatchCard = ({
   swatchToCompare,
   swatchId,
   setSwatchId,
+  // Front page cards behave slightly differenty, and will be based on this condition
+  frontPage,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
@@ -96,13 +98,15 @@ const SwatchCard = ({
 
   const circleMenuArray = [
     { image: CopyImage, text: "copy", func: copySwatchHex },
-    { image: LockedImage, text: "lock", func: setCompareClick },
+    { image: LockedImage, text: "match", func: setCompareClick },
     {
       image: DeleteImage,
       text: "delete",
       func: deleteSwatch,
     },
   ];
+
+  frontPage && circleMenuArray.splice(1, 1);
 
   // This useEffect below closes inactive circle menus on mobile
 
@@ -159,7 +163,7 @@ const SwatchCard = ({
               swatch.colourId,
               circleMenuArray,
               2,
-              0.5,
+              frontPage ? 0 : 0.5,
               45,
               "circle",
               largeWindowSize
@@ -174,7 +178,7 @@ const SwatchCard = ({
               swatch.colourId,
               circleMenuArray,
               2,
-              0.5,
+              frontPage ? 0 : 0.5,
               45,
               "circle",
               largeWindowSize

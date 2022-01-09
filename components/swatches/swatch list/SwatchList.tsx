@@ -52,14 +52,6 @@ const SwatchList = ({
           );
         }
       })}
-
-      {/* <div
-        style={{
-          width: "200px",
-          height: "200px",
-          backgroundColor: `rgb(${imgColour})`,
-        }}
-      ></div> */}
     </ul>
   );
 };
