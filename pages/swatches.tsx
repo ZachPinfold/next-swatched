@@ -24,6 +24,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   let refId = "dropdown_filter";
 
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [isTutorial, setIsTutorial] = useState<boolean>(false);
   const [compareArray, setCompareArray] = useState<number[][]>([]);
   const selectSwatchToCompareRef = useRef<boolean>(true);
   const [openState, setOpenState] = useState<boolean>(false);
@@ -31,12 +32,14 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   const [fullScreen, setFullScreen] = useState<boolean>(false);
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
+  const [isTutClickedOutside, setIsTutClickedOutside] =
+    useState<boolean>(false);
   const [colorFilter, setColorFilter] = useState<ColorNamesType>({
     name: "all swatches",
     rgb: [197, 199, 196],
   });
 
-  console.log(isClickedOutside);
+  // console.log(isTutClickedOutside);
 
   useEffect(() => {
     startGetUserSwatches("", "all", true);
@@ -45,8 +48,6 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   useEffect(() => {
     const getCompareColours = async () => {
       try {
-        console.log("fire");
-
         const data = {
           model: "default",
           input: [swatchToCompare, "N", "N", "N", "N"],
@@ -58,7 +59,6 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
 
         colourData[0] = swatchToCompare;
 
-        console.log(colourData);
         setCompareArray(colourData);
       } catch (error) {
         console.log(error);
@@ -77,7 +77,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   return (
     <div className="wrapper swatches_page">
       <div className="upper_area wrapper_inner">
-        <Dropdown
+        {/* <Dropdown
           Component={
             <ColorFilter
               isClickedOutside={isClickedOutside}
@@ -91,20 +91,23 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           }
           setIsClickedOutside={setIsClickedOutside}
           refId={refId}
-        />
+        /> */}
         <HueSwatch currentColour={colorFilter.name} />
-        <div className="tips_wrap">
+        <div className="tips_wrap" id={refId}>
           <div
-            onClick={() => setDropdownOpen(!isDropdownOpen)}
+            onClick={() => {
+              setIsTutorial(!isTutorial);
+            }}
             // ref={isDropdownOpen ? wrapperRef : null}
             className="tips_button"
+            id={refId}
           >
-            <p>tips</p>
+            <p id={refId}>tipsss</p>
             <Tips />
           </div>
           <Dropdown
-            Component={<Tutorial />}
-            setIsClickedOutside={setIsClickedOutside}
+            Component={<Tutorial isDropdownOpen={isTutorial} refId={refId} />}
+            setIsClickedOutside={setIsTutClickedOutside}
             refId={refId}
           />
         </div>
