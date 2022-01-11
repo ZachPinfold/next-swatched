@@ -35,7 +35,6 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
   const [refreshClick, setRefreshClick] = useState<boolean>(false);
   const [refreshClickRotation, setRefreshClickRotation] = useState<number>(0);
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
-  const initialLoadRef = useRef<boolean>(false);
 
   console.log(swatchesUi);
 
@@ -100,7 +99,7 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
       const colorPallete = await axios.post(url, data, { headers });
       result = colorPallete.data.result;
       setSwatchesUi(result);
-      result && (initialLoadRef.current = true);
+      result && setInitialLoad(true);
     } catch (error) {
       console.log("error", error);
     }
@@ -122,7 +121,7 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
           swatches={swatchesUi}
           setLockedSwatches={setLockedSwatches}
           lockedSwatches={lockedSwatches}
-          initialLoadRef={initialLoadRef}
+          initialLoadRef={initialLoad}
         />
         <FeaturedSwatches swatches={swatches} />
 

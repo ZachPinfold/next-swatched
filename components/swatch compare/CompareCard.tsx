@@ -39,7 +39,7 @@ const CompareCard = ({
     selectSwatchToCompareRef.current = true;
     setSwatchToCompare(compareSwatch);
   };
-  const arr = [
+  const overlayArr = [
     {
       type: "copy",
       image: CopyImage,
@@ -81,12 +81,12 @@ const CompareCard = ({
       className="inner_compare_card"
       key={index}
     >
-      {arr.map((e, i) => {
+      {overlayArr.map((e, i) => {
         const { image, message, type, func, clickedMessage } = e;
         return (
           <div
             style={{
-              height: largeWindowSize ? `${100 / arr.length}%` : "100%",
+              height: largeWindowSize ? `${100 / overlayArr.length}%` : "100%",
             }}
             className="hover_third"
             key={type}
