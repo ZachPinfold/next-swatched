@@ -1,8 +1,13 @@
 import React, { useRef, useState } from "react";
 import SwatchCard from "../swatches/swatch card/SwatchCard";
 import Link from "next/link";
+import { SwatchObject } from "../../types/swatches";
 
-const FeaturedSwatches = ({ swatches }) => {
+interface SwatchTypes {
+  swatches: SwatchObject[];
+}
+
+const FeaturedSwatches = ({ swatches }: SwatchTypes) => {
   const [compareArray, setCompareArray] = useState<number[][]>([]);
   const selectSwatchToCompareRef = useRef<boolean>(true);
   const [openState, setOpenState] = useState<boolean>(false);

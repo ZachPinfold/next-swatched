@@ -1,7 +1,7 @@
 import React from "react";
 import LockedImage from "../../assets/images/LockedSwatch";
 
-const Instructions = ({ refreshClick }) => {
+const Instructions = ({ refreshClick }: { refreshClick: boolean }) => {
   return (
     <div className="instructions_area">
       <p className="instructions">
