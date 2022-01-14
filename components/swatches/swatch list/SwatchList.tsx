@@ -5,7 +5,7 @@ import SwatchCard from "../swatch card/SwatchCard";
 
 interface SwatchTypes {
   swatches: SwatchObject[];
-  setCompareArray: (userUid: number[][]) => void;
+  setCompareArray: React.Dispatch<React.SetStateAction<number[][]>>;
   selectSwatchToCompareRef: any;
   setOpenState: (setOpenState: boolean) => void;
   openState: boolean;
