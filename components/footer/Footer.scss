@@ -1,0 +1,21 @@
+.footer {
+  background-color: #f8f8f8;
+  padding: 50px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  .footer_inner {
+    padding: 0 5px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    a {
+      font-family: HelveticaL;
+      margin: 15px 0;
+      display: block;
+    }
+    a:hover {
+      color: $color-blue;
+    }
+  }
+}

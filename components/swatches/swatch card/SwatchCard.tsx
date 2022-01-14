@@ -29,6 +29,7 @@ interface SwatchTypes {
   swatchToCompare: number[];
   setSwatchId: (swatchId: string) => void;
   swatchId: string;
+  frontPage: boolean;
 }
 
 const SwatchCard = ({

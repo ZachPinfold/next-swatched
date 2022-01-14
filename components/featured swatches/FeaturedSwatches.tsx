@@ -11,9 +11,11 @@ const FeaturedSwatches = ({ swatches }) => {
   const [swatchId, setSwatchId] = useState<string>("");
 
   return (
-    <div className="outer_home_swatches">
-      <h1>Your most recent colours</h1>
-      <ul className="swatch_grid wrapper_inner">
+    <div className="outer_home_swatches wrapper_inner">
+      <h1 style={{ paddingLeft: "5px" }} className="sub_title">
+        Your recent colours
+      </h1>
+      <ul className="swatch_grid wrapper_inner home_swatch_grid">
         {swatches.map((swatch, index) => {
           if (swatch.colourId !== "none-colour" && index < 11) {
             return (
@@ -36,7 +38,9 @@ const FeaturedSwatches = ({ swatches }) => {
           }
         })}
       </ul>
-      <Link href="/swatches">View all colours</Link>
+      <div className="outer_button">
+        <Link href="/swatches">View all colours</Link>
+      </div>
     </div>
   );
 };

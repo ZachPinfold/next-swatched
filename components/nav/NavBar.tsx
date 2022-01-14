@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import Menu from "../../assets/images/Menu";
+import Logo from "../../assets/images/swatched-logotype.svg";
 import { SwatchObject } from "../../types/swatches";
 import Dropdown from "../utils/Dropdown";
 import MenuDropdown from "./MenuDropdown";
@@ -54,11 +55,18 @@ const NavBar = ({ initialSwatches, startIsCompact }: Actions) => {
   }, []);
 
   return (
-    <nav style={{ height: compact ? "60px" : "100px" }} className="wrapper">
+    <nav style={{ height: compact ? "55px" : "85px" }} className="wrapper">
       <div className="wrapper_inner inner_nav">
         <div className="left_area">
           <Link href="/">
-            <h1 style={{ fontSize: compact ? "30px" : "40px" }}>Swatched</h1>
+            <a>
+              <img
+                style={{ width: compact ? "170px" : "180px" }}
+                src={Logo.src}
+                alt=""
+              />
+            </a>
+            {/* <h1 style={{ fontSize: compact ? "30px" : "40px" }}>Swatched</h1> */}
           </Link>
           {showText && (
             <p>

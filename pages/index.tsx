@@ -13,6 +13,7 @@ import FeaturedSwatches from "../components/featured swatches/FeaturedSwatches";
 import { SwatchObject } from "../types/swatches";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
+import Instructions from "../components/swatch picker/Instructions";
 
 interface InitialSwatch {
   swatches: any[];
@@ -24,7 +25,7 @@ interface InitialSwatch {
 }
 
 const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
-  const [swatchesUi, setSwatchesUi] = useState([
+  const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0],
@@ -36,7 +37,7 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
   const [refreshClickRotation, setRefreshClickRotation] = useState<number>(0);
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
 
-  console.log(swatchesUi);
+  console.log(refreshClick);
 
   useEffect(() => {
     store.dispatch(startLoadUser() as any);
@@ -61,7 +62,9 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
 
       if (lockedSwatches) {
         swatchesForRefresh = swatchesUi.map((s) =>
-          !lockedSwatches.includes(s) ? (s = "N") : (s = s)
+          typeof s !== "string" && !lockedSwatches.includes(s)
+            ? (s = "N")
+            : (s = s)
         );
       } else swatchesForRefresh = swatchesUi;
 
@@ -77,7 +80,7 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
         return a;
       });
 
-      setSwatchesUi(result);
+      typeof result[0] !== "string" && setSwatchesUi(result);
 
       setRefreshClick(false);
     } catch (error) {
@@ -107,22 +110,29 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
 
   return (
     <div className="wrapper">
-      <div className="wrapper_inner home_column">
+      <div className="home_column">
         <TitleArea />
 
-        <RefreshButton
-          refreshClick={refreshClick}
-          setRefreshClick={setRefreshClick}
-          refreshClickRotation={refreshClickRotation}
-          setRefreshClickRotation={setRefreshClickRotation}
-          handleRefresh={handleRefresh}
-        />
-        <SwatchPicker
-          swatches={swatchesUi}
-          setLockedSwatches={setLockedSwatches}
-          lockedSwatches={lockedSwatches}
-          initialLoadRef={initialLoad}
-        />
+        <div className="outer_area">
+          <div className="wrapper_inner">
+            <h1 className="sub_title">Discover</h1>
+
+            <Instructions refreshClick={refreshClick} />
+            <SwatchPicker
+              swatches={swatchesUi}
+              setLockedSwatches={setLockedSwatches}
+              lockedSwatches={lockedSwatches}
+              initialLoadRef={initialLoad}
+            />
+            <RefreshButton
+              refreshClick={refreshClick}
+              setRefreshClick={setRefreshClick}
+              refreshClickRotation={refreshClickRotation}
+              setRefreshClickRotation={setRefreshClickRotation}
+              handleRefresh={handleRefresh}
+            />
+          </div>
+        </div>
         <FeaturedSwatches swatches={swatches} />
 
         {/* <h1>Get started by editing</h1> */}

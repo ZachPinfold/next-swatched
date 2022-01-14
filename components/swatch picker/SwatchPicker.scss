@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: rgba($color: $colour-green, $alpha: 0.01);
+  background-color: rgba($color: $colour-green, $alpha: 0.03);
 }
 
 .swatch_area {
@@ -20,7 +20,6 @@
     top: 10px;
     left: 10px;
     transition: all 0.4s ease;
-    // opacity: 0;
   }
 
   .inner_swatch,
@@ -98,6 +97,19 @@
     to {
       left: 100%;
     }
+  }
+}
+
+.instructions {
+  font-family: HelveticaM;
+  font-size: 14px;
+  margin-top: 20px;
+  color: black;
+
+  svg {
+    width: 15px;
+    margin: 0 2px;
+    margin-top: 5px;
   }
 }
 

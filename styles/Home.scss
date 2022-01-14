@@ -7,27 +7,36 @@
     color: #06d6a0;
   }
 
-  p {
-    font-family: HelveticaM;
-    font-size: 18px;
-    margin-bottom: 10px;
+  .heading_inner {
+    p {
+      font-family: HelveticaL;
+      font-size: 48px;
+      line-height: 58px;
+      margin-bottom: 10px;
+      max-width: 800px;
+      span {
+        color: $color-blue;
+      }
+    }
   }
-
   button {
     padding: 5px 60px;
-    font-family: CreteRound;
+    font-family: HelveticaM;
     cursor: pointer;
     font-size: 22px;
-    margin-right: 10px;
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
     border: none;
-    background-color: $colour-orange;
+    background-color: $color-blue;
+    border: 2px solid $color-blue;
     border-radius: 3px;
-    // margin-top: 75px;
+    width: 100%;
+    margin-top: 25px;
+    color: white;
   }
 
   button:hover {
-    background-color: $colour-green;
+    background-color: white;
+    color: black;
   }
 
   img {
@@ -41,9 +50,55 @@
   display: flex;
   align-items: center;
   margin-bottom: 25px;
+  margin-bottom: 100px;
 }
 
 .home_column {
   display: flex;
   flex-direction: column;
+}
+
+.instructions_area {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.left_text_area {
+  margin-top: 140px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.outer_area {
+  background-color: rgb(248, 248, 248);
+}
+
+.home_swatch_grid {
+  margin-top: 50px;
+}
+
+.outer_home_swatches {
+  margin-bottom: 230px;
+  .outer_button {
+    text-align: center;
+    a {
+      padding: 5px 60px;
+      font-family: HelveticaM;
+      cursor: pointer;
+      font-size: 22px;
+      transition: all 0.2s ease;
+      border: none;
+      background-color: $color-blue;
+      border: 2px solid $color-blue;
+      border-radius: 3px;
+      width: 100%;
+      margin-top: 25px;
+      color: white;
+    }
+    a:hover {
+      background-color: white;
+      color: black;
+    }
+    margin: 70px 0;
+  }
 }

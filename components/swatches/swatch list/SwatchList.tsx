@@ -26,7 +26,7 @@ const SwatchList = ({
   const [swatchId, setSwatchId] = useState<string>("");
 
   return (
-    <ul className="swatch_grid wrapper_inner">
+    <ul className="swatch_grid wrapper_inner swatch_list">
       <SwatchAdderCard
         key={"add_hex_card"}
         swatchId={swatchId}
@@ -48,6 +48,7 @@ const SwatchList = ({
               swatchToCompare={swatchToCompare}
               setSwatchId={setSwatchId}
               swatchId={swatchId}
+              frontPage={false}
             />
           );
         }

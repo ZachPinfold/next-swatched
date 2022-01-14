@@ -27,14 +27,6 @@ const RefreshButton = ({
       >
         refresh
       </button>
-      <img
-        src={refreshIcon.src}
-        alt="refresh_icon"
-        className={`refresh_icon `}
-        style={{
-          transform: `rotate(${refreshClick && `${refreshClickRotation}deg`})`,
-        }}
-      />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import NavBar from "../components/nav/NavBar";
 
 import ToTopImage from "../assets/images/to_top_swatch.svg";
 import { useState } from "react";
+import Footer from "../components/footer/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [compact, setCompact] = useState(false);
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         alt="back_to_top_img"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       />
+      <Footer />
     </Provider>
   );
 }

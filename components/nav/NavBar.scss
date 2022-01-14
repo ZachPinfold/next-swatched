@@ -40,7 +40,12 @@ nav {
     padding-bottom: 10px;
     align-items: center;
     position: relative;
-
+    a {
+      img {
+        // width: 200px;
+        margin-bottom: 5px;
+      }
+    }
     @media only screen and (min-width: 1000px) {
       padding: 10px 5px;
     }
