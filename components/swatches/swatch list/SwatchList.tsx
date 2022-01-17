@@ -7,10 +7,10 @@ interface SwatchTypes {
   swatches: SwatchObject[];
   setCompareArray: React.Dispatch<React.SetStateAction<number[][]>>;
   selectSwatchToCompareRef: any;
-  setOpenState: (setOpenState: boolean) => void;
+  setOpenState: React.Dispatch<React.SetStateAction<boolean>>;
   openState: boolean;
-  setNumberOfSwatches: (num: number) => void;
-  setSwatchToCompare: (num: number[]) => void;
+  setNumberOfSwatches: React.Dispatch<React.SetStateAction<number>>;
+  setSwatchToCompare: React.Dispatch<React.SetStateAction<number[]>>;
   swatchToCompare: number[];
 }
 const SwatchList = ({

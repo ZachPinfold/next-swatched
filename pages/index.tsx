@@ -14,6 +14,7 @@ import { SwatchObject } from "../types/swatches";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import Instructions from "../components/swatch picker/Instructions";
+import { startGetHomepageSwatches } from "../actions/homepage";
 
 interface InitialSwatch {
   swatches: any[];
@@ -22,9 +23,14 @@ interface InitialSwatch {
     colorFilter: string,
     isInitialLoad: boolean
   ) => void;
+  startGetHomepageSwatches: () => void;
 }
 
-const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
+const Home = ({
+  swatches,
+  startGetUserSwatches,
+  startGetHomepageSwatches,
+}: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
     [0, 0, 0],
@@ -32,12 +38,15 @@ const Home = ({ swatches, startGetUserSwatches }: InitialSwatch) => {
     [0, 0, 0],
     [0, 0, 0],
   ]);
+
   const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
   const [refreshClick, setRefreshClick] = useState<boolean>(false);
   const [refreshClickRotation, setRefreshClickRotation] = useState<number>(0);
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
 
-  console.log(refreshClick);
+  useEffect(() => {
+    startGetHomepageSwatches();
+  }, []);
 
   useEffect(() => {
     store.dispatch(startLoadUser() as any);
@@ -176,4 +185,7 @@ const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
 });
 
-export default connect(mapStateToProps, { startGetUserSwatches })(Home);
+export default connect(mapStateToProps, {
+  startGetUserSwatches,
+  startGetHomepageSwatches,
+})(Home);

@@ -19,6 +19,10 @@ export const DELETE_SWATCH = "DELETE_SWATCH";
 
 export const SET_COMPACT_SCREEN = "SET_COMPACT_SCREEN";
 
+// HOME
+
+export const GET_HOME_SWATCH = "GET_HOME_SWATCH";
+
 // Interfaces
 
 export interface LoginAction {
@@ -77,9 +81,20 @@ export type GetSwatchesActions =
   | DeleteSwatchesActions
   | GetInitalSwatchesAction;
 
+// LAYOUT
+
 export interface IsCompactAction {
   type: typeof SET_COMPACT_SCREEN;
   payload: boolean;
 }
 
 export type LayoutActions = IsCompactAction;
+
+// HOMEPAGE
+
+export interface HomepageAction {
+  type: typeof GET_HOME_SWATCH;
+  payload: number[][];
+}
+
+export type HomeSwatchActions = HomepageAction;
