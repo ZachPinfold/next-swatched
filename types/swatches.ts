@@ -1,3 +1,5 @@
+type SvgInHtml = HTMLElement & SVGElement & HTMLImageElement;
+
 export type SwatchObject = {
   color: number[];
   colourId: string;
@@ -18,4 +20,12 @@ export type LookupTypes = {
 export interface ColorNamesType {
   name: string;
   rgb: number[];
+}
+
+export interface CardHover {
+  type: string;
+  image: SvgInHtml;
+  message: string;
+  clickedMessage: string;
+  func: (swatch: number[]) => void;
 }

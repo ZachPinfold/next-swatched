@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
-import SwatchCard from "./swatch card/SwatchCard";
+import HomepageSwatchCard from "./swatch card/HomepageSwatchCard";
 import SaveImage from "../../assets/images/save_swatch.svg";
 import CopyImage from "../../assets/images/copy_swatch.svg";
 import LockedImage from "../../assets/images/locked_swatch.svg";
@@ -12,6 +12,7 @@ import {
 } from "../../utils/swatch";
 import { startAddSwatchToSwatchList } from "../../actions/swatch";
 import { connect } from "react-redux";
+import { CardHover } from "../../types/swatches";
 // Apply any to allow for includes() function
 
 interface Swatches {
@@ -62,7 +63,7 @@ const SwatchPicker = ({
       : removeFromSwatch(swatch);
   };
 
-  const arr = [
+  const cardHover: CardHover[] = [
     {
       type: "copy",
       image: CopyImage,
@@ -93,70 +94,18 @@ const SwatchPicker = ({
       <div className="swatch_area">
         {swatches.map((swatch, index) => {
           return (
-            <div
-              className={
-                !initialLoadRef ? "initial_colour_card" : "colour_card"
-              }
-              style={{
-                backgroundColor: !initialLoadRef ? "white" : `rgb(${swatch})`,
-                width: hoverSwatch === swatch ? "23%" : "20%",
-              }}
-              key={index}
-            >
-              {arr.map((e, i) => {
-                const { image, message, type, func, clickedMessage } = e;
-                return (
-                  <div
-                    style={{
-                      height: largeWindowSize ? `${100 / arr.length}%` : "100%",
-                    }}
-                    className="hover_third"
-                    key={type}
-                    onClick={() => func(swatch)}
-                    onMouseLeave={() => {
-                      setTimeout(function () {
-                        setClicked(false);
-                      }, 250);
-                      setHoverSwatch([]);
-                    }}
-                    onMouseEnter={() => {
-                      setHoverSwatch(swatch);
-                      setHoverSwatch(swatch);
-                    }}
-                  >
-                    <img src={image.src} alt={type} />
-                    {clicked ? (
-                      <h5>{clickedMessage}</h5>
-                    ) : (
-                      <h5>
-                        {lockedSwatches.includes(swatch) && type === "lock"
-                          ? "unlock"
-                          : message}
-                      </h5>
-                    )}
-                  </div>
-                );
-              })}
-              <img
-                className="small_lock"
-                src={LockedImage.src}
-                alt="locked_image"
-                style={{
-                  opacity: lockedSwatches.includes(swatch) ? "1" : "0",
-                }}
-              />
-
-              {/* {initialLoadRef.current && (
-                <SwatchCard
-                  swatch={swatch}
-                  index={index}
-                  setHoverSwatch={setHoverSwatch}
-                  setLockedSwatches={setLockedSwatches}
-                  lockedSwatches={lockedSwatches}
-                  hoverSwatch={hoverSwatch}
-                />
-              )} */}
-            </div>
+            <HomepageSwatchCard
+              swatch={swatch}
+              index={index}
+              setHoverSwatch={setHoverSwatch}
+              hoverSwatch={hoverSwatch}
+              lockedSwatches={lockedSwatches}
+              largeWindowSize={largeWindowSize}
+              setClicked={setClicked}
+              clicked={clicked}
+              cardHover={cardHover}
+              initialLoadRef={initialLoadRef}
+            />
           );
         })}
       </div>
