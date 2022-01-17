@@ -61,7 +61,7 @@ export const startGetUserSwatches =
       //   timeAdded: new Date(),
       // });
 
-      if (result.docs && isInitialLoad) {
+      if (result.docs) {
         dispatch(getUserSwatches(resultArray));
       }
     } catch (error) {
