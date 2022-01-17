@@ -14,7 +14,10 @@ import { SwatchObject } from "../types/swatches";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import Instructions from "../components/swatch picker/Instructions";
-import { startGetHomepageSwatches } from "../actions/homepage";
+import {
+  startClearHomepageSwatches,
+  startGetHomepageSwatches,
+} from "../actions/homepage";
 
 interface InitialSwatch {
   swatches: any[];
@@ -24,12 +27,16 @@ interface InitialSwatch {
     isInitialLoad: boolean
   ) => void;
   startGetHomepageSwatches: () => void;
+  discoverSwatches: number[][];
+  startClearHomepageSwatches: () => void;
 }
 
 const Home = ({
   swatches,
   startGetUserSwatches,
   startGetHomepageSwatches,
+  discoverSwatches,
+  startClearHomepageSwatches,
 }: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
@@ -43,9 +50,11 @@ const Home = ({
   const [refreshClick, setRefreshClick] = useState<boolean>(false);
   const [refreshClickRotation, setRefreshClickRotation] = useState<number>(0);
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
+  const discoverSwatchRef = useRef<Boolean>(false);
+  const refreshRef = useRef<Boolean>(false);
 
   useEffect(() => {
-    startGetHomepageSwatches();
+    discoverSwatches.length == 0 && startGetHomepageSwatches();
   }, []);
 
   useEffect(() => {
@@ -57,7 +66,17 @@ const Home = ({
   }, [startGetUserSwatches]);
 
   useEffect(() => {
-    getInititalSwatches();
+    if (discoverSwatches.length > 0 && !discoverSwatchRef.current) {
+      setSwatchesUi(discoverSwatches);
+      setInitialLoad(true);
+      discoverSwatchRef.current = true;
+    }
+  }, [discoverSwatches]);
+
+  useEffect(() => {
+    return () => {
+      refreshRef.current && startClearHomepageSwatches();
+    };
   }, []);
 
   // const [modal, showModal] = useState(false);
@@ -92,28 +111,9 @@ const Home = ({
       typeof result[0] !== "string" && setSwatchesUi(result);
 
       setRefreshClick(false);
+      refreshRef.current = true;
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const getInititalSwatches = async () => {
-    let result;
-
-    try {
-      const url = "http://colormind.io/api/";
-      const data = {
-        model: "default",
-      };
-      const headers = {
-        "Content-Type": "text/plain",
-      };
-      const colorPallete = await axios.post(url, data, { headers });
-      result = colorPallete.data.result;
-      setSwatchesUi(result);
-      result && setInitialLoad(true);
-    } catch (error) {
-      console.log("error", error);
     }
   };
 
@@ -179,13 +179,16 @@ const Home = ({
 
 interface StateProps {
   swatches: SwatchObject[];
+  discoverSwatches: number[][];
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
+  discoverSwatches: state.homepage.discoverSwatches,
 });
 
 export default connect(mapStateToProps, {
   startGetUserSwatches,
   startGetHomepageSwatches,
+  startClearHomepageSwatches,
 })(Home);

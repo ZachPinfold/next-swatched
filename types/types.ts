@@ -22,7 +22,7 @@ export const SET_COMPACT_SCREEN = "SET_COMPACT_SCREEN";
 // HOME
 
 export const GET_HOME_SWATCH = "GET_HOME_SWATCH";
-
+export const CLEAR_HOME_SWATCHES = "CLEAR_HOME_SWATCHES";
 // Interfaces
 
 export interface LoginAction {
@@ -97,4 +97,8 @@ export interface HomepageAction {
   payload: number[][];
 }
 
-export type HomeSwatchActions = HomepageAction;
+export interface HomepageClearAction {
+  type: typeof CLEAR_HOME_SWATCHES;
+}
+
+export type HomeSwatchActions = HomepageAction | HomepageClearAction;

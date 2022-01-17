@@ -55,13 +55,13 @@ export const startGetUserSwatches =
         dispatch(getInitalSwatches(resultArray));
       }
 
-      resultArray.unshift({
-        colourId: "none-colour",
-        color: [6, 214, 160],
-        timeAdded: new Date(),
-      });
+      // resultArray.unshift({
+      //   colourId: "none-colour",
+      //   color: [6, 214, 160],
+      //   timeAdded: new Date(),
+      // });
 
-      if (result.docs) {
+      if (result.docs && isInitialLoad) {
         dispatch(getUserSwatches(resultArray));
       }
     } catch (error) {
