@@ -1,4 +1,3 @@
-import styles from "../styles/Home.module.css";
 import store from "../store";
 import Login from "../components/auth/Login/Login";
 import Signup from "../components/auth/Signup/Signup";
@@ -79,8 +78,6 @@ const Home = ({
     };
   }, []);
 
-  // const [modal, showModal] = useState(false);
-
   // handleRefresh handles the refreshing of the colour palette from the client.
   // Checks for locked colours and retains they're position
 
@@ -152,30 +149,6 @@ const Home = ({
     </div>
   );
 };
-
-// export async function getServerSideProps() {
-//   let result;
-
-//   try {
-//     const url = "http://colormind.io/api/";
-//     const data = {
-//       model: "default",
-//     };
-//     const headers = {
-//       "Content-Type": "text/plain",
-//     };
-//     const colorPallete = await axios.post(url, data, { headers });
-//     result = colorPallete.data.result;
-//   } catch (error) {
-//     console.log("error", error);
-//   }
-
-//   return {
-//     props: {
-//       swatches: result,
-//     },
-//   };
-// }
 
 interface StateProps {
   swatches: SwatchObject[];
