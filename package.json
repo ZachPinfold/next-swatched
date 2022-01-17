@@ -38,6 +38,7 @@
     "@types/react": "*",
     "@types/redux-mock-store": "^1.0.3",
     "@types/enzyme": "^3.10.9",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-jest": "^27.4.6",
     "cypress": "^8.7.0",
     "enzyme": "^3.11.0",
@@ -66,6 +67,9 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
       "d3": "<rootDir>/node_modules/d3/dist/d3.min.js"
     },
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.ts"
+    ]
   }
 }
