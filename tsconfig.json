@@ -21,7 +21,8 @@
     "**/*.ts",
     "**/*.tsx",
     "firebase/clientApp.js",
-    "assets/images/Plus.js"
+    "assets/images/Plus.js",
+    "__tests__/SwatchCard.test.tsx" // "__tests__/SwatchCard.test.ts"
   ],
   "exclude": ["node_modules"]
 }

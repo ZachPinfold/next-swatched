@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
-import SwatchCard from "./swatch card/SwatchCard";
 import SaveImage from "../../assets/images/save_swatch.svg";
 import CopyImage from "../../assets/images/copy_swatch.svg";
 import LockedImage from "../../assets/images/locked_swatch.svg";

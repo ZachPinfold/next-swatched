@@ -81,6 +81,8 @@ const Home = ({
   // handleRefresh handles the refreshing of the colour palette from the client.
   // Checks for locked colours and retains they're position
 
+  console.log(swatchesUi);
+
   const handleRefresh = async () => {
     try {
       let swatchesForRefresh;
