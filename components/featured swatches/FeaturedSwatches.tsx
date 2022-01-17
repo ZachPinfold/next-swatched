@@ -22,7 +22,7 @@ const FeaturedSwatches = ({ swatches }: SwatchTypes) => {
       </h1>
       <ul className="swatch_grid wrapper_inner home_swatch_grid">
         {swatches.map((swatch, index) => {
-          if (swatch.colourId !== "none-colour" && index < 11) {
+          if (swatch.colourId !== "none-colour" && index < 10) {
             return (
               <SwatchCard
                 key={index}
