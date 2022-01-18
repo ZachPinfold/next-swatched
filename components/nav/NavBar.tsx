@@ -9,7 +9,7 @@ import Link from "next/link";
 import { startIsCompact } from "../../actions/layout";
 
 interface Actions {
-  swatches: any;
+  swatches: SwatchObject[];
   startIsCompact: (scrollY: number) => void;
 }
 
@@ -18,7 +18,7 @@ const NavBar = ({ swatches, startIsCompact }: Actions) => {
   const [hover, setHover] = useState<boolean>(false);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [showText, setShowText] = useState(false);
+  const [showText, setShowText] = useState(true);
   const [compact, setCompact] = useState(false);
   const ref = useRef(false);
 
@@ -68,11 +68,12 @@ const NavBar = ({ swatches, startIsCompact }: Actions) => {
             </a>
             {/* <h1 style={{ fontSize: compact ? "30px" : "40px" }}>Swatched</h1> */}
           </Link>
-
-          <p>
-            Use <strong> deep learning</strong> to find and save colours to your
-            swatch, powered by the <span>ColormindAPI</span>{" "}
-          </p>
+          {showText && (
+            <p>
+              Use <strong> deep learning</strong> to find and save colours to
+              your swatch, powered by the <span>ColormindAPI</span>{" "}
+            </p>
+          )}
         </div>
 
         {swatches.length > 0 && (

@@ -20,27 +20,21 @@ const swatch: SwatchObject = {
   timeAdded: new Date(),
 };
 
-// for (let i = 0; i < 9; i++) {
-//   swatches.push(swatch);
-// }
-
 const store = createMockStore();
 
 const funcMock: any = (scrollY: number) => {};
 const initialState = { swatches: { swatches: [] } };
 const st = store(initialState);
 
-console.log(st.getState());
-
 const TestComponent = (
   <Provider store={st}>
-    <NavBar swatches={[]} />
+    <NavBar />
   </Provider>
 );
 
 describe("With Enzyme", () => {
   it("The homepage renders out the appropriate text within the swatch cards", () => {
     const app = mount(TestComponent);
-    console.log(app.debug());
+    expect(app.find(".menu_dropdown").children()).toHaveLength(3);
   });
 });
