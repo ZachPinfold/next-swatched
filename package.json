@@ -35,15 +35,21 @@
     "@testing-library/jest-dom": "*",
     "@testing-library/react": "*",
     "@types/d3": "^7.1.0",
+    "@types/enzyme": "^3.10.11",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/node": "*",
     "@types/react": "*",
+    "@types/redux-mock-store": "^1.0.3",
     "babel-jest": "^27.4.6",
     "cypress": "^8.7.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "identity-obj-proxy": "*",
     "jest": "*",
     "jest-cli": "*",
     "jest-dom": "*",
     "jest-transform-stub": "^2.0.0",
+    "redux-mock-store": "^1.5.4",
     "start-server-and-test": "^1.14.0",
     "ts-node": "*",
     "typescript": "*"
@@ -64,6 +70,9 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
       "d3": "<rootDir>/node_modules/d3/dist/d3.min.js"
     },
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.ts"
+    ]
   }
 }
