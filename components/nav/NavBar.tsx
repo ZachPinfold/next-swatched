@@ -9,11 +9,11 @@ import Link from "next/link";
 import { startIsCompact } from "../../actions/layout";
 
 interface Actions {
-  initialSwatches: SwatchObject[];
+  swatches: SwatchObject[];
   startIsCompact: (scrollY: number) => void;
 }
 
-const NavBar = ({ initialSwatches, startIsCompact }: Actions) => {
+const NavBar = ({ swatches, startIsCompact }: Actions) => {
   const wrapperRef = useRef<HTMLHeadingElement>(null);
   const [hover, setHover] = useState<boolean>(false);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
@@ -76,7 +76,7 @@ const NavBar = ({ initialSwatches, startIsCompact }: Actions) => {
           )}
         </div>
 
-        {initialSwatches.length > 0 && (
+        {swatches.length > 0 && (
           <div
             onClick={() => setDropdownOpen(!isDropdownOpen)}
             onMouseEnter={() => {
@@ -87,7 +87,7 @@ const NavBar = ({ initialSwatches, startIsCompact }: Actions) => {
             }}
             className="menu_wrapper"
           >
-            <Menu initialSwatches={initialSwatches} hover={hover} />
+            <Menu initialSwatches={swatches} hover={hover} />
             <div
               ref={isDropdownOpen ? wrapperRef : null}
               id="dropdown_comp"
@@ -113,11 +113,11 @@ const NavBar = ({ initialSwatches, startIsCompact }: Actions) => {
 };
 
 interface StateProps {
-  initialSwatches: SwatchObject[];
+  swatches: SwatchObject[];
 }
 
 const mapStateToProps = (state: any): StateProps => ({
-  initialSwatches: state.swatches.initialSwatches,
+  swatches: state.swatches.swatches,
 });
 
 export default connect(mapStateToProps, { startIsCompact })(NavBar);

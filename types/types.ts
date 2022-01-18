@@ -60,11 +60,6 @@ export interface GetSwatchesAction {
   payload: SwatchObject[];
 }
 
-export interface GetInitalSwatchesAction {
-  type: typeof GET_INITIAL_SWATCHES;
-  payload: SwatchObject[];
-}
-
 export interface AddSwatchesActions {
   type: typeof ADD_SWATCH;
   payload: SwatchObject;
@@ -78,8 +73,7 @@ export interface DeleteSwatchesActions {
 export type GetSwatchesActions =
   | GetSwatchesAction
   | AddSwatchesActions
-  | DeleteSwatchesActions
-  | GetInitalSwatchesAction;
+  | DeleteSwatchesActions;
 
 // LAYOUT
 

@@ -12,13 +12,6 @@ export const getUserSwatches = (
   payload: swatches,
 });
 
-export const getInitalSwatches = (
-  swatches: SwatchObject[]
-): GetSwatchesActions => ({
-  type: "GET_INITIAL_SWATCHES",
-  payload: swatches,
-});
-
 export const addUserSwatch = (swatch: SwatchObject): GetSwatchesActions => ({
   type: "ADD_SWATCH",
   payload: swatch,
@@ -50,16 +43,6 @@ export const startGetUserSwatches =
           return data;
         });
       }
-
-      if (isInitialLoad) {
-        dispatch(getInitalSwatches(resultArray));
-      }
-
-      // resultArray.unshift({
-      //   colourId: "none-colour",
-      //   color: [6, 214, 160],
-      //   timeAdded: new Date(),
-      // });
 
       if (result.docs) {
         dispatch(getUserSwatches(resultArray));

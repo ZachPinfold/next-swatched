@@ -70,10 +70,8 @@ describe("With Enzyme", () => {
   it("The homepage card renders out with approrpriate background colour", () => {
     const app = shallow(TestComponent).dive().dive();
 
-    let containerStyle = app.find(".colour_card").get(0).props.style;
-
     expect(
       app.find(".colour_card").get(0).props.style.backgroundColor
-    ).toContain("rgb(2,3,4)");
+    ).toContain(`rgb(${swatch})`);
   });
 });
