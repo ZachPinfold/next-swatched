@@ -113,7 +113,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           refId={refFilterId}
         />
         <HueSwatch currentColour={colorFilter.name} />
-        {/* <div className="tips_wrap" id={refTutorialId}>
+        <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
               setIsTutorial(!isTutorial);
@@ -131,7 +131,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
             setIsClickedOutside={setIsTutClickedOutside}
             refId={refTutorialId}
           />
-        </div> */}
+        </div>
       </div>
       <div className="text_tutorial_area wrapper_inner">
         <div className="left_area">
