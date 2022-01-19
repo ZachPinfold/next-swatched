@@ -17,6 +17,7 @@ import {
   startClearHomepageSwatches,
   startGetHomepageSwatches,
 } from "../actions/homepage";
+import { startShowModal } from "../actions/layout";
 
 interface InitialSwatch {
   swatches: any[];
@@ -28,6 +29,8 @@ interface InitialSwatch {
   startGetHomepageSwatches: () => void;
   discoverSwatches: number[][];
   startClearHomepageSwatches: () => void;
+  startShowModal: (modal: boolean) => void;
+  modal: boolean;
 }
 
 const Home = ({
@@ -36,6 +39,8 @@ const Home = ({
   startGetHomepageSwatches,
   discoverSwatches,
   startClearHomepageSwatches,
+  modal,
+  startShowModal,
 }: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
@@ -51,7 +56,7 @@ const Home = ({
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
   const discoverSwatchRef = useRef<Boolean>(false);
   const refreshRef = useRef<Boolean>(false);
-  const [modal, setModal] = useState<Boolean>(false);
+  // const [modal, setModal] = useState<Boolean>(false);
 
   useEffect(() => {
     discoverSwatches.length == 0 && startGetHomepageSwatches();
@@ -142,9 +147,9 @@ const Home = ({
         </div>
         <FeaturedSwatches swatches={swatches} />
 
-        {/* <Signup /> */}
-        {/* <button onClick={() => showModal(true)}>Login</button> */}
-        {modal && <ModalWrapper Component={<Login />} showModal={setModal} />}
+        {modal && (
+          <ModalWrapper Component={<Login />} showModal={startShowModal} />
+        )}
       </div>
     </div>
   );
@@ -153,15 +158,18 @@ const Home = ({
 interface StateProps {
   swatches: SwatchObject[];
   discoverSwatches: number[][];
+  modal: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
   discoverSwatches: state.homepage.discoverSwatches,
+  modal: state.layout.modal,
 });
 
 export default connect(mapStateToProps, {
   startGetUserSwatches,
   startGetHomepageSwatches,
   startClearHomepageSwatches,
+  startShowModal,
 })(Home);

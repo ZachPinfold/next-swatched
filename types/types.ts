@@ -19,6 +19,7 @@ export const DELETE_SWATCH = "DELETE_SWATCH";
 // LAYOUT
 
 export const SET_COMPACT_SCREEN = "SET_COMPACT_SCREEN";
+export const SET_SHOW_MODAL = "SET_SHOW_MODAL";
 
 // HOME
 
@@ -88,7 +89,12 @@ export interface IsCompactAction {
   payload: boolean;
 }
 
-export type LayoutActions = IsCompactAction;
+export interface ModalAction {
+  type: typeof SET_SHOW_MODAL;
+  payload: boolean;
+}
+
+export type LayoutActions = IsCompactAction | ModalAction;
 
 // HOMEPAGE
 

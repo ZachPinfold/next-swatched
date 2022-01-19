@@ -6,15 +6,23 @@ import { SwatchObject } from "../../types/swatches";
 import Dropdown from "../utils/Dropdown";
 import MenuDropdown from "./MenuDropdown";
 import Link from "next/link";
-import { startIsCompact } from "../../actions/layout";
+import { startIsCompact, startShowModal } from "../../actions/layout";
 
 interface Actions {
   swatches: SwatchObject[];
   startIsCompact: (scrollY: number) => void;
   isAuthenticated: boolean;
+  startShowModal: (openModal: boolean) => void;
+  isAuthenticatedLoading: boolean;
 }
 
-const NavBar = ({ swatches, startIsCompact, isAuthenticated }: Actions) => {
+const NavBar = ({
+  swatches,
+  startIsCompact,
+  isAuthenticated,
+  startShowModal,
+  isAuthenticatedLoading,
+}: Actions) => {
   const wrapperRef = useRef<HTMLHeadingElement>(null);
   const [hover, setHover] = useState<boolean>(false);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
@@ -96,7 +104,7 @@ const NavBar = ({ swatches, startIsCompact, isAuthenticated }: Actions) => {
             ></div>
           </div>
         )}
-        {isAuthenticated && (
+        {!isAuthenticatedLoading && isAuthenticated && (
           <Dropdown
             Component={
               <MenuDropdown
@@ -110,10 +118,13 @@ const NavBar = ({ swatches, startIsCompact, isAuthenticated }: Actions) => {
             isDropdownOpen={isDropdownOpen}
           />
         )}
-        {!isAuthenticated && (
+        {!isAuthenticatedLoading && !isAuthenticated && (
           <div className="login_area">
-            <button className="singup_btn">signup</button>
-            <button className="login_btn"> Login </button>
+            <button className="singup_btn">sign up</button>
+            <button onClick={() => startShowModal(true)} className="login_btn">
+              {" "}
+              Login{" "}
+            </button>
           </div>
         )}
       </div>
@@ -124,11 +135,15 @@ const NavBar = ({ swatches, startIsCompact, isAuthenticated }: Actions) => {
 interface StateProps {
   swatches: SwatchObject[];
   isAuthenticated: boolean;
+  isAuthenticatedLoading: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
   isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticatedLoading: state.auth.loading,
 });
 
-export default connect(mapStateToProps, { startIsCompact })(NavBar);
+export default connect(mapStateToProps, { startIsCompact, startShowModal })(
+  NavBar
+);
