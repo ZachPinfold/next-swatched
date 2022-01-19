@@ -91,7 +91,7 @@ export interface IsCompactAction {
 
 export interface ModalAction {
   type: typeof SET_SHOW_MODAL;
-  payload: boolean;
+  payload: { isCompact: boolean; modalType: string };
 }
 
 export type LayoutActions = IsCompactAction | ModalAction;

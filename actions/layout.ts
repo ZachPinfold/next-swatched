@@ -6,9 +6,12 @@ export const isCompactCall = (isCompact: boolean): LayoutActions => ({
   payload: isCompact,
 });
 
-export const showModal = (isCompact: boolean): LayoutActions => ({
+export const showModal = (
+  isCompact: boolean,
+  modalType: string
+): LayoutActions => ({
   type: "SET_SHOW_MODAL",
-  payload: isCompact,
+  payload: { isCompact, modalType },
 });
 
 export const startIsCompact =
@@ -23,9 +26,12 @@ export const startIsCompact =
   };
 
 export const startShowModal =
-  (openModal: boolean) => async (dispatch: Dispatch<LayoutActions>) => {
+  (openModal: boolean, modalType: string) =>
+  async (dispatch: Dispatch<LayoutActions>) => {
     try {
-      dispatch(showModal(openModal));
+      console.log(modalType);
+
+      dispatch(showModal(openModal, modalType));
     } catch (error) {
       console.log(error);
     }

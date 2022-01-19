@@ -12,41 +12,43 @@ interface InputDetails {
 }
 
 const Signup = ({ startSignup }: Actions) => {
-  const [loginDetails, setLoginDetails] = useState<InputDetails>({
+  const [signupDetails, setSignupDetails] = useState<InputDetails>({
     email: "",
     password: "",
   });
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLoginDetails({
-      ...loginDetails,
+    setSignupDetails({
+      ...signupDetails,
       [event.target.id]: event.target.value,
     });
   };
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    startSignup(loginDetails.email, loginDetails.password);
+    startSignup(signupDetails.email, signupDetails.password);
   };
 
   return (
-    <div className='login'>
+    <div className="signup">
+      <h1>Sign up</h1>
+
       <form onSubmit={handleSubmit}>
         <input
           onChange={onInputChange}
-          value={loginDetails.email}
-          type='text'
-          placeholder='email'
-          id='email'
+          value={signupDetails.email}
+          type="text"
+          placeholder="email"
+          id="email"
         />
         <input
           onChange={onInputChange}
-          value={loginDetails.password}
-          type='password'
-          placeholder='password'
-          id='password'
+          value={signupDetails.password}
+          type="password"
+          placeholder="password"
+          id="password"
         />
-        <input type='submit' />
+        <input className="button_main" type="submit" />
       </form>
     </div>
   );

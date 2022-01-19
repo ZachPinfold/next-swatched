@@ -62,7 +62,7 @@ export const startLogin =
       const data = await app.auth().signInWithEmailAndPassword(email, password);
       const { uid } = data.user;
       dispatch(login(uid));
-      dispatch(showModal(false));
+      dispatch(showModal(false, ""));
     } catch (error) {
       console.log("error-" + error);
     }

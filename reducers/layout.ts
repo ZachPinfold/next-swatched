@@ -3,11 +3,13 @@ import { LayoutActions } from "../types/types";
 export interface LayoutAction {
   isCompact: boolean;
   modal: boolean;
+  modalType: string;
 }
 
 const inititalState: LayoutAction = {
   isCompact: false,
   modal: false,
+  modalType: "",
 };
 
 const layout = (
@@ -23,7 +25,8 @@ const layout = (
     case "SET_SHOW_MODAL":
       return {
         ...state,
-        modal: action.payload,
+        modal: action.payload.isCompact,
+        modalType: action.payload.modalType,
       };
     default:
       return state;

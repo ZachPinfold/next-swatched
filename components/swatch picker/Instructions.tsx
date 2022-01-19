@@ -5,8 +5,9 @@ const Instructions = ({ refreshClick }: { refreshClick: boolean }) => {
   return (
     <div className="instructions_area">
       <p className="instructions">
-        Hover for options, click the {<LockedImage color="#4eadab" />} to lock
-        colour in place and compare against other colours.
+        Hover over the colour for options, click the{" "}
+        {<LockedImage color="#4eadab" />} to lock colour in place and compare
+        against other colours.
       </p>
       <div
         style={{ opacity: refreshClick ? "1" : "0" }}

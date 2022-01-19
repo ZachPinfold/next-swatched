@@ -1,7 +1,7 @@
 import store from "../store";
 import Login from "../components/auth/Login/Login";
 import Signup from "../components/auth/Signup/Signup";
-import { useEffect, useRef, useState } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { startLoadUser } from "../actions/auth";
 import ModalWrapper from "../components/Modal/ModalWrapper";
 import SwatchPicker from "../components/swatch picker/SwatchPicker";
@@ -29,8 +29,9 @@ interface InitialSwatch {
   startGetHomepageSwatches: () => void;
   discoverSwatches: number[][];
   startClearHomepageSwatches: () => void;
-  startShowModal: (modal: boolean) => void;
+  startShowModal: (modal: boolean, type: string) => void;
   modal: boolean;
+  modalType: string;
 }
 
 const Home = ({
@@ -41,6 +42,7 @@ const Home = ({
   startClearHomepageSwatches,
   modal,
   startShowModal,
+  modalType,
 }: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
@@ -119,6 +121,10 @@ const Home = ({
     }
   };
 
+  let AuthFunc: FunctionComponent;
+
+  modalType === "login" ? (AuthFunc = Login) : (AuthFunc = Signup);
+
   return (
     <div className="wrapper">
       <div className="home_column">
@@ -147,7 +153,7 @@ const Home = ({
         <FeaturedSwatches swatches={swatches} />
 
         {modal && (
-          <ModalWrapper Component={<Login />} showModal={startShowModal} />
+          <ModalWrapper Component={<AuthFunc />} showModal={startShowModal} />
         )}
       </div>
     </div>
@@ -158,12 +164,14 @@ interface StateProps {
   swatches: SwatchObject[];
   discoverSwatches: number[][];
   modal: boolean;
+  modalType: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
   discoverSwatches: state.homepage.discoverSwatches,
   modal: state.layout.modal,
+  modalType: state.layout.modalType,
 });
 
 export default connect(mapStateToProps, {

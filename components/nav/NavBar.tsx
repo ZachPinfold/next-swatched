@@ -12,7 +12,7 @@ interface Actions {
   swatches: SwatchObject[];
   startIsCompact: (scrollY: number) => void;
   isAuthenticated: boolean;
-  startShowModal: (openModal: boolean) => void;
+  startShowModal: (openModal: boolean, type: string) => void;
   isAuthenticatedLoading: boolean;
 }
 
@@ -120,8 +120,16 @@ const NavBar = ({
         )}
         {!isAuthenticatedLoading && !isAuthenticated && (
           <div className="login_area">
-            <button className="singup_btn">sign up</button>
-            <button onClick={() => startShowModal(true)} className="login_btn">
+            <button
+              onClick={() => startShowModal(true, "signup")}
+              className="singup_btn"
+            >
+              sign up
+            </button>
+            <button
+              onClick={() => startShowModal(true, "login")}
+              className="login_btn"
+            >
               {" "}
               Login{" "}
             </button>
