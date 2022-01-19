@@ -63,13 +63,14 @@ const NavBar = ({ swatches, startIsCompact }: Actions) => {
               <img
                 style={{ width: compact ? "170px" : "180px" }}
                 src={Logo.src}
-                alt=""
+                alt="logo"
+                className="nav_logo"
               />
             </a>
             {/* <h1 style={{ fontSize: compact ? "30px" : "40px" }}>Swatched</h1> */}
           </Link>
           {showText && (
-            <p>
+            <p className="nav_text">
               Use <strong> deep learning</strong> to find and save colours to
               your swatch, powered by the <span>ColormindAPI</span>{" "}
             </p>

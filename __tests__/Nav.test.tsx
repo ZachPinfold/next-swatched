@@ -5,6 +5,7 @@ import NavBar from "../components/nav/NavBar";
 import createMockStore from "redux-mock-store";
 import { CardHover, SwatchObject } from "../types/swatches";
 import { Provider } from "react-redux";
+import { rgbToHex } from "../utils/swatch";
 
 const swatches: SwatchObject[] = [
   {
@@ -20,10 +21,14 @@ const swatch: SwatchObject = {
   timeAdded: new Date(),
 };
 
+for (let i = 0; i < 20; i++) {
+  swatches.push(swatch);
+}
+
 const store = createMockStore();
 
 const funcMock: any = (scrollY: number) => {};
-const initialState = { swatches: { swatches: [] } };
+const initialState = { swatches: { swatches: swatches } };
 const st = store(initialState);
 
 const TestComponent = (
@@ -33,8 +38,20 @@ const TestComponent = (
 );
 
 describe("With Enzyme", () => {
-  it("The homepage renders out the appropriate text within the swatch cards", () => {
-    const app = mount(TestComponent);
+  const app = mount(TestComponent);
+  it("The nav renders out the logo", () => {
+    expect(app.find(".nav_logo")).toBeDefined();
+  });
+  it("The nav renders out the tagline", () => {
+    expect(app.find(".nav_text")).toBeDefined();
+  });
+  it("The nav renders out 3 items within the main dropdown menu", () => {
     expect(app.find(".menu_dropdown").children()).toHaveLength(3);
+  });
+  it("The menu renders with 9 circles, all with a colour fill from the swatch above", () => {
+    expect(app.find(".menu_circle_svg").children()).toHaveLength(9);
+    expect(app.find(".st0").first().props().fill).toContain(
+      rgbToHex(swatch.color)
+    );
   });
 });
