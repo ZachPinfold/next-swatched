@@ -160,11 +160,19 @@
 .text_tutorial_area {
   margin-bottom: 40px;
   margin-top: 15px;
+  padding: 0 5px;
+  @media only screen and (max-width: 660px) {
+    padding: 0 10px;
+  }
+
   p {
     font-family: HelveticaL;
     color: black;
     font-size: 14px;
     white-space: nowrap;
+    @media only screen and (max-width: 660px) {
+      font-size: 12px;
+    }
   }
 
   h3 {

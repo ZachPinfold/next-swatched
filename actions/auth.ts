@@ -2,6 +2,7 @@ import { Dispatch } from "redux";
 import { AuthActionTypes } from "../types/types";
 import app from "../firebase";
 import { NextRouter } from "next/router";
+import { showModal } from "./layout";
 
 export const login = (UserID: string): AuthActionTypes => ({
   type: "LOGIN_AUTH",
@@ -61,6 +62,7 @@ export const startLogin =
       const data = await app.auth().signInWithEmailAndPassword(email, password);
       const { uid } = data.user;
       dispatch(login(uid));
+      dispatch(showModal(false));
     } catch (error) {
       console.log("error-" + error);
     }

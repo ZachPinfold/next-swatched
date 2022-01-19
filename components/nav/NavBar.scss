@@ -64,9 +64,6 @@ nav {
     }
   }
   .menu_dropdown {
-    // transform-origin: top;
-    // transition: all 0.1s ease-in-out;
-    // transform: scaleY(0);
     z-index: 1;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
@@ -84,6 +81,15 @@ nav {
       font-family: HelveticaM;
       padding: 7px 5px 5px 5px;
       transition: all 0.2s ease-in-out;
+    }
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      list-style-type: none;
+      font-family: HelveticaM;
+      transition: all 0.2s ease-in-out;
+      font-size: 16px;
     }
     li:hover {
       color: rgba($color: $color-blue, $alpha: 1);
