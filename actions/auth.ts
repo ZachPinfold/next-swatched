@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import { AuthActionTypes } from "../types/types";
 import app from "../firebase";
+import { NextRouter } from "next/router";
 
 export const login = (UserID: string): AuthActionTypes => ({
   type: "LOGIN_AUTH",
@@ -19,6 +20,10 @@ export const loadUser = (UserID: string): AuthActionTypes => ({
 
 export const authError = (): AuthActionTypes => ({
   type: "AUTH_ERROR",
+});
+
+export const logout = (): AuthActionTypes => ({
+  type: "LOGOUT",
 });
 
 export const startLoadUser =
@@ -62,4 +67,12 @@ export const startLogin =
   };
 
 export const startLogout =
-  (email: string, password: string) => async (dispatch: any) => {};
+  (router: NextRouter) => async (dispatch: Dispatch) => {
+    try {
+      app.auth().signOut();
+      dispatch(logout());
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };

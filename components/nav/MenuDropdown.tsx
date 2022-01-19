@@ -2,17 +2,25 @@ import React from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { startLogout } from "../../actions/auth";
+import { NextRouter, useRouter } from "next/router";
 
 interface Actions {
   setDropdownOpen: (open: boolean) => void;
   isDropdownOpen: boolean;
+  startLogout: (router: NextRouter) => void;
 }
 
-const MenuDropdown = ({ isDropdownOpen, setDropdownOpen }: Actions) => {
+const MenuDropdown = ({
+  isDropdownOpen,
+  setDropdownOpen,
+  startLogout,
+}: Actions) => {
+  const router: NextRouter = useRouter();
+
   const menu = [
     { title: "my swatches", destination: "swatches" },
     { title: "my account", destination: "" },
-    { title: "logout", destination: "", func: "" },
+    { title: "logout", destination: "", func: startLogout },
   ];
 
   return (
@@ -29,7 +37,12 @@ const MenuDropdown = ({ isDropdownOpen, setDropdownOpen }: Actions) => {
           );
         } else {
           return (
-            <button onClick={() => {}} key={item.title}>
+            <button
+              onClick={() => {
+                item.func(router);
+              }}
+              key={item.title}
+            >
               <li onClick={() => setDropdownOpen(false)} id="dropdown_comp">
                 {" "}
                 {item.title}

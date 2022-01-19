@@ -39,3 +39,7 @@ export interface TutTypes {
   img: FC<ComponentProps>;
   text: string;
 }
+
+interface ChildComponentProps extends RouteComponentProps<any> {
+  /* other props for ChildComponent */
+}
