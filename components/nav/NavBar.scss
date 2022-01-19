@@ -102,3 +102,50 @@ nav {
     transform: scaleY(1);
   }
 }
+
+.login_area {
+  @media only screen and (max-width: 1000px) {
+    padding-right: 10px;
+  }
+  display: flex;
+  @media only screen and (max-width: 700px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  align-items: flex-end;
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  text-align: right;
+
+  .singup_btn {
+    font-family: HelveticaM;
+    color: $color-blue;
+    font-size: 17px;
+    padding: 4px 15px;
+    padding-top: 2px;
+    border-radius: 20px;
+    border: solid 2px rgba($color: $color-blue, $alpha: 1);
+    background-color: white;
+    transition: all 0.1s ease-in-out;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  .singup_btn:hover {
+    background-color: rgba($color: $color-blue, $alpha: 1);
+    color: white;
+  }
+  .login_btn {
+    background: none;
+    border: none;
+    font-family: HelveticaL;
+    color: $color-blue;
+    font-size: 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .login_btn:hover {
+    text-decoration: underline;
+    transition: all 0.1s ease-in-out;
+  }
+}

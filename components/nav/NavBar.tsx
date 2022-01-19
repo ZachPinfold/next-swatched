@@ -11,9 +11,10 @@ import { startIsCompact } from "../../actions/layout";
 interface Actions {
   swatches: SwatchObject[];
   startIsCompact: (scrollY: number) => void;
+  isAuthenticated: boolean;
 }
 
-const NavBar = ({ swatches, startIsCompact }: Actions) => {
+const NavBar = ({ swatches, startIsCompact, isAuthenticated }: Actions) => {
   const wrapperRef = useRef<HTMLHeadingElement>(null);
   const [hover, setHover] = useState<boolean>(false);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
@@ -67,7 +68,6 @@ const NavBar = ({ swatches, startIsCompact }: Actions) => {
                 className="nav_logo"
               />
             </a>
-            {/* <h1 style={{ fontSize: compact ? "30px" : "40px" }}>Swatched</h1> */}
           </Link>
           {showText && (
             <p className="nav_text">
@@ -77,7 +77,7 @@ const NavBar = ({ swatches, startIsCompact }: Actions) => {
           )}
         </div>
 
-        {swatches.length > 0 && (
+        {swatches.length > 0 && isAuthenticated && (
           <div
             onClick={() => setDropdownOpen(!isDropdownOpen)}
             onMouseEnter={() => {
@@ -96,18 +96,24 @@ const NavBar = ({ swatches, startIsCompact }: Actions) => {
             ></div>
           </div>
         )}
-        <Dropdown
-          Component={
-            <MenuDropdown
-              isDropdownOpen={isDropdownOpen}
-              setDropdownOpen={setDropdownOpen}
-            />
-          }
-          setIsClickedOutside={setIsClickedOutside}
-          wrapperRef={wrapperRef}
-          refId="dropdown_comp"
-          isDropdownOpen={isDropdownOpen}
-        />
+        {isAuthenticated && (
+          <Dropdown
+            Component={
+              <MenuDropdown
+                isDropdownOpen={isDropdownOpen}
+                setDropdownOpen={setDropdownOpen}
+              />
+            }
+            setIsClickedOutside={setIsClickedOutside}
+            wrapperRef={wrapperRef}
+            refId="dropdown_comp"
+            isDropdownOpen={isDropdownOpen}
+          />
+        )}
+        <div className="login_area">
+          <button className="singup_btn">signup</button>
+          <button className="login_btn"> Login </button>
+        </div>
       </div>
     </nav>
   );
@@ -115,10 +121,12 @@ const NavBar = ({ swatches, startIsCompact }: Actions) => {
 
 interface StateProps {
   swatches: SwatchObject[];
+  isAuthenticated: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { startIsCompact })(NavBar);

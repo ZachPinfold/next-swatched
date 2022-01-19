@@ -21,20 +21,22 @@ export const authError = (): AuthActionTypes => ({
   type: "AUTH_ERROR",
 });
 
-export const startLoadUser = () => async (dispatch: any) => {
-  try {
-    // app.auth().onAuthStateChanged((user: object) => {
-    //   if (user === null) {
-    //     dispatch(authError);
-    //   } else {
-    //     const { uid } = user;
-    //     dispatch(loadUser(uid));
-    //   }
-    // });
-  } catch (error) {
-    console.log(error);
-  }
-};
+export const startLoadUser =
+  () => async (dispatch: Dispatch<AuthActionTypes>) => {
+    try {
+      app.auth().onAuthStateChanged((user: object) => {
+        if (user === null) {
+          dispatch(authError());
+        } else {
+          console.log(user);
+          const { uid } = user;
+          dispatch(loadUser(uid));
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const startSignup =
   (email: string, password: string) => async (dispatch: any) => {
@@ -51,11 +53,11 @@ export const startSignup =
 
 export const startLogin =
   (email: string, password: string) => async (dispatch: any) => {
-    // try {
-    //   const data = await app.auth().signInWithEmailAndPassword(email, password);
-    //   const { uid } = data.user;
-    //   dispatch(login(uid));
-    // } catch (error) {
-    //   console.log("error-" + error);
-    // }
+    try {
+      const data = await app.auth().signInWithEmailAndPassword(email, password);
+      const { uid } = data.user;
+      dispatch(login(uid));
+    } catch (error) {
+      console.log("error-" + error);
+    }
   };

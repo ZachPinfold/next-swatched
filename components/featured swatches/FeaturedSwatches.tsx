@@ -18,7 +18,7 @@ const FeaturedSwatches = ({ swatches }: SwatchTypes) => {
   return (
     <div className="outer_home_swatches wrapper_inner">
       <h1 style={{ paddingLeft: "5px" }} className="sub_title">
-        Your recent colours
+        Your colours
       </h1>
       <ul className="swatch_grid wrapper_inner home_swatch_grid">
         {swatches.map((swatch, index) => {
