@@ -4,15 +4,8 @@ import LockedImage from "../../../assets/images/LockedSwatch";
 import CopySwatch from "../../../assets/images/CopySwatch";
 import DeleteSwatch from "../../../assets/images/DeleteSwatch";
 import { Carousel } from "react-responsive-carousel";
+import { TutTypes } from "../../../types/swatches";
 
-interface ComponentProps {
-  color: string;
-}
-
-interface TutTypes {
-  img: FC<ComponentProps>;
-  text: string;
-}
 const tutorialArray: TutTypes[][] = [];
 
 const tutorial1ObjectArray: TutTypes[] = [

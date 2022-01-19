@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 type SvgInHtml = HTMLElement & SVGElement & HTMLImageElement;
 
 export type SwatchObject = {
@@ -27,4 +29,13 @@ export interface CardHover {
   message: string;
   clickedMessage: string;
   func: (swatch: number[]) => void;
+}
+
+interface ComponentProps {
+  color: string;
+}
+
+export interface TutTypes {
+  img: FC<ComponentProps>;
+  text: string;
 }

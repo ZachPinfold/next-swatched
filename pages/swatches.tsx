@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import HueSwatch from "../assets/images/HueSwatch";
@@ -9,7 +9,11 @@ import ColorFilter from "../components/swatches/filters/ColorFilter";
 import SwatchList from "../components/swatches/swatch list/SwatchList";
 import Tutorial from "../components/swatches/tutorials/Tutorial";
 import Dropdown from "../components/utils/Dropdown";
-import { ColorNamesType, SwatchObject } from "../types/swatches";
+import { ColorNamesType, SwatchObject, TutTypes } from "../types/swatches";
+import LockedImage from "../assets/images/LockedSwatch";
+import CopySwatch from "../assets/images/CopySwatch";
+import DeleteSwatch from "../assets/images/DeleteSwatch";
+import Plus from "../assets/images/Plus";
 
 interface Actions {
   startGetUserSwatches: (
@@ -19,6 +23,12 @@ interface Actions {
   ) => void;
   swatches: SwatchObject[];
 }
+
+const tutorialObjectArray: TutTypes[] = [
+  { img: LockedImage, text: "compare a colour" },
+  { img: CopySwatch, text: "copy the hex" },
+  { img: DeleteSwatch, text: "delete a swatch" },
+];
 
 const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
   let refFilterId = "dropdown_filter";
@@ -123,7 +133,26 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
           />
         </div>
       </div>
-
+      <div className="text_tutorial_area wrapper_inner">
+        <div className="left_area">
+          <p>
+            Hover over the {<Plus color={"#5fadbf"} />} to add a swatch colour
+          </p>
+        </div>
+        <div className="right_area">
+          <div className="tutorial_icons">
+            {tutorialObjectArray.map((obj) => {
+              return (
+                <div key={obj.text} className="inner_tutorial">
+                  {" "}
+                  <obj.img color={"#5fadbf"} />
+                  <p>{obj.text}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
       <SwatchList
         swatches={swatches}
         setCompareArray={setCompareArray}

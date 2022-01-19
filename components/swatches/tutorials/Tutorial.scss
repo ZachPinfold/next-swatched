@@ -156,3 +156,55 @@
     background-color: $color-blue;
   }
 }
+
+.text_tutorial_area {
+  margin-bottom: 40px;
+  margin-top: 15px;
+  p {
+    font-family: HelveticaL;
+    color: black;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  h3 {
+    text-align: right;
+    font-family: HelveticaM;
+    color: black;
+    font-size: 14px;
+  }
+  display: flex;
+  justify-content: space-between;
+  @media only screen and (max-width: 660px) {
+    flex-direction: column;
+  }
+
+  .left_area {
+    svg {
+      width: 13px;
+    }
+  }
+
+  .right_area {
+    @media only screen and (max-width: 660px) {
+      margin-top: 10px;
+    }
+    svg {
+      width: 13px;
+      margin-right: 5px;
+    }
+    display: flex;
+    .tutorial_icons {
+      .inner_tutorial:not(:last-child) {
+        margin-right: 15px;
+      }
+    }
+  }
+  .tutorial_icons {
+    display: flex;
+    .inner_tutorial {
+      display: flex;
+      align-items: flex-end;
+    }
+  }
+}
