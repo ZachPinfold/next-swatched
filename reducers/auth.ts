@@ -19,6 +19,7 @@ const auth = (state: Auth = inititalState, action: AuthActionTypes): Auth => {
       return {
         ...state,
         UserID: action.payload.UserID,
+        isAuthenticated: true,
       };
     default:
       return state;

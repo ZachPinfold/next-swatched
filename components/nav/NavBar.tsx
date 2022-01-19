@@ -110,10 +110,12 @@ const NavBar = ({ swatches, startIsCompact, isAuthenticated }: Actions) => {
             isDropdownOpen={isDropdownOpen}
           />
         )}
-        <div className="login_area">
-          <button className="singup_btn">signup</button>
-          <button className="login_btn"> Login </button>
-        </div>
+        {!isAuthenticated && (
+          <div className="login_area">
+            <button className="singup_btn">signup</button>
+            <button className="login_btn"> Login </button>
+          </div>
+        )}
       </div>
     </nav>
   );

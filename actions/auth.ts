@@ -24,11 +24,10 @@ export const authError = (): AuthActionTypes => ({
 export const startLoadUser =
   () => async (dispatch: Dispatch<AuthActionTypes>) => {
     try {
-      app.auth().onAuthStateChanged((user: object) => {
+      app.auth().onAuthStateChanged((user: any) => {
         if (user === null) {
           dispatch(authError());
         } else {
-          console.log(user);
           const { uid } = user;
           dispatch(loadUser(uid));
         }
@@ -61,3 +60,6 @@ export const startLogin =
       console.log("error-" + error);
     }
   };
+
+export const startLogout =
+  (email: string, password: string) => async (dispatch: any) => {};

@@ -51,6 +51,7 @@ const Home = ({
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
   const discoverSwatchRef = useRef<Boolean>(false);
   const refreshRef = useRef<Boolean>(false);
+  const [modal, setModal] = useState<Boolean>(false);
 
   useEffect(() => {
     discoverSwatches.length == 0 && startGetHomepageSwatches();
@@ -141,10 +142,9 @@ const Home = ({
         </div>
         <FeaturedSwatches swatches={swatches} />
 
-        {/* <h1>Get started by editing</h1> */}
         {/* <Signup /> */}
-        {/* {modal && <ModalWrapper Component={<Login />} showModal={showModal} />} */}
         {/* <button onClick={() => showModal(true)}>Login</button> */}
+        {modal && <ModalWrapper Component={<Login />} showModal={setModal} />}
       </div>
     </div>
   );
