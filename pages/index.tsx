@@ -3,7 +3,7 @@ import Login from "../components/auth/Login/Login";
 import Signup from "../components/auth/Signup/Signup";
 import { useEffect, useRef, useState } from "react";
 import { startLoadUser } from "../actions/auth";
-import ModalWrapper from "../components/auth/Modal/ModalWrapper";
+import ModalWrapper from "../components/Modal/ModalWrapper";
 import SwatchPicker from "../components/swatch picker/SwatchPicker";
 import axios from "axios";
 import TitleArea from "../components/swatch picker/left title area/TitleArea";
@@ -56,7 +56,6 @@ const Home = ({
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
   const discoverSwatchRef = useRef<Boolean>(false);
   const refreshRef = useRef<Boolean>(false);
-  // const [modal, setModal] = useState<Boolean>(false);
 
   useEffect(() => {
     discoverSwatches.length == 0 && startGetHomepageSwatches();

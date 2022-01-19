@@ -8,7 +8,7 @@ interface Actions {
 const ModalWrapper = ({ Component, showModal }: Actions) => {
   return (
     <section onClick={() => showModal(false)} className="modal-wrapper">
-      <div className="modal-backdrop">
+      <div onClick={(e) => e.stopPropagation()} className="modal-backdrop">
         {" "}
         <div
           onClick={(e) => e.stopPropagation()}

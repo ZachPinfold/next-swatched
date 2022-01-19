@@ -9,4 +9,9 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
+  .modal-backdrop {
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+  }
 }

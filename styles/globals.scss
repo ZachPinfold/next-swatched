@@ -68,6 +68,21 @@ $color-blue: #4eadab;
 $margin-large: 30px;
 $margin-medium: 20px;
 
+.button_main {
+  background-color: $color-blue;
+  color: white;
+  border: 2px solid $color-blue !important;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  cursor: pointer;
+}
+
+.button_main:hover {
+  background-color: white;
+  color: $color-blue;
+  border: 2px solid $color-blue;
+}
+
 @font-face {
   font-family: "HelveticaM";
   src: url("../assets/fonts/240c57a0-fdce-440d-9ce3-85e0cb56f470.woff2")
@@ -92,7 +107,6 @@ $margin-medium: 20px;
 
 @import "./Home.scss";
 @import "./Swatches.scss";
-@import "./Modal.scss";
 @import "../components/swatch picker/SwatchPicker.scss";
 @import "../components/swatch picker/lock/lock.scss";
 @import "../components/swatches/swatch list/SwatchList.scss";
@@ -104,3 +118,5 @@ $margin-medium: 20px;
 @import "../components/nav/NavBar.scss";
 @import "../components/swatches/tutorials/Tutorial.scss";
 @import "../components/footer/Footer.scss";
+@import "../components/Modal/Modal.scss";
+@import "../components/auth/Auth.scss";

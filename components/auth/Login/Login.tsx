@@ -31,6 +31,7 @@ const Login = ({ startLogin }: Actions) => {
 
   return (
     <div className="login">
+      <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <input
           onChange={onInputChange}
@@ -47,8 +48,11 @@ const Login = ({ startLogin }: Actions) => {
           placeholder="password"
           id="password"
         />
-        <input type="submit" />
+        <input className="button_main" type="submit" />
       </form>
+      <p>
+        don't have an account? <span> Signup</span>
+      </p>
     </div>
   );
 };

@@ -65,6 +65,15 @@
     }
   }
 
+  .colour_card:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  .colour_card:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
   .initial_colour_card {
     height: 300px;
     transition: width 0.3s ease-out;
