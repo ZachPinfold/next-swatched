@@ -5,9 +5,10 @@ import { SwatchObject } from "../../types/swatches";
 
 interface SwatchTypes {
   swatches: SwatchObject[];
+  isAuthenticated: boolean;
 }
 
-const FeaturedSwatches = ({ swatches }: SwatchTypes) => {
+const FeaturedSwatches = ({ swatches, isAuthenticated }: SwatchTypes) => {
   const [compareArray, setCompareArray] = useState<number[][]>([]);
   const selectSwatchToCompareRef = useRef<boolean>(true);
   const [openState, setOpenState] = useState<boolean>(false);
@@ -20,7 +21,12 @@ const FeaturedSwatches = ({ swatches }: SwatchTypes) => {
       <h1 style={{ paddingLeft: "5px" }} className="sub_title">
         Your colours
       </h1>
-      <ul className="swatch_grid wrapper_inner home_swatch_grid">
+      <ul
+        className={
+          "swatch_grid wrapper_inner home_swatch_grid " +
+          (!isAuthenticated && "not_auth_swatches")
+        }
+      >
         {swatches.map((swatch, index) => {
           if (swatch.colourId !== "none-colour" && index < 10) {
             return (
@@ -42,10 +48,21 @@ const FeaturedSwatches = ({ swatches }: SwatchTypes) => {
             );
           }
         })}
+        {!isAuthenticated && (
+          <div className="prompt_area">
+            <h2>Create an account to start building your swatches</h2>
+            <button>Sign up</button>
+            <p>
+              Have an account? <span>login</span>{" "}
+            </p>
+          </div>
+        )}
       </ul>
-      <div className="outer_button">
-        <Link href="/swatches">View all colours</Link>
-      </div>
+      {isAuthenticated && (
+        <div className="outer_button">
+          <Link href="/swatches">View all colours</Link>
+        </div>
+      )}
     </div>
   );
 };

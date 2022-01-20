@@ -1,3 +1,4 @@
+import { SwatchObject } from "../types/swatches";
 import { openCircleMenuD3 } from "./d3";
 
 export const rgbToHex = (rgb: Array<number>) => {
@@ -316,4 +317,30 @@ export const checkIfRgb = (rgb: string[]) => {
   } else {
     return numberRgb;
   }
+};
+
+export const randomRgba = () => {
+  const o = Math.round,
+    r = Math.random,
+    s = 255;
+  return [o(r() * s), o(r() * s), o(r() * s)];
+};
+
+export const buildNoneAuthColors = () => {
+  const noneAuthColours: SwatchObject[] = [];
+
+  for (let i = 0; i < 5; i++) {
+    const color = {
+      color: [211, 211, 211],
+      colorName: "grey",
+      colourId: "",
+      timeAdded: new Date(),
+    };
+
+    color.color = randomRgba();
+    console.log(randomRgba());
+    noneAuthColours.push(color);
+  }
+
+  return noneAuthColours;
 };

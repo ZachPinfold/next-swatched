@@ -18,6 +18,7 @@ import {
   startGetHomepageSwatches,
 } from "../actions/homepage";
 import { startShowModal } from "../actions/layout";
+import { buildNoneAuthColors, randomRgba } from "../utils/swatch";
 
 interface InitialSwatch {
   swatches: any[];
@@ -32,6 +33,8 @@ interface InitialSwatch {
   startShowModal: (modal: boolean, type: string) => void;
   modal: boolean;
   modalType: string;
+  isAuthenticatedLoading: boolean;
+  isAuthenticated: boolean;
 }
 
 const Home = ({
@@ -43,6 +46,8 @@ const Home = ({
   modal,
   startShowModal,
   modalType,
+  isAuthenticated,
+  isAuthenticatedLoading,
 }: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
@@ -51,6 +56,8 @@ const Home = ({
     [0, 0, 0],
     [0, 0, 0],
   ]);
+
+  const noneAuthColours = buildNoneAuthColors();
 
   const [lockedSwatches, setLockedSwatches] = useState<number[][]>([]);
   const [refreshClick, setRefreshClick] = useState<boolean>(false);
@@ -150,7 +157,18 @@ const Home = ({
             />
           </div>
         </div>
-        <FeaturedSwatches swatches={swatches} />
+        {!isAuthenticatedLoading && (
+          <FeaturedSwatches
+            isAuthenticated={isAuthenticated}
+            swatches={
+              isAuthenticatedLoading
+                ? noneAuthColours
+                : !isAuthenticated && !isAuthenticatedLoading
+                ? noneAuthColours
+                : swatches
+            }
+          />
+        )}
 
         {modal && (
           <ModalWrapper Component={<AuthFunc />} showModal={startShowModal} />
@@ -165,6 +183,8 @@ interface StateProps {
   discoverSwatches: number[][];
   modal: boolean;
   modalType: string;
+  isAuthenticated: boolean;
+  isAuthenticatedLoading: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -172,6 +192,8 @@ const mapStateToProps = (state: any): StateProps => ({
   discoverSwatches: state.homepage.discoverSwatches,
   modal: state.layout.modal,
   modalType: state.layout.modalType,
+  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticatedLoading: state.auth.loading,
 });
 
 export default connect(mapStateToProps, {

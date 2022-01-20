@@ -77,7 +77,19 @@
   margin-top: 50px;
 }
 
+.not_auth_swatches {
+  .swatch_card {
+    pointer-events: none;
+  }
+}
+
 .outer_home_swatches {
+  position: relative;
+
+  // ul {
+  //   position: relative;
+  // }
+
   margin-bottom: 230px;
   .outer_button {
     text-align: center;
@@ -100,5 +112,21 @@
       color: black;
     }
     margin: 70px 0;
+  }
+  .prompt_area {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: calc(100%);
+    background-color: rgba($color: black, $alpha: 0.45);
+    border-radius: 10px;
+    h2 {
+      font-family: HelveticaM;
+      color: white;
+    }
+    button {
+      padding: 5px 30px;
+      font-size: 22px;
+    }
   }
 }
