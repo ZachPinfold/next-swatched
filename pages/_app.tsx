@@ -5,16 +5,27 @@ import store from "../store";
 import NavBar from "../components/nav/NavBar";
 
 import ToTopImage from "../assets/images/to_top_swatch.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/footer/Footer";
+import PrivateRoute from "../components/routing/PrivateRoute";
+import { startLoadUser } from "../actions/auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [compact, setCompact] = useState(false);
 
+  useEffect(() => {
+    store.dispatch(startLoadUser() as any);
+  }, []);
+
   return (
     <Provider store={store}>
       <NavBar />
-      <Component {...pageProps} />
+      {Component.displayName && Component.displayName.includes("Home") ? (
+        <Component {...pageProps} />
+      ) : (
+        <PrivateRoute Component={<Component {...pageProps} />}></PrivateRoute>
+      )}
+
       <img
         style={{ opacity: compact ? "1" : "0" }}
         className="to_top_img"

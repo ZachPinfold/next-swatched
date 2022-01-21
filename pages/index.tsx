@@ -71,10 +71,6 @@ const Home = ({
   }, []);
 
   useEffect(() => {
-    store.dispatch(startLoadUser() as any);
-  }, []);
-
-  useEffect(() => {
     startGetUserSwatches("", "all", true);
   }, [startGetUserSwatches]);
 
