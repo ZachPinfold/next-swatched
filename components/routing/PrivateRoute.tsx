@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { NextRouter, useRouter } from "next/router";
 
@@ -14,22 +14,21 @@ const PrivateRoute = ({
   Component,
 }: Actions) => {
   const router: NextRouter = useRouter();
+
+  const [loaded, setLoaded] = useState(true);
+
   useEffect(() => {
-    if (isAuthenticatedLoading) {
-      //auth is initialized and there is no user
-      if (!isAuthenticated) {
-        // remember the page that user tried to access
-
-        router.push("/");
-      }
+    if (!isAuthenticatedLoading && !isAuthenticated) {
+      router.push("/");
     }
-  }, []);
+    if (!isAuthenticatedLoading && isAuthenticated) setLoaded(false);
+  }, [isAuthenticatedLoading, isAuthenticated]);
 
-  console.log(isAuthenticatedLoading);
-
-  if (isAuthenticatedLoading) {
-    return null;
-  } else return <>{Component} </>;
+  if (!loaded) {
+    return <>{Component} </>;
+  } else {
+    return <h1>loading</h1>;
+  }
 };
 
 interface StateProps {
