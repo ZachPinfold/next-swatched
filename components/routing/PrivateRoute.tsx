@@ -25,6 +25,8 @@ const PrivateRoute = ({
   }, [isAuthenticatedLoading, isAuthenticated]);
 
   if (!loaded) {
+    console.log("loaded");
+
     return <>{Component} </>;
   } else {
     return <h1>loading</h1>;

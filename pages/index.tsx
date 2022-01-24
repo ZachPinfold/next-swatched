@@ -49,6 +49,8 @@ const Home = ({
   isAuthenticated,
   isAuthenticatedLoading,
 }: InitialSwatch) => {
+  console.log("index");
+
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
     [0, 0, 0],
