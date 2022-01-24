@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import store from "../store";
 import NavBar from "../components/nav/NavBar";
+import { useRouter } from "next/router";
 
 import ToTopImage from "../assets/images/to_top_swatch.svg";
 import { useEffect, useState } from "react";
@@ -11,18 +12,21 @@ import PrivateRoute from "../components/routing/PrivateRoute";
 import { startLoadUser } from "../actions/auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  console.log(router.asPath);
+
   const [compact, setCompact] = useState(false);
 
   useEffect(() => {
     store.dispatch(startLoadUser() as any);
   }, []);
 
-  console.log(Component);
+  // console.log(Component);
 
   return (
     <Provider store={store}>
       <NavBar />
-      {Component.displayName && Component.displayName.includes("Home") ? (
+      {router.asPath === "/" ? (
         <Component {...pageProps} />
       ) : (
         <PrivateRoute Component={<Component {...pageProps} />}></PrivateRoute>
