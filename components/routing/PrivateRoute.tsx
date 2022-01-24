@@ -24,12 +24,16 @@ const PrivateRoute = ({
     if (!isAuthenticatedLoading && isAuthenticated) setLoaded(false);
   }, [isAuthenticatedLoading, isAuthenticated]);
 
+  console.log(loaded);
+
   if (!loaded) {
     console.log("loaded");
 
     return <>{Component} </>;
   } else {
-    return <h1>loading</h1>;
+    console.log("loading");
+
+    return <h1 style={{ marginTop: "200px" }}>loading</h1>;
   }
 };
 
