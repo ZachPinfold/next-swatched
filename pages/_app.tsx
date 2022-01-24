@@ -17,6 +17,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     store.dispatch(startLoadUser() as any);
   }, []);
 
+  console.log(Component);
+
   return (
     <Provider store={store}>
       <NavBar />
