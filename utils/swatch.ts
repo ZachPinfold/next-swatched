@@ -338,7 +338,6 @@ export const buildNoneAuthColors = () => {
     };
 
     color.color = randomRgba();
-    console.log(randomRgba());
     noneAuthColours.push(color);
   }
 

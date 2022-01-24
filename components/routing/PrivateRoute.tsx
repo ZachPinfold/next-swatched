@@ -15,18 +15,20 @@ const PrivateRoute = ({
 }: Actions) => {
   const router: NextRouter = useRouter();
 
-  const [loaded, setLoaded] = useState(true);
+  const [loading, setLoaded] = useState(true);
 
   useEffect(() => {
+    console.log(isAuthenticatedLoading, isAuthenticated);
+
     if (!isAuthenticatedLoading && !isAuthenticated) {
       router.push("/");
     }
     if (!isAuthenticatedLoading && isAuthenticated) setLoaded(false);
   }, [isAuthenticatedLoading, isAuthenticated]);
 
-  console.log(loaded);
+  console.log("loading", loading);
 
-  if (!loaded) {
+  if (!loading) {
     console.log("loaded");
 
     return <>{Component} </>;

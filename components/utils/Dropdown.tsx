@@ -15,8 +15,6 @@ const Dropdown = ({
        */
       function handleClickOutside(event: any) {
         if (ref && ref.current && ref.current.id !== event.target.id) {
-          console.log("fire");
-
           setIsClickedOutside(true);
         }
       }

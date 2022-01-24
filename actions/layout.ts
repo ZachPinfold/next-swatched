@@ -29,8 +29,6 @@ export const startShowModal =
   (openModal: boolean, modalType: string) =>
   async (dispatch: Dispatch<LayoutActions>) => {
     try {
-      console.log(modalType);
-
       dispatch(showModal(openModal, modalType));
     } catch (error) {
       console.log(error);

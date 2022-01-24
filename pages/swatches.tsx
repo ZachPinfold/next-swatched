@@ -92,8 +92,6 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
     }
   }, [isTutClickedOutside]);
 
-  console.log(isTutorial);
-
   return (
     <div className="wrapper swatches_page">
       <div className="upper_area wrapper_inner">
