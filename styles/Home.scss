@@ -78,6 +78,7 @@
 }
 
 .not_auth_swatches {
+  position: relative;
   .swatch_card {
     pointer-events: none;
   }
@@ -90,7 +91,7 @@
   //   position: relative;
   // }
 
-  margin-bottom: 230px;
+  margin-bottom: 300px;
   .outer_button {
     text-align: center;
     a {
@@ -113,20 +114,40 @@
     }
     margin: 70px 0;
   }
-  .prompt_area {
-    position: absolute;
-    top: 0px;
-    width: 100%;
-    height: calc(100%);
-    background-color: rgba($color: black, $alpha: 0.45);
-    border-radius: 10px;
-    h2 {
+}
+
+.prompt_area {
+  // min-height: 520px;
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  width: 100%;
+  background-color: rgba($color: black, $alpha: 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+
+  button {
+    padding: 5px 30px;
+    border-radius: 5px;
+    font-size: 22px;
+  }
+  button:hover {
+    border: 2px solid white !important;
+  }
+  p {
+    font-family: HelveticaL;
+    color: white;
+    margin-top: 5px;
+    font-size: 14px;
+    span {
       font-family: HelveticaM;
-      color: white;
     }
-    button {
-      padding: 5px 30px;
-      font-size: 22px;
+    span:hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 }

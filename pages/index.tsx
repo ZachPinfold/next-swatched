@@ -18,7 +18,7 @@ import {
   startGetHomepageSwatches,
 } from "../actions/homepage";
 import { startShowModal } from "../actions/layout";
-import { buildNoneAuthColors, randomRgba } from "../utils/swatch";
+import { buildNoneAuthColors } from "../utils/swatch";
 
 interface InitialSwatch {
   swatches: any[];

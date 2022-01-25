@@ -21,15 +21,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     store.dispatch(startLoadUser() as any);
   }, []);
 
-  // console.log(Component);
+  console.log(router);
 
   return (
     <Provider store={store}>
       <NavBar />
-      {router.asPath === "/" ? (
-        <Component {...pageProps} />
-      ) : (
+      {router.asPath === "/swatches" ? (
         <PrivateRoute Component={<Component {...pageProps} />}></PrivateRoute>
+      ) : (
+        <Component {...pageProps} />
       )}
 
       <img

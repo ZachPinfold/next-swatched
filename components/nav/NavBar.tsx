@@ -39,6 +39,10 @@ const NavBar = ({
   }, [isClickedOutside]);
 
   useEffect(() => {
+    trackScroll();
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       !compact && setShowText(true);
     }, 200);

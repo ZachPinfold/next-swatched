@@ -327,6 +327,14 @@ export const randomRgba = () => {
 };
 
 export const buildNoneAuthColors = () => {
+  const colours = [
+    [208, 97, 80],
+    [60, 124, 125],
+    [87, 207, 163],
+    [96, 129, 171],
+    [249, 199, 104],
+  ];
+
   const noneAuthColours: SwatchObject[] = [];
 
   for (let i = 0; i < 5; i++) {
@@ -337,7 +345,7 @@ export const buildNoneAuthColors = () => {
       timeAdded: new Date(),
     };
 
-    color.color = randomRgba();
+    color.color = colours[i];
     noneAuthColours.push(color);
   }
 
