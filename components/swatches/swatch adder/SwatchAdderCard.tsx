@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { connect } from "react-redux";
 import { startAddSwatchToSwatchList } from "../../../actions/swatch";
 import PlusHex from "../../../assets/images/PlusHex";
@@ -22,6 +28,7 @@ import { closeMenuOnHoverLeaveD3, openCircleMenuD3 } from "../../../utils/d3";
 import ColourAdderChoice from "../../radial menu/ColourAdderChoice";
 import { select } from "d3";
 import Plus from "../../../assets/images/Plus";
+import ModalWrapper from "../../Modal/ModalWrapper";
 
 const circleMenuDecider = [
   { image: HashTagImage, text: "add" },
@@ -60,6 +67,7 @@ const SwatchAdderCard = ({
     useState<string>("none");
   const [hexInput, setHexInput] = useState<boolean>(false);
   const [rgbInput, setRgbInput] = useState<boolean>(false);
+  const [imagePreview, setImagePreview] = useState("");
 
   const hexFocus = useRef<any>();
   const rgbFocus1 = useRef<any>();
@@ -202,8 +210,14 @@ const SwatchAdderCard = ({
   ];
 
   const handleImageCropAndColour = (target: HTMLInputElement) => {
-    cropImage(target, setImageColour);
-    closeMenu(circleMenuArray);
+    if (target.files && target.files.length !== 0) {
+      const file: File = target.files[0];
+      const imageFile = URL.createObjectURL(file);
+      setImagePreview(imageFile);
+    }
+
+    // cropImage(target, setImageColour);
+    // closeMenu(circleMenuArray);
   };
 
   const editImageSelection = () => {
@@ -266,6 +280,40 @@ const SwatchAdderCard = ({
       }, 100);
   }, [menuOpen, swatchHover, swatchId, imgColour, hexInput, rgbInput]);
 
+  const initialMousePosition = { x: width / 2, y: height / 2 };
+  const initialSvgHeight = { clientHeight: 0, clientWidth: 0 };
+
+  const [mousePosition, setMousePosition] = useState(initialMousePosition);
+  const [svgHeight, setSvgHeight] = useState(initialSvgHeight);
+  const componentRef = useRef();
+  const svgRef = useRef();
+
+  const handleMouseMove = useCallback(
+    (event) => {
+      const { clientX, clientY, height, clientWidth } = event;
+
+      var bounds = event.currentTarget.getBoundingClientRect();
+
+      const context = svgRef.current.getContext("2d");
+
+      const x = clientX - bounds.left;
+      const y = clientY - bounds.top;
+
+      const { data } = context.getImageData(x, y, 1, 1);
+      console.log(data);
+      const color = `rgba(${data.join(",")})`;
+
+      console.log(color);
+
+      setMousePosition({ x: clientX - bounds.left, y: clientY - bounds.top });
+      setSvgHeight({
+        clientHeight: componentRef.current.offsetHeight,
+        clientWidth: componentRef.current.offsetWidth,
+      });
+    },
+    [setMousePosition]
+  );
+
   return (
     <li
       style={{
@@ -287,6 +335,33 @@ const SwatchAdderCard = ({
         }
       }}
     >
+      {imagePreview.length > 0 && (
+        <ModalWrapper
+          Component={
+            <div
+              className="image_preview"
+              ref={componentRef}
+              onMouseMove={handleMouseMove}
+            >
+              <svg
+                height={svgHeight.clientHeight}
+                width={svgHeight.clientWidth}
+                ref={svgRef}
+              >
+                <circle cx={mousePosition.x} cy={mousePosition.y} r={30} />
+              </svg>
+              <img src={imagePreview} />
+              <canvas
+                ref={svgRef}
+                style={{ cursor: "crosshair" }}
+                height={svgHeight.clientHeight}
+                width={svgHeight.clientWidth}
+              />
+            </div>
+          }
+        />
+      )}
+
       {(hexInput || rgbInput) && (
         <div className="back_arrow">
           <img
@@ -446,54 +521,21 @@ const SwatchAdderCard = ({
         </Fragment>
       )}
       {rgbInput && (
-        <Fragment>
-          <form
-            style={{ right: colourLoaded ? "28px" : "0" }}
-            className={`rgb_input`}
-            onSubmit={(e) => handleHexAdd(e)}
-          >
-            <input
-              value={rgbInputValue[0]}
-              onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
-              type="text"
-              id={"0"}
-              ref={rgbFocus1}
-            />
-            <input
-              value={rgbInputValue[1]}
-              onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
-              type="text"
-              id={"1"}
-              ref={rgbFocus2}
-            />
-            <input
-              value={rgbInputValue[2]}
-              onChange={(e) => applyRgbInput(e.target.value, e.target.id)}
-              type="text"
-              id={"2"}
-              ref={rgbFocus3}
-            />
-          </form>
-          <div
-            style={{ opacity: colourLoaded ? "1" : "0" }}
-            className="outer_svg"
-          >
-            <PlusHex
-              color={"white"}
-              colourLoaded={colourLoaded}
-              handleHexAdd={handRgbAdd}
-              rgbInput={rgbInput}
-            />
-          </div>
-        </Fragment>
+        <HexAdder
+          colourLoaded={colourLoaded}
+          handleHexAdd={handleHexAdd}
+          rgbInputValue={rgbInputValue}
+          applyRgbInput={applyRgbInput}
+          rgbFocus1={rgbFocus1}
+          rgbFocus2={rgbFocus2}
+          rgbFocus3={rgbFocus3}
+          PlusHex={PlusHex}
+          handRgbAdd={handRgbAdd}
+          rgbInput={rgbInput}
+        />
       )}
     </li>
   );
 };
 
 export default connect(null, { startAddSwatchToSwatchList })(SwatchAdderCard);
-
-// useEffect(() => {
-//   openMenu("swatch_adder", circleMenuArray, 2, 0, 40, "circle");
-//   setChoiceButtonDisplay("inline-block");
-// }, []);

@@ -52,7 +52,6 @@ const AdderRadialMenu = ({
     <g
       width={circleRadius * 2}
       height={circleRadius * 2}
-      // className={`action_circles`}
       transform={`translate(${centerX}, ${centerY})`}
       id={`${circleId}`}
       onMouseEnter={() => setHoverOpacity(true)}

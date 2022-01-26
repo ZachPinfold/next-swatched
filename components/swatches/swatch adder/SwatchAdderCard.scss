@@ -134,3 +134,17 @@
     z-index: 2;
   }
 }
+
+.image_preview {
+  min-width: 500px;
+
+  img {
+    max-width: 500px;
+  }
+
+  svg,
+  canvas {
+    // background-color: green;
+    position: absolute;
+  }
+}
