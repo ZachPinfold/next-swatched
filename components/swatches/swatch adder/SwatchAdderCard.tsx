@@ -29,6 +29,9 @@ import ColourAdderChoice from "../../radial menu/ColourAdderChoice";
 import { select } from "d3";
 import Plus from "../../../assets/images/Plus";
 import ModalWrapper from "../../Modal/ModalWrapper";
+import RgbAdder from "./RgbAdder";
+import HexAdder from "./HexAdder";
+import ImageDropper from "./ImageDropper";
 
 const circleMenuDecider = [
   { image: HashTagImage, text: "add" },
@@ -149,7 +152,7 @@ const SwatchAdderCard = ({
     }
   };
 
-  const handRgbAdd = (e: any) => {
+  const handleRgbAdd = (e: any) => {
     e.preventDefault();
     if (colourLoaded) startAddSwatchToSwatchList(imgColour);
     setRgbInput(false);
@@ -280,40 +283,6 @@ const SwatchAdderCard = ({
       }, 100);
   }, [menuOpen, swatchHover, swatchId, imgColour, hexInput, rgbInput]);
 
-  const initialMousePosition = { x: width / 2, y: height / 2 };
-  const initialSvgHeight = { clientHeight: 0, clientWidth: 0 };
-
-  const [mousePosition, setMousePosition] = useState(initialMousePosition);
-  const [svgHeight, setSvgHeight] = useState(initialSvgHeight);
-  const componentRef = useRef();
-  const svgRef = useRef();
-
-  const handleMouseMove = useCallback(
-    (event) => {
-      const { clientX, clientY, height, clientWidth } = event;
-
-      var bounds = event.currentTarget.getBoundingClientRect();
-
-      const context = svgRef.current.getContext("2d");
-
-      const x = clientX - bounds.left;
-      const y = clientY - bounds.top;
-
-      const { data } = context.getImageData(x, y, 1, 1);
-      console.log(data);
-      const color = `rgba(${data.join(",")})`;
-
-      console.log(color);
-
-      setMousePosition({ x: clientX - bounds.left, y: clientY - bounds.top });
-      setSvgHeight({
-        clientHeight: componentRef.current.offsetHeight,
-        clientWidth: componentRef.current.offsetWidth,
-      });
-    },
-    [setMousePosition]
-  );
-
   return (
     <li
       style={{
@@ -337,28 +306,7 @@ const SwatchAdderCard = ({
     >
       {imagePreview.length > 0 && (
         <ModalWrapper
-          Component={
-            <div
-              className="image_preview"
-              ref={componentRef}
-              onMouseMove={handleMouseMove}
-            >
-              <svg
-                height={svgHeight.clientHeight}
-                width={svgHeight.clientWidth}
-                ref={svgRef}
-              >
-                <circle cx={mousePosition.x} cy={mousePosition.y} r={30} />
-              </svg>
-              <img src={imagePreview} />
-              <canvas
-                ref={svgRef}
-                style={{ cursor: "crosshair" }}
-                height={svgHeight.clientHeight}
-                width={svgHeight.clientWidth}
-              />
-            </div>
-          }
+          Component={<ImageDropper imagePreview={imagePreview} />}
         />
       )}
 
@@ -484,53 +432,24 @@ const SwatchAdderCard = ({
       />
 
       {hexInput && (
-        <Fragment>
-          <form
-            style={{ right: colourLoaded ? "20px" : "0" }}
-            className={`hex_input`}
-            onSubmit={(e) => handleHexAdd(e)}
-          >
-            <span style={{ opacity: hexInputValue.length > 0 ? "1" : "0" }}>
-              #
-            </span>
-            <input
-              value={hexInputValue}
-              onChange={(e) => applyHexInput(e.target.value)}
-              type="text"
-              placeholder="# add hex"
-              style={{
-                padding:
-                  hexInputValue.length < 1
-                    ? "4px 6px 4px 6px"
-                    : "4px 6px 4px 15px",
-              }}
-              ref={hexFocus}
-            />
-          </form>
-          <div
-            style={{ opacity: colourLoaded ? "1" : "0" }}
-            className="outer_svg"
-          >
-            <PlusHex
-              color={"white"}
-              colourLoaded={colourLoaded}
-              handleHexAdd={handleHexAdd}
-              rgbInput={rgbInput}
-            />
-          </div>
-        </Fragment>
-      )}
-      {rgbInput && (
         <HexAdder
           colourLoaded={colourLoaded}
           handleHexAdd={handleHexAdd}
+          hexInputValue={hexInputValue}
+          applyHexInput={applyHexInput}
+          hexFocus={hexFocus}
+          rgbInput={rgbInput}
+        />
+      )}
+      {rgbInput && (
+        <RgbAdder
+          colourLoaded={colourLoaded}
           rgbInputValue={rgbInputValue}
           applyRgbInput={applyRgbInput}
           rgbFocus1={rgbFocus1}
           rgbFocus2={rgbFocus2}
           rgbFocus3={rgbFocus3}
-          PlusHex={PlusHex}
-          handRgbAdd={handRgbAdd}
+          handleRgbAdd={handleRgbAdd}
           rgbInput={rgbInput}
         />
       )}
