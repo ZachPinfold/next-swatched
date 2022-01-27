@@ -32,6 +32,7 @@ import ModalWrapper from "../../Modal/ModalWrapper";
 import RgbAdder from "./RgbAdder";
 import HexAdder from "./HexAdder";
 import ImageDropper from "./ImageDropper";
+import { startShowModal } from "../../../actions/layout";
 
 const circleMenuDecider = [
   { image: HashTagImage, text: "add" },
@@ -48,12 +49,18 @@ interface SwatchTypes {
   startAddSwatchToSwatchList: (rgb: number[]) => void;
   setSwatchId: (swatchId: string) => void;
   swatchId: string;
+  startShowModal: (modal: boolean, type: string) => void;
+  showModal: boolean;
+  modalType: string;
 }
 
 const SwatchAdderCard = ({
   startAddSwatchToSwatchList,
   swatchId,
   setSwatchId,
+  startShowModal,
+  showModal,
+  modalType,
 }: SwatchTypes) => {
   const [hexInputValue, setHexInputValue] = useState<string>("");
   const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
@@ -168,7 +175,10 @@ const SwatchAdderCard = ({
   };
 
   const handleImageCapture = async () => {
+    console.log("click");
+
     inputFileRef.current.click();
+    startShowModal(true, "imageCapture");
   };
 
   const closeMenu = (arrayToClose: SwatchCircleInput[]) => {
@@ -213,6 +223,8 @@ const SwatchAdderCard = ({
   ];
 
   const handleImageCropAndColour = (target: HTMLInputElement) => {
+    console.log("target.files");
+
     if (target.files && target.files.length !== 0) {
       const file: File = target.files[0];
       const imageFile = URL.createObjectURL(file);
@@ -222,6 +234,8 @@ const SwatchAdderCard = ({
     // cropImage(target, setImageColour);
     // closeMenu(circleMenuArray);
   };
+
+  console.log(inputFileRef);
 
   const editImageSelection = () => {
     circleMenuDecider.forEach((e, i) => {
@@ -283,6 +297,12 @@ const SwatchAdderCard = ({
       }, 100);
   }, [menuOpen, swatchHover, swatchId, imgColour, hexInput, rgbInput]);
 
+  useEffect(() => {
+    console.log(showModal);
+
+    !showModal && setImagePreview("");
+  }, [showModal]);
+
   return (
     <li
       style={{
@@ -304,8 +324,9 @@ const SwatchAdderCard = ({
         }
       }}
     >
-      {imagePreview.length > 0 && (
+      {imagePreview.length > 0 && showModal && (
         <ModalWrapper
+          showModal={startShowModal}
           Component={<ImageDropper imagePreview={imagePreview} />}
         />
       )}
@@ -428,6 +449,9 @@ const SwatchAdderCard = ({
         type="file"
         capture="environment"
         onChange={(e) => handleImageCropAndColour(e.target)}
+        onClick={(event: any) => {
+          event.target.value = null;
+        }}
         ref={inputFileRef}
       />
 
@@ -457,4 +481,17 @@ const SwatchAdderCard = ({
   );
 };
 
-export default connect(null, { startAddSwatchToSwatchList })(SwatchAdderCard);
+interface StateProps {
+  showModal: boolean;
+  modalType: string;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  showModal: state.layout.modal,
+  modalType: state.layout.modalType,
+});
+
+export default connect(mapStateToProps, {
+  startAddSwatchToSwatchList,
+  startShowModal,
+})(SwatchAdderCard);

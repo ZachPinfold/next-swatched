@@ -9,27 +9,41 @@ import React, {
 import { renderToStaticMarkup } from "react-dom/server";
 import useResizeAware from "react-resize-aware";
 
-const ImageDropper = ({ imagePreview }) => {
-  const initialMousePosition = { x: 0, y: 0 };
+interface WidthHeight {
+  width: number;
+  height: number;
+}
+
+interface MouseHover {
+  pageX: number;
+  pageY: number;
+  target: { offsetLeft: number; offsetTop: number };
+}
+
+const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
+  // console.log(imagePreview);
+
   const initialSvgHeight = { height: 0, width: 0 };
   const width = 300;
   const height = 300;
 
-  const divRef = createRef();
+  const divRef = createRef<any>();
 
-  const [mousePosition, setMousePosition] = useState(initialMousePosition);
-  const [outerHeight, setOuterHeight] = useState(initialSvgHeight);
-  const componentRef = useRef(initialSvgHeight);
-  const svgRef = useRef();
+  const [outerHeight, setOuterHeight] = useState<WidthHeight>(initialSvgHeight);
   const canvasRef = useRef(null);
-  const [imageUrl, setImageUrl] = useState(null);
   const { devicePixelRatio } = window;
-  const publicImageUrl = "https://picsum.photos/id/1005/640/640";
-  const [first, setfirst] = useState(null);
+  const [previewColour, setPreviewColour] = useState<null | string>(null);
 
   const [resizeListener, sizes] = useResizeAware();
 
-  const SVG = ({ imageSrc, ...props }) => (
+  const SVG = ({
+    imageSrc,
+    ...props
+  }: {
+    imageSrc: string;
+    width: number;
+    height: number;
+  }) => (
     <svg
       focusable={false}
       xmlns="http://www.w3.org/2000/svg"
@@ -44,32 +58,31 @@ const ImageDropper = ({ imagePreview }) => {
   useEffect(() => {
     const { width, height } = sizes;
 
-    setOuterHeight({
-      height,
-      width,
-    });
+    if (width && height) {
+      setOuterHeight({
+        height,
+        width,
+      });
+    }
   }, [sizes]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const canvas: any = canvasRef.current;
+    let context: any;
 
-    console.log(outerHeight);
-
+    if (canvas != null) {
+      context = canvas.getContext("2d");
+    }
     const { width, height } = outerHeight;
 
     canvas.width = width;
     canvas.height = height;
-    // canvas.style.width = `${width}px`;
-    // canvas.style.height = `${height}px`;
 
     const fetchImage = async () => {
       const res = await fetch(imagePreview);
-      const blob = await res.blob();
+      const blob: any = await res.blob();
 
-      const blobSrc = await blob2base64(blob);
-
-      console.log(blob);
+      const blobSrc: any = await blob2base64(blob);
 
       await loadImage(blobSrc);
 
@@ -81,54 +94,66 @@ const ImageDropper = ({ imagePreview }) => {
 
       await loadImage(imageSrc, img);
 
-      setImageUrl(imageSrc);
-
       context.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
 
     fetchImage();
   }, [outerHeight.width]);
 
-  const loadImage = (src, img = new Image()) =>
+  const loadImage = (src: string, img = new Image()) =>
     new Promise((resolve) => {
       img.addEventListener("load", resolve, false);
 
       img.src = src;
     });
 
-  const blob2base64 = (blob) =>
+  const blob2base64 = (blob: any) =>
     new Promise((resolve) => {
       const reader = new FileReader();
 
       reader.onload = (event) => {
-        resolve(event.target.result);
+        event.target && resolve(event.target.result);
       };
 
       reader.readAsDataURL(blob);
     });
 
-  const handleMouseMove = ({
-    pageX,
-    pageY,
-    target: { offsetLeft, offsetTop },
-  }) => {
-    const context = canvasRef.current.getContext("2d");
+  const handleMouseMove = (e: any) => {
+    const {
+      pageX,
+      pageY,
+      target: { offsetLeft, offsetTop },
+    }: MouseHover = e;
+
+    const canvas: any = canvasRef.current;
+    let context: any;
+
+    if (canvasRef.current != null) {
+      context = canvas.getContext("2d");
+    }
+
     const x = (pageX - offsetLeft) * devicePixelRatio;
     const y = (pageY - offsetTop) * devicePixelRatio;
     const { data } = context.getImageData(x, y, 1, 1);
     const color = `rgba(${data.join(",")})`;
 
-    document.body.style.backgroundColor = color;
+    setPreviewColour(color);
   };
 
   return (
     <Fragment>
+      <div
+        style={{ backgroundColor: previewColour ? previewColour : "grey" }}
+        className="colour_preview"
+      >
+        <h4>Click to save to your swatch</h4>
+      </div>
       <canvas
         ref={canvasRef}
         style={{ cursor: "crosshair" }}
         width={width}
         height={height}
-        onMouseMove={handleMouseMove}
+        onMouseMove={(e) => handleMouseMove(e)}
       />
       <div className="outer_image_dropper" ref={divRef}>
         {resizeListener}
@@ -136,52 +161,6 @@ const ImageDropper = ({ imagePreview }) => {
       </div>
     </Fragment>
   );
-  // <div
-  //   className="image_preview"
-  //   ref={componentRef}
-  //   onMouseMove={handleMouseMove}
-  // >
-  //   <svg
-  //     height={svgHeight.clientHeight}
-  //     width={svgHeight.clientWidth}
-  //     ref={svgRef}
-  //   >
-  //     <circle cx={mousePosition.x} cy={mousePosition.y} r={30} />
-  //   </svg>
-  //   <img src={imagePreview} />
-  //   <canvas
-  //     ref={svgRef}
-  //     style={{ cursor: "crosshair" }}
-  //     height={svgHeight.clientHeight}
-  //     width={svgHeight.clientWidth}
-  //   />
-  // </div>
 };
 
 export default ImageDropper;
-
-// const handleMouseMove = useCallback(
-//     (event) => {
-//       const { clientX, clientY, height, clientWidth } = event;
-
-//       var bounds = event.currentTarget.getBoundingClientRect();
-
-//       const context = svgRef.current.getContext("2d");
-
-//       const x = clientX - bounds.left;
-//       const y = clientY - bounds.top;
-
-//       const { data } = context.getImageData(x, y, 1, 1);
-//       console.log(data);
-//       const color = `rgba(${data.join(",")})`;
-
-//       console.log(color);
-
-//       setMousePosition({ x: clientX - bounds.left, y: clientY - bounds.top });
-//       setSvgHeight({
-//         clientHeight: componentRef.current.offsetHeight,
-//         clientWidth: componentRef.current.offsetWidth,
-//       });
-//     },
-//     [setMousePosition]
-//   );
