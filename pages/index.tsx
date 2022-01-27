@@ -17,8 +17,9 @@ import {
   startClearHomepageSwatches,
   startGetHomepageSwatches,
 } from "../actions/homepage";
-import { startShowModal } from "../actions/layout";
+import { startIsResponsive, startShowModal } from "../actions/layout";
 import { buildNoneAuthColors } from "../utils/swatch";
+import Responsive from "../components/utils/Responsive";
 
 interface InitialSwatch {
   swatches: any[];
@@ -35,6 +36,7 @@ interface InitialSwatch {
   modalType: string;
   isAuthenticatedLoading: boolean;
   isAuthenticated: boolean;
+  startIsResponsive: (isLarge: boolean) => void;
 }
 
 const Home = ({
@@ -48,6 +50,7 @@ const Home = ({
   modalType,
   isAuthenticated,
   isAuthenticatedLoading,
+  startIsResponsive,
 }: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
@@ -65,6 +68,8 @@ const Home = ({
   const [initialLoad, setInitialLoad] = useState<boolean>(false);
   const discoverSwatchRef = useRef<Boolean>(false);
   const refreshRef = useRef<Boolean>(false);
+
+  Responsive(startIsResponsive);
 
   useEffect(() => {
     discoverSwatches.length == 0 && startGetHomepageSwatches();
@@ -197,4 +202,5 @@ export default connect(mapStateToProps, {
   startGetHomepageSwatches,
   startClearHomepageSwatches,
   startShowModal,
+  startIsResponsive,
 })(Home);

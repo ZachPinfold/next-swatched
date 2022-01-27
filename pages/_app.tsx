@@ -13,15 +13,9 @@ import { startLoadUser } from "../actions/auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  console.log(router.asPath);
-
-  const [compact, setCompact] = useState(false);
-
   useEffect(() => {
     store.dispatch(startLoadUser() as any);
   }, []);
-
-  console.log(router);
 
   return (
     <Provider store={store}>
@@ -32,13 +26,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       )}
 
-      <img
+      {/* <img
         style={{ opacity: compact ? "1" : "0" }}
         className="to_top_img"
         src={ToTopImage.src}
         alt="back_to_top_img"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      />
+      /> */}
       <Footer />
     </Provider>
   );

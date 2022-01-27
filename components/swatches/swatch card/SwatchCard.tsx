@@ -65,12 +65,12 @@ const SwatchCard = ({
   const centerX = width / 2 - circleRadius;
 
   const widthChange = () => {
-    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   };
 
   useEffect(() => {
     window.addEventListener("resize", widthChange, true);
-    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
 
   const setCompareClick = () => {

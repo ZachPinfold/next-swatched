@@ -68,20 +68,23 @@ export const hexToRgb = (hex: string) => {
 
 export const calculateDimensionsOnWindowChange = (
   widthRef: string | null,
-  setLargeWindowSize: (size: boolean | null) => void
+  startIsResponsive: (size: boolean) => void,
+  setRef: (size: string) => void
 ) => {
+  console.log(setRef);
+
   switch (true) {
     case window.innerWidth >= 525:
       if (widthRef !== "large") {
-        setLargeWindowSize(true);
+        startIsResponsive(true);
       }
-      widthRef = "large";
+      setRef("large");
       break;
     case window.innerWidth < 525:
       if (widthRef !== "small") {
-        setLargeWindowSize(false);
+        startIsResponsive(false);
       }
-      widthRef = "small";
+      setRef("small");
       break;
     default:
       break;

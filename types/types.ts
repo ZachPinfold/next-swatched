@@ -20,6 +20,7 @@ export const DELETE_SWATCH = "DELETE_SWATCH";
 
 export const SET_COMPACT_SCREEN = "SET_COMPACT_SCREEN";
 export const SET_SHOW_MODAL = "SET_SHOW_MODAL";
+export const SET_RESPONSIVE_SIZE = "SET_RESPONSIVE_SIZE";
 
 // HOME
 
@@ -94,7 +95,12 @@ export interface ModalAction {
   payload: { isCompact: boolean; modalType: string };
 }
 
-export type LayoutActions = IsCompactAction | ModalAction;
+export interface ResponsiveAction {
+  type: typeof SET_RESPONSIVE_SIZE;
+  payload: boolean;
+}
+
+export type LayoutActions = IsCompactAction | ModalAction | ResponsiveAction;
 
 // HOMEPAGE
 

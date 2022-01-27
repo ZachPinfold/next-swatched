@@ -14,6 +14,8 @@ import LockedImage from "../assets/images/LockedSwatch";
 import CopySwatch from "../assets/images/CopySwatch";
 import DeleteSwatch from "../assets/images/DeleteSwatch";
 import Plus from "../assets/images/Plus";
+import Responsive from "../components/utils/Responsive";
+import { startIsResponsive } from "../actions/layout";
 
 interface Actions {
   startGetUserSwatches: (
@@ -22,6 +24,7 @@ interface Actions {
     isInitialLoad: boolean
   ) => void;
   swatches: SwatchObject[];
+  startIsResponsive: (isLarge: boolean) => void;
 }
 
 const tutorialObjectArray: TutTypes[] = [
@@ -30,7 +33,11 @@ const tutorialObjectArray: TutTypes[] = [
   { img: DeleteSwatch, text: "delete a swatch" },
 ];
 
-const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
+const swatchPage = ({
+  startGetUserSwatches,
+  swatches,
+  startIsResponsive,
+}: Actions) => {
   let refFilterId = "dropdown_filter";
   let refTutorialId = "dropdown_tutorial";
 
@@ -50,7 +57,7 @@ const swatchPage = ({ startGetUserSwatches, swatches }: Actions) => {
     rgb: [197, 199, 196],
   });
 
-  // console.log(isTutClickedOutside);
+  Responsive(startIsResponsive);
 
   useEffect(() => {
     startGetUserSwatches("", "all", true);
@@ -198,4 +205,7 @@ const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
 });
 
-export default connect(mapStateToProps, { startGetUserSwatches })(swatchPage);
+export default connect(mapStateToProps, {
+  startGetUserSwatches,
+  startIsResponsive,
+})(swatchPage);

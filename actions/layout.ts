@@ -14,6 +14,11 @@ export const showModal = (
   payload: { isCompact, modalType },
 });
 
+export const isLargeWindow = (isLarge: boolean): LayoutActions => ({
+  type: "SET_RESPONSIVE_SIZE",
+  payload: isLarge,
+});
+
 export const startIsCompact =
   (isCompact: number) => async (dispatch: Dispatch<LayoutActions>) => {
     const isScreenCompact: boolean = isCompact >= 75;
@@ -30,6 +35,15 @@ export const startShowModal =
   async (dispatch: Dispatch<LayoutActions>) => {
     try {
       dispatch(showModal(openModal, modalType));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const startIsResponsive =
+  (isLarge: boolean) => async (dispatch: Dispatch<LayoutActions>) => {
+    try {
+      dispatch(isLargeWindow(isLarge));
     } catch (error) {
       console.log(error);
     }

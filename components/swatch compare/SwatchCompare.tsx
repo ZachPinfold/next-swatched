@@ -39,12 +39,12 @@ const SwatchSelector = ({
   const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
 
   const widthChange = () => {
-    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   };
 
   useEffect(() => {
     window.addEventListener("resize", widthChange, true);
-    calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
+    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
   }, [calculateDimensionsOnWindowChange]);
 
   const handleProgressClick = (index: number) => {

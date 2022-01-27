@@ -4,12 +4,14 @@ export interface LayoutAction {
   isCompact: boolean;
   modal: boolean;
   modalType: string;
+  isLargeWindowSize: boolean;
 }
 
 const inititalState: LayoutAction = {
   isCompact: false,
   modal: false,
   modalType: "",
+  isLargeWindowSize: true,
 };
 
 const layout = (
@@ -21,6 +23,11 @@ const layout = (
       return {
         ...state,
         isCompact: action.payload,
+      };
+    case "SET_RESPONSIVE_SIZE":
+      return {
+        ...state,
+        isLargeWindowSize: action.payload,
       };
     case "SET_SHOW_MODAL":
       return {
