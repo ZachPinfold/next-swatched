@@ -14,14 +14,10 @@ import UploadImage from "../../../assets/images/upload_swatch.svg";
 import RGBImage from "../../../assets/images/rgb_swatch.svg";
 
 import {
-  calculateDimensionsOnWindowChange,
   checkIfRgb,
-  cropImage,
-  getContrastYIQ,
   hexToRgb,
   isHexColor,
   openMenu,
-  rgbToHex,
 } from "../../../utils/swatch";
 import AdderRadialMenu from "../../radial menu/AdderRadialMenu";
 import { closeMenuOnHoverLeaveD3, openCircleMenuD3 } from "../../../utils/d3";
@@ -52,6 +48,7 @@ interface SwatchTypes {
   startShowModal: (modal: boolean, type: string) => void;
   showModal: boolean;
   modalType: string;
+  largeWindowSize: boolean;
 }
 
 const SwatchAdderCard = ({
@@ -59,6 +56,7 @@ const SwatchAdderCard = ({
   swatchId,
   setSwatchId,
   startShowModal,
+  largeWindowSize,
   showModal,
   modalType,
 }: SwatchTypes) => {
@@ -66,8 +64,7 @@ const SwatchAdderCard = ({
   const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
   const [colourLoaded, setColourLoaded] = useState<boolean>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-  const widthRef = useRef<string | null>(null);
-  const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
+
   const [swatchHover, setSwatchHover] = useState<boolean | string>(false);
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
@@ -91,15 +88,6 @@ const SwatchAdderCard = ({
   const circleRadius = 35;
   const centerY = height / 2 - circleRadius;
   const centerX = width / 2 - circleRadius;
-
-  const widthChange = () => {
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", widthChange, true);
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  }, [calculateDimensionsOnWindowChange]);
 
   const applyHexInput = (e: string) => {
     const str: string = e.replace("#", "");
@@ -484,11 +472,13 @@ const SwatchAdderCard = ({
 interface StateProps {
   showModal: boolean;
   modalType: string;
+  largeWindowSize: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   showModal: state.layout.modal,
   modalType: state.layout.modalType,
+  largeWindowSize: state.layout.isLargeWindowSize,
 });
 
 export default connect(mapStateToProps, {

@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Plus from "../../assets/images/Plus";
 import Minus from "../../assets/images/Minus";
 import expandImage from "../../assets/images/arrow_swatch.svg";
 import CompareCard from "./CompareCard";
-import { calculateDimensionsOnWindowChange } from "../../utils/swatch";
 import { connect } from "react-redux";
 
 interface Actions {
@@ -19,6 +18,7 @@ interface Actions {
   setSwatchToCompare: (color: number[]) => void;
   selectSwatchToCompareRef: any;
   isCompact: boolean;
+  largeWindowSize: boolean;
 }
 
 const SwatchSelector = ({
@@ -34,19 +34,8 @@ const SwatchSelector = ({
   setSwatchToCompare,
   selectSwatchToCompareRef,
   isCompact,
+  largeWindowSize,
 }: Actions) => {
-  const widthRef = useRef<string | null>(null);
-  const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
-
-  const widthChange = () => {
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", widthChange, true);
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  }, [calculateDimensionsOnWindowChange]);
-
   const handleProgressClick = (index: number) => {
     setNumberOfSwatches(index + 1);
   };
@@ -185,10 +174,12 @@ const SwatchSelector = ({
 
 interface StateProps {
   isCompact: boolean;
+  largeWindowSize: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   isCompact: state.layout.isCompact,
+  largeWindowSize: state.layout.isLargeWindowSize,
 });
 
 export default connect(mapStateToProps, {})(SwatchSelector);

@@ -1,9 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  calculateDimensionsOnWindowChange,
-  openMenu,
-  rgbToHex,
-} from "../../../utils/swatch";
+import { openMenu, rgbToHex } from "../../../utils/swatch";
 import LockedImage from "../../../assets/images/locked_swatch.svg";
 import CopyImage from "../../../assets/images/copy_swatch.svg";
 import DeleteImage from "../../../assets/images/delete_swatch.svg";
@@ -30,6 +26,7 @@ interface SwatchTypes {
   setSwatchId: (swatchId: string) => void;
   swatchId: string;
   frontPage: boolean;
+  largeWindowSize: boolean;
 }
 
 const SwatchCard = ({
@@ -47,14 +44,13 @@ const SwatchCard = ({
   setSwatchId,
   // Front page cards behave slightly differenty, and will be based on this condition
   frontPage,
+  largeWindowSize,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
   const [swatchHover, setSwatchHover] = useState<boolean | string>(false);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const widthRef = useRef<string | null>(null);
-  const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
 
   const circleId: string = `circle_${swatch.colourId}`;
 
@@ -63,15 +59,6 @@ const SwatchCard = ({
   const circleRadius = 35;
   const centerY = height / 2 - circleRadius;
   const centerX = width / 2 - circleRadius;
-
-  const widthChange = () => {
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", widthChange, true);
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  }, [calculateDimensionsOnWindowChange]);
 
   const setCompareClick = () => {
     if (openState) {
@@ -228,4 +215,14 @@ const SwatchCard = ({
   );
 };
 
-export default connect(null, { startDeleteSwatchFromSwatchList })(SwatchCard);
+interface StateProps {
+  largeWindowSize: boolean;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  largeWindowSize: state.layout.isLargeWindowSize,
+});
+
+export default connect(mapStateToProps, { startDeleteSwatchFromSwatchList })(
+  SwatchCard
+);

@@ -1,19 +1,14 @@
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import refreshIcon from "../../assets/images/refresh_icon.svg";
 import HomepageSwatchCard from "./swatch card/HomepageSwatchCard";
 import SaveImage from "../../assets/images/save_swatch.svg";
 import CopyImage from "../../assets/images/copy_swatch.svg";
 import LockedImage from "../../assets/images/locked_swatch.svg";
 
-import {
-  calculateDimensionsOnWindowChange,
-  rgbToHex,
-} from "../../utils/swatch";
+import { rgbToHex } from "../../utils/swatch";
 import { startAddSwatchToSwatchList } from "../../actions/swatch";
 import { connect } from "react-redux";
 import { CardHover } from "../../types/swatches";
-// Apply any to allow for includes() function
 
 interface Swatches {
   swatches: any[];
@@ -21,6 +16,7 @@ interface Swatches {
   lockedSwatches: number[][];
   initialLoadRef: any;
   startAddSwatchToSwatchList: (rgb: number[]) => void;
+  largeWindowSize: boolean;
 }
 
 const SwatchPicker = ({
@@ -29,20 +25,10 @@ const SwatchPicker = ({
   lockedSwatches,
   startAddSwatchToSwatchList,
   initialLoadRef,
+  largeWindowSize,
 }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
   const [clicked, setClicked] = useState<boolean>(false);
-  const [largeWindowSize, setLargeWindowSize] = useState<Boolean | null>(null);
-  const widthRef = useRef<string | null>(null);
-
-  const widthChange = () => {
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", widthChange, true);
-    // calculateDimensionsOnWindowChange(widthRef.current, setLargeWindowSize);
-  }, [calculateDimensionsOnWindowChange]);
 
   const copyToClip = (swatch: number[]) => {
     navigator.clipboard.writeText(rgbToHex(swatch));
@@ -113,4 +99,14 @@ const SwatchPicker = ({
   );
 };
 
-export default connect(null, { startAddSwatchToSwatchList })(SwatchPicker);
+interface StateProps {
+  largeWindowSize: boolean;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  largeWindowSize: state.layout.isLargeWindowSize,
+});
+
+export default connect(mapStateToProps, { startAddSwatchToSwatchList })(
+  SwatchPicker
+);
