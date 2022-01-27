@@ -146,7 +146,7 @@ const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
         style={{ backgroundColor: previewColour ? previewColour : "grey" }}
         className="colour_preview"
       >
-        <h4>Click to save to your swatch</h4>
+        <h4>Press down to save to your swatch</h4>
       </div>
       <canvas
         ref={canvasRef}
@@ -154,6 +154,7 @@ const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
         width={width}
         height={height}
         onMouseMove={(e) => handleMouseMove(e)}
+        className="modal_canvas"
       />
       <div className="outer_image_dropper" ref={divRef}>
         {resizeListener}

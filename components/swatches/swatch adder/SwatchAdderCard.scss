@@ -135,6 +135,16 @@
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .imageCapture_wrapper {
+    max-width: 90vw;
+    padding: 10px !important;
+  }
+  .modal_canvas {
+    width: 100% !important;
+  }
+}
+
 .outer_image_dropper {
   max-width: 500px;
   position: absolute;
