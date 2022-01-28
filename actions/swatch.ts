@@ -54,6 +54,8 @@ export const startGetUserSwatches =
 
 export const startAddSwatchToSwatchList =
   (rgbColour: number[]) => async (dispatch: any) => {
+    console.log(rgbColour);
+
     try {
       const uniqueId: string = v4();
 

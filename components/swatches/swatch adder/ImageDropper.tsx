@@ -7,7 +7,9 @@ import React, {
   useState,
 } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { connect } from "react-redux";
 import useResizeAware from "react-resize-aware";
+import { startAddSwatchToSwatchList } from "../../../actions/swatch";
 
 interface WidthHeight {
   width: number;
@@ -20,7 +22,13 @@ interface MouseHover {
   target: { offsetLeft: number; offsetTop: number };
 }
 
-const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
+const ImageDropper = ({
+  imagePreview,
+  startAddSwatchToSwatchList,
+}: {
+  imagePreview: string;
+  startAddSwatchToSwatchList: (rgb: number[]) => any;
+}) => {
   // console.log(imagePreview);
 
   const initialSvgHeight = { height: 0, width: 0 };
@@ -32,8 +40,7 @@ const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
   const [outerHeight, setOuterHeight] = useState<WidthHeight>(initialSvgHeight);
   const canvasRef = useRef(null);
   const { devicePixelRatio } = window;
-  const [previewColour, setPreviewColour] = useState<null | string>(null);
-
+  const [previewColour, setPreviewColour] = useState<null | number[]>(null);
   const [resizeListener, sizes] = useResizeAware();
 
   const SVG = ({
@@ -135,18 +142,27 @@ const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
     const x = (pageX - offsetLeft) * devicePixelRatio;
     const y = (pageY - offsetTop) * devicePixelRatio;
     const { data } = context.getImageData(x, y, 1, 1);
-    const color = `rgba(${data.join(",")})`;
 
-    setPreviewColour(color);
+    setPreviewColour(data.join(",").split(",").map(Number));
+  };
+
+  const handleMouseDown = () => {
+    if (previewColour) {
+      previewColour;
+      const poppedColour = previewColour.slice(0, -1);
+      startAddSwatchToSwatchList(poppedColour);
+    }
   };
 
   return (
     <Fragment>
       <div
-        style={{ backgroundColor: previewColour ? previewColour : "grey" }}
+        style={{
+          backgroundColor: previewColour ? `rgba(${previewColour})` : "grey",
+        }}
         className="colour_preview"
       >
-        <h4>Press down to save to your swatch</h4>
+        <h4>Press down to save colour</h4>
       </div>
       <canvas
         ref={canvasRef}
@@ -155,6 +171,7 @@ const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
         height={height}
         onMouseMove={(e) => handleMouseMove(e)}
         className="modal_canvas"
+        onMouseDown={handleMouseDown}
       />
       <div className="outer_image_dropper" ref={divRef}>
         {resizeListener}
@@ -164,4 +181,4 @@ const ImageDropper = ({ imagePreview }: { imagePreview: string }) => {
   );
 };
 
-export default ImageDropper;
+export default connect(null, { startAddSwatchToSwatchList })(ImageDropper);
