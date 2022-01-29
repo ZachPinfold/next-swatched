@@ -82,6 +82,8 @@ const ImageDropper = ({
     }
     const { width, height } = outerHeight;
 
+    console.log(height);
+
     canvas.width = width;
     canvas.height = height;
 
@@ -148,8 +150,8 @@ const ImageDropper = ({
 
     console.log(bounds.top);
 
-    const x = (clientX - bounds.left) * 1;
-    const y = clientY - bounds.top - (largeWindowSize ? 0 : -15);
+    const x = clientX - bounds.left - (largeWindowSize ? 0 : -7);
+    const y = clientY - bounds.top - (largeWindowSize ? 0 : -10);
     const { data } = context.getImageData(x, y, 1, 1);
 
     setPreviewColour(data.join(",").split(",").map(Number));
