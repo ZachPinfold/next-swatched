@@ -29,6 +29,7 @@ import RgbAdder from "./RgbAdder";
 import HexAdder from "./HexAdder";
 import ImageDropper from "./ImageDropper";
 import { startShowModal } from "../../../actions/layout";
+import AddImageButton from "./AddImageButton";
 
 const circleMenuDecider = [
   { image: HashTagImage, text: "add" },
@@ -80,6 +81,8 @@ const SwatchAdderCard = ({
   const rgbFocus1 = useRef<any>();
   const rgbFocus2 = useRef<any>();
   const rgbFocus3 = useRef<any>();
+
+  const buttonClickRef = useRef<any>();
 
   const rgbFocusArray = [rgbFocus1, rgbFocus2, rgbFocus3];
 
@@ -157,16 +160,17 @@ const SwatchAdderCard = ({
   };
 
   const handleImageAdd = () => {
-    setImageColour([]);
     startAddSwatchToSwatchList(imgColour);
     setMenuOpen(false);
   };
 
   const handleImageCapture = async () => {
-    console.log("click");
-
-    inputFileRef.current.click();
+    setImageColour([]);
+    console.log(buttonClickRef);
+    buttonClickRef.current.click();
     startShowModal(true, "imageCapture");
+    // inputFileRef.current.click();
+    // startShowModal(true, "imageCapture");
   };
 
   const closeMenu = (arrayToClose: SwatchCircleInput[]) => {
@@ -222,8 +226,6 @@ const SwatchAdderCard = ({
     // cropImage(target, setImageColour);
     // closeMenu(circleMenuArray);
   };
-
-  console.log(inputFileRef);
 
   const editImageSelection = () => {
     circleMenuDecider.forEach((e, i) => {
@@ -286,10 +288,37 @@ const SwatchAdderCard = ({
   }, [menuOpen, swatchHover, swatchId, imgColour, hexInput, rgbInput]);
 
   useEffect(() => {
-    console.log(showModal);
-
     !showModal && setImagePreview("");
   }, [showModal]);
+
+  const onImage = async (failedImages, successImages) => {
+    // if (!url) {
+    //   console.log("missing Url");
+    //   setErrorMessage("missing a url to upload to");
+    //   setProgress("uploadError");
+    //   return;
+    // }
+
+    // setProgress("uploading");
+
+    try {
+      console.log("successImages", successImages);
+      const parts = successImages[0].split(";");
+      const mime = parts[0].split(":")[1];
+      const name = parts[1].split("=")[1];
+      const data = parts[2];
+      console.log(successImages);
+
+      // const res = await Axios.post(url, { mime, name, image: data });
+
+      // setImageURL(res.data.imageURL);
+      // setProgress("uploaded");
+    } catch (error) {
+      // console.log("error in upload", error);
+      // setErrorMessage(error.message);
+      // setProgress("uploadError");
+    }
+  };
 
   return (
     <li
@@ -312,7 +341,7 @@ const SwatchAdderCard = ({
         }
       }}
     >
-      {imagePreview.length > 0 && showModal && (
+      {imagePreview.dataURL && showModal && (
         <ModalWrapper
           showModal={startShowModal}
           Component={<ImageDropper imagePreview={imagePreview} />}
@@ -453,6 +482,10 @@ const SwatchAdderCard = ({
           rgbInput={rgbInput}
         />
       )}
+      <AddImageButton
+        buttonClickRef={buttonClickRef}
+        setImagePreview={setImagePreview}
+      />
       {rgbInput && (
         <RgbAdder
           colourLoaded={colourLoaded}

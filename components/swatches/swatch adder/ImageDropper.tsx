@@ -86,10 +86,12 @@ const ImageDropper = ({
     canvas.height = height;
 
     const fetchImage = async () => {
-      const res = await fetch(imagePreview);
+      const res = await fetch(imagePreview.dataURL);
       const blob: any = await res.blob();
 
       const blobSrc: any = await blob2base64(blob);
+
+      console.log(blobSrc);
 
       await loadImage(blobSrc);
 
@@ -178,7 +180,7 @@ const ImageDropper = ({
       />
       <div className="outer_image_dropper" ref={divRef}>
         {resizeListener}
-        <img src={imagePreview} ref={divRef} />
+        <img width="300" src={imagePreview} ref={divRef} />
       </div>
     </Fragment>
   );
