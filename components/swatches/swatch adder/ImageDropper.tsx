@@ -150,6 +150,8 @@ const ImageDropper = ({
     setPreviewColour(data.join(",").split(",").map(Number));
   };
 
+  console.log(imagePreview.dataURL);
+
   const handleMouseDown = () => {
     if (previewColour) {
       previewColour;
@@ -180,7 +182,7 @@ const ImageDropper = ({
       />
       <div className="outer_image_dropper" ref={divRef}>
         {resizeListener}
-        <img width="300" src={imagePreview} ref={divRef} />
+        <img width="300" src={imagePreview.dataURL} ref={divRef} />
       </div>
     </Fragment>
   );
