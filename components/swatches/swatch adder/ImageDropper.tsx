@@ -25,12 +25,12 @@ interface MouseHover {
 const ImageDropper = ({
   imagePreview,
   startAddSwatchToSwatchList,
+  largeWindowSize,
 }: {
   imagePreview: string;
   startAddSwatchToSwatchList: (rgb: number[]) => any;
+  largeWindowSize: boolean;
 }) => {
-  // console.log(imagePreview);
-
   const initialSvgHeight = { height: 0, width: 0 };
   const width = 300;
   const height = 300;
@@ -91,8 +91,6 @@ const ImageDropper = ({
 
       const blobSrc: any = await blob2base64(blob);
 
-      console.log(blobSrc);
-
       await loadImage(blobSrc);
 
       const svg = <SVG imageSrc={blobSrc} width={width} height={height} />;
@@ -134,6 +132,13 @@ const ImageDropper = ({
       target: { offsetLeft, offsetTop },
     }: MouseHover = e;
 
+    const { clientX, clientY, height, clientWidth } = e;
+
+    var bounds = e.currentTarget.getBoundingClientRect();
+
+    //       const x = clientX - bounds.left;
+    //       const y = clientY - bounds.top;
+
     const canvas: any = canvasRef.current;
     let context: any;
 
@@ -141,16 +146,14 @@ const ImageDropper = ({
       context = canvas.getContext("2d");
     }
 
-    console.log(devicePixelRatio);
+    console.log(bounds.top);
 
-    const x = (pageX - offsetLeft) * 1;
-    const y = (pageY - offsetTop) * 1;
+    const x = (clientX - bounds.left) * 1;
+    const y = clientY - bounds.top - (largeWindowSize ? 0 : -15);
     const { data } = context.getImageData(x, y, 1, 1);
 
     setPreviewColour(data.join(",").split(",").map(Number));
   };
-
-  console.log(imagePreview.dataURL);
 
   const handleMouseDown = () => {
     if (previewColour) {
@@ -168,17 +171,24 @@ const ImageDropper = ({
         }}
         className="colour_preview"
       >
-        <h4>Press down to save colour</h4>
+        <button
+          style={{
+            backgroundColor: previewColour ? `rgba(${previewColour})` : "grey",
+          }}
+          onMouseDown={() => (largeWindowSize ? null : handleMouseDown())}
+        >
+          Press down to save colour
+        </button>
       </div>
       <canvas
         ref={canvasRef}
         style={{ cursor: "crosshair" }}
         width={width}
         height={height}
-        // onMouseMove={(e) => handleMouseMove(e)}
-        onMouseDown={(e) => handleMouseMove(e)}
+        onMouseMove={(e) => handleMouseMove(e)}
+        // onMouseDown={(e) => handleMouseMove(e)}
         className="modal_canvas"
-        // onMouseDown={handleMouseDown}
+        onMouseDown={() => (largeWindowSize ? handleMouseDown() : null)}
       />
       <div className="outer_image_dropper" ref={divRef}>
         {resizeListener}
@@ -188,4 +198,14 @@ const ImageDropper = ({
   );
 };
 
-export default connect(null, { startAddSwatchToSwatchList })(ImageDropper);
+interface StateProps {
+  largeWindowSize: boolean;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  largeWindowSize: state.layout.isLargeWindowSize,
+});
+
+export default connect(mapStateToProps, { startAddSwatchToSwatchList })(
+  ImageDropper
+);
