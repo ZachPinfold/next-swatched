@@ -176,3 +176,11 @@
     font-family: HelveticaM;
   }
 }
+
+.dropper_outer {
+  // position: relative;
+  .svg_circle_outer {
+    position: absolute;
+    z-index: -1;
+  }
+}

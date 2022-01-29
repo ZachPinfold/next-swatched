@@ -139,8 +139,10 @@ const ImageDropper = ({
       context = canvas.getContext("2d");
     }
 
-    const x = (pageX - offsetLeft) * devicePixelRatio;
-    const y = (pageY - offsetTop) * devicePixelRatio;
+    console.log(devicePixelRatio);
+
+    const x = (pageX - offsetLeft) * 1;
+    const y = (pageY - offsetTop) * 1;
     const { data } = context.getImageData(x, y, 1, 1);
 
     setPreviewColour(data.join(",").split(",").map(Number));
@@ -169,9 +171,10 @@ const ImageDropper = ({
         style={{ cursor: "crosshair" }}
         width={width}
         height={height}
-        onMouseMove={(e) => handleMouseMove(e)}
+        // onMouseMove={(e) => handleMouseMove(e)}
+        onMouseDown={(e) => handleMouseMove(e)}
         className="modal_canvas"
-        onMouseDown={handleMouseDown}
+        // onMouseDown={handleMouseDown}
       />
       <div className="outer_image_dropper" ref={divRef}>
         {resizeListener}
