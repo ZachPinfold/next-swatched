@@ -39,8 +39,7 @@ const ImageDropper = ({
 
   const [outerHeight, setOuterHeight] = useState<WidthHeight>(initialSvgHeight);
   const canvasRef = useRef(null);
-  const { devicePixelRatio } = window;
-  const [previewColour, setPreviewColour] = useState<null | number[]>(null);
+  const [previewColour, setPreviewColour] = useState<number[]>([]);
   const [resizeListener, sizes] = useResizeAware();
 
   const SVG = ({
@@ -165,21 +164,42 @@ const ImageDropper = ({
     }
   };
 
+  console.log(previewColour);
+
   return (
     <Fragment>
       <div
         style={{
-          backgroundColor: previewColour ? `rgba(${previewColour})` : "grey",
+          backgroundColor: previewColour ? `rgba(${previewColour})` : "white",
         }}
         className="colour_preview"
       >
         <button
           style={{
-            backgroundColor: previewColour ? `rgba(${previewColour})` : "grey",
+            backgroundColor: previewColour ? `rgba(${previewColour})` : "white",
+            color:
+              (previewColour[0] === 255 &&
+                previewColour[1] === 255 &&
+                previewColour[2] === 255) ||
+              previewColour.length === 0
+                ? "black"
+                : "white",
           }}
           onMouseDown={() => (largeWindowSize ? null : handleMouseDown())}
         >
-          Press down to save colour
+          {previewColour[0] === 255 &&
+          previewColour[1] === 255 &&
+          previewColour[2] === 255 &&
+          largeWindowSize
+            ? "Hover over a colour"
+            : previewColour[0] === 255 &&
+              previewColour[1] === 255 &&
+              previewColour[2] === 255 &&
+              !largeWindowSize
+            ? "press down to see the colour"
+            : largeWindowSize
+            ? "Click your mouse to save colour"
+            : "Press here to save colour"}
         </button>
       </div>
       <canvas

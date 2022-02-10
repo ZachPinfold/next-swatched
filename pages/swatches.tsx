@@ -16,6 +16,7 @@ import DeleteSwatch from "../assets/images/DeleteSwatch";
 import Plus from "../assets/images/Plus";
 import Responsive from "../components/utils/Responsive";
 import { startIsResponsive } from "../actions/layout";
+import SwatchSwitcher from "../components/swatches/filters/SwatchSwitcher";
 
 interface Actions {
   startGetUserSwatches: (
@@ -40,9 +41,11 @@ const swatchPage = ({
 }: Actions) => {
   let refFilterId = "dropdown_filter";
   let refTutorialId = "dropdown_tutorial";
+  let refSwatchGroupId = "dropdown_swatch_group";
 
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [isTutorial, setIsTutorial] = useState<boolean>(false);
+  const [isSwitcher, setIsSwitcher] = useState<boolean>(false);
   const [compareArray, setCompareArray] = useState<number[][]>([]);
   const selectSwatchToCompareRef = useRef<boolean>(true);
   const [openState, setOpenState] = useState<boolean>(false);
@@ -50,6 +53,8 @@ const swatchPage = ({
   const [fullScreen, setFullScreen] = useState<boolean>(false);
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
+  const [isSwatchSelectorClickedOutside, setIsSwatchSelectorClickedOutside] =
+    useState<boolean>(false);
   const [isTutClickedOutside, setIsTutClickedOutside] =
     useState<boolean>(false);
   const [colorFilter, setColorFilter] = useState<ColorNamesType>({
@@ -96,6 +101,7 @@ const swatchPage = ({
     if (isTutClickedOutside) {
       setIsTutorial(false);
       setIsTutClickedOutside(false);
+      setIsSwatchSelectorClickedOutside(false);
     }
   }, [isTutClickedOutside]);
 
@@ -118,7 +124,22 @@ const swatchPage = ({
           refId={refFilterId}
         />
         <HueSwatch currentColour={colorFilter.name} />
-        {/* <div className="tips_wrap" id={refTutorialId}>
+        <Dropdown
+          Component={
+            <SwatchSwitcher
+              isClickedOutside={isSwatchSelectorClickedOutside}
+              setIsClickedOutside={setIsSwatchSelectorClickedOutside}
+              colorFilter={colorFilter}
+              setColorFilter={setColorFilter}
+              setDropdownOpen={setIsSwitcher}
+              isDropdownOpen={isSwitcher}
+              refId={refSwatchGroupId}
+            />
+          }
+          setIsClickedOutside={setIsSwatchSelectorClickedOutside}
+          refId={refSwatchGroupId}
+        />
+        <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
               setIsTutorial(!isTutorial);
@@ -136,7 +157,7 @@ const swatchPage = ({
             setIsClickedOutside={setIsTutClickedOutside}
             refId={refTutorialId}
           />
-        </div> */}
+        </div>
       </div>
       <div className="text_tutorial_area wrapper_inner">
         <div className="left_area">
