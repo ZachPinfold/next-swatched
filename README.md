@@ -17,13 +17,6 @@ You can view this app here - swatched.io
 - Firestore
 - D3.js
 
-## Refactoring to do
-
-- Move SASS files into component folders
-- Move all FE files into SRC folder
-- Add tests to component folders
-- Comment out more complex logic
-
 ## Running locally
 
 - Download repo locally
@@ -33,7 +26,7 @@ You can view this app here - swatched.io
 - NPM run dev
 - Open localhost:3000
 
-## Features
+## Features to do
 
 - ~~Discover new colours~~
 - ~~View all your colours~~
@@ -43,3 +36,10 @@ You can view this app here - swatched.io
 - ~~Add colour compare function for finding new colours~~
 - ~~Add colours based on RGB / Hex~~
 - Add the ability to group colours by category
+
+## Refactoring to do
+
+- Move SASS files into component folders
+- Move all FE files into SRC folder
+- Add tests to component folders
+- Comment out more complex logic
