@@ -40,5 +40,6 @@ You can view this app here - swatched.io
 - ~~Sort by colour~~
 - ~~Add Tutorial~~
 - ~~Add colour picker for finding images from an image~~
+- ~~Add colour compare function for finding new colours~~
 - ~~Add colours based on RGB / Hex~~
 - Add the ability to group colours by category
