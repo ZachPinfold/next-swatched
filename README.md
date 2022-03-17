@@ -12,10 +12,10 @@ You can view this app here - swatched.io
 
 ## Tech
 
-Next.js / React.js
-SCSS
-Firestore
-D3.js
+- Next.js / React.js
+- SCSS
+- Firestore
+- D3.js
 
 ## Refactoring to do
 
@@ -26,9 +26,19 @@ D3.js
 
 ## Running locally
 
-Download repo locally
-node version > 14, recommend 16 (Setup nvm if required)
-NPM install
-**.env variables are required** for DB access please email me @ zach@tibbi.co.uk
-NPM run dev
-Open localhost:3000
+- Download repo locally
+- node version > 14, recommend 16 (Setup nvm if required)
+- NPM install
+- **.env variables are required** for DB access please email me @ zach@tibbi.co.uk
+- NPM run dev
+- Open localhost:3000
+
+## Features
+
+- ~~Discover new colours~~
+- ~~View all your colours~~
+- ~~Sort by colour~~
+- ~~Add Tutorial~~
+- ~~Add colour picker for finding images from an image~~
+- ~~Add colours based on RGB / Hex~~
+- Add the ability to group colours by category
