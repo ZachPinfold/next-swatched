@@ -8,9 +8,9 @@ interface Actions {
   hoverSwatch: number[];
   index: number;
   largeWindowSize: Boolean | null;
-  setClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  setClicked: React.Dispatch<React.SetStateAction<number[]>>;
   setHoverSwatch: React.Dispatch<React.SetStateAction<number[]>>;
-  clicked: boolean;
+  clicked: number[];
   lockedSwatches: number[][];
   cardHover: CardHover[];
   copied: number[];
@@ -52,7 +52,7 @@ const HomepageSwatchCard = ({
             onMouseLeave={() => {
               largeWindowSize &&
                 setTimeout(function () {
-                  setClicked(false);
+                  setClicked([]);
                 }, 250);
               setHoverSwatch([]);
             }}

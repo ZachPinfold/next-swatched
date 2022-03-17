@@ -1,7 +1,15 @@
 import React from "react";
 import ImageUploading, { ImageListType } from "react-images-uploading";
 
-const AddImageButton = ({ buttonClickRef, setImagePreview }) => {
+interface SwatchCircleInput {
+  buttonClickRef: React.MutableRefObject<any>;
+  setImagePreview: React.Dispatch<any>;
+}
+
+const AddImageButton = ({
+  buttonClickRef,
+  setImagePreview,
+}: SwatchCircleInput) => {
   const [images, setImages] = React.useState([]);
   const maxNumber = 69;
 

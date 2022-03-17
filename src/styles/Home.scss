@@ -100,6 +100,9 @@
 
   margin-bottom: 300px;
   .outer_button {
+    max-width: 400px;
+    margin: auto !important;
+    margin-top: 50px !important;
     text-align: center;
     a {
       display: inline-block;

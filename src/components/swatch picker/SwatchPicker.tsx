@@ -28,7 +28,7 @@ const SwatchPicker = ({
   largeWindowSize,
 }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
-  const [clicked, setClicked] = useState<boolean>(false);
+  const [clicked, setClicked] = useState<number[]>([]);
   const [copied, setCopied] = useState<number[]>([]);
 
   const copyToClip = (swatch: number[]) => {

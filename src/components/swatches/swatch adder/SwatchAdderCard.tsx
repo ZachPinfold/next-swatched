@@ -31,11 +31,6 @@ import ImageDropper from "./ImageDropper";
 import { startShowModal } from "../../../actions/layout";
 import AddImageButton from "./AddImageButton";
 
-const circleMenuDecider = [
-  { image: HashTagImage, text: "add" },
-  { image: HashTagImage, text: "edit" },
-];
-
 interface SwatchCircleInput {
   image: string;
   text: string;
@@ -59,7 +54,6 @@ const SwatchAdderCard = ({
   startShowModal,
   largeWindowSize,
   showModal,
-  modalType,
 }: SwatchTypes) => {
   const [hexInputValue, setHexInputValue] = useState<string>("");
   const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
@@ -75,7 +69,7 @@ const SwatchAdderCard = ({
     useState<string>("none");
   const [hexInput, setHexInput] = useState<boolean>(false);
   const [rgbInput, setRgbInput] = useState<boolean>(false);
-  const [imagePreview, setImagePreview] = useState("");
+  const [imagePreview, setImagePreview] = useState<any>(null);
 
   const hexFocus = useRef<any>();
   const rgbFocus1 = useRef<any>();
@@ -166,7 +160,6 @@ const SwatchAdderCard = ({
 
   const handleImageCapture = async () => {
     setImageColour([]);
-    console.log(buttonClickRef);
     buttonClickRef.current.click();
     startShowModal(true, "imageCapture");
     // inputFileRef.current.click();
@@ -220,7 +213,7 @@ const SwatchAdderCard = ({
     if (target.files && target.files.length !== 0) {
       const file: File = target.files[0];
       const imageFile = URL.createObjectURL(file);
-      setImagePreview(imageFile);
+      imageFile !== null && setImagePreview(imageFile);
     }
 
     // cropImage(target, setImageColour);
@@ -290,35 +283,6 @@ const SwatchAdderCard = ({
   useEffect(() => {
     !showModal && setImagePreview("");
   }, [showModal]);
-
-  const onImage = async (failedImages, successImages) => {
-    // if (!url) {
-    //   console.log("missing Url");
-    //   setErrorMessage("missing a url to upload to");
-    //   setProgress("uploadError");
-    //   return;
-    // }
-
-    // setProgress("uploading");
-
-    try {
-      console.log("successImages", successImages);
-      const parts = successImages[0].split(";");
-      const mime = parts[0].split(":")[1];
-      const name = parts[1].split("=")[1];
-      const data = parts[2];
-      console.log(successImages);
-
-      // const res = await Axios.post(url, { mime, name, image: data });
-
-      // setImageURL(res.data.imageURL);
-      // setProgress("uploaded");
-    } catch (error) {
-      // console.log("error in upload", error);
-      // setErrorMessage(error.message);
-      // setProgress("uploadError");
-    }
-  };
 
   return (
     <li

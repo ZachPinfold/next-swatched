@@ -27,7 +27,7 @@ const ImageDropper = ({
   startAddSwatchToSwatchList,
   largeWindowSize,
 }: {
-  imagePreview: string;
+  imagePreview: any;
   startAddSwatchToSwatchList: (rgb: number[]) => any;
   largeWindowSize: boolean;
 }) => {
