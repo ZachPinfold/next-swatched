@@ -11,6 +11,7 @@ import {
   closeMenuOnHoverLeaveD3,
   closeNotActiceMenuCirclesD3,
 } from "../../../utils/d3";
+import copy from "copy-to-clipboard";
 
 interface SwatchTypes {
   color: number[];
@@ -80,7 +81,7 @@ const SwatchCard = ({
   };
 
   const copySwatchHex = () => {
-    navigator.clipboard.writeText(rgbToHex(color));
+    copy(rgbToHex(color));
     setIsCopied(true);
   };
 

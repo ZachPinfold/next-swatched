@@ -13,6 +13,7 @@ interface Actions {
   clicked: boolean;
   lockedSwatches: number[][];
   cardHover: CardHover[];
+  copied: number[];
 }
 
 const HomepageSwatchCard = ({
@@ -26,6 +27,7 @@ const HomepageSwatchCard = ({
   clicked,
   setHoverSwatch,
   cardHover,
+  copied,
 }: Actions) => {
   return (
     <div
@@ -38,6 +40,7 @@ const HomepageSwatchCard = ({
     >
       {cardHover.map((e) => {
         const { image, message, type, func, clickedMessage } = e;
+        console.log(clicked, swatch, type);
         return (
           <div
             style={{
@@ -47,9 +50,10 @@ const HomepageSwatchCard = ({
             key={type}
             onClick={() => func(swatch)}
             onMouseLeave={() => {
-              setTimeout(function () {
-                setClicked(false);
-              }, 250);
+              largeWindowSize &&
+                setTimeout(function () {
+                  setClicked(false);
+                }, 250);
               setHoverSwatch([]);
             }}
             onMouseEnter={() => {
@@ -57,7 +61,9 @@ const HomepageSwatchCard = ({
             }}
           >
             <img src={image.src} alt={type} />
-            {clicked ? (
+            {copied === swatch && type === "copy" ? (
+              <h5>{clickedMessage}</h5>
+            ) : clicked === swatch && type === "save" ? (
               <h5>{clickedMessage}</h5>
             ) : (
               <h5>

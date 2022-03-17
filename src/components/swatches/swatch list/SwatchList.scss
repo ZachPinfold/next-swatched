@@ -1,4 +1,7 @@
 .swatch_grid {
+  &.wrapper_inner {
+    padding: 0;
+  }
   @media only screen and (max-width: 600px) {
     grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
     grid-gap: 10px;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import refreshIcon from "../../assets/images/refresh_icon.svg";
 import HomepageSwatchCard from "./swatch card/HomepageSwatchCard";
 import SaveImage from "../../assets/images/save_swatch.svg";
 import CopyImage from "../../assets/images/copy_swatch.svg";
 import LockedImage from "../../assets/images/locked_swatch.svg";
+import copy from "copy-to-clipboard";
 
 import { rgbToHex } from "../../utils/swatch";
 import { startAddSwatchToSwatchList } from "../../actions/swatch";
@@ -29,14 +29,16 @@ const SwatchPicker = ({
 }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
   const [clicked, setClicked] = useState<boolean>(false);
+  const [copied, setCopied] = useState<number[]>([]);
 
   const copyToClip = (swatch: number[]) => {
-    navigator.clipboard.writeText(rgbToHex(swatch));
-    setClicked(true);
+    copy(rgbToHex(swatch));
+    setCopied(swatch);
   };
 
   const addToSwatch = (swatch: number[]) => {
     startAddSwatchToSwatchList(swatch);
+    setClicked(swatch);
   };
 
   const removeFromSwatch = (swatch: number[]) => {
@@ -61,7 +63,7 @@ const SwatchPicker = ({
       type: "save",
       image: SaveImage,
       message: "save to swatch",
-      clickedMessage: "save to swatch",
+      clickedMessage: "saved!",
       func: addToSwatch,
     },
 
@@ -91,6 +93,7 @@ const SwatchPicker = ({
               clicked={clicked}
               cardHover={cardHover}
               initialLoadRef={initialLoadRef}
+              copied={copied}
             />
           );
         })}
