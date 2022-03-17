@@ -137,7 +137,7 @@ const swatchPage = ({
           refId={refFilterId}
         />
         <HueSwatch currentColour={colorFilter.name} />
-        <Dropdown
+        {/* <Dropdown
           Component={
             <SwatchSwitcher
               isClickedOutside={isSwatchSelectorClickedOutside}
@@ -152,7 +152,7 @@ const swatchPage = ({
           }
           setIsClickedOutside={setIsSwatchSelectorClickedOutside}
           refId={refSwatchGroupId}
-        />
+        /> */}
         <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
