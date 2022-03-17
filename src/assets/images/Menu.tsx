@@ -9,6 +9,15 @@ interface Actions {
 
 const Menu = ({ initialSwatches, hover }: Actions) => {
   const arrayCopy = JSON.parse(JSON.stringify(initialSwatches));
+
+  if (arrayCopy.length < 9) {
+    const missingCircles = 9 - arrayCopy.length;
+
+    for (let i = 0; i < missingCircles; i++) {
+      arrayCopy.push({ color: [95, 173, 191] });
+    }
+  }
+
   hover && arrayCopy.reverse();
 
   return (

@@ -2,7 +2,7 @@
 
 Welcome to my passion project.
 
-I love desiging with colours, and I am always looking for inspiration to help find new and interesting pallettes.
+I love designing with colours, and I am always looking for inspiration to help find new and interesting palettes.
 
 This is a next.js web app, leveraging the colormind API to help users find, save, and compare colours.
 
@@ -36,10 +36,11 @@ You can view this app here - swatched.io
 - ~~Add colour compare function for finding new colours~~
 - ~~Add colours based on RGB / Hex~~
 - Add the ability to group colours by category
+- Add account page
 
 ## Refactoring to do
 
 - Move SASS files into component folders
-- Move all FE files into SRC folder
+- ~~Move all FE files into SRC folder~~
 - Add tests to component folders
 - Comment out more complex logic
