@@ -19,10 +19,10 @@ D3.js
 
 ## Refactoring to do
 
-Move SASS files into component folders
-Move all FE files into SRC folder
-Add tests to component folders
-Comment out more complex logic
+- Move SASS files into component folders
+- Move all FE files into SRC folder
+- Add tests to component folders
+- Comment out more complex logic
 
 ## Running locally
 
