@@ -6,18 +6,6 @@ import HueSwatch from "../../../assets/images/HueSwatch";
 import { ColorNamesType } from "../../../types/swatches";
 import FilterListItem from "./FilterListItem";
 
-const colorNames: ColorNamesType[] = [
-  { name: "all swatches", rgb: [197, 199, 196] },
-  { name: "red", rgb: [255, 28, 0] },
-  { name: "orange", rgb: [255, 179, 71] },
-  { name: "yellow", rgb: [255, 223, 0] },
-  { name: "green", rgb: [3, 192, 60] },
-  { name: "cyan", rgb: [0, 255, 255] },
-  { name: "blue", rgb: [0, 0, 255] },
-  { name: "magenta", rgb: [255, 0, 255] },
-  { name: "pink", rgb: [255, 183, 197] },
-];
-
 interface Actions {
   startGetUserSwatches: (
     userUid: string,
@@ -31,6 +19,7 @@ interface Actions {
   setDropdownOpen: (open: boolean) => void;
   isDropdownOpen: boolean;
   refId: string;
+  list: ColorNamesType[];
 }
 
 const SwatchSwitcher = ({
@@ -42,6 +31,7 @@ const SwatchSwitcher = ({
   isDropdownOpen,
   setDropdownOpen,
   refId,
+  list,
 }: Actions) => {
   const colorRef = useRef<string>();
 
@@ -90,7 +80,7 @@ const SwatchSwitcher = ({
       >
         {" "}
         <ul>
-          {colorNames.map((color) => {
+          {list.map((color) => {
             if (colorFilter.name !== color.name)
               return (
                 <Fragment key={color.name}>

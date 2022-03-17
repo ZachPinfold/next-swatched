@@ -18,6 +18,18 @@ import Responsive from "../components/utils/Responsive";
 import { startIsResponsive } from "../actions/layout";
 import SwatchSwitcher from "../components/swatches/filters/SwatchSwitcher";
 
+const colorNames: ColorNamesType[] = [
+  { name: "all swatches", rgb: [197, 199, 196] },
+  { name: "red", rgb: [255, 28, 0] },
+  { name: "orange", rgb: [255, 179, 71] },
+  { name: "yellow", rgb: [255, 223, 0] },
+  { name: "green", rgb: [3, 192, 60] },
+  { name: "cyan", rgb: [0, 255, 255] },
+  { name: "blue", rgb: [0, 0, 255] },
+  { name: "magenta", rgb: [255, 0, 255] },
+  { name: "pink", rgb: [255, 183, 197] },
+];
+
 interface Actions {
   startGetUserSwatches: (
     userUid: string,
@@ -118,6 +130,7 @@ const swatchPage = ({
               setDropdownOpen={setDropdownOpen}
               isDropdownOpen={isDropdownOpen}
               refId={refFilterId}
+              list={colorNames}
             />
           }
           setIsClickedOutside={setIsClickedOutside}
@@ -134,6 +147,7 @@ const swatchPage = ({
               setDropdownOpen={setIsSwitcher}
               isDropdownOpen={isSwitcher}
               refId={refSwatchGroupId}
+              list={colorNames}
             />
           }
           setIsClickedOutside={setIsSwatchSelectorClickedOutside}
