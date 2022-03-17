@@ -41,7 +41,7 @@ const HomepageSwatchCard = ({
         return (
           <div
             style={{
-              height: largeWindowSize ? `${100 / cardHover.length}%` : "100%",
+              height: largeWindowSize ? `${100 / cardHover.length}%` : "33%",
             }}
             className="hover_third"
             key={type}
@@ -53,7 +53,6 @@ const HomepageSwatchCard = ({
               setHoverSwatch([]);
             }}
             onMouseEnter={() => {
-              setHoverSwatch(swatch);
               setHoverSwatch(swatch);
             }}
           >
