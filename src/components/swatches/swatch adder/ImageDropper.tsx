@@ -16,20 +16,16 @@ interface WidthHeight {
   height: number;
 }
 
-interface MouseHover {
-  pageX: number;
-  pageY: number;
-  target: { offsetLeft: number; offsetTop: number };
-}
-
 const ImageDropper = ({
   imagePreview,
   startAddSwatchToSwatchList,
   largeWindowSize,
+  showModal,
 }: {
   imagePreview: any;
   startAddSwatchToSwatchList: (rgb: number[]) => any;
   largeWindowSize: boolean;
+  showModal: (action: boolean, type: string) => void;
 }) => {
   const initialSvgHeight = { height: 0, width: 0 };
   const width = 300;
@@ -127,18 +123,9 @@ const ImageDropper = ({
     });
 
   const handleMouseMove = (e: any) => {
-    const {
-      pageX,
-      pageY,
-      target: { offsetLeft, offsetTop },
-    }: MouseHover = e;
-
-    const { clientX, clientY, height, clientWidth } = e;
+    const { clientX, clientY } = e;
 
     var bounds = e.currentTarget.getBoundingClientRect();
-
-    //       const x = clientX - bounds.left;
-    //       const y = clientY - bounds.top;
 
     const canvas: any = canvasRef.current;
     let context: any;
@@ -146,8 +133,6 @@ const ImageDropper = ({
     if (canvasRef.current != null) {
       context = canvas.getContext("2d");
     }
-
-    console.log(bounds.top);
 
     const x = clientX - bounds.left - (largeWindowSize ? 0 : -7);
     const y = clientY - bounds.top - (largeWindowSize ? 0 : -10);
@@ -160,11 +145,12 @@ const ImageDropper = ({
     if (previewColour) {
       previewColour;
       const poppedColour = previewColour.slice(0, -1);
+
       startAddSwatchToSwatchList(poppedColour);
+
+      showModal(false, "");
     }
   };
-
-  console.log(previewColour);
 
   return (
     <Fragment>
@@ -208,7 +194,6 @@ const ImageDropper = ({
         width={width}
         height={height}
         onMouseMove={(e) => handleMouseMove(e)}
-        // onMouseDown={(e) => handleMouseMove(e)}
         className="modal_canvas"
         onMouseDown={() => (largeWindowSize ? handleMouseDown() : null)}
       />

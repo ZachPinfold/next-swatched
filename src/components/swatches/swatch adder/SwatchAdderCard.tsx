@@ -305,10 +305,15 @@ const SwatchAdderCard = ({
         }
       }}
     >
-      {imagePreview.dataURL && showModal && (
+      {imagePreview !== null && imagePreview.dataURL && showModal && (
         <ModalWrapper
           showModal={startShowModal}
-          Component={<ImageDropper imagePreview={imagePreview} />}
+          Component={
+            <ImageDropper
+              imagePreview={imagePreview}
+              showModal={startShowModal}
+            />
+          }
         />
       )}
 
