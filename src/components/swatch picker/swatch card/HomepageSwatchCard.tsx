@@ -40,7 +40,6 @@ const HomepageSwatchCard = ({
     >
       {cardHover.map((e) => {
         const { image, message, type, func, clickedMessage } = e;
-        console.log(clicked, swatch, type);
         return (
           <div
             style={{

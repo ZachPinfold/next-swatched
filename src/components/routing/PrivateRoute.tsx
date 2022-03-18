@@ -18,8 +18,6 @@ const PrivateRoute = ({
   const [loading, setLoaded] = useState(true);
 
   useEffect(() => {
-    console.log(isAuthenticatedLoading, isAuthenticated);
-
     if (!isAuthenticatedLoading && !isAuthenticated) {
       router.push("/");
     }

@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../../../actions/swatch";
 import DropDownArrow from "../../../assets/images/DropDownArrow";
-import HueSwatch from "../../../assets/images/HueSwatch";
 import { ColorNamesType } from "../../../types/swatches";
 import FilterListItem from "./FilterListItem";
 
@@ -20,6 +19,7 @@ interface Actions {
   isDropdownOpen: boolean;
   refId: string;
   list: ColorNamesType[];
+  userID: string;
 }
 
 const ColorFilter = ({
@@ -32,6 +32,7 @@ const ColorFilter = ({
   setDropdownOpen,
   refId,
   list,
+  userID,
 }: Actions) => {
   const colorRef = useRef<string>();
 
@@ -44,11 +45,12 @@ const ColorFilter = ({
 
   useEffect(() => {
     colorFilter &&
+      userID.length > 0 &&
       colorRef.current &&
       colorFilter.name !== colorRef.current &&
-      startGetUserSwatches("", colorFilter.name, false);
+      startGetUserSwatches(userID, colorFilter.name, false);
     colorRef.current = colorFilter.name;
-  }, [colorFilter]);
+  }, [colorFilter, userID]);
 
   const someStyle: any = {
     "--currentColor": colorFilter.rgb,
@@ -98,4 +100,12 @@ const ColorFilter = ({
   );
 };
 
-export default connect(null, { startGetUserSwatches })(ColorFilter);
+interface StateProps {
+  userID: string;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  userID: state.auth.userID,
+});
+
+export default connect(mapStateToProps, { startGetUserSwatches })(ColorFilter);

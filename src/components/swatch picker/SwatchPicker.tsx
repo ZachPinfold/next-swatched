@@ -15,8 +15,9 @@ interface Swatches {
   setLockedSwatches: (swatch: number[][]) => void;
   lockedSwatches: number[][];
   initialLoadRef: any;
-  startAddSwatchToSwatchList: (rgb: number[]) => void;
+  startAddSwatchToSwatchList: (rgb: number[], userID: string) => any;
   largeWindowSize: boolean;
+  userID: string;
 }
 
 const SwatchPicker = ({
@@ -26,6 +27,7 @@ const SwatchPicker = ({
   startAddSwatchToSwatchList,
   initialLoadRef,
   largeWindowSize,
+  userID,
 }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
   const [clicked, setClicked] = useState<number[]>([]);
@@ -37,7 +39,7 @@ const SwatchPicker = ({
   };
 
   const addToSwatch = (swatch: number[]) => {
-    startAddSwatchToSwatchList(swatch);
+    startAddSwatchToSwatchList(swatch, userID);
     setClicked(swatch);
   };
 
@@ -104,10 +106,12 @@ const SwatchPicker = ({
 
 interface StateProps {
   largeWindowSize: boolean;
+  userID: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   largeWindowSize: state.layout.isLargeWindowSize,
+  userID: state.auth.userID,
 });
 
 export default connect(mapStateToProps, { startAddSwatchToSwatchList })(

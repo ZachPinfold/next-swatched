@@ -3,6 +3,8 @@ import { AuthActionTypes } from "../types/types";
 import app from "../firebase";
 import { NextRouter } from "next/router";
 import { showModal } from "./layout";
+import { initialUserArray } from "../misc/misc";
+const { v4 } = require("uuid");
 
 export const login = (UserID: string): AuthActionTypes => ({
   type: "LOGIN_AUTH",
@@ -45,15 +47,23 @@ export const startLoadUser =
 
 export const startSignup =
   (email: string, password: string) => async (dispatch: any) => {
-    // try {
-    //   const data = await app
-    //     .auth()
-    //     .createUserWithEmailAndPassword(email, password);
-    //   const { uid } = data.user;
-    //   dispatch(login(uid));
-    // } catch (error) {
-    //   console.log("error-" + error);
-    // }
+    try {
+      const data = await app
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      const { uid } = data.user;
+      dispatch(login(uid));
+      initialUserArray.forEach((swatch) => {
+        app
+          .firestore()
+          .collection("swatches")
+          .doc(uid)
+          .collection("userSwatches")
+          .add(swatch);
+      });
+    } catch (error) {
+      console.log("error-" + error);
+    }
   };
 
 export const startLogin =

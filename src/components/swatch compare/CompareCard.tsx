@@ -10,9 +10,10 @@ interface Actions {
   swatchNumber: number;
   index: number;
   largeWindowSize: Boolean | null;
-  startAddSwatchToSwatchList: (rgb: number[]) => any;
+  startAddSwatchToSwatchList: (rgb: number[], userID: string) => any;
   selectSwatchToCompareRef: any;
   setSwatchToCompare: (rgb: number[]) => any;
+  userID: string;
 }
 
 const CompareCard = ({
@@ -23,6 +24,7 @@ const CompareCard = ({
   largeWindowSize,
   setSwatchToCompare,
   selectSwatchToCompareRef,
+  userID,
 }: Actions) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -32,7 +34,7 @@ const CompareCard = ({
   };
 
   const addToSwatch = () => {
-    startAddSwatchToSwatchList(compareSwatch);
+    startAddSwatchToSwatchList(compareSwatch, userID);
   };
 
   const loadNewColor = () => {
@@ -112,4 +114,14 @@ const CompareCard = ({
   );
 };
 
-export default connect(null, { startAddSwatchToSwatchList })(CompareCard);
+interface StateProps {
+  userID: string;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  userID: state.auth.userID,
+});
+
+export default connect(mapStateToProps, { startAddSwatchToSwatchList })(
+  CompareCard
+);

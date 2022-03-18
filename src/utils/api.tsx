@@ -8,20 +8,21 @@ interface ObjTypes {
 
 export const fireStoreQuery = async (
   type: keyof LookupTypes,
-  input: String
+  input: String,
+  userID: string
 ) => {
   const apiObject: ObjTypes = {
     color: await app
       .firestore()
       .collection("swatches")
-      .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+      .doc(userID)
       .collection("userSwatches")
       .where("colorName", "==", input)
       .get(),
     other: await app
       .firestore()
       .collection("swatches")
-      .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+      .doc(userID)
       .collection("userSwatches")
       .orderBy("timeAdded", "desc")
       .get(),

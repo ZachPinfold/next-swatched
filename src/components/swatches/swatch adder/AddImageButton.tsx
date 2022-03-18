@@ -18,7 +18,6 @@ const AddImageButton = ({
     addUpdateIndex: number[] | undefined
   ) => {
     // data for submit
-    console.log(imageList, addUpdateIndex);
     setImagePreview(imageList[0]);
   };
   return (

@@ -71,8 +71,6 @@ export const calculateDimensionsOnWindowChange = (
   startIsResponsive: (size: boolean) => void,
   setRef: (size: string) => void
 ) => {
-  console.log(setRef);
-
   switch (true) {
     case window.innerWidth >= 525:
       if (widthRef !== "large") {

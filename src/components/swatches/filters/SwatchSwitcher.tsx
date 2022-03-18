@@ -20,6 +20,7 @@ interface Actions {
   isDropdownOpen: boolean;
   refId: string;
   list: ColorNamesType[];
+  userID: string;
 }
 
 const SwatchSwitcher = ({
@@ -32,6 +33,7 @@ const SwatchSwitcher = ({
   setDropdownOpen,
   refId,
   list,
+  userID,
 }: Actions) => {
   const colorRef = useRef<string>();
 
@@ -44,11 +46,12 @@ const SwatchSwitcher = ({
 
   useEffect(() => {
     colorFilter &&
+      userID.length > 0 &&
       colorRef.current &&
       colorFilter.name !== colorRef.current &&
-      startGetUserSwatches("", colorFilter.name, false);
+      startGetUserSwatches(userID, colorFilter.name, false);
     colorRef.current = colorFilter.name;
-  }, [colorFilter]);
+  }, [colorFilter, userID]);
 
   const someStyle: any = {
     "--currentColor": colorFilter.rgb,
@@ -98,4 +101,14 @@ const SwatchSwitcher = ({
   );
 };
 
-export default connect(null, { startGetUserSwatches })(SwatchSwitcher);
+interface StateProps {
+  userID: string;
+}
+
+const mapStateToProps = (state: any): StateProps => ({
+  userID: state.auth.userID,
+});
+
+export default connect(mapStateToProps, { startGetUserSwatches })(
+  SwatchSwitcher
+);

@@ -32,7 +32,7 @@ export const startGetUserSwatches =
     colorFilter === "all" ? (filterType = "other") : (filterType = "color");
 
     try {
-      const result = await fireStoreQuery(filterType, colorFilter);
+      const result = await fireStoreQuery(filterType, colorFilter, userUid);
 
       let resultArray: SwatchObject[] = [];
 
@@ -40,6 +40,7 @@ export const startGetUserSwatches =
         resultArray = result.docs.map((doc: any) => {
           const data = doc.data();
           data.colourId = doc.id;
+
           return data;
         });
       }
@@ -53,9 +54,7 @@ export const startGetUserSwatches =
   };
 
 export const startAddSwatchToSwatchList =
-  (rgbColour: number[]) => async (dispatch: any) => {
-    console.log(rgbColour);
-
+  (rgbColour: number[], userID: string) => async (dispatch: any) => {
     try {
       const uniqueId: string = v4();
 
@@ -68,10 +67,9 @@ export const startAddSwatchToSwatchList =
       app
         .firestore()
         .collection("swatches")
-        .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+        .doc(userID)
         .collection("userSwatches")
-        .doc(uniqueId)
-        .set(swatchObject);
+        .add(swatchObject);
 
       const swatchForReducer = {
         timeAdded: new Date(),

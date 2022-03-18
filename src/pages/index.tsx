@@ -1,8 +1,6 @@
-import store from "../store";
 import Login from "../components/auth/Login/Login";
 import Signup from "../components/auth/Signup/Signup";
 import { FunctionComponent, useEffect, useRef, useState } from "react";
-import { startLoadUser } from "../actions/auth";
 import ModalWrapper from "../components/Modal/ModalWrapper";
 import SwatchPicker from "../components/swatch picker/SwatchPicker";
 import axios from "axios";
@@ -36,6 +34,7 @@ interface InitialSwatch {
   modalType: string;
   isAuthenticatedLoading: boolean;
   isAuthenticated: boolean;
+  userID: string;
   startIsResponsive: (isLarge: boolean) => void;
 }
 
@@ -51,6 +50,7 @@ const Home = ({
   isAuthenticated,
   isAuthenticatedLoading,
   startIsResponsive,
+  userID,
 }: InitialSwatch) => {
   const [swatchesUi, setSwatchesUi] = useState<(number[] | string)[]>([
     [0, 0, 0],
@@ -76,8 +76,8 @@ const Home = ({
   }, []);
 
   useEffect(() => {
-    startGetUserSwatches("", "all", true);
-  }, [startGetUserSwatches]);
+    userID.length > 0 && startGetUserSwatches(userID, "all", true);
+  }, [startGetUserSwatches, userID]);
 
   useEffect(() => {
     if (discoverSwatches.length > 0 && !discoverSwatchRef.current) {
@@ -186,6 +186,7 @@ interface StateProps {
   modalType: string;
   isAuthenticated: boolean;
   isAuthenticatedLoading: boolean;
+  userID: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -195,6 +196,7 @@ const mapStateToProps = (state: any): StateProps => ({
   modalType: state.layout.modalType,
   isAuthenticated: state.auth.isAuthenticated,
   isAuthenticatedLoading: state.auth.loading,
+  userID: state.auth.userID,
 });
 
 export default connect(mapStateToProps, {

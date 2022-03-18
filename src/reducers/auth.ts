@@ -5,7 +5,7 @@ const inititalState: Auth = {
   isAuthenticated: false,
   loading: true,
   username: "",
-  UserID: "",
+  userID: "",
 };
 
 const auth = (state: Auth = inititalState, action: AuthActionTypes): Auth => {
@@ -13,14 +13,14 @@ const auth = (state: Auth = inititalState, action: AuthActionTypes): Auth => {
     case "LOGIN_AUTH":
       return {
         ...state,
-        UserID: action.payload.UserID,
+        userID: action.payload.UserID,
         loading: false,
         isAuthenticated: true,
       };
     case "USER_LOADED":
       return {
         ...state,
-        UserID: action.payload.UserID,
+        userID: action.payload.UserID,
         isAuthenticated: true,
         loading: false,
       };
@@ -34,7 +34,7 @@ const auth = (state: Auth = inititalState, action: AuthActionTypes): Auth => {
         ...state,
         loading: false,
         isAuthenticated: false,
-        UserID: "",
+        userID: "",
       };
     default:
       return state;

@@ -89,7 +89,7 @@ const NavBar = ({
           )}
         </div>
 
-        {swatches.length > 0 && isAuthenticated && (
+        {isAuthenticated && (
           <div
             onClick={() => setDropdownOpen(!isDropdownOpen)}
             onMouseEnter={() => {

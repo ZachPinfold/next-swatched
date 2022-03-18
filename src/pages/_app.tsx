@@ -5,8 +5,7 @@ import store from "../store";
 import NavBar from "../components/nav/NavBar";
 import { useRouter } from "next/router";
 
-import ToTopImage from "../assets/images/to_top_swatch.svg";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Footer from "../components/footer/Footer";
 import PrivateRoute from "../components/routing/PrivateRoute";
 import { startLoadUser } from "../actions/auth";

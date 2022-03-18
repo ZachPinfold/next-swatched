@@ -1,11 +1,4 @@
-import React, {
-  createRef,
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { createRef, Fragment, useEffect, useRef, useState } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { connect } from "react-redux";
 import useResizeAware from "react-resize-aware";
@@ -21,11 +14,13 @@ const ImageDropper = ({
   startAddSwatchToSwatchList,
   largeWindowSize,
   showModal,
+  userID,
 }: {
   imagePreview: any;
-  startAddSwatchToSwatchList: (rgb: number[]) => any;
+  startAddSwatchToSwatchList: (rgb: number[], userID: string) => any;
   largeWindowSize: boolean;
   showModal: (action: boolean, type: string) => void;
+  userID: string;
 }) => {
   const initialSvgHeight = { height: 0, width: 0 };
   const width = 300;
@@ -76,8 +71,6 @@ const ImageDropper = ({
       context = canvas.getContext("2d");
     }
     const { width, height } = outerHeight;
-
-    console.log(height);
 
     canvas.width = width;
     canvas.height = height;
@@ -146,7 +139,7 @@ const ImageDropper = ({
       previewColour;
       const poppedColour = previewColour.slice(0, -1);
 
-      startAddSwatchToSwatchList(poppedColour);
+      startAddSwatchToSwatchList(poppedColour, userID);
 
       showModal(false, "");
     }
@@ -207,10 +200,12 @@ const ImageDropper = ({
 
 interface StateProps {
   largeWindowSize: boolean;
+  userID: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   largeWindowSize: state.layout.isLargeWindowSize,
+  userID: state.auth.userID,
 });
 
 export default connect(mapStateToProps, { startAddSwatchToSwatchList })(

@@ -38,6 +38,7 @@ interface Actions {
   ) => void;
   swatches: SwatchObject[];
   startIsResponsive: (isLarge: boolean) => void;
+  userID: string;
 }
 
 const tutorialObjectArray: TutTypes[] = [
@@ -49,6 +50,7 @@ const tutorialObjectArray: TutTypes[] = [
 const swatchPage = ({
   startGetUserSwatches,
   swatches,
+  userID,
   startIsResponsive,
 }: Actions) => {
   let refFilterId = "dropdown_filter";
@@ -77,8 +79,8 @@ const swatchPage = ({
   Responsive(startIsResponsive);
 
   useEffect(() => {
-    startGetUserSwatches("", "all", true);
-  }, [startGetUserSwatches]);
+    userID.length > 0 && startGetUserSwatches(userID, "all", true);
+  }, [startGetUserSwatches, userID]);
 
   useEffect(() => {
     const getCompareColours = async () => {
@@ -234,10 +236,12 @@ const swatchPage = ({
 
 interface StateProps {
   swatches: SwatchObject[];
+  userID: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
+  userID: state.auth.userID,
 });
 
 export default connect(mapStateToProps, {

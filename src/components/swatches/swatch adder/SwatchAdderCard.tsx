@@ -1,13 +1,6 @@
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startAddSwatchToSwatchList } from "../../../actions/swatch";
-import PlusHex from "../../../assets/images/PlusHex";
 import HashTagImage from "../../../assets/images/hashtag_swatch.svg";
 import BackImage from "../../../assets/images/back_swatch.svg";
 import UploadImage from "../../../assets/images/upload_swatch.svg";
@@ -22,7 +15,6 @@ import {
 import AdderRadialMenu from "../../radial menu/AdderRadialMenu";
 import { closeMenuOnHoverLeaveD3, openCircleMenuD3 } from "../../../utils/d3";
 import ColourAdderChoice from "../../radial menu/ColourAdderChoice";
-import { select } from "d3";
 import Plus from "../../../assets/images/Plus";
 import ModalWrapper from "../../Modal/ModalWrapper";
 import RgbAdder from "./RgbAdder";
@@ -38,13 +30,14 @@ interface SwatchCircleInput {
 }
 
 interface SwatchTypes {
-  startAddSwatchToSwatchList: (rgb: number[]) => void;
+  startAddSwatchToSwatchList: (rgb: number[], userID: string) => void;
   setSwatchId: (swatchId: string) => void;
   swatchId: string;
   startShowModal: (modal: boolean, type: string) => void;
   showModal: boolean;
   modalType: string;
   largeWindowSize: boolean;
+  userID: string;
 }
 
 const SwatchAdderCard = ({
@@ -54,6 +47,7 @@ const SwatchAdderCard = ({
   startShowModal,
   largeWindowSize,
   showModal,
+  userID,
 }: SwatchTypes) => {
   const [hexInputValue, setHexInputValue] = useState<string>("");
   const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
@@ -102,7 +96,7 @@ const SwatchAdderCard = ({
   const handleHexAdd = (e: any) => {
     e.preventDefault();
     const hexRgb: number[] = hexToRgb(`#${hexInputValue}`);
-    if (colourLoaded) startAddSwatchToSwatchList(hexRgb);
+    if (colourLoaded) startAddSwatchToSwatchList(hexRgb, userID);
     setHexInput(false);
     setHexInputValue("");
     setImageColour([]);
@@ -146,7 +140,7 @@ const SwatchAdderCard = ({
 
   const handleRgbAdd = (e: any) => {
     e.preventDefault();
-    if (colourLoaded) startAddSwatchToSwatchList(imgColour);
+    if (colourLoaded) startAddSwatchToSwatchList(imgColour, userID);
     setRgbInput(false);
     setRgbInputValue(["", "", ""]);
     setImageColour([]);
@@ -154,7 +148,7 @@ const SwatchAdderCard = ({
   };
 
   const handleImageAdd = () => {
-    startAddSwatchToSwatchList(imgColour);
+    startAddSwatchToSwatchList(imgColour, userID);
     setMenuOpen(false);
   };
 
@@ -208,8 +202,6 @@ const SwatchAdderCard = ({
   ];
 
   const handleImageCropAndColour = (target: HTMLInputElement) => {
-    console.log("target.files");
-
     if (target.files && target.files.length !== 0) {
       const file: File = target.files[0];
       const imageFile = URL.createObjectURL(file);
@@ -475,12 +467,14 @@ interface StateProps {
   showModal: boolean;
   modalType: string;
   largeWindowSize: boolean;
+  userID: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   showModal: state.layout.modal,
   modalType: state.layout.modalType,
   largeWindowSize: state.layout.isLargeWindowSize,
+  userID: state.auth.userID,
 });
 
 export default connect(mapStateToProps, {
