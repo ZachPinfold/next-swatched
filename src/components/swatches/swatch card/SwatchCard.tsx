@@ -129,7 +129,7 @@ const SwatchCard = ({
   return (
     <li
       style={{ backgroundColor: rgbToHex(color) }}
-      key={color[0]}
+      key={swatch.colourId}
       className="swatch_card"
       onMouseEnter={() => {
         if (!menuOpen && largeWindowSize) {

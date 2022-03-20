@@ -24,15 +24,9 @@ const PrivateRoute = ({
     if (!isAuthenticatedLoading && isAuthenticated) setLoaded(false);
   }, [isAuthenticatedLoading, isAuthenticated]);
 
-  console.log("loading", loading);
-
   if (!loading) {
-    console.log("loaded");
-
     return <>{Component} </>;
   } else {
-    console.log("loading");
-
     return <h1 style={{ marginTop: "200px" }}>loading</h1>;
   }
 };
