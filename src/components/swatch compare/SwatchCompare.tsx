@@ -49,7 +49,7 @@ const SwatchSelector = ({
           fullScreen && isCompact
             ? "60px"
             : fullScreen && !isCompact
-            ? "100px"
+            ? "80px"
             : "0",
         transform:
           compareArray.length > 2 && openState
