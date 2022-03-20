@@ -84,12 +84,12 @@ export const startAddSwatchToSwatchList =
   };
 
 export const startDeleteSwatchFromSwatchList =
-  (swatch: SwatchObject) => async (dispatch: any) => {
+  (swatch: SwatchObject, userID: string) => async (dispatch: any) => {
     try {
       app
         .firestore()
         .collection("swatches")
-        .doc("k9V6LdYhaIQX45WobnePdxt6tHB2")
+        .doc(userID)
         .collection("userSwatches")
         .doc(swatch.colourId)
         .delete();

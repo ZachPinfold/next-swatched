@@ -21,13 +21,14 @@ interface SwatchTypes {
   setNumberOfSwatches: (num: number) => void;
   openState: boolean;
   swatch: SwatchObject;
-  startDeleteSwatchFromSwatchList: (hex: SwatchObject) => void;
+  startDeleteSwatchFromSwatchList: (hex: SwatchObject, userID: string) => void;
   setSwatchToCompare: (num: number[]) => void;
   swatchToCompare: number[];
   setSwatchId: (swatchId: string) => void;
   swatchId: string;
   frontPage: boolean;
   largeWindowSize: boolean;
+  userID: string;
 }
 
 const SwatchCard = ({
@@ -46,6 +47,7 @@ const SwatchCard = ({
   // Front page cards behave slightly differenty, and will be based on this condition
   frontPage,
   largeWindowSize,
+  userID,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
@@ -77,7 +79,7 @@ const SwatchCard = ({
   };
 
   const deleteSwatch = () => {
-    startDeleteSwatchFromSwatchList(swatch);
+    startDeleteSwatchFromSwatchList(swatch, userID);
   };
 
   const copySwatchHex = () => {
@@ -218,10 +220,12 @@ const SwatchCard = ({
 
 interface StateProps {
   largeWindowSize: boolean;
+  userID: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   largeWindowSize: state.layout.isLargeWindowSize,
+  userID: state.auth.userID,
 });
 
 export default connect(mapStateToProps, { startDeleteSwatchFromSwatchList })(
