@@ -5,13 +5,16 @@ import CopySwatch from "../../../assets/images/CopySwatch";
 import DeleteSwatch from "../../../assets/images/DeleteSwatch";
 import { Carousel } from "react-responsive-carousel";
 import { TutTypes } from "../../../types/swatches";
+import HashTagImage from "../../../assets/images/HashTag";
+import UploadImage from "../../../assets/images/UploadImage";
+import RGBImage from "../../../assets/images/RGBImage";
 
 const tutorialArray: TutTypes[][] = [];
 
 const tutorial1ObjectArray: TutTypes[] = [
-  { img: DeleteSwatch, text: "delete a swatch" },
-  { img: LockedImage, text: "compare a colour" },
-  { img: CopySwatch, text: "copy the hex" },
+  { img: RGBImage, text: "Add RGB colour" },
+  { img: UploadImage, text: "Pull colour from image" },
+  { img: HashTagImage, text: "Add hex colour" },
 ];
 
 const tutorial2ObjectArray: TutTypes[] = [
@@ -26,9 +29,11 @@ tutorialArray.push(tutorial2ObjectArray);
 const Tutorial = ({
   isDropdownOpen,
   refId,
+  largeWindowSize,
 }: {
   isDropdownOpen: boolean;
   refId: string;
+  largeWindowSize: boolean;
 }) => {
   const iconColor: string = "#4eadab";
 
@@ -59,10 +64,20 @@ const Tutorial = ({
   return (
     <div className={"tutorial_box " + (isDropdownOpen && "open_list")}>
       <Carousel showThumbs={false}>
-        {tutorialArray.map((tutorialArray) => {
+        {tutorialArray.map((tutorialArray, i) => {
           return (
-            <Fragment>
-              <h4>Hover over a colour swatch to see the options</h4>
+            <Fragment key={i}>
+              {i === 0 ? (
+                <h4>
+                  {largeWindowSize ? "Hover over" : "press"} the plus to add new
+                  colours to your swatch
+                </h4>
+              ) : (
+                <h4>
+                  {largeWindowSize ? "Hover over" : "press"} the middle of a
+                  colour to see the options
+                </h4>
+              )}
               <div className="inner_tutorial">
                 <div id={refId} className="overlay"></div>
 

@@ -39,6 +39,7 @@ interface Actions {
   swatches: SwatchObject[];
   startIsResponsive: (isLarge: boolean) => void;
   userID: string;
+  largeWindowSize: boolean;
 }
 
 const tutorialObjectArray: TutTypes[] = [
@@ -52,6 +53,7 @@ const swatchPage = ({
   swatches,
   userID,
   startIsResponsive,
+  largeWindowSize,
 }: Actions) => {
   let refFilterId = "dropdown_filter";
   let refTutorialId = "dropdown_tutorial";
@@ -168,7 +170,11 @@ const swatchPage = ({
           </div>
           <Dropdown
             Component={
-              <Tutorial isDropdownOpen={isTutorial} refId={refTutorialId} />
+              <Tutorial
+                isDropdownOpen={isTutorial}
+                refId={refTutorialId}
+                largeWindowSize={largeWindowSize}
+              />
             }
             setIsClickedOutside={setIsTutClickedOutside}
             refId={refTutorialId}
@@ -237,10 +243,12 @@ const swatchPage = ({
 interface StateProps {
   swatches: SwatchObject[];
   userID: string;
+  largeWindowSize: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
+  largeWindowSize: state.layout.isLargeWindowSize,
   userID: state.auth.userID,
 });
 

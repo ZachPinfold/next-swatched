@@ -96,6 +96,7 @@ const SwatchPicker = ({
               cardHover={cardHover}
               initialLoadRef={initialLoadRef}
               copied={copied}
+              key={index}
             />
           );
         })}
