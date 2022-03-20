@@ -14,6 +14,7 @@ interface Actions {
   isAuthenticated: boolean;
   startShowModal: (openModal: boolean, type: string) => void;
   isAuthenticatedLoading: boolean;
+  largeWindowSize: boolean;
 }
 
 const NavBar = ({
@@ -22,6 +23,7 @@ const NavBar = ({
   isAuthenticated,
   startShowModal,
   isAuthenticatedLoading,
+  largeWindowSize,
 }: Actions) => {
   const wrapperRef = useRef<HTMLHeadingElement>(null);
   const [hover, setHover] = useState<boolean>(false);
@@ -81,10 +83,16 @@ const NavBar = ({
               />
             </a>
           </Link>
-          {showText && (
+          {showText && largeWindowSize && (
             <p className="nav_text">
               Use <strong> deep learning</strong> to find and save colours to
-              your swatch, powered by the <span>ColormindAPI</span>{" "}
+              your swatch, powered by the <span>ColormindAPI.</span>{" "}
+            </p>
+          )}
+          {showText && !largeWindowSize && (
+            <p className="nav_text">
+              Use <strong> deep learning</strong> to find and save colours to
+              your swatch.
             </p>
           )}
         </div>
@@ -147,6 +155,8 @@ const NavBar = ({
 interface StateProps {
   swatches: SwatchObject[];
   isAuthenticated: boolean;
+  largeWindowSize: boolean;
+
   isAuthenticatedLoading: boolean;
 }
 
@@ -154,6 +164,7 @@ const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
   isAuthenticated: state.auth.isAuthenticated,
   isAuthenticatedLoading: state.auth.loading,
+  largeWindowSize: state.layout.isLargeWindowSize,
 });
 
 export default connect(mapStateToProps, { startIsCompact, startShowModal })(
