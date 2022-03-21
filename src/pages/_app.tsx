@@ -5,33 +5,47 @@ import store from "../store";
 import NavBar from "../components/nav/NavBar";
 import { useRouter } from "next/router";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/footer/Footer";
 import PrivateRoute from "../components/routing/PrivateRoute";
-import { startLoadUser } from "../actions/auth";
+import { startLoadUser, startLogin } from "../actions/auth";
+
+const authAllowId = process.env.NEXT_PUBLIC_AUTH_ALLOW_ID;
+const authAllowEmail = process.env.NEXT_PUBLIC_AUTH_ALLOW_ID;
+const authAllowPassword = process.env.NEXT_PUBLIC_AUTH_ALLOW_ID;
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [authLoading, setLoading] = useState(true);
+
   const router = useRouter();
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const sessionId = urlSearchParams.get("authAllow");
+
+    if (sessionId === authAllowId && authAllowEmail && authAllowPassword) {
+      store.dispatch(startLogin(authAllowEmail, authAllowPassword) as any);
+      setLoading(false);
+    } else if (!sessionId) {
+      setLoading(false);
+    } else setLoading(false);
+  }, []);
+
   useEffect(() => {
     store.dispatch(startLoadUser() as any);
   }, []);
 
-  return (
+  return authLoading ? (
+    <h1>hey</h1>
+  ) : (
     <Provider store={store}>
       <NavBar />
-      {router.asPath === "/swatches" ? (
+      {router.pathname === "/swatches" ? (
         <PrivateRoute Component={<Component {...pageProps} />}></PrivateRoute>
       ) : (
         <Component {...pageProps} />
       )}
 
-      {/* <img
-        style={{ opacity: compact ? "1" : "0" }}
-        className="to_top_img"
-        src={ToTopImage.src}
-        alt="back_to_top_img"
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      /> */}
       <Footer />
     </Provider>
   );
