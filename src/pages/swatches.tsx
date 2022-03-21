@@ -17,6 +17,7 @@ import Plus from "../assets/images/Plus";
 import Responsive from "../components/utils/Responsive";
 import { startIsResponsive } from "../actions/layout";
 import SwatchSwitcher from "../components/swatches/filters/SwatchSwitcher";
+import { useRouter } from "next/router";
 
 const colorNames: ColorNamesType[] = [
   { name: "all swatches", rgb: [197, 199, 196] },
@@ -55,6 +56,13 @@ const swatchPage = ({
   startIsResponsive,
   largeWindowSize,
 }: Actions) => {
+  const router = useRouter();
+  const { authAllow } = router.query;
+
+  console.log(authAllow);
+
+  // console.log(store.getState().auth.isAuthenticated);
+
   let refFilterId = "dropdown_filter";
   let refTutorialId = "dropdown_tutorial";
   let refSwatchGroupId = "dropdown_swatch_group";
