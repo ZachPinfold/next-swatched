@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return authLoading ? (
-    <h1>hey</h1>
+    <h1></h1>
   ) : (
     <Provider store={store}>
       <NavBar />
