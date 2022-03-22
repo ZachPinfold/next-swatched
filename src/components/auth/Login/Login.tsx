@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { startLogin } from "../../../actions/auth";
 
 interface Actions {
-  startLogin: (email: string, password: string) => void;
+  startLogin: (email: string, password: string, func: null) => void;
 }
 
 interface InputDetails {
@@ -26,7 +26,7 @@ const Login = ({ startLogin }: Actions) => {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    startLogin(loginDetails.email, loginDetails.password);
+    startLogin(loginDetails.email, loginDetails.password, null);
   };
 
   return (

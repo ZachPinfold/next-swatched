@@ -4,6 +4,7 @@ import app from "../firebase";
 import { NextRouter } from "next/router";
 import { showModal } from "./layout";
 import { initialUserArray } from "../misc/misc";
+import { SetStateAction } from "react";
 const { v4 } = require("uuid");
 
 export const login = (UserID: string): AuthActionTypes => ({
@@ -67,12 +68,18 @@ export const startSignup =
   };
 
 export const startLogin =
-  (email: string, password: string) => async (dispatch: any) => {
+  (
+    email: string,
+    password: string,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>> | null
+  ) =>
+  async (dispatch: any) => {
     try {
       const data = await app.auth().signInWithEmailAndPassword(email, password);
       const { uid } = data.user;
       dispatch(login(uid));
       dispatch(showModal(false, ""));
+      if (uid && setLoading) setLoading(false);
     } catch (error) {
       console.log("error-" + error);
     }

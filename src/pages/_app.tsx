@@ -11,21 +11,25 @@ import PrivateRoute from "../components/routing/PrivateRoute";
 import { startLoadUser, startLogin } from "../actions/auth";
 
 const authAllowId = process.env.NEXT_PUBLIC_AUTH_ALLOW_ID;
-const authAllowEmail = process.env.NEXT_PUBLIC_AUTH_ALLOW_ID;
-const authAllowPassword = process.env.NEXT_PUBLIC_AUTH_ALLOW_ID;
+const authAllowEmail = process.env.NEXT_PUBLIC_AUTH_ALLOW_EMAIL;
+const authAllowPassword = process.env.NEXT_PUBLIC_AUTH_ALLOW_PASSWORD;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [authLoading, setLoading] = useState(true);
 
   const router = useRouter();
 
+  // Here we check to see if the folio query has been passed
+  // If so, we log the user in as a test user from the .env variables
+
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const sessionId = urlSearchParams.get("authAllow");
 
     if (sessionId === authAllowId && authAllowEmail && authAllowPassword) {
-      store.dispatch(startLogin(authAllowEmail, authAllowPassword) as any);
-      setLoading(false);
+      store.dispatch(
+        startLogin(authAllowEmail, authAllowPassword, setLoading) as any
+      );
     } else if (!sessionId) {
       setLoading(false);
     } else setLoading(false);
