@@ -1,5 +1,6 @@
 import React, { FC, Fragment, useEffect } from "react";
-import Tutorial1 from "../../../assets/images/tutorial/tutorial_1.gif";
+import Tutorial2 from "../../../assets/images/tutorial/tutorial_1.gif";
+import Tutorial1 from "../../../assets/images/tutorial/add_tut.gif";
 import LockedImage from "../../../assets/images/LockedSwatch";
 import CopySwatch from "../../../assets/images/CopySwatch";
 import DeleteSwatch from "../../../assets/images/DeleteSwatch";
@@ -82,7 +83,7 @@ const Tutorial = ({
                 <div id={refId} className="overlay"></div>
 
                 <div className="icons">
-                  {tutorialArray.map((tut) => {
+                  {tutorialArray.map((tut, i) => {
                     return (
                       <div key={tut.text} className="inner_icon">
                         {<tut.img color={iconColor} />}
@@ -91,7 +92,7 @@ const Tutorial = ({
                     );
                   })}
                 </div>
-                <img src={Tutorial1.src} alt="" />
+                <img src={i === 0 ? Tutorial1.src : Tutorial2.src} alt="" />
               </div>
             </Fragment>
           );

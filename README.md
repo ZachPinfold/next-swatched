@@ -40,7 +40,8 @@ You can view this app here - swatched.io
 
 ## Refactoring to do
 
-- Move SASS files into component folders
+- ~~Move SASS files into component folders~~
 - ~~Move all FE files into SRC folder~~
 - Add tests to component folders
 - Comment out more complex logic
+- Add
