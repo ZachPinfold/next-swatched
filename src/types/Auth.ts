@@ -3,4 +3,5 @@ export interface Auth {
   loading: Boolean;
   username: String;
   userID: String;
+  error: string;
 }

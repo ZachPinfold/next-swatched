@@ -1,9 +1,13 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { startLogin } from "../../../actions/auth";
+import { clearErrors, startLogin } from "../../../actions/auth";
+import { startShowModal } from "../../../actions/layout";
 
 interface Actions {
   startLogin: (email: string, password: string, func: null) => void;
+  error: string;
+  startShowModal: (openModal: boolean, type: string) => void;
+  clearErrors: () => void;
 }
 
 interface InputDetails {
@@ -11,7 +15,11 @@ interface InputDetails {
   password: string;
 }
 
-const Login = ({ startLogin }: Actions) => {
+const Login = ({ startLogin, error, startShowModal, clearErrors }: Actions) => {
+  useEffect(() => {
+    return () => clearErrors();
+  }, []);
+
   const [loginDetails, setLoginDetails] = useState<InputDetails>({
     email: "",
     password: "",
@@ -48,10 +56,12 @@ const Login = ({ startLogin }: Actions) => {
           placeholder="password"
           id="password"
         />
+        {error.length > 0 && <p className="error">{error}</p>}
         <input className="button_main" type="submit" />
       </form>
       <p>
-        don't have an account? <span> Signup</span>
+        don't have an account?{" "}
+        <span onClick={() => startShowModal(true, "signup")}>signup</span>{" "}
       </p>
     </div>
   );
@@ -59,10 +69,16 @@ const Login = ({ startLogin }: Actions) => {
 
 interface StateProps {
   username: string;
+  error: string;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   username: state.auth.username,
+  error: state.auth.error,
 });
 
-export default connect(mapStateToProps, { startLogin })(Login);
+export default connect(mapStateToProps, {
+  startLogin,
+  startShowModal,
+  clearErrors,
+})(Login);

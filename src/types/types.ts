@@ -49,6 +49,7 @@ export interface LoadUserAction {
 
 export interface AuthError {
   type: typeof AUTH_ERROR;
+  payload: string;
 }
 
 export interface Logout {

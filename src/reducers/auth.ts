@@ -6,6 +6,7 @@ const inititalState: Auth = {
   loading: true,
   username: "",
   userID: "",
+  error: "",
 };
 
 const auth = (state: Auth = inititalState, action: AuthActionTypes): Auth => {
@@ -28,6 +29,7 @@ const auth = (state: Auth = inititalState, action: AuthActionTypes): Auth => {
       return {
         ...state,
         loading: false,
+        error: action.payload,
       };
     case "LOGOUT":
       return {

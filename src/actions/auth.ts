@@ -22,8 +22,9 @@ export const loadUser = (UserID: string): AuthActionTypes => ({
   payload: { UserID },
 });
 
-export const authError = (): AuthActionTypes => ({
+export const authError = (error: string): AuthActionTypes => ({
   type: "AUTH_ERROR",
+  payload: error,
 });
 
 export const logout = (): AuthActionTypes => ({
@@ -35,7 +36,7 @@ export const startLoadUser =
     try {
       app.auth().onAuthStateChanged((user: any) => {
         if (user === null) {
-          dispatch(authError());
+          dispatch(authError(""));
         } else {
           const { uid } = user;
           dispatch(loadUser(uid));
@@ -62,8 +63,22 @@ export const startSignup =
           .collection("userSwatches")
           .add(swatch);
       });
-    } catch (error) {
+      dispatch(showModal(false, ""));
+    } catch (error: unknown) {
       console.log("error-" + error);
+      let message;
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+
+      dispatch(
+        authError(
+          typeof message === "string"
+            ? message
+            : "Login error, please contact zach@tibbi.co.uk for more information."
+        )
+      );
     }
   };
 
@@ -75,13 +90,28 @@ export const startLogin =
   ) =>
   async (dispatch: any) => {
     try {
+      dispatch(authError(""));
       const data = await app.auth().signInWithEmailAndPassword(email, password);
       const { uid } = data.user;
       dispatch(login(uid));
       dispatch(showModal(false, ""));
       if (uid && setLoading) setLoading(false);
-    } catch (error) {
+    } catch (error: unknown) {
       console.log("error-" + error);
+
+      let message;
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+
+      dispatch(
+        authError(
+          typeof message === "string"
+            ? message
+            : "Login error, please contact zach@tibbi.co.uk for more information."
+        )
+      );
     }
   };
 
@@ -95,3 +125,7 @@ export const startLogout =
       console.log(error);
     }
   };
+
+export const clearErrors = () => async (dispatch: Dispatch) => {
+  dispatch(authError(""));
+};

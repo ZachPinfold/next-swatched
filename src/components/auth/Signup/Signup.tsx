@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { startSignup } from "../../../actions/auth";
+import { validateEmail } from "../../../utils/auth";
 
 interface Actions {
   startSignup: (email: string, password: string) => void;
@@ -16,6 +17,8 @@ const Signup = ({ startSignup }: Actions) => {
     email: "",
     password: "",
   });
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSignupDetails({
@@ -26,7 +29,14 @@ const Signup = ({ startSignup }: Actions) => {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    startSignup(signupDetails.email, signupDetails.password);
+    setEmailError("");
+    setPasswordError("");
+
+    if (!validateEmail(signupDetails.email))
+      setEmailError("Please enter a valid email");
+    else if (signupDetails.password.length < 8)
+      setPasswordError("please enter a password with at least 8 charactes");
+    else startSignup(signupDetails.email, signupDetails.password);
   };
 
   return (
@@ -37,10 +47,11 @@ const Signup = ({ startSignup }: Actions) => {
         <input
           onChange={onInputChange}
           value={signupDetails.email}
-          type="text"
+          type="email"
           placeholder="email"
           id="email"
         />
+        {emailError && <p className="error">{emailError}</p>}
         <input
           onChange={onInputChange}
           value={signupDetails.password}
@@ -48,6 +59,7 @@ const Signup = ({ startSignup }: Actions) => {
           placeholder="password"
           id="password"
         />
+        {passwordError && <p className="error">{passwordError}</p>}
         <input className="button_main" type="submit" />
       </form>
     </div>
