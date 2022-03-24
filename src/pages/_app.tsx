@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     if (sessionId === authAllowId && authAllowEmail && authAllowPassword) {
       store.dispatch(
-        startLogin(authAllowEmail, authAllowPassword, setLoading) as any
+        startLogin(authAllowEmail, authAllowPassword, setLoading, null) as any
       );
     } else if (!sessionId) {
       setLoading(false);

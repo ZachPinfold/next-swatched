@@ -87,7 +87,7 @@ export const startLogin =
     email: string,
     password: string,
     setLoading: React.Dispatch<React.SetStateAction<boolean>> | null,
-    router: NextRouter
+    router: NextRouter | null
   ) =>
   async (dispatch: any) => {
     try {
@@ -97,7 +97,7 @@ export const startLogin =
       dispatch(login(uid));
       dispatch(showModal(false, ""));
 
-      uid && router.push("/swatches");
+      uid && router && router.push("/swatches");
 
       if (uid && setLoading) {
         setLoading(false);
