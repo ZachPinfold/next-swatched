@@ -37,6 +37,7 @@ You can view this app here - swatched.io
 - ~~Add colours based on RGB / Hex~~
 - Add the ability to group colours by category
 - Add account page
+- Add reload button to swatch compare
 
 ## Refactoring to do
 

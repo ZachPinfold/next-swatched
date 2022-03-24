@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Plus from "../../assets/images/Plus";
 import Minus from "../../assets/images/Minus";
 import expandImage from "../../assets/images/arrow_swatch.svg";
 import CompareCard from "./CompareCard";
 import { connect } from "react-redux";
+import ReloadButton from "../../assets/images/ReloadButton";
 
 interface Actions {
   compareArray: number[][];
@@ -19,6 +20,8 @@ interface Actions {
   selectSwatchToCompareRef: any;
   isCompact: boolean;
   largeWindowSize: boolean;
+  setReloadSwatches: React.Dispatch<React.SetStateAction<boolean>>;
+  compareLoading: boolean;
 }
 
 const SwatchSelector = ({
@@ -34,10 +37,51 @@ const SwatchSelector = ({
   setSwatchToCompare,
   selectSwatchToCompareRef,
   isCompact,
+  setReloadSwatches,
   largeWindowSize,
+  compareLoading,
 }: Actions) => {
+  useEffect(() => {
+    openState
+      ? window.addEventListener("keydown", onKeyUp)
+      : window.removeEventListener("keydown", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyUp);
+    };
+  }, [openState]);
+
+  const onKeyUp = (event: KeyboardEvent) => {
+    const { code } = event;
+    const finalNum = parseInt(code[code.length - 1]);
+
+    if (code.includes("Digit") && finalNum < 6) {
+      event.preventDefault();
+      handleProgressClick(finalNum - 1);
+    }
+
+    if (code === "Escape") {
+      event.preventDefault();
+      handleClose();
+    }
+    if (code === "Space") {
+      event.preventDefault();
+      setReloadSwatches(true);
+    }
+  };
+
   const handleProgressClick = (index: number) => {
     setNumberOfSwatches(index + 1);
+  };
+
+  const handleClose = () => {
+    setOpenState(false);
+    setTimeout(function () {
+      setNumberOfSwatches(2);
+      setCompareArray([]);
+      setSwatchToCompare([]);
+      setFullScreen(false);
+      selectSwatchToCompareRef.current = true;
+    }, 200);
   };
 
   return (
@@ -68,7 +112,9 @@ const SwatchSelector = ({
         >
           <Minus color={"#FF6459"} />
         </button>
-        <div
+
+        <button
+          onClick={() => setReloadSwatches(true)}
           className="current_colour"
           style={{
             backgroundColor: `rgb(${swatchToCompare})`,
@@ -81,10 +127,16 @@ const SwatchSelector = ({
           }}
         >
           <div
-            style={{ opacity: swatchToCompare !== compareArray[0] ? "1" : "0" }}
+            style={{ opacity: !compareLoading ? "1" : "0" }}
+            className="reload"
+          >
+            <ReloadButton />
+          </div>
+          <div
+            style={{ opacity: compareLoading ? "1" : "0" }}
             className="loader"
           ></div>
-        </div>
+        </button>
         <div className="inner_compare">
           {compareArray.length > 0 &&
             compareArray.map((compareSwatch, index) => {
@@ -123,16 +175,7 @@ const SwatchSelector = ({
                 ? "100px"
                 : "0",
           }}
-          onClick={() => {
-            setOpenState(false);
-            setTimeout(function () {
-              setNumberOfSwatches(2);
-              setCompareArray([]);
-              setSwatchToCompare([]);
-              setFullScreen(false);
-              selectSwatchToCompareRef.current = true;
-            }, 200);
-          }}
+          onClick={handleClose}
         >
           <Plus color={"#ff6459"} />
         </button>
@@ -168,6 +211,9 @@ const SwatchSelector = ({
           ></div>
         ))}
       </div>
+      {largeWindowSize && (
+        <p className="space_reload">Hit the spacebar to refresh colours</p>
+      )}
     </div>
   );
 };

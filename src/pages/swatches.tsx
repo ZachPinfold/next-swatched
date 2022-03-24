@@ -57,11 +57,6 @@ const swatchPage = ({
   largeWindowSize,
 }: Actions) => {
   const router = useRouter();
-  const { authAllow } = router.query;
-
-  console.log(authAllow);
-
-  // console.log(store.getState().auth.isAuthenticated);
 
   let refFilterId = "dropdown_filter";
   let refTutorialId = "dropdown_tutorial";
@@ -69,16 +64,17 @@ const swatchPage = ({
 
   const [isDropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [isTutorial, setIsTutorial] = useState<boolean>(false);
-  const [isSwitcher, setIsSwitcher] = useState<boolean>(false);
   const [compareArray, setCompareArray] = useState<number[][]>([]);
   const selectSwatchToCompareRef = useRef<boolean>(true);
+
   const [openState, setOpenState] = useState<boolean>(false);
   const [swatchNumber, setNumberOfSwatches] = useState<number>(2);
   const [fullScreen, setFullScreen] = useState<boolean>(false);
+  const [reloadSwatches, setReloadSwatches] = useState<boolean>(false);
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
-  const [isSwatchSelectorClickedOutside, setIsSwatchSelectorClickedOutside] =
-    useState<boolean>(false);
+  const [compareLoading, setCompareLoading] = useState<boolean>(false);
+
   const [isTutClickedOutside, setIsTutClickedOutside] =
     useState<boolean>(false);
   const [colorFilter, setColorFilter] = useState<ColorNamesType>({
@@ -94,6 +90,8 @@ const swatchPage = ({
 
   useEffect(() => {
     const getCompareColours = async () => {
+      setCompareLoading(true);
+
       try {
         const data = {
           model: "default",
@@ -107,6 +105,8 @@ const swatchPage = ({
         colourData[0] = swatchToCompare;
 
         setCompareArray(colourData);
+        setReloadSwatches(false);
+        if (apiResponse) setCompareLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -114,18 +114,18 @@ const swatchPage = ({
     };
 
     if (
-      selectSwatchToCompareRef.current === true &&
-      swatchToCompare.length > 0
+      (selectSwatchToCompareRef.current === true &&
+        swatchToCompare.length > 0) ||
+      reloadSwatches
     ) {
       getCompareColours();
     }
-  }, [swatchToCompare]);
+  }, [swatchToCompare, reloadSwatches]);
 
   useEffect(() => {
     if (isTutClickedOutside) {
       setIsTutorial(false);
       setIsTutClickedOutside(false);
-      setIsSwatchSelectorClickedOutside(false);
     }
   }, [isTutClickedOutside]);
 
@@ -149,22 +149,7 @@ const swatchPage = ({
           refId={refFilterId}
         />
         <HueSwatch currentColour={colorFilter.name} />
-        {/* <Dropdown
-          Component={
-            <SwatchSwitcher
-              isClickedOutside={isSwatchSelectorClickedOutside}
-              setIsClickedOutside={setIsSwatchSelectorClickedOutside}
-              colorFilter={colorFilter}
-              setColorFilter={setColorFilter}
-              setDropdownOpen={setIsSwitcher}
-              isDropdownOpen={isSwitcher}
-              refId={refSwatchGroupId}
-              list={colorNames}
-            />
-          }
-          setIsClickedOutside={setIsSwatchSelectorClickedOutside}
-          refId={refSwatchGroupId}
-        /> */}
+
         <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
@@ -238,6 +223,8 @@ const swatchPage = ({
           swatchToCompare={swatchToCompare}
           setSwatchToCompare={setSwatchToCompare}
           selectSwatchToCompareRef={selectSwatchToCompareRef}
+          setReloadSwatches={setReloadSwatches}
+          compareLoading={compareLoading}
         />
       </div>
       <div
@@ -264,3 +251,22 @@ export default connect(mapStateToProps, {
   startGetUserSwatches,
   startIsResponsive,
 })(swatchPage);
+
+{
+  /* <Dropdown
+          Component={
+            <SwatchSwitcher
+              isClickedOutside={isSwatchSelectorClickedOutside}
+              setIsClickedOutside={setIsSwatchSelectorClickedOutside}
+              colorFilter={colorFilter}
+              setColorFilter={setColorFilter}
+              setDropdownOpen={setIsSwitcher}
+              isDropdownOpen={isSwitcher}
+              refId={refSwatchGroupId}
+              list={colorNames}
+            />
+          }
+          setIsClickedOutside={setIsSwatchSelectorClickedOutside}
+          refId={refSwatchGroupId}
+        /> */
+}

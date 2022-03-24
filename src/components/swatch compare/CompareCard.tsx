@@ -65,6 +65,7 @@ const CompareCard = ({
       func: loadNewColor,
     },
   ];
+
   return (
     <div
       style={{
@@ -89,6 +90,7 @@ const CompareCard = ({
           <div
             style={{
               height: largeWindowSize ? `${100 / overlayArr.length}%` : "100%",
+              display: index < swatchNumber ? "flex" : "none",
             }}
             className="hover_third"
             key={type}
