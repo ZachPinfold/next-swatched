@@ -103,6 +103,9 @@ nav {
     transform-origin: top;
     transition: all 0.1s ease-in-out;
     transform: scaleY(0);
+    li {
+      color: black;
+    }
   }
   .open_list {
     transform: scaleY(1);

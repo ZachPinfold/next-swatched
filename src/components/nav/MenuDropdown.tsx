@@ -19,7 +19,7 @@ const MenuDropdown = ({
 
   const menu = [
     { title: "my swatches", destination: "swatches" },
-    { title: "my account", destination: "" },
+    // { title: "my account", destination: "" },
     { title: "logout", destination: "", func: startLogout },
   ];
 

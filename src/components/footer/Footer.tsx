@@ -5,9 +5,9 @@ const Footer = () => {
     <div className="footer">
       <div className="footer_inner wrapper_inner">
         <div className="footer_left">
-          <a>Privacy</a>
-          <a>Contact</a>
-          <a>Colormind API</a>
+          <a target="_blank" href="http://colormind.io/">
+            Colormind API
+          </a>
         </div>
         <div className="footer_right">
           <a

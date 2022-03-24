@@ -18,6 +18,7 @@ import {
 import { startIsResponsive, startShowModal } from "../actions/layout";
 import { buildNoneAuthColors } from "../utils/swatch";
 import Responsive from "../components/utils/Responsive";
+import Head from "next/head";
 
 interface InitialSwatch {
   swatches: any[];
@@ -135,6 +136,13 @@ const Home = ({
 
   return (
     <div className="wrapper">
+      <Head>
+        <title>
+          Swatched: Harness the power of deep learning to discover, save, and
+          compare your favourite colours.
+        </title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="home_column">
         <TitleArea />
 

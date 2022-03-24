@@ -16,8 +16,8 @@ import DeleteSwatch from "../assets/images/DeleteSwatch";
 import Plus from "../assets/images/Plus";
 import Responsive from "../components/utils/Responsive";
 import { startIsResponsive } from "../actions/layout";
-import SwatchSwitcher from "../components/swatches/filters/SwatchSwitcher";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const colorNames: ColorNamesType[] = [
   { name: "all swatches", rgb: [197, 199, 196] },
@@ -131,6 +131,10 @@ const swatchPage = ({
 
   return (
     <div className="wrapper swatches_page">
+      <Head>
+        <title>Swatched: My Swatches</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="upper_area wrapper_inner">
         <Dropdown
           Component={

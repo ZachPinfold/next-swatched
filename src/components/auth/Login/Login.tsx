@@ -1,10 +1,16 @@
+import { NextRouter, useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { clearErrors, startLogin } from "../../../actions/auth";
 import { startShowModal } from "../../../actions/layout";
 
 interface Actions {
-  startLogin: (email: string, password: string, func: null) => void;
+  startLogin: (
+    email: string,
+    password: string,
+    func: null,
+    router: NextRouter
+  ) => void;
   error: string;
   startShowModal: (openModal: boolean, type: string) => void;
   clearErrors: () => void;
@@ -16,6 +22,8 @@ interface InputDetails {
 }
 
 const Login = ({ startLogin, error, startShowModal, clearErrors }: Actions) => {
+  const router: NextRouter = useRouter();
+
   useEffect(() => {
     return () => clearErrors();
   }, []);
@@ -34,7 +42,7 @@ const Login = ({ startLogin, error, startShowModal, clearErrors }: Actions) => {
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    startLogin(loginDetails.email, loginDetails.password, null);
+    startLogin(loginDetails.email, loginDetails.password, null, router);
   };
 
   return (
