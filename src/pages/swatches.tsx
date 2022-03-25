@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, Fragment, useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import HueSwatch from "../assets/images/HueSwatch";
@@ -18,6 +18,7 @@ import Responsive from "../components/utils/Responsive";
 import { startIsResponsive } from "../actions/layout";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import CurvedArrow from "../assets/images/CurvedArrow";
 
 const colorNames: ColorNamesType[] = [
   { name: "all swatches", rgb: [197, 199, 196] },
@@ -74,6 +75,8 @@ const swatchPage = ({
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const [compareLoading, setCompareLoading] = useState<boolean>(false);
+  const [isTipsInLocalStorage, setIsTipsInLocalStorage] =
+    useState<boolean>(false);
 
   const [isTutClickedOutside, setIsTutClickedOutside] =
     useState<boolean>(false);
@@ -83,6 +86,16 @@ const swatchPage = ({
   });
 
   Responsive(startIsResponsive);
+
+  useEffect(() => {
+    let tipsObj;
+
+    const tipsInLocal = localStorage.getItem("tips");
+
+    tipsInLocal && (tipsObj = JSON.parse(tipsInLocal).tips);
+
+    tipsObj && setIsTipsInLocalStorage(true);
+  }, []);
 
   useEffect(() => {
     userID.length > 0 && startGetUserSwatches(userID, "all", true);
@@ -154,10 +167,25 @@ const swatchPage = ({
         />
         <HueSwatch currentColour={colorFilter.name} />
 
+        {!isTipsInLocalStorage && (
+          <Fragment>
+            {" "}
+            <div className="curved_arrow">
+              <CurvedArrow />
+            </div>
+            <div className="first_time">
+              {" "}
+              <h4>{largeWindowSize ? "First time," : ""} Need some tips?</h4>
+            </div>
+          </Fragment>
+        )}
+
         <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
               setIsTutorial(!isTutorial);
+              localStorage.setItem("tips", JSON.stringify({ tips: true }));
+              setIsTipsInLocalStorage(true);
             }}
             className={"tips_button " + (isTutorial && "open_button")}
             id={refTutorialId}

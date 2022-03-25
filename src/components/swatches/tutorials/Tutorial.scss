@@ -217,3 +217,49 @@
     }
   }
 }
+
+.first_time {
+  background-color: #5fadbf;
+  max-width: 100px;
+  padding: 5px;
+  border-radius: 4px;
+  position: absolute;
+  right: -150px;
+  box-shadow: 0 3px 10px rgba(black, 0.2);
+  @media only screen and (max-width: 1300px) {
+    right: 100px;
+    max-width: 130px;
+    top: -20px;
+  }
+  @media only screen and (max-width: 660px) {
+    right: 60px;
+    max-width: 130px;
+    top: -25px;
+  }
+
+  h4 {
+    font-family: HelveticaM;
+    font-size: 16px;
+    color: white;
+    @media only screen and (max-width: 660px) {
+      font-size: 12px;
+    }
+  }
+}
+
+.curved_arrow {
+  position: absolute;
+  width: 35px;
+  transform: rotate(210deg);
+  right: -40px;
+  top: -20px;
+  @media only screen and (max-width: 1300px) {
+    transform: scaleX(-1) rotate(210deg);
+    top: -30px;
+    right: 50px;
+  }
+  @media only screen and (max-width: 660px) {
+    top: -30px;
+    right: 40px;
+  }
+}
