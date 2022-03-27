@@ -60,16 +60,18 @@ const HomepageSwatchCard = ({
             }}
           >
             <img src={image.src} alt={type} />
-            {copied === swatch && type === "copy" ? (
+            {initialLoadRef && copied === swatch && type === "copy" ? (
               <h5>{clickedMessage}</h5>
-            ) : clicked === swatch && type === "save" ? (
+            ) : initialLoadRef && clicked === swatch && type === "save" ? (
               <h5>{clickedMessage}</h5>
             ) : (
-              <h5>
-                {lockedSwatches.includes(swatch) && type === "lock"
-                  ? "unlock"
-                  : message}
-              </h5>
+              initialLoadRef && (
+                <h5>
+                  {lockedSwatches.includes(swatch) && type === "lock"
+                    ? "unlock"
+                    : message}
+                </h5>
+              )
             )}
           </div>
         );

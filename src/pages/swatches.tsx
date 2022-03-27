@@ -175,7 +175,17 @@ const swatchPage = ({
             </div>
             <div className="first_time">
               {" "}
-              <h4>{largeWindowSize ? "First time," : ""} Need some tips?</h4>
+              <h4>{largeWindowSize ? "First time," : ""} need some help?</h4>
+              <div
+                onClick={() => {
+                  localStorage.setItem("tips", JSON.stringify({ tips: true }));
+                  setIsTipsInLocalStorage(true);
+                }}
+                className="delete"
+              >
+                {" "}
+                <DeleteSwatch color="white" />
+              </div>
             </div>
           </Fragment>
         )}
@@ -184,7 +194,6 @@ const swatchPage = ({
           <div
             onClick={() => {
               setIsTutorial(!isTutorial);
-              localStorage.setItem("tips", JSON.stringify({ tips: true }));
               setIsTipsInLocalStorage(true);
             }}
             className={"tips_button " + (isTutorial && "open_button")}

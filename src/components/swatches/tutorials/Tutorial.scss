@@ -221,7 +221,7 @@
 .first_time {
   background-color: #5fadbf;
   max-width: 100px;
-  padding: 5px;
+  padding: 5px 5px 5px 5px;
   border-radius: 4px;
   position: absolute;
   right: -150px;
@@ -230,11 +230,26 @@
     right: 100px;
     max-width: 130px;
     top: -20px;
+    padding-right: 15px;
   }
   @media only screen and (max-width: 660px) {
     right: 60px;
     max-width: 130px;
     top: -25px;
+  }
+  svg {
+    width: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+  svg:hover {
+    g {
+      path {
+        fill: lightcyan;
+      }
+    }
   }
 
   h4 {

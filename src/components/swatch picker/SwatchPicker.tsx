@@ -9,6 +9,7 @@ import { rgbToHex } from "../../utils/swatch";
 import { startAddSwatchToSwatchList } from "../../actions/swatch";
 import { connect } from "react-redux";
 import { CardHover } from "../../types/swatches";
+import { startShowModal } from "../../actions/layout";
 
 interface Swatches {
   swatches: any[];
@@ -18,6 +19,7 @@ interface Swatches {
   startAddSwatchToSwatchList: (rgb: number[], userID: string) => any;
   largeWindowSize: boolean;
   userID: string;
+  startShowModal: (openModal: boolean, type: string) => void;
 }
 
 const SwatchPicker = ({
@@ -28,6 +30,7 @@ const SwatchPicker = ({
   initialLoadRef,
   largeWindowSize,
   userID,
+  startShowModal,
 }: Swatches) => {
   const [hoverSwatch, setHoverSwatch] = useState<number[]>([]);
   const [clicked, setClicked] = useState<number[]>([]);
@@ -39,8 +42,12 @@ const SwatchPicker = ({
   };
 
   const addToSwatch = (swatch: number[]) => {
-    startAddSwatchToSwatchList(swatch, userID);
-    setClicked(swatch);
+    if (userID.length === 0) {
+      startShowModal(true, "signup");
+    } else {
+      startAddSwatchToSwatchList(swatch, userID);
+      setClicked(swatch);
+    }
   };
 
   const removeFromSwatch = (swatch: number[]) => {
@@ -115,6 +122,7 @@ const mapStateToProps = (state: any): StateProps => ({
   userID: state.auth.userID,
 });
 
-export default connect(mapStateToProps, { startAddSwatchToSwatchList })(
-  SwatchPicker
-);
+export default connect(mapStateToProps, {
+  startAddSwatchToSwatchList,
+  startShowModal,
+})(SwatchPicker);
