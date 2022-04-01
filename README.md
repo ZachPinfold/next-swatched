@@ -37,7 +37,7 @@ You can view this app here - swatched.io
 - ~~Add colours based on RGB / Hex~~
 - Add the ability to group colours by category
 - Add account page
-- Add reload button to swatch compare
+- ~~Add reload button to swatch compare~~
 
 ## Refactoring to do
 
@@ -45,4 +45,3 @@ You can view this app here - swatched.io
 - ~~Move all FE files into SRC folder~~
 - Add tests to component folders
 - Comment out more complex logic
-- Add
