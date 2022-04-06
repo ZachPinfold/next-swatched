@@ -29,6 +29,8 @@ interface SwatchTypes {
   frontPage: boolean;
   largeWindowSize: boolean;
   userID: string;
+  step: number;
+  index: number;
 }
 
 const SwatchCard = ({
@@ -48,6 +50,8 @@ const SwatchCard = ({
   frontPage,
   largeWindowSize,
   userID,
+  index,
+  step,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
@@ -130,7 +134,10 @@ const SwatchCard = ({
 
   return (
     <li
-      style={{ backgroundColor: rgbToHex(color) }}
+      style={{
+        backgroundColor: rgbToHex(color),
+        zIndex: step === 2 && index === 0 ? "101" : "inherit",
+      }}
       key={swatch.colourId}
       className="swatch_card"
       onMouseEnter={() => {
@@ -184,6 +191,8 @@ const SwatchCard = ({
             ? "1"
             : menuOpen
             ? "0"
+            : step === 2 && index === 0
+            ? "1"
             : swatchHover === swatch.colourId
             ? "1"
             : "0",

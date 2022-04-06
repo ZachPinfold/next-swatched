@@ -31,6 +31,7 @@ a {
 }
 
 .wrapper_inner {
+  position: relative;
   max-width: 980px;
   margin: auto;
   @media only screen and (max-width: 1000px) {

@@ -42,6 +42,8 @@ interface Actions {
   startIsResponsive: (isLarge: boolean) => void;
   userID: string;
   largeWindowSize: boolean;
+  step: number;
+  isOverlayTutorial: boolean;
 }
 
 const tutorialObjectArray: TutTypes[] = [
@@ -56,6 +58,8 @@ const swatchPage = ({
   userID,
   startIsResponsive,
   largeWindowSize,
+  step,
+  isOverlayTutorial,
 }: Actions) => {
   const router = useRouter();
 
@@ -144,6 +148,7 @@ const swatchPage = ({
 
   return (
     <div className="wrapper swatches_page">
+      <div className="tut_overlay"></div>
       <Head>
         <title>Swatched: My Swatches</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -244,6 +249,7 @@ const swatchPage = ({
         openState={openState}
         setSwatchToCompare={setSwatchToCompare}
         swatchToCompare={swatchToCompare}
+        step={step}
       />
       <div
         className="outer_selector "
@@ -280,12 +286,16 @@ interface StateProps {
   swatches: SwatchObject[];
   userID: string;
   largeWindowSize: boolean;
+  step: number;
+  isOverlayTutorial: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
   swatches: state.swatches.swatches,
   largeWindowSize: state.layout.isLargeWindowSize,
   userID: state.auth.userID,
+  step: state.tutorials.step,
+  isOverlayTutorial: state.tutorials.step,
 });
 
 export default connect(mapStateToProps, {

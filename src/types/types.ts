@@ -26,6 +26,11 @@ export const SET_RESPONSIVE_SIZE = "SET_RESPONSIVE_SIZE";
 
 export const GET_HOME_SWATCH = "GET_HOME_SWATCH";
 export const CLEAR_HOME_SWATCHES = "CLEAR_HOME_SWATCHES";
+
+// TUTORIAL
+
+export const SET_SWATCHES_TUTORIAL = "SET_SWATCHES_TUTORIAL";
+
 // Interfaces
 
 export interface LoginAction {
@@ -115,3 +120,12 @@ export interface HomepageClearAction {
 }
 
 export type HomeSwatchActions = HomepageAction | HomepageClearAction;
+
+// TUTORIAL
+
+export interface SwatchesTutorial {
+  type: typeof SET_SWATCHES_TUTORIAL;
+  payload: number;
+}
+
+export type TutoralActions = SwatchesTutorial;

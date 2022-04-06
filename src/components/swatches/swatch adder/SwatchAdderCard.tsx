@@ -22,6 +22,7 @@ import HexAdder from "./HexAdder";
 import ImageDropper from "./ImageDropper";
 import { startShowModal } from "../../../actions/layout";
 import AddImageButton from "./AddImageButton";
+import { startTriggerTutorial } from "../../../actions/tutorial";
 
 interface SwatchCircleInput {
   image: string;
@@ -38,6 +39,8 @@ interface SwatchTypes {
   modalType: string;
   largeWindowSize: boolean;
   userID: string;
+  startTriggerTutorial: (step: number) => void;
+  step: number;
 }
 
 const SwatchAdderCard = ({
@@ -48,6 +51,8 @@ const SwatchAdderCard = ({
   largeWindowSize,
   showModal,
   userID,
+  startTriggerTutorial,
+  step,
 }: SwatchTypes) => {
   const [hexInputValue, setHexInputValue] = useState<string>("");
   const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
@@ -101,6 +106,7 @@ const SwatchAdderCard = ({
     setHexInputValue("");
     setImageColour([]);
     setColourLoaded(false);
+    startTriggerTutorial(2);
   };
 
   const applyRgbInput = (e: string, id: string) => {
@@ -156,8 +162,6 @@ const SwatchAdderCard = ({
     setImageColour([]);
     buttonClickRef.current.click();
     startShowModal(true, "imageCapture");
-    // inputFileRef.current.click();
-    // startShowModal(true, "imageCapture");
   };
 
   const closeMenu = (arrayToClose: SwatchCircleInput[]) => {
@@ -177,6 +181,9 @@ const SwatchAdderCard = ({
 
   const handleHexInputSelection = () => {
     closeMenu(circleMenuArray);
+
+    startTriggerTutorial(1);
+
     setTimeout(() => {
       setHexInput(true);
       setMenuOpen(false);
@@ -281,6 +288,7 @@ const SwatchAdderCard = ({
       style={{
         backgroundColor:
           imgColour.length < 1 ? "lightgrey" : `rgba(${imgColour})`,
+        zIndex: step < 2 ? "101" : "inherit",
       }}
       className="swatch_card swatch_adder_card"
       onMouseEnter={() => {
@@ -480,4 +488,5 @@ const mapStateToProps = (state: any): StateProps => ({
 export default connect(mapStateToProps, {
   startAddSwatchToSwatchList,
   startShowModal,
+  startTriggerTutorial,
 })(SwatchAdderCard);
