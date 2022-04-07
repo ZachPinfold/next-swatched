@@ -177,4 +177,26 @@
     bottom: 12px;
     font-family: HelveticaL;
   }
+  .tut {
+    top: -120px;
+    color: white;
+    position: absolute;
+    font-family: HelveticaM;
+    left: 120px;
+  }
+}
+
+.close_onboarding {
+  height: inherit !important;
+  padding: 5px 10px;
+  margin: 0 !important;
+  background-color: inherit !important;
+  border: 2px solid white !important;
+  color: white !important;
+  margin: 10px 0px 0px -15px !important;
+}
+
+.close_onboarding:hover {
+  background-color: white !important;
+  color: black !important;
 }

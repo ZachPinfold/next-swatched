@@ -36,18 +36,27 @@ const SwatchList = ({
         setSwatchId={setSwatchId}
         step={step}
       />
-      <div className="tut_text">
-        <h4>Welcome to swatched!</h4>
-        {step === 0 && <p>To get started, hover over the plus symbol,</p>}
-        {step === 0 && <p>then click the # symbol to add a hex colour</p>}
-        {step === 1 && <p>Add a swatch colour, eg: CC5040</p>}
+      {step < 3 && (
         <div
-          className="curved_arrow"
-          style={{ left: step === 1 ? "-30px" : "-80px" }}
+          className="tut_text"
+          style={{ left: step === 2 ? "420px" : "230px" }}
         >
-          <CurvedArrow />
+          <h4>Welcome to swatched!</h4>
+          {step === 0 && <p>To get started, hover over the plus symbol,</p>}
+          {step === 0 && <p>then click the # symbol to add a hex colour</p>}
+          {step === 1 && <p>Try adding a hex colour, eg: CC5040</p>}
+          {step === 2 && (
+            <p>Now hover over the circle, and click the match icon</p>
+          )}
+
+          <div
+            className="curved_arrow"
+            style={{ left: step === 1 ? "-80px" : "-80px" }}
+          >
+            <CurvedArrow />
+          </div>
         </div>
-      </div>
+      )}
       {swatches.map((swatch, index) => {
         if (swatch.colourId !== "none-colour") {
           return (

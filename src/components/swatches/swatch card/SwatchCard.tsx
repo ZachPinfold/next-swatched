@@ -12,6 +12,7 @@ import {
   closeNotActiceMenuCirclesD3,
 } from "../../../utils/d3";
 import copy from "copy-to-clipboard";
+import { startTriggerTutorial } from "../../../actions/tutorial";
 
 interface SwatchTypes {
   color: number[];
@@ -31,6 +32,7 @@ interface SwatchTypes {
   userID: string;
   step: number;
   index: number;
+  startTriggerTutorial: (step: number) => void;
 }
 
 const SwatchCard = ({
@@ -52,6 +54,7 @@ const SwatchCard = ({
   userID,
   index,
   step,
+  startTriggerTutorial,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
@@ -68,6 +71,7 @@ const SwatchCard = ({
   const centerX = width / 2 - circleRadius;
 
   const setCompareClick = () => {
+    startTriggerTutorial(3);
     if (openState) {
       // This booleon exists so the compare section stays in the same place, and only the colours change
       selectSwatchToCompareRef.current = true;
@@ -237,6 +241,7 @@ const mapStateToProps = (state: any): StateProps => ({
   userID: state.auth.userID,
 });
 
-export default connect(mapStateToProps, { startDeleteSwatchFromSwatchList })(
-  SwatchCard
-);
+export default connect(mapStateToProps, {
+  startDeleteSwatchFromSwatchList,
+  startTriggerTutorial,
+})(SwatchCard);

@@ -146,6 +146,10 @@ const swatchPage = ({
     }
   }, [isTutClickedOutside]);
 
+  useEffect(() => {
+    console.log(isOverlayTutorial);
+  });
+
   return (
     <div className="wrapper swatches_page">
       <div className="tut_overlay"></div>
@@ -272,6 +276,7 @@ const swatchPage = ({
           selectSwatchToCompareRef={selectSwatchToCompareRef}
           setReloadSwatches={setReloadSwatches}
           compareLoading={compareLoading}
+          step={step}
         />
       </div>
       <div
@@ -295,7 +300,7 @@ const mapStateToProps = (state: any): StateProps => ({
   largeWindowSize: state.layout.isLargeWindowSize,
   userID: state.auth.userID,
   step: state.tutorials.step,
-  isOverlayTutorial: state.tutorials.step,
+  isOverlayTutorial: state.tutorials.isTutorial,
 });
 
 export default connect(mapStateToProps, {

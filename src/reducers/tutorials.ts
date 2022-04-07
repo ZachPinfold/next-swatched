@@ -7,7 +7,7 @@ export interface TutorialAction {
 
 const inititalState: TutorialAction = {
   step: 0,
-  isTutorial: true,
+  isTutorial: false,
 };
 
 const tutorials = (

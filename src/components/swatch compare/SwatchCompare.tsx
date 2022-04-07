@@ -22,6 +22,7 @@ interface Actions {
   largeWindowSize: boolean;
   setReloadSwatches: React.Dispatch<React.SetStateAction<boolean>>;
   compareLoading: boolean;
+  step: number;
 }
 
 const SwatchSelector = ({
@@ -40,6 +41,7 @@ const SwatchSelector = ({
   setReloadSwatches,
   largeWindowSize,
   compareLoading,
+  step,
 }: Actions) => {
   useEffect(() => {
     openState
@@ -99,6 +101,7 @@ const SwatchSelector = ({
           compareArray.length > 2 && openState
             ? " translatey(0%)"
             : "translatey(100%)",
+        zIndex: step === 3 ? "101" : "inherit",
       }}
     >
       <div className="compare_colour_area">
@@ -213,6 +216,21 @@ const SwatchSelector = ({
       </div>
       {largeWindowSize && (
         <p className="space_reload">Hit the spacebar to refresh colours</p>
+      )}
+      {compareArray.length > 2 && openState && (
+        <div className="tut">
+          <ol>
+            <li>
+              Add more colours by using the + - buttons, or use your keyboard
+              numbers (1, 2, 3, 4, 5).
+            </li>
+            <li>
+              Hit the refresh button or spacebar to try a new colour palette.
+            </li>
+            <li>Hover over the colours for options.</li>
+          </ol>
+          <button className="close_onboarding">close tutorial</button>
+        </div>
       )}
     </div>
   );
