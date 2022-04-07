@@ -23,6 +23,7 @@ interface Actions {
   setReloadSwatches: React.Dispatch<React.SetStateAction<boolean>>;
   compareLoading: boolean;
   step: number;
+  closeTutorial: () => void;
 }
 
 const SwatchSelector = ({
@@ -42,6 +43,7 @@ const SwatchSelector = ({
   largeWindowSize,
   compareLoading,
   step,
+  closeTutorial,
 }: Actions) => {
   useEffect(() => {
     openState
@@ -64,6 +66,7 @@ const SwatchSelector = ({
     if (code === "Escape") {
       event.preventDefault();
       handleClose();
+      closeTutorial();
     }
     if (code === "Space") {
       event.preventDefault();
@@ -77,6 +80,7 @@ const SwatchSelector = ({
 
   const handleClose = () => {
     setOpenState(false);
+    closeTutorial();
     setTimeout(function () {
       setNumberOfSwatches(2);
       setCompareArray([]);
@@ -195,6 +199,7 @@ const SwatchSelector = ({
           }}
           onClick={() => {
             setFullScreen(!fullScreen);
+            closeTutorial();
           }}
         >
           <img src={expandImage.src} alt="" />
@@ -221,15 +226,18 @@ const SwatchSelector = ({
         <div className="tut">
           <ol>
             <li>
-              Add more colours by using the + - buttons, or use your keyboard
+              Add more colours by using the buttons, or use your keyboard
               numbers (1, 2, 3, 4, 5).
             </li>
             <li>
               Hit the refresh button or spacebar to try a new colour palette.
             </li>
             <li>Hover over the colours for options.</li>
+            <li>Close the tutorial below, or by hitting esc</li>
           </ol>
-          <button className="close_onboarding">close tutorial</button>
+          <button onClick={closeTutorial} className="close_onboarding">
+            close tutorial
+          </button>
         </div>
       )}
     </div>

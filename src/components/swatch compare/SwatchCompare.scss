@@ -178,7 +178,7 @@
     font-family: HelveticaL;
   }
   .tut {
-    top: -120px;
+    top: -140px;
     color: white;
     position: absolute;
     font-family: HelveticaM;
@@ -190,13 +190,16 @@
   height: inherit !important;
   padding: 5px 10px;
   margin: 0 !important;
-  background-color: inherit !important;
+  background-color: white !important;
   border: 2px solid white !important;
-  color: white !important;
+  color: black !important;
   margin: 10px 0px 0px -15px !important;
+  border-radius: 3px !important;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .close_onboarding:hover {
-  background-color: white !important;
-  color: black !important;
+  background-color: inherit !important;
+  color: white !important;
 }

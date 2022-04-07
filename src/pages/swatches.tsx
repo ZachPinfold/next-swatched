@@ -57,7 +57,6 @@ const swatchPage = ({
   swatches,
   userID,
   startIsResponsive,
-  largeWindowSize,
   step,
   isOverlayTutorial,
 }: Actions) => {
@@ -79,8 +78,6 @@ const swatchPage = ({
   const [swatchToCompare, setSwatchToCompare] = useState<number[]>([]);
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const [compareLoading, setCompareLoading] = useState<boolean>(false);
-  const [isTipsInLocalStorage, setIsTipsInLocalStorage] =
-    useState<boolean>(false);
 
   const [isTutClickedOutside, setIsTutClickedOutside] =
     useState<boolean>(false);
@@ -89,17 +86,23 @@ const swatchPage = ({
     rgb: [197, 199, 196],
   });
 
+  const body = document.getElementsByTagName("body");
+
   Responsive(startIsResponsive);
 
   useEffect(() => {
-    let tipsObj;
-
     const tipsInLocal = localStorage.getItem("tips");
 
-    tipsInLocal && (tipsObj = JSON.parse(tipsInLocal).tips);
-
-    tipsObj && setIsTipsInLocalStorage(true);
+    if (!tipsInLocal) {
+      setIsTutorial(true);
+      body && (body[0].style.overflow = "hidden");
+    }
   }, []);
+
+  const closeTutorial = () => {
+    setIsTutorial(false);
+    body && (body[0].style.overflow = "inherit");
+  };
 
   useEffect(() => {
     userID.length > 0 && startGetUserSwatches(userID, "all", true);
@@ -146,13 +149,9 @@ const swatchPage = ({
     }
   }, [isTutClickedOutside]);
 
-  useEffect(() => {
-    console.log(isOverlayTutorial);
-  });
-
   return (
     <div className="wrapper swatches_page">
-      <div className="tut_overlay"></div>
+      {isTutorial && <div className="tut_overlay"></div>}
       <Head>
         <title>Swatched: My Swatches</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -176,52 +175,16 @@ const swatchPage = ({
         />
         <HueSwatch currentColour={colorFilter.name} />
 
-        {!isTipsInLocalStorage && (
-          <Fragment>
-            {" "}
-            <div className="curved_arrow">
-              <CurvedArrow />
-            </div>
-            <div className="first_time">
-              {" "}
-              <h4>{largeWindowSize ? "First time," : ""} need some help?</h4>
-              <div
-                onClick={() => {
-                  localStorage.setItem("tips", JSON.stringify({ tips: true }));
-                  setIsTipsInLocalStorage(true);
-                }}
-                className="delete"
-              >
-                {" "}
-                <DeleteSwatch color="white" />
-              </div>
-            </div>
-          </Fragment>
-        )}
-
         <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
               setIsTutorial(!isTutorial);
-              setIsTipsInLocalStorage(true);
             }}
             className={"tips_button " + (isTutorial && "open_button")}
-            id={refTutorialId}
           >
-            <p id={refTutorialId}>tips</p>
+            <p>tips</p>
             <Tips refTutorialId={refTutorialId} />
           </div>
-          <Dropdown
-            Component={
-              <Tutorial
-                isDropdownOpen={isTutorial}
-                refId={refTutorialId}
-                largeWindowSize={largeWindowSize}
-              />
-            }
-            setIsClickedOutside={setIsTutClickedOutside}
-            refId={refTutorialId}
-          />
         </div>
       </div>
       <div className="text_tutorial_area wrapper_inner">
@@ -254,6 +217,8 @@ const swatchPage = ({
         setSwatchToCompare={setSwatchToCompare}
         swatchToCompare={swatchToCompare}
         step={step}
+        isTutorial={isTutorial}
+        closeTutorial={closeTutorial}
       />
       <div
         className="outer_selector "
@@ -277,6 +242,7 @@ const swatchPage = ({
           setReloadSwatches={setReloadSwatches}
           compareLoading={compareLoading}
           step={step}
+          closeTutorial={closeTutorial}
         />
       </div>
       <div
@@ -292,7 +258,6 @@ interface StateProps {
   userID: string;
   largeWindowSize: boolean;
   step: number;
-  isOverlayTutorial: boolean;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -300,29 +265,9 @@ const mapStateToProps = (state: any): StateProps => ({
   largeWindowSize: state.layout.isLargeWindowSize,
   userID: state.auth.userID,
   step: state.tutorials.step,
-  isOverlayTutorial: state.tutorials.isTutorial,
 });
 
 export default connect(mapStateToProps, {
   startGetUserSwatches,
   startIsResponsive,
 })(swatchPage);
-
-{
-  /* <Dropdown
-          Component={
-            <SwatchSwitcher
-              isClickedOutside={isSwatchSelectorClickedOutside}
-              setIsClickedOutside={setIsSwatchSelectorClickedOutside}
-              colorFilter={colorFilter}
-              setColorFilter={setColorFilter}
-              setDropdownOpen={setIsSwitcher}
-              isDropdownOpen={isSwitcher}
-              refId={refSwatchGroupId}
-              list={colorNames}
-            />
-          }
-          setIsClickedOutside={setIsSwatchSelectorClickedOutside}
-          refId={refSwatchGroupId}
-        /> */
-}

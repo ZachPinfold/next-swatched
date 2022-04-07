@@ -33,6 +33,29 @@
   left: 230px;
   top: 10px;
   color: white;
+  h4 {
+    font-family: HelveticaM;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  p {
+    font-family: HelveticaM;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .close_onboarding {
+    margin-left: 0 !important;
+    position: absolute;
+    top: -10px;
+    right: 0;
+    padding: 3px;
+    background-color: inherit !important;
+    border: 0 !important;
+
+    svg {
+      height: 15px;
+    }
+  }
   .curved_arrow {
     transform: rotate(210deg);
     width: 60px;

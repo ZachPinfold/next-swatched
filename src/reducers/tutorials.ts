@@ -2,12 +2,10 @@ import { TutoralActions } from "../types/types";
 
 export interface TutorialAction {
   step: number;
-  isTutorial: boolean;
 }
 
 const inititalState: TutorialAction = {
   step: 0,
-  isTutorial: false,
 };
 
 const tutorials = (
