@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { rgbToHex, setCompareWidths } from "../../utils/swatch";
 import SaveImage from "../../assets/images/save_swatch.svg";
+import MatchImage from "../../assets/images/paint_swatch.svg";
 import CopyImage from "../../assets/images/copy_swatch.svg";
 import { connect } from "react-redux";
 import { startAddSwatchToSwatchList } from "../../actions/swatch";
@@ -59,8 +60,8 @@ const CompareCard = ({
 
     {
       type: "lock",
-      image: SaveImage,
-      message: "lock color",
+      image: MatchImage,
+      message: "match colour",
       clickedMessage: "color saved!",
       func: loadNewColor,
     },

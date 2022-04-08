@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { FC, Fragment, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { startGetUserSwatches } from "../actions/swatch";
 import HueSwatch from "../assets/images/HueSwatch";
@@ -7,7 +7,6 @@ import Tips from "../assets/images/Tips";
 import SwatchSelector from "../components/swatch compare/SwatchCompare";
 import ColorFilter from "../components/swatches/filters/ColorFilter";
 import SwatchList from "../components/swatches/swatch list/SwatchList";
-import Tutorial from "../components/swatches/tutorials/Tutorial";
 import Dropdown from "../components/utils/Dropdown";
 import { ColorNamesType, SwatchObject, TutTypes } from "../types/swatches";
 import LockedImage from "../assets/images/LockedSwatch";
@@ -18,7 +17,6 @@ import Responsive from "../components/utils/Responsive";
 import { startIsResponsive } from "../actions/layout";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import CurvedArrow from "../assets/images/CurvedArrow";
 import { startTriggerTutorial } from "../actions/tutorial";
 
 const colorNames: ColorNamesType[] = [
@@ -104,6 +102,7 @@ const swatchPage = ({
   const closeTutorial = () => {
     setIsTutorial(false);
     body && (body[0].style.overflow = "inherit");
+    localStorage.setItem("tips", "true");
   };
 
   useEffect(() => {
@@ -182,6 +181,7 @@ const swatchPage = ({
             onClick={() => {
               setIsTutorial(true);
               startTriggerTutorial(0);
+              body && (body[0].style.overflow = "hidden");
             }}
             className={"tips_button " + (isTutorial && "open_button")}
           >
