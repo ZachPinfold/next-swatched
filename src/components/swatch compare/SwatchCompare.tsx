@@ -99,7 +99,7 @@ const SwatchSelector = ({
         height: fullScreen ? "100%" : "40%",
         paddingTop:
           fullScreen && isCompact
-            ? "60px"
+            ? "50px"
             : fullScreen && !isCompact
             ? "80px"
             : "0",
@@ -107,7 +107,7 @@ const SwatchSelector = ({
           compareArray.length > 2 && openState
             ? " translatey(0%)"
             : "translatey(100%)",
-        zIndex: step === 3 ? "101" : "inherit",
+        zIndex: step === 3 && isTutorial ? "101" : "inherit",
       }}
     >
       <div className="compare_colour_area">
