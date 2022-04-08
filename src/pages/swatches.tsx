@@ -19,6 +19,7 @@ import { startIsResponsive } from "../actions/layout";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import CurvedArrow from "../assets/images/CurvedArrow";
+import { startTriggerTutorial } from "../actions/tutorial";
 
 const colorNames: ColorNamesType[] = [
   { name: "all swatches", rgb: [197, 199, 196] },
@@ -43,6 +44,7 @@ interface Actions {
   userID: string;
   largeWindowSize: boolean;
   step: number;
+  startTriggerTutorial: (step: number) => void;
 }
 
 const tutorialObjectArray: TutTypes[] = [
@@ -58,6 +60,7 @@ const swatchPage = ({
   startIsResponsive,
   step,
   largeWindowSize,
+  startTriggerTutorial,
 }: Actions) => {
   const router = useRouter();
 
@@ -177,7 +180,8 @@ const swatchPage = ({
         <div className="tips_wrap" id={refTutorialId}>
           <div
             onClick={() => {
-              setIsTutorial(!isTutorial);
+              setIsTutorial(true);
+              startTriggerTutorial(0);
             }}
             className={"tips_button " + (isTutorial && "open_button")}
           >
@@ -271,4 +275,5 @@ const mapStateToProps = (state: any): StateProps => ({
 export default connect(mapStateToProps, {
   startGetUserSwatches,
   startIsResponsive,
+  startTriggerTutorial,
 })(swatchPage);
