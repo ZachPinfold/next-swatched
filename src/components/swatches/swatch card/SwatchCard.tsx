@@ -30,7 +30,7 @@ interface SwatchTypes {
   frontPage: boolean;
   largeWindowSize: boolean;
   userID: string;
-  step: number;
+  step: number | null;
   index: number;
   startTriggerTutorial: (step: number) => void;
 }

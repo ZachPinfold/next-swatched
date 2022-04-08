@@ -52,6 +52,8 @@ const FeaturedSwatches = ({
                   setSwatchId={setSwatchId}
                   swatchId={swatchId}
                   frontPage={true}
+                  step={null}
+                  index={index}
                 />
               );
             }
