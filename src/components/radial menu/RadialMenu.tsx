@@ -81,8 +81,17 @@ const RadialMenu = ({
         fill={rgbToHex(color)}
         id={`${circleId}_circle`}
       />{" "}
-      <g transform={`translate(${22}, ${21})`}>
-        <image href={image.src} height="26" width="26" id={`${circleId}_img`} />
+      <g
+        transform={`translate(${text === "match" ? 20 : 22}, ${
+          text === "match" ? 20 : 22
+        })`}
+      >
+        <image
+          href={image.src}
+          height={text === "match" ? "30" : "26"}
+          width={text === "match" ? "30" : "26"}
+          id={`${circleId}_img`}
+        />
         <text
           id={`${circleId}_txt`}
           fill="white"

@@ -43,7 +43,6 @@ interface Actions {
   userID: string;
   largeWindowSize: boolean;
   step: number;
-  isOverlayTutorial: boolean;
 }
 
 const tutorialObjectArray: TutTypes[] = [
@@ -58,7 +57,7 @@ const swatchPage = ({
   userID,
   startIsResponsive,
   step,
-  isOverlayTutorial,
+  largeWindowSize,
 }: Actions) => {
   const router = useRouter();
 
@@ -219,6 +218,7 @@ const swatchPage = ({
         step={step}
         isTutorial={isTutorial}
         closeTutorial={closeTutorial}
+        largeWindowSize={largeWindowSize}
       />
       <div
         className="outer_selector "
@@ -243,6 +243,7 @@ const swatchPage = ({
           compareLoading={compareLoading}
           step={step}
           closeTutorial={closeTutorial}
+          isTutorial={isTutorial}
         />
       </div>
       <div

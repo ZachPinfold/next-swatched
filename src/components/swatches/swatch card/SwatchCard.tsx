@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { openMenu, rgbToHex } from "../../../utils/swatch";
-import LockedImage from "../../../assets/images/locked_swatch.svg";
+import LockedImage from "../../../assets/images/paint_swatch.svg";
 import CopyImage from "../../../assets/images/copy_swatch.svg";
 import DeleteImage from "../../../assets/images/delete_swatch.svg";
 import { connect } from "react-redux";

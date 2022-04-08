@@ -4,6 +4,7 @@ import DeleteSwatch from "../../../assets/images/DeleteSwatch";
 import { SwatchObject } from "../../../types/swatches";
 import SwatchAdderCard from "../swatch adder/SwatchAdderCard";
 import SwatchCard from "../swatch card/SwatchCard";
+import LockedImage from "../../../assets/images/paint_swatch.svg";
 
 interface SwatchTypes {
   swatches: SwatchObject[];
@@ -17,6 +18,7 @@ interface SwatchTypes {
   step: number;
   isTutorial: boolean;
   closeTutorial: () => void;
+  largeWindowSize: boolean;
 }
 const SwatchList = ({
   swatches,
@@ -30,6 +32,7 @@ const SwatchList = ({
   step,
   closeTutorial,
   isTutorial,
+  largeWindowSize,
 }: SwatchTypes) => {
   const [swatchId, setSwatchId] = useState<string>("");
 
@@ -46,19 +49,32 @@ const SwatchList = ({
       {step < 3 && isTutorial && (
         <div
           className="tut_text"
-          style={{ left: step === 2 ? "420px" : "230px" }}
+          style={{
+            left:
+              step === 2 && largeWindowSize
+                ? "420px"
+                : step === 2 && !largeWindowSize
+                ? "30px"
+                : "230px",
+            maxWidth: step === 2 && !largeWindowSize ? "50%" : "",
+          }}
         >
           <h4>Welcome to swatched!</h4>
           {step === 0 && (
             <p>
-              To get started, hover over the plus symbol, <br />
+              To get started, {largeWindowSize ? "hover over" : "press"} the
+              plus symbol, <br />
               then click the # symbol to add a hex colour
             </p>
           )}
 
           {step === 1 && <p>Try adding a hex colour, eg: CC5040</p>}
           {step === 2 && (
-            <p>Now hover over the circle, and click the match icon</p>
+            <p>
+              Now {largeWindowSize ? "hover over" : "press"} the circle, and
+              click the <img src={LockedImage.src} alt="match icon" /> match
+              icon
+            </p>
           )}
           <button onClick={closeTutorial} className="close_onboarding">
             <DeleteSwatch color="white" />
@@ -66,7 +82,16 @@ const SwatchList = ({
 
           <div
             className="curved_arrow"
-            style={{ left: step === 1 ? "-80px" : "-80px" }}
+            style={{
+              left:
+                step === 1
+                  ? "-80px"
+                  : step === 2 && !largeWindowSize
+                  ? "170px"
+                  : "-80px",
+              top: step === 2 && !largeWindowSize ? "20px" : "",
+              transform: step === 2 && !largeWindowSize ? "" : "rotate(210deg)",
+            }}
           >
             <CurvedArrow />
           </div>

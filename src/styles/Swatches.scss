@@ -33,6 +33,11 @@
   left: 230px;
   top: 10px;
   color: white;
+
+  img {
+    width: 20px;
+  }
+
   h4 {
     font-family: HelveticaM;
     font-size: 28px;
@@ -43,6 +48,15 @@
     font-size: 18px;
     margin-bottom: 10px;
   }
+  @media only screen and (max-width: 525px) {
+    padding-right: 35px;
+    h4 {
+      font-size: 22px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
   .close_onboarding {
     margin-left: 0 !important;
     position: absolute;
@@ -51,13 +65,16 @@
     padding: 3px;
     background-color: inherit !important;
     border: 0 !important;
+    @media only screen and (max-width: 525px) {
+      right: 10px;
+    }
 
     svg {
       height: 15px;
     }
   }
   .curved_arrow {
-    transform: rotate(210deg);
+    // transform: rotate(210deg);
     width: 60px;
     top: 0px;
     transition: all 0.2 ease-in-out;

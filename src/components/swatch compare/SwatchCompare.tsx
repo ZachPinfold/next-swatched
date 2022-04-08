@@ -24,6 +24,7 @@ interface Actions {
   compareLoading: boolean;
   step: number;
   closeTutorial: () => void;
+  isTutorial: boolean;
 }
 
 const SwatchSelector = ({
@@ -43,6 +44,7 @@ const SwatchSelector = ({
   largeWindowSize,
   compareLoading,
   step,
+  isTutorial,
   closeTutorial,
 }: Actions) => {
   useEffect(() => {
@@ -222,8 +224,12 @@ const SwatchSelector = ({
       {largeWindowSize && (
         <p className="space_reload">Hit the spacebar to refresh colours</p>
       )}
-      {compareArray.length > 2 && openState && (
+      {compareArray.length > 2 && openState && isTutorial && (
         <div className="tut">
+          <h3>
+            This is where you can match your colour to other colours in a
+            palette
+          </h3>
           <ol>
             <li>
               Add more colours by using the buttons, or use your keyboard
