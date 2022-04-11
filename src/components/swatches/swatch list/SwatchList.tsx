@@ -45,6 +45,7 @@ const SwatchList = ({
         swatchId={swatchId}
         setSwatchId={setSwatchId}
         step={step}
+        isTutorial={isTutorial}
       />
       {step < 3 && isTutorial && (
         <div

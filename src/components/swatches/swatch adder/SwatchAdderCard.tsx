@@ -41,6 +41,7 @@ interface SwatchTypes {
   userID: string;
   startTriggerTutorial: (step: number) => void;
   step: number;
+  isTutorial: boolean;
 }
 
 const SwatchAdderCard = ({
@@ -53,6 +54,7 @@ const SwatchAdderCard = ({
   userID,
   startTriggerTutorial,
   step,
+  isTutorial,
 }: SwatchTypes) => {
   const [hexInputValue, setHexInputValue] = useState<string>("");
   const [rgbInputValue, setRgbInputValue] = useState<string[]>(["", "", ""]);
@@ -288,7 +290,7 @@ const SwatchAdderCard = ({
       style={{
         backgroundColor:
           imgColour.length < 1 ? "lightgrey" : `rgba(${imgColour})`,
-        zIndex: step < 2 ? "101" : "inherit",
+        zIndex: step < 2 && isTutorial ? "101" : "inherit",
       }}
       className="swatch_card swatch_adder_card"
       onMouseEnter={() => {
