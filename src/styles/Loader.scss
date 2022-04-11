@@ -16,6 +16,15 @@
     font-size: 2px;
   }
 }
+
+.outer_loader {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 300px;
+}
+
 .home_loader {
   position: fixed;
   right: 50px;
@@ -25,6 +34,14 @@
   animation: load6 1.1s infinite ease;
   font-size: 7px;
 }
+
+.page_loader {
+  margin: 0;
+  -webkit-animation: load6 1.1s infinite ease;
+  animation: load6 1.1s infinite ease;
+  font-size: 7px;
+}
+
 @-webkit-keyframes load5 {
   0%,
   100% {

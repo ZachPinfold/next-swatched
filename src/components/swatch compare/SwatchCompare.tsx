@@ -224,7 +224,7 @@ const SwatchSelector = ({
       {largeWindowSize && (
         <p className="space_reload">Hit the spacebar to refresh colours</p>
       )}
-      {compareArray.length > 2 && openState && isTutorial && (
+      {compareArray.length > 2 && openState && isTutorial && step === 3 && (
         <div className="tut">
           <h3>
             This is where you can match your colour to other colours in a

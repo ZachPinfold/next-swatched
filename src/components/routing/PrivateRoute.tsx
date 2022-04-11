@@ -27,7 +27,11 @@ const PrivateRoute = ({
   if (!loading) {
     return <>{Component} </>;
   } else {
-    return <h1 style={{ marginTop: "200px" }}>loading</h1>;
+    return (
+      <div className="outer_loader">
+        <div className="loader page_loader"></div>
+      </div>
+    );
   }
 };
 
