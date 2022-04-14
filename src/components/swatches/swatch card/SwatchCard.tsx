@@ -33,6 +33,7 @@ interface SwatchTypes {
   step: number | null;
   index: number;
   startTriggerTutorial: (step: number) => void;
+  isTutorial: boolean;
 }
 
 const SwatchCard = ({
@@ -55,6 +56,7 @@ const SwatchCard = ({
   index,
   step,
   startTriggerTutorial,
+  isTutorial,
 }: SwatchTypes) => {
   const [openButtonDisplay, setOpenButtonDisplay] =
     useState<string>("inline-block");
@@ -140,7 +142,7 @@ const SwatchCard = ({
     <li
       style={{
         backgroundColor: rgbToHex(color),
-        zIndex: step === 2 && index === 0 ? "101" : "inherit",
+        zIndex: step === 2 && isTutorial && index === 0 ? "101" : "inherit",
       }}
       key={swatch.colourId}
       className="swatch_card"

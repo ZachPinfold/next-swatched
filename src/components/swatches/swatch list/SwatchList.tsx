@@ -117,6 +117,7 @@ const SwatchList = ({
               frontPage={false}
               step={step}
               index={index}
+              isTutorial={isTutorial}
             />
           );
         }
