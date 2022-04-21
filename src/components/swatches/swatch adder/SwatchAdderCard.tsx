@@ -108,7 +108,7 @@ const SwatchAdderCard = ({
     setHexInputValue("");
     setImageColour([]);
     setColourLoaded(false);
-    startTriggerTutorial(2);
+    isTutorial && startTriggerTutorial(2);
   };
 
   const applyRgbInput = (e: string, id: string) => {

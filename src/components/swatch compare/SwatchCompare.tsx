@@ -107,7 +107,7 @@ const SwatchSelector = ({
           compareArray.length > 2 && openState
             ? " translatey(0%)"
             : "translatey(100%)",
-        zIndex: step === 3 && isTutorial ? "101" : "inherit",
+        zIndex: step === 3 && isTutorial ? "101" : "2",
       }}
     >
       <div className="compare_colour_area">
