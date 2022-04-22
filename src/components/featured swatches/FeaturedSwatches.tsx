@@ -54,6 +54,7 @@ const FeaturedSwatches = ({
                   frontPage={true}
                   step={null}
                   index={index}
+                  isTutorial={false}
                 />
               );
             }
