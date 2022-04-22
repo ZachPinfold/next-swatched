@@ -43,5 +43,6 @@ You can view this app here - swatched.io
 
 - ~~Move SASS files into component folders~~
 - ~~Move all FE files into SRC folder~~
+- Build out more component logic into custom hooks
 - Add tests to component folders
 - Comment out more complex logic

@@ -2,7 +2,7 @@ import app from "../firebase";
 import { SwatchObject, LookupTypes } from "../types/swatches";
 import { GetSwatchesActions } from "../types/types";
 import { fireStoreQuery } from "../utils/api";
-import { hexToRgb, rgb2hsv } from "../utils/swatch";
+import { rgb2hsv } from "../utils/swatch";
 const { v4 } = require("uuid");
 
 export const getUserSwatches = (
@@ -56,25 +56,25 @@ export const startGetUserSwatches =
 export const startAddSwatchToSwatchList =
   (rgbColour: number[], userID: string) => async (dispatch: any) => {
     try {
-      const uniqueId: string = v4();
-
       const swatchObject = {
         timeAdded: new Date(),
         color: rgbColour,
         colorName: rgb2hsv(rgbColour),
       };
 
-      app
+      const firestoreColor = await app
         .firestore()
         .collection("swatches")
         .doc(userID)
         .collection("userSwatches")
         .add(swatchObject);
 
+      const { id } = firestoreColor;
+
       const swatchForReducer = {
         timeAdded: new Date(),
         color: rgbColour,
-        colourId: uniqueId,
+        colourId: id,
       };
 
       dispatch(addUserSwatch(swatchForReducer));
